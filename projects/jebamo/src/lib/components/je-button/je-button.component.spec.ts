@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JebamoComponent } from './jebamo.component';
+import { JeButtonComponent } from './je-button.component';
 
-describe('JebamoComponent', () => {
-  let component: JebamoComponent;
-  let fixture: ComponentFixture<JebamoComponent>;
+describe('JeButtonComponent', () => {
+  let component: JeButtonComponent;
+  let fixture: ComponentFixture<JeButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ JebamoComponent ]
+      declarations: [ JeButtonComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(JebamoComponent);
+    fixture = TestBed.createComponent(JeButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,16 +1,22 @@
 import { NgModule } from '@angular/core';
-import { JebamoComponent } from './jebamo.component';
+import { JeCardComponent } from './components/je-card/je-card.component';
+import { JeToolbarComponent } from './components/je-toolbar/je-toolbar.component';
+import { JeButtonComponent } from './components/je-button/je-button.component';
 
 
 
 @NgModule({
   declarations: [
-    JebamoComponent
+    JeButtonComponent,
+    JeCardComponent,
+    JeToolbarComponent
   ],
   imports: [
   ],
   exports: [
-    JebamoComponent
+    JeButtonComponent,
+    JeCardComponent,
+    JeToolbarComponent
   ]
 })
 export class JebamoModule { }
