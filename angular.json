@@ -3,5 +3,38 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "jebamo": {
+      "projectType": "library",
+      "root": "projects/jebamo",
+      "sourceRoot": "projects/jebamo/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/jebamo/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/jebamo/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/jebamo/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/jebamo/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    }
   }
 }
