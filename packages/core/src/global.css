@@ -1,0 +1,106 @@
+p,
+span,
+h5 {
+  font-size: 1em;
+}
+
+h1 {
+  font-size: 1.714em;
+  line-height: 2.143em;
+}
+
+h1[boosted] {
+  font-size: 2.143em;
+  line-height: 2.571em;
+}
+
+h2 {
+  font-size: 1.429em;
+  line-height: 1.857em;
+}
+
+h3 {
+  font-size: 1.286em;
+  line-height: 1.571em;
+}
+
+h4 {
+  font-size: 1.143em;
+  line-height: 1.571em;
+}
+
+h5 {
+  line-height: 1.286em;
+}
+
+h6 {
+  font-size: 0.857em;
+  line-height: 1.143em;
+}
+
+p,
+span {
+  line-height: 1.214em;
+}
+
+p[large],
+span[large] {
+  font-size: 1.143em;
+  line-height: 1.714em;
+}
+
+small {
+  font-size: 0.857em;
+  line-height: 1.286em;
+}
+
+small[footer] {
+  font-size: 0.857em;
+  line-height: 0.714em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div,
+small {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
+
+[regular] {
+  font-weight: 400;
+}
+
+[medium] {
+  font-weight: 500;
+}
+
+[semi-bold] {
+  font-weight: 600;
+}
+
+[bold] {
+  font-weight: 700;
+}
+
+[condensed] {
+  font-family: var(--font-condensed);
+}

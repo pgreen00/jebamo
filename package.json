@@ -8,11 +8,17 @@
   "scripts": {
     "build": "npm run build --workspace=@jebamo/core --workspace=@jebamo/angular --workspace=@jebamo/vue"
   },
-  "keywords": ["web component", "jebamo"],
+  "keywords": [
+    "web component",
+    "jebamo"
+  ],
   "author": "Peter Green",
   "license": "ISC",
   "description": "",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "@stencil/sass": "^3.0.12"
+  }
 }

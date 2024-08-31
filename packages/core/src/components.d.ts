@@ -5,57 +5,405 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { PanelState } from "./components/je-page/je-page";
+export { PanelState } from "./components/je-page/je-page";
 export namespace Components {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+    interface JeAlert {
+    }
+    interface JeButton {
+    }
+    interface JeCard {
+    }
+    interface JeCheckbox {
+    }
+    interface JeCheckboxGroup {
+    }
+    interface JeCheckboxOption {
+    }
+    interface JeColumn {
+    }
+    interface JeColumnGroup {
+    }
+    interface JeForm {
+    }
+    interface JeIcon {
+    }
+    interface JeInfinite {
+    }
+    interface JeInput {
+    }
+    interface JeItem {
+    }
+    interface JeLoading {
+    }
+    interface JeModal {
+    }
+    interface JePage {
+        "leftPanel": PanelState;
+        "rightPanel": PanelState;
+        "typography": boolean;
+    }
+    interface JePill {
+    }
+    interface JePopover {
+    }
+    interface JeRadio {
+    }
+    interface JeRadioGroup {
+    }
+    interface JeSelect {
+    }
+    interface JeSelectOption {
+    }
+    interface JeSkeletonText {
+    }
+    interface JeTab {
+    }
+    interface JeTabs {
+    }
+    interface JeTextarea {
+    }
+    interface JeToast {
+    }
+    interface JeToggle {
+    }
+    interface JeToolbar {
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLJeAlertElement extends Components.JeAlert, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLJeAlertElement: {
+        prototype: HTMLJeAlertElement;
+        new (): HTMLJeAlertElement;
+    };
+    interface HTMLJeButtonElement extends Components.JeButton, HTMLStencilElement {
+    }
+    var HTMLJeButtonElement: {
+        prototype: HTMLJeButtonElement;
+        new (): HTMLJeButtonElement;
+    };
+    interface HTMLJeCardElement extends Components.JeCard, HTMLStencilElement {
+    }
+    var HTMLJeCardElement: {
+        prototype: HTMLJeCardElement;
+        new (): HTMLJeCardElement;
+    };
+    interface HTMLJeCheckboxElement extends Components.JeCheckbox, HTMLStencilElement {
+    }
+    var HTMLJeCheckboxElement: {
+        prototype: HTMLJeCheckboxElement;
+        new (): HTMLJeCheckboxElement;
+    };
+    interface HTMLJeCheckboxGroupElement extends Components.JeCheckboxGroup, HTMLStencilElement {
+    }
+    var HTMLJeCheckboxGroupElement: {
+        prototype: HTMLJeCheckboxGroupElement;
+        new (): HTMLJeCheckboxGroupElement;
+    };
+    interface HTMLJeCheckboxOptionElement extends Components.JeCheckboxOption, HTMLStencilElement {
+    }
+    var HTMLJeCheckboxOptionElement: {
+        prototype: HTMLJeCheckboxOptionElement;
+        new (): HTMLJeCheckboxOptionElement;
+    };
+    interface HTMLJeColumnElement extends Components.JeColumn, HTMLStencilElement {
+    }
+    var HTMLJeColumnElement: {
+        prototype: HTMLJeColumnElement;
+        new (): HTMLJeColumnElement;
+    };
+    interface HTMLJeColumnGroupElement extends Components.JeColumnGroup, HTMLStencilElement {
+    }
+    var HTMLJeColumnGroupElement: {
+        prototype: HTMLJeColumnGroupElement;
+        new (): HTMLJeColumnGroupElement;
+    };
+    interface HTMLJeFormElement extends Components.JeForm, HTMLStencilElement {
+    }
+    var HTMLJeFormElement: {
+        prototype: HTMLJeFormElement;
+        new (): HTMLJeFormElement;
+    };
+    interface HTMLJeIconElement extends Components.JeIcon, HTMLStencilElement {
+    }
+    var HTMLJeIconElement: {
+        prototype: HTMLJeIconElement;
+        new (): HTMLJeIconElement;
+    };
+    interface HTMLJeInfiniteElement extends Components.JeInfinite, HTMLStencilElement {
+    }
+    var HTMLJeInfiniteElement: {
+        prototype: HTMLJeInfiniteElement;
+        new (): HTMLJeInfiniteElement;
+    };
+    interface HTMLJeInputElement extends Components.JeInput, HTMLStencilElement {
+    }
+    var HTMLJeInputElement: {
+        prototype: HTMLJeInputElement;
+        new (): HTMLJeInputElement;
+    };
+    interface HTMLJeItemElement extends Components.JeItem, HTMLStencilElement {
+    }
+    var HTMLJeItemElement: {
+        prototype: HTMLJeItemElement;
+        new (): HTMLJeItemElement;
+    };
+    interface HTMLJeLoadingElement extends Components.JeLoading, HTMLStencilElement {
+    }
+    var HTMLJeLoadingElement: {
+        prototype: HTMLJeLoadingElement;
+        new (): HTMLJeLoadingElement;
+    };
+    interface HTMLJeModalElement extends Components.JeModal, HTMLStencilElement {
+    }
+    var HTMLJeModalElement: {
+        prototype: HTMLJeModalElement;
+        new (): HTMLJeModalElement;
+    };
+    interface HTMLJePageElement extends Components.JePage, HTMLStencilElement {
+    }
+    var HTMLJePageElement: {
+        prototype: HTMLJePageElement;
+        new (): HTMLJePageElement;
+    };
+    interface HTMLJePillElement extends Components.JePill, HTMLStencilElement {
+    }
+    var HTMLJePillElement: {
+        prototype: HTMLJePillElement;
+        new (): HTMLJePillElement;
+    };
+    interface HTMLJePopoverElement extends Components.JePopover, HTMLStencilElement {
+    }
+    var HTMLJePopoverElement: {
+        prototype: HTMLJePopoverElement;
+        new (): HTMLJePopoverElement;
+    };
+    interface HTMLJeRadioElement extends Components.JeRadio, HTMLStencilElement {
+    }
+    var HTMLJeRadioElement: {
+        prototype: HTMLJeRadioElement;
+        new (): HTMLJeRadioElement;
+    };
+    interface HTMLJeRadioGroupElement extends Components.JeRadioGroup, HTMLStencilElement {
+    }
+    var HTMLJeRadioGroupElement: {
+        prototype: HTMLJeRadioGroupElement;
+        new (): HTMLJeRadioGroupElement;
+    };
+    interface HTMLJeSelectElement extends Components.JeSelect, HTMLStencilElement {
+    }
+    var HTMLJeSelectElement: {
+        prototype: HTMLJeSelectElement;
+        new (): HTMLJeSelectElement;
+    };
+    interface HTMLJeSelectOptionElement extends Components.JeSelectOption, HTMLStencilElement {
+    }
+    var HTMLJeSelectOptionElement: {
+        prototype: HTMLJeSelectOptionElement;
+        new (): HTMLJeSelectOptionElement;
+    };
+    interface HTMLJeSkeletonTextElement extends Components.JeSkeletonText, HTMLStencilElement {
+    }
+    var HTMLJeSkeletonTextElement: {
+        prototype: HTMLJeSkeletonTextElement;
+        new (): HTMLJeSkeletonTextElement;
+    };
+    interface HTMLJeTabElement extends Components.JeTab, HTMLStencilElement {
+    }
+    var HTMLJeTabElement: {
+        prototype: HTMLJeTabElement;
+        new (): HTMLJeTabElement;
+    };
+    interface HTMLJeTabsElement extends Components.JeTabs, HTMLStencilElement {
+    }
+    var HTMLJeTabsElement: {
+        prototype: HTMLJeTabsElement;
+        new (): HTMLJeTabsElement;
+    };
+    interface HTMLJeTextareaElement extends Components.JeTextarea, HTMLStencilElement {
+    }
+    var HTMLJeTextareaElement: {
+        prototype: HTMLJeTextareaElement;
+        new (): HTMLJeTextareaElement;
+    };
+    interface HTMLJeToastElement extends Components.JeToast, HTMLStencilElement {
+    }
+    var HTMLJeToastElement: {
+        prototype: HTMLJeToastElement;
+        new (): HTMLJeToastElement;
+    };
+    interface HTMLJeToggleElement extends Components.JeToggle, HTMLStencilElement {
+    }
+    var HTMLJeToggleElement: {
+        prototype: HTMLJeToggleElement;
+        new (): HTMLJeToggleElement;
+    };
+    interface HTMLJeToolbarElement extends Components.JeToolbar, HTMLStencilElement {
+    }
+    var HTMLJeToolbarElement: {
+        prototype: HTMLJeToolbarElement;
+        new (): HTMLJeToolbarElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "je-alert": HTMLJeAlertElement;
+        "je-button": HTMLJeButtonElement;
+        "je-card": HTMLJeCardElement;
+        "je-checkbox": HTMLJeCheckboxElement;
+        "je-checkbox-group": HTMLJeCheckboxGroupElement;
+        "je-checkbox-option": HTMLJeCheckboxOptionElement;
+        "je-column": HTMLJeColumnElement;
+        "je-column-group": HTMLJeColumnGroupElement;
+        "je-form": HTMLJeFormElement;
+        "je-icon": HTMLJeIconElement;
+        "je-infinite": HTMLJeInfiniteElement;
+        "je-input": HTMLJeInputElement;
+        "je-item": HTMLJeItemElement;
+        "je-loading": HTMLJeLoadingElement;
+        "je-modal": HTMLJeModalElement;
+        "je-page": HTMLJePageElement;
+        "je-pill": HTMLJePillElement;
+        "je-popover": HTMLJePopoverElement;
+        "je-radio": HTMLJeRadioElement;
+        "je-radio-group": HTMLJeRadioGroupElement;
+        "je-select": HTMLJeSelectElement;
+        "je-select-option": HTMLJeSelectOptionElement;
+        "je-skeleton-text": HTMLJeSkeletonTextElement;
+        "je-tab": HTMLJeTabElement;
+        "je-tabs": HTMLJeTabsElement;
+        "je-textarea": HTMLJeTextareaElement;
+        "je-toast": HTMLJeToastElement;
+        "je-toggle": HTMLJeToggleElement;
+        "je-toolbar": HTMLJeToolbarElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    interface JeAlert {
+    }
+    interface JeButton {
+    }
+    interface JeCard {
+    }
+    interface JeCheckbox {
+    }
+    interface JeCheckboxGroup {
+    }
+    interface JeCheckboxOption {
+    }
+    interface JeColumn {
+    }
+    interface JeColumnGroup {
+    }
+    interface JeForm {
+    }
+    interface JeIcon {
+    }
+    interface JeInfinite {
+    }
+    interface JeInput {
+    }
+    interface JeItem {
+    }
+    interface JeLoading {
+    }
+    interface JeModal {
+    }
+    interface JePage {
+        "leftPanel"?: PanelState;
+        "rightPanel"?: PanelState;
+        "typography"?: boolean;
+    }
+    interface JePill {
+    }
+    interface JePopover {
+    }
+    interface JeRadio {
+    }
+    interface JeRadioGroup {
+    }
+    interface JeSelect {
+    }
+    interface JeSelectOption {
+    }
+    interface JeSkeletonText {
+    }
+    interface JeTab {
+    }
+    interface JeTabs {
+    }
+    interface JeTextarea {
+    }
+    interface JeToast {
+    }
+    interface JeToggle {
+    }
+    interface JeToolbar {
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "je-alert": JeAlert;
+        "je-button": JeButton;
+        "je-card": JeCard;
+        "je-checkbox": JeCheckbox;
+        "je-checkbox-group": JeCheckboxGroup;
+        "je-checkbox-option": JeCheckboxOption;
+        "je-column": JeColumn;
+        "je-column-group": JeColumnGroup;
+        "je-form": JeForm;
+        "je-icon": JeIcon;
+        "je-infinite": JeInfinite;
+        "je-input": JeInput;
+        "je-item": JeItem;
+        "je-loading": JeLoading;
+        "je-modal": JeModal;
+        "je-page": JePage;
+        "je-pill": JePill;
+        "je-popover": JePopover;
+        "je-radio": JeRadio;
+        "je-radio-group": JeRadioGroup;
+        "je-select": JeSelect;
+        "je-select-option": JeSelectOption;
+        "je-skeleton-text": JeSkeletonText;
+        "je-tab": JeTab;
+        "je-tabs": JeTabs;
+        "je-textarea": JeTextarea;
+        "je-toast": JeToast;
+        "je-toggle": JeToggle;
+        "je-toolbar": JeToolbar;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "je-alert": LocalJSX.JeAlert & JSXBase.HTMLAttributes<HTMLJeAlertElement>;
+            "je-button": LocalJSX.JeButton & JSXBase.HTMLAttributes<HTMLJeButtonElement>;
+            "je-card": LocalJSX.JeCard & JSXBase.HTMLAttributes<HTMLJeCardElement>;
+            "je-checkbox": LocalJSX.JeCheckbox & JSXBase.HTMLAttributes<HTMLJeCheckboxElement>;
+            "je-checkbox-group": LocalJSX.JeCheckboxGroup & JSXBase.HTMLAttributes<HTMLJeCheckboxGroupElement>;
+            "je-checkbox-option": LocalJSX.JeCheckboxOption & JSXBase.HTMLAttributes<HTMLJeCheckboxOptionElement>;
+            "je-column": LocalJSX.JeColumn & JSXBase.HTMLAttributes<HTMLJeColumnElement>;
+            "je-column-group": LocalJSX.JeColumnGroup & JSXBase.HTMLAttributes<HTMLJeColumnGroupElement>;
+            "je-form": LocalJSX.JeForm & JSXBase.HTMLAttributes<HTMLJeFormElement>;
+            "je-icon": LocalJSX.JeIcon & JSXBase.HTMLAttributes<HTMLJeIconElement>;
+            "je-infinite": LocalJSX.JeInfinite & JSXBase.HTMLAttributes<HTMLJeInfiniteElement>;
+            "je-input": LocalJSX.JeInput & JSXBase.HTMLAttributes<HTMLJeInputElement>;
+            "je-item": LocalJSX.JeItem & JSXBase.HTMLAttributes<HTMLJeItemElement>;
+            "je-loading": LocalJSX.JeLoading & JSXBase.HTMLAttributes<HTMLJeLoadingElement>;
+            "je-modal": LocalJSX.JeModal & JSXBase.HTMLAttributes<HTMLJeModalElement>;
+            "je-page": LocalJSX.JePage & JSXBase.HTMLAttributes<HTMLJePageElement>;
+            "je-pill": LocalJSX.JePill & JSXBase.HTMLAttributes<HTMLJePillElement>;
+            "je-popover": LocalJSX.JePopover & JSXBase.HTMLAttributes<HTMLJePopoverElement>;
+            "je-radio": LocalJSX.JeRadio & JSXBase.HTMLAttributes<HTMLJeRadioElement>;
+            "je-radio-group": LocalJSX.JeRadioGroup & JSXBase.HTMLAttributes<HTMLJeRadioGroupElement>;
+            "je-select": LocalJSX.JeSelect & JSXBase.HTMLAttributes<HTMLJeSelectElement>;
+            "je-select-option": LocalJSX.JeSelectOption & JSXBase.HTMLAttributes<HTMLJeSelectOptionElement>;
+            "je-skeleton-text": LocalJSX.JeSkeletonText & JSXBase.HTMLAttributes<HTMLJeSkeletonTextElement>;
+            "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
+            "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;
+            "je-textarea": LocalJSX.JeTextarea & JSXBase.HTMLAttributes<HTMLJeTextareaElement>;
+            "je-toast": LocalJSX.JeToast & JSXBase.HTMLAttributes<HTMLJeToastElement>;
+            "je-toggle": LocalJSX.JeToggle & JSXBase.HTMLAttributes<HTMLJeToggleElement>;
+            "je-toolbar": LocalJSX.JeToolbar & JSXBase.HTMLAttributes<HTMLJeToolbarElement>;
         }
     }
 }

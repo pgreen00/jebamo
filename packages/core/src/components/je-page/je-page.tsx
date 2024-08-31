@@ -1,15 +1,27 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, Prop, h } from '@stencil/core';
+
+export type PanelState = 'open' | 'closed' | 'minimized';
 
 @Component({
   tag: 'je-page',
-  styleUrl: 'je-page.css',
+  styleUrl: 'je-page.scss',
   shadow: true,
 })
 export class JePage {
+  @Prop({ reflect: true }) typography = true;
+  @Prop() leftPanel: PanelState = 'closed';
+  @Prop() rightPanel: PanelState = 'closed';
+
   render() {
     return (
       <Host>
-        <slot></slot>
+        <slot name='header'/>
+        <div part='body-container' class="body-container">
+          <slot name='left-panel'/>
+          <slot name='body'/>
+          <slot name='right-panel'/>
+        </div>
+        <slot name='footer'/>
       </Host>
     );
   }
