@@ -41,7 +41,6 @@ export namespace Components {
     interface JePage {
         "leftPanel": PanelState;
         "rightPanel": PanelState;
-        "typography": boolean;
     }
     interface JePill {
     }
@@ -311,7 +310,6 @@ declare namespace LocalJSX {
     interface JePage {
         "leftPanel"?: PanelState;
         "rightPanel"?: PanelState;
-        "typography"?: boolean;
     }
     interface JePill {
     }

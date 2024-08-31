@@ -5,7 +5,6 @@ export const config: Config = {
   plugins: [
     sass()
   ],
-  globalStyle: 'src/global.css',
   namespace: 'jebamo',
   outputTargets: [
     {

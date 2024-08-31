@@ -1,39 +1,43 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Jebamo Component Library</title>
 
-    <link rel="stylesheet" href="/build/jebamo.css" />
-    <script type="module" src="/build/jebamo.esm.js"></script>
-    <script nomodule src="/build/jebamo.js"></script>
-    <style>
-      html,
-      body {
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-        margin: 0;
-        padding: 0;
-      }
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+<title>Jebamo Component Library</title>
 
-      .padding {
-        padding: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <je-page>
-      <div slot="header" class="padding">
-        <h1>Jebamo</h1>
-      </div>
-      <div slot="body" class="padding">
-        <p>Jebmao rules!</p>
-      </div>
-      <div slot="footer" class="padding">
-        <h1>Footer</h1>
-      </div>
-    </je-page>
-  </body>
+<script type="module" src="/build/jebamo.esm.js"></script>
+<script nomodule src="/build/jebamo.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wdth,wght@0,87.5,400..700;1,87.5,400..700&display=swap');
+
+  je-page {
+    --font-family: "Cabin"
+  }
+
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+</style>
+</head>
+
+<body>
+  <je-page>
+    <div style="padding: 0px 20px;" slot="header">
+      <h1>Jebamo</h1>
+    </div>
+    <div slot="body">
+      <p>Jebmao rules!</p>
+    </div>
+    <div slot="footer" style="padding: 0px 20px;">
+      <h1>Footer</h1>
+    </div>
+  </je-page>
+</body>
+
 </html>

@@ -1,4 +1,4 @@
-import { Component, Host, Prop, h } from '@stencil/core';
+import { Component, Element, Host, Prop, h } from '@stencil/core';
 
 export type PanelState = 'open' | 'closed' | 'minimized';
 
@@ -8,7 +8,7 @@ export type PanelState = 'open' | 'closed' | 'minimized';
   shadow: true,
 })
 export class JePage {
-  @Prop({ reflect: true }) typography = true;
+  @Element() el!: HTMLElement;
   @Prop() leftPanel: PanelState = 'closed';
   @Prop() rightPanel: PanelState = 'closed';
 
