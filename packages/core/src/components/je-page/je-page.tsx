@@ -9,19 +9,20 @@ export type PanelState = 'open' | 'closed' | 'minimized';
 })
 export class JePage {
   @Element() el!: HTMLElement;
-  @Prop() leftPanel: PanelState = 'closed';
-  @Prop() rightPanel: PanelState = 'closed';
+  @Prop({ reflect: true }) leftPanel: PanelState = 'closed';
+  @Prop({ reflect: true }) rightPanel: PanelState = 'closed';
+  @Prop({ reflect: true }) theme: 'light' | 'dark' | 'auto' = 'light';
 
   render() {
     return (
       <Host>
-        <slot name='header'/>
+        <slot name='header' />
         <div part='body-container' class="body-container">
-          <slot name='left-panel'/>
-          <slot name='body'/>
-          <slot name='right-panel'/>
+          <slot name='left-panel' />
+          <slot name='body' />
+          <slot name='right-panel' />
         </div>
-        <slot name='footer'/>
+        <slot name='footer' />
       </Host>
     );
   }

@@ -1,3 +1,51 @@
 :host {
+  /**
+   * @prop --fill: 1 or 0, true or false
+   * @prop --weight: icon weight
+   * @prop --grade: Clarity?
+   * @prop --size: icon size
+   */
+  --fill: 0;
+  --weight: 400;
+  --grade: 0;
+  --size: 24;
+
   display: block;
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  user-select: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' var(--fill), 'wght' var(--weight), 'GRAD' var(--grade), 'opsz' var(--size);
+}
+
+:host([fill]) {
+  --fill: 1;
+}
+
+:host([size=sm]) {
+  --size: 20;
+  font-size: 20px;
+}
+
+:host([size=md]) {
+  --size: 24;
+  font-size: 24px;
+}
+
+:host([size=lg]) {
+  --size: 40;
+  font-size: 40px;
+}
+
+:host([size=xl]) {
+  --size: 48;
+  font-size: 48px;
 }

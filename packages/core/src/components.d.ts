@@ -11,6 +11,30 @@ export namespace Components {
     interface JeAlert {
     }
     interface JeButton {
+        /**
+          * Predefined colors
+         */
+        "color": 'primary' | 'secondary' | 'tertiary' | 'success' | 'error' | 'warning';
+        /**
+          * Disables button
+         */
+        "disabled": boolean;
+        /**
+          * Expands the button to the full width of it's container
+         */
+        "expand": boolean;
+        /**
+          * Button fill
+         */
+        "fill": 'solid' | 'outline' | 'clear';
+        /**
+          * Button size
+         */
+        "size": 'md' | 'lg' | 'sm';
+        /**
+          * Can set to submit or reset to participate in forms
+         */
+        "type": string;
     }
     interface JeCard {
     }
@@ -27,6 +51,26 @@ export namespace Components {
     interface JeForm {
     }
     interface JeIcon {
+        /**
+          * Whether or not the icon should be filled
+         */
+        "fill"?: boolean;
+        /**
+          * Icon grade
+         */
+        "grade"?: number;
+        /**
+          * Google material icon name
+         */
+        "icon": string;
+        /**
+          * Size of the icon
+         */
+        "size": 'sm' | 'md' | 'lg' | 'xl';
+        /**
+          * Icon weight
+         */
+        "weight"?: number;
     }
     interface JeInfinite {
     }
@@ -41,6 +85,7 @@ export namespace Components {
     interface JePage {
         "leftPanel": PanelState;
         "rightPanel": PanelState;
+        "theme": 'light' | 'dark' | 'auto';
     }
     interface JePill {
     }
@@ -280,6 +325,30 @@ declare namespace LocalJSX {
     interface JeAlert {
     }
     interface JeButton {
+        /**
+          * Predefined colors
+         */
+        "color"?: 'primary' | 'secondary' | 'tertiary' | 'success' | 'error' | 'warning';
+        /**
+          * Disables button
+         */
+        "disabled"?: boolean;
+        /**
+          * Expands the button to the full width of it's container
+         */
+        "expand"?: boolean;
+        /**
+          * Button fill
+         */
+        "fill"?: 'solid' | 'outline' | 'clear';
+        /**
+          * Button size
+         */
+        "size"?: 'md' | 'lg' | 'sm';
+        /**
+          * Can set to submit or reset to participate in forms
+         */
+        "type"?: string;
     }
     interface JeCard {
     }
@@ -296,6 +365,26 @@ declare namespace LocalJSX {
     interface JeForm {
     }
     interface JeIcon {
+        /**
+          * Whether or not the icon should be filled
+         */
+        "fill"?: boolean;
+        /**
+          * Icon grade
+         */
+        "grade"?: number;
+        /**
+          * Google material icon name
+         */
+        "icon"?: string;
+        /**
+          * Size of the icon
+         */
+        "size"?: 'sm' | 'md' | 'lg' | 'xl';
+        /**
+          * Icon weight
+         */
+        "weight"?: number;
     }
     interface JeInfinite {
     }
@@ -310,6 +399,7 @@ declare namespace LocalJSX {
     interface JePage {
         "leftPanel"?: PanelState;
         "rightPanel"?: PanelState;
+        "theme"?: 'light' | 'dark' | 'auto';
     }
     interface JePill {
     }

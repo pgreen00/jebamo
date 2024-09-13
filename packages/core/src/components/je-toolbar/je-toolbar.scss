@@ -1,3 +1,17 @@
 :host {
-  display: block;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  gap: var(--toolbar-gap);
+  color: var(--color, inherit);
+  background-color: var(--background-color, inherit);
+
+  --toolbar-gap: var(--gap, 6px);
+}
+
+.center-container {
+  flex: 1;
+  display: flex;
+  gap: var(--toolbar-gap);
 }
