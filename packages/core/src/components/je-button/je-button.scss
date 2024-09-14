@@ -8,6 +8,7 @@
    * @prop --min-width: Optional fixed width
    * @prop --max-width: Optional fixed width
    * @prop --font-size: Optional fixed width
+   * @prop --inner-padding: Optional fixed width
    * @prop --color: Text color
    * @prop --background: Default background color
    * @prop --hover-background: Hovered background color
@@ -64,14 +65,28 @@
   --color: var(--je-medium-100);
   --background: var(--je-medium-500);
   --hover-background: var(--je-medium-600);
-  --active-background: var(--je-medium-700);
+  --active-background: var(--je-medium-650);
+}
+
+:host([color=light]) {
+  --color: var(--je-medium-850);
+  --background: var(--je-medium-200);
+  --hover-background: var(--je-medium-400);
+  --active-background: var(--je-medium-500);
+}
+
+:host([color=dark]) {
+  --color: var(--je-medium-100);
+  --background: var(--je-medium-800);
+  --hover-background: var(--je-medium-800);
+  --active-background: var(--je-medium-850);
 }
 
 :host([expand]) {
   --width: 100%;
 }
 
-:host(.icon-only) {
+:host([icon-only]) {
   --min-width: 1px;
   --min-height: 1px;
   --inner-padding: 3px;
@@ -104,11 +119,14 @@ button {
   border-radius: 2px;
   padding: var(--inner-padding);
   cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
   text-transform: uppercase;
   text-wrap: wrap;
-  font-family: var(--je-font);
+  font-family: var(--font-family);
   font-size: var(--font-size);
-  font-weight: 600;
+  font-weight: var(--font-semi-bold);
   width: var(--width);
   min-height: var(--min-height);
   min-width: var(--min-width);
@@ -142,5 +160,11 @@ button {
 :host([fill=clear]) button {
   color: var(--background);
   background-color: transparent;
-  font-weight: 700;
+  font-weight: var(--font-bold);
+
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 }

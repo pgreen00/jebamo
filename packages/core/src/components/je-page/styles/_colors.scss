@@ -1,5 +1,15 @@
 $colors: (
   primary: (
+    100: #e0e7ff,
+    200: #c7d2fe,
+    300: #a5b4fc,
+    400: #818cf8,
+    500: #6366f1, // main color
+    600: #4f46e5,
+    700: #4338ca,
+    800: #3730a3
+  ),
+  secondary: (
     100: #e0f7ff,
     200: #b3e9ff,
     300: #80dbff,
@@ -9,7 +19,7 @@ $colors: (
     700: #0095bf,
     800: #007a99
   ),
-  secondary: (
+  tertiary: (
     100: #ffe0f7,
     200: #ffb3e9,
     300: #ff80db,
@@ -19,55 +29,48 @@ $colors: (
     700: #bf0090,
     800: #990078
   ),
-  tertiary: (
-    100: #f0ffe0,
-    200: #e0ffb3,
-    300: #d0ff80,
-    400: #c0ff4d,
-    500: #b0ff1a, // main color
-    600: #99e600,
-    700: #80bf00,
-    800: #669900
-  ),
   success: (
-    100: #e0ffe0,
-    200: #b3ffb3,
-    300: #80ff80,
-    400: #4dff4d,
-    500: #1aff1a, // main color
-    600: #00e600,
-    700: #00bf00,
-    800: #009900
+    100: #e6f9e6,
+    200: #b3f0b3,
+    300: #80e680,
+    400: #4ddb4d,
+    500: #22c55e, // main success color
+    600: #16a34a,
+    700: #15803d,
+    800: #166534
   ),
   error: (
-    100: #ffe0e0,
-    200: #ffb3b3,
-    300: #ff8080,
-    400: #ff4d4d,
-    500: #ff1a1a, // main color
-    600: #e60000,
-    700: #bf0000,
-    800: #990000
+    100: #ffe5e5,
+    200: #fdb8b8,
+    300: #f87171,
+    400: #f87171,
+    500: #ef4444, // main error color
+    600: #dc2626,
+    700: #b91c1c,
+    800: #8b0000  // darker higher number
   ),
   warning: (
-    100: #fff7e0,
-    200: #ffeab3,
-    300: #ffdd80,
-    400: #ffd14d,
-    500: #ffc61a, // main color
-    600: #e6b200,
-    700: #bf9300,
-    800: #997500
+    100: #fffbeb,
+    200: #fef3c7,
+    300: #fde68a,
+    400: #fcd34d,
+    500: #fbbf24, // main warning color
+    600: #f59e0b,
+    700: #d97706,
+    800: #b45309
   ),
   medium: (
-    100: #f7f7f7,
-    200: #e1e1e1,
-    300: #cfcfcf,
-    400: #b1b1b1,
-    500: #9e9e9e, // main color
-    600: #7e7e7e,
-    700: #626262,
-    800: #515151
+    100: #f7fafc, // background color for light mode
+    200: #edf2f7,
+    250: #e8eef4,
+    300: #e2e8f0,
+    400: #cbd5e0,
+    500: #a0aec0, // normal gray
+    600: #718096,
+    650: #5f6b82,
+    700: #4a5568,
+    800: #2d3748,  // text color for light mode
+    850: #17191d
   )
 );
 

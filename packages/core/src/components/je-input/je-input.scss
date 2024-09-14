@@ -1,3 +1,63 @@
 :host {
   display: block;
+  width: fit-content;
+
+  --height: 42px;
+  --border-color: transparent;
+}
+
+:host([expand]) {
+  width: 100%;
+}
+
+div[part='outer-container'] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-sm, 8px);
+  height: var(--height);
+  background-color: var(--input-background, field);
+  color: var(--input-color, fieldtext);
+  padding-inline: var(--padding-sm, 10px);
+  border-radius: 2px;
+  overflow: hidden;
+  border: solid 1px var(--border-color);
+  transition: border 150ms ease-in-out;
+  &.focused {
+    --border-color: var(--je-primary-500, accentcolor);
+  }
+}
+
+div[part='start-container'],
+div[part='end-container'] {
+  display: flex;
+}
+
+label {
+  font-weight: var(--font-semi-bold);
+}
+
+input {
+  font-family: var(--font-family, inherit);
+  font-size: var(--font-size, 1rem);
+  background: transparent;
+  color: inherit;
+  flex: 1;
+  border: none;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  width: inherit;
+  &::placeholder {
+    font-family: var(--font-family, inherit);
+    font-size: var(--font-size, 1rem);
+  }
+  &:focus {
+    outline: 0;
+  }
 }

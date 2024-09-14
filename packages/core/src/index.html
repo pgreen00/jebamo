@@ -9,7 +9,7 @@
 <script type="module" src="/build/jebamo.esm.js"></script>
 <script nomodule src="/build/jebamo.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wdth,wght@0,87.5,400..700;1,87.5,400..700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
   @font-face {
     font-family: 'Material Symbols Outlined';
@@ -19,7 +19,7 @@
   }
 
   je-page {
-    --font-family: "Cabin";
+    --font-family: "Work Sans";
   }
 
   html,
@@ -29,6 +29,7 @@
     overflow: hidden;
     margin: 0;
     padding: 0;
+    color-scheme: light;
   }
 </style>
 </head>
@@ -36,15 +37,18 @@
 <body>
   <je-page id="main-page" left-panel="open">
     <je-toolbar style="--background-color: var(--je-primary-800); --color: var(--je-primary-100); padding-inline: var(--padding);" slot="header">
-      <je-icon icon="menu" slot="start"></je-icon>
+      <je-button slot="start" fill="clear" icon-only="true" color="light">
+        <je-icon icon="menu"></je-icon>
+      </je-button>
       <h1>Jebamo</h1>
-      <button onclick="handlePanelToggle()" slot="end">Toggle panel</button>
+      <je-button size="sm" onclick="handleThemeToggle()" color="light" slot="end">Toggle theme</je-button>
+      <je-button size="sm" onclick="handlePanelToggle()" color="light" slot="end">Toggle panel</je-button>
     </je-toolbar>
     <div slot="left-panel">
       <p>I'm in a panel</p>
     </div>
     <div slot="body" style="padding: var(--padding-lg);">
-      <div style="display: flex; flex-direction: column; gap: var(--gap);">
+      <div style="display: flex; flex-direction: column; gap: var(--gap); margin-bottom: var(--margin);">
         <div style="display: flex; gap: var(--gap);">
           <je-button>solid</je-button>
           <je-button fill="outline">outline</je-button>
@@ -80,15 +84,31 @@
           <je-button fill="outline" color="medium">outline</je-button>
           <je-button fill="clear" color="medium">clear</je-button>
         </div>
+        <div style="display: flex; gap: var(--gap);">
+          <je-button color="light">solid</je-button>
+          <je-button fill="outline" color="light">outline</je-button>
+          <je-button fill="clear" color="light">clear</je-button>
+        </div>
+        <div style="display: flex; gap: var(--gap);">
+          <je-button color="dark">solid</je-button>
+          <je-button fill="outline" color="dark">outline</je-button>
+          <je-button fill="clear" color="dark">clear</je-button>
+        </div>
         <je-button>This is a lot of text that wraps to the next line</je-button>
         <je-button size="sm">small</je-button>
         <je-button size="lg">large</je-button>
-        <je-button fill="clear" class="icon-only">
+        <je-button fill="clear" icon-only="true">
           <je-icon icon="search"></je-icon>
         </je-button>
         <je-button>
           <je-icon fill icon="home"></je-icon> Home
         </je-button>
+      </div>
+      <div style="gap: var(--gap); display: flex; flex-direction: column;">
+        <je-input label="Phone Number" placeholder="Type your phone">
+          <je-icon icon="phone" fill slot="end"></je-icon>
+        </je-input>
+        <je-input label="Name" placeholder="What's your name?" expand="true"></je-input>
       </div>
     </div>
     <div slot="footer">
@@ -100,6 +120,12 @@
       const el = document.getElementById('main-page')
       const panelState = el.leftPanel;
       el.leftPanel = panelState === 'open' ? 'closed' : 'open';
+    }
+
+    function handleThemeToggle() {
+      const el = document.getElementById('main-page')
+      const themeState = el.theme;
+      el.theme = themeState == 'light' ? 'dark' : 'light'
     }
   </script>
 </body>

@@ -14,7 +14,7 @@ export namespace Components {
         /**
           * Predefined colors
          */
-        "color": 'primary' | 'secondary' | 'tertiary' | 'success' | 'error' | 'warning';
+        "color": 'primary' | 'secondary' | 'tertiary' | 'success' | 'error' | 'warning' | 'medium' | 'light' | 'dark';
         /**
           * Disables button
          */
@@ -27,6 +27,10 @@ export namespace Components {
           * Button fill
          */
         "fill": 'solid' | 'outline' | 'clear';
+        /**
+          * Removes the padding, ideal for turning an icon or image into a button
+         */
+        "iconOnly": boolean;
         /**
           * Button size
          */
@@ -75,6 +79,9 @@ export namespace Components {
     interface JeInfinite {
     }
     interface JeInput {
+        "expand"?: boolean;
+        "label"?: string;
+        "placeholder"?: string;
     }
     interface JeItem {
     }
@@ -328,7 +335,7 @@ declare namespace LocalJSX {
         /**
           * Predefined colors
          */
-        "color"?: 'primary' | 'secondary' | 'tertiary' | 'success' | 'error' | 'warning';
+        "color"?: 'primary' | 'secondary' | 'tertiary' | 'success' | 'error' | 'warning' | 'medium' | 'light' | 'dark';
         /**
           * Disables button
          */
@@ -341,6 +348,10 @@ declare namespace LocalJSX {
           * Button fill
          */
         "fill"?: 'solid' | 'outline' | 'clear';
+        /**
+          * Removes the padding, ideal for turning an icon or image into a button
+         */
+        "iconOnly"?: boolean;
         /**
           * Button size
          */
@@ -389,6 +400,9 @@ declare namespace LocalJSX {
     interface JeInfinite {
     }
     interface JeInput {
+        "expand"?: boolean;
+        "label"?: string;
+        "placeholder"?: string;
     }
     interface JeItem {
     }

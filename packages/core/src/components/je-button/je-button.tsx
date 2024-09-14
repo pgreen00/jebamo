@@ -19,6 +19,9 @@ export class JeButton {
   /** Expands the button to the full width of it's container */
   @Prop({ reflect: true }) expand = false;
 
+  /** Removes the padding, ideal for turning an icon or image into a button */
+  @Prop({ reflect: true }) iconOnly = false;
+
   /** Button fill */
   @Prop({ reflect: true }) fill: 'solid' | 'outline' | 'clear' = 'solid';
 
@@ -26,7 +29,7 @@ export class JeButton {
   @Prop({ reflect: true }) size: 'md' | 'lg' | 'sm' = 'md';
 
   /** Predefined colors */
-  @Prop({ reflect: true }) color: 'primary' | 'secondary' | 'tertiary' | 'success' | 'error' | 'warning' = 'primary';
+  @Prop({ reflect: true }) color: 'primary' | 'secondary' | 'tertiary' | 'success' | 'error' | 'warning' | 'medium' | 'light' | 'dark' = 'primary';
 
   componentDidLoad() {
     if (this.type == 'submit' || this.type == 'reset') {
