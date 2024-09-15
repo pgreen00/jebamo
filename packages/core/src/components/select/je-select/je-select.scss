@@ -1,3 +1,8 @@
 :host {
   display: block;
+  width: fit-content;
+}
+
+:host([expand]) {
+  width: 100%;
 }

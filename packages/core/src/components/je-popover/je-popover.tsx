@@ -1,6 +1,9 @@
 import { Component, Host, h, Element, EventEmitter, Listen, Method, Prop, State, Event } from '@stencil/core';
 import { animationUpdate } from '../../utils/utils';
 
+export type PositionStrategy = 'none' | 'click' | 'element';
+export type Target<T extends PositionStrategy> = T extends 'click' ? MouseEvent | undefined : T extends 'element' ? HTMLElement | undefined : never;
+
 @Component({
   tag: 'je-popover',
   styleUrl: 'je-popover.scss',
@@ -46,7 +49,7 @@ export class JePopover {
    * If the popover should auto position itself using the mouse event or
    * the triggerElement.
    */
-  @Prop() position: 'click' | 'element' = 'element';
+  @Prop() position: PositionStrategy = 'element';
 
   /** Horizontal offset used when auto positioning the popover content */
   @Prop() offsetX = 10;
@@ -76,10 +79,10 @@ export class JePopover {
     if (this.trigger) {
       this.triggerElement = document.getElementById(this.trigger);
       if (this.triggerElement && this.triggerAction == 'click') {
-        this.triggerElement.addEventListener("click", () => this.present());
+        this.triggerElement.addEventListener("click", () => this.present(this.position));
       } else if (this.triggerElement && this.triggerAction == 'hover') {
         this.triggerElement.addEventListener("mouseover", async ev => {
-          await this.present(ev);
+          await this.present(this.position, ev);
           this.triggerElement.addEventListener(
             "mouseleave",
             () => this.dismiss('hoverDismiss'),
@@ -88,10 +91,10 @@ export class JePopover {
       } else if (this.triggerElement && this.triggerAction == 'context-menu') {
         this.triggerElement.addEventListener("contextmenu", ev => {
           ev.preventDefault();
-          this.present(ev);
+          this.present(this.position, ev);
         });
       } else {
-        console.error('UssModule: Failed to find popover trigger element!');
+        console.error('Failed to find popover trigger element:', this.trigger);
       }
     }
   }
@@ -109,11 +112,14 @@ export class JePopover {
 
   /**
    * Used internally to present the popover. Can also be used to manually
-   * present it if needed. Will auto position itself using the last click
-   * event on the window. Can optionally override the click event;
+   * present it if needed. Will auto position itself using the specified
+   * position strategy. If no target is provided, it will use the last mouse
+   * event on the window or the trigger element.
+   * @param positionStrategy The strategy to use when positioning the popover
+   * @param target Can optionally override the target the popover bases it's position off of
    */
   @Method()
-  async present(event?: MouseEvent | null) {
+  async present<T extends PositionStrategy>(positionStrategy: T, target?: Target<T>) {
     if (!this.isOpen) {
       if (this.parentEl) {
         if (this.pagEl) {
@@ -123,23 +129,21 @@ export class JePopover {
         }
       }
       this.isOpen = true;
-      if (event !== null)
-        event ??= this.mouseEvent;
 
-      if (event) {
+      if (positionStrategy !== 'none') {
         this.contentEl.removeAttribute('style');
         await animationUpdate();
-        const { pageX, pageY } = event;
         const { offsetX, offsetY } = this;
         const contentHeight = this.contentEl.clientHeight;
-
         const rightThreshold = window.innerWidth / 2;
         const bottomThreshold = window.innerHeight - 20 - contentHeight;
-        const isNearRight = pageX > rightThreshold;
-        const isNearBottom = pageY > bottomThreshold;
-        const isNearTop = pageY - offsetY - contentHeight < 0;
 
-        if (this.position == 'click') {
+        if (positionStrategy == 'click') {
+          target ??= this.mouseEvent as Target<T>;
+          const { pageX, pageY } = target as MouseEvent;
+          const isNearRight = pageX > rightThreshold;
+          const isNearBottom = pageY > bottomThreshold;
+          const isNearTop = pageY - offsetY - contentHeight < 0;
           if (isNearRight) {
             this.contentEl.style.left = `${pageX - offsetX - this.contentEl.clientWidth}px`;
           } else {
@@ -161,7 +165,13 @@ export class JePopover {
             this.contentEl.style.top = `${pageY + offsetY}px`;
           }
         } else {
-          const triggerElement = this.triggerElement || event.target as HTMLElement;
+          target ??= (this.triggerElement ?? this.mouseEvent.target) as Target<T>;
+          const boundingRect = (target as HTMLElement).getBoundingClientRect();
+          const { x: pageX, y: pageY } = boundingRect;
+          const isNearRight = pageX > rightThreshold;
+          const isNearBottom = pageY > bottomThreshold;
+          const isNearTop = pageY - offsetY - contentHeight < 0;
+          const triggerElement = target as HTMLElement;
           const { left, bottom, top, right } = triggerElement.getBoundingClientRect();
           this.contentEl.style.boxSizing = 'border-box';
           if (isNearRight) {
@@ -220,12 +230,6 @@ export class JePopover {
         this.contentEl.classList.remove('open');
       });
     }
-  }
-
-  /** Used by uss-select */
-  @Method()
-  async getContentHeight() {
-    return new Promise<number>(resolve => resolve(this.contentEl.clientHeight));
   }
 
   private handleBackdropClick = () => {

@@ -81,13 +81,8 @@ input[type="password"]::-ms-clear {
   display: none !important;
 }
 
-::slotted([slot='dropdown']) {
-  box-sizing: border-box;
-  width: var(--width, auto);
-  height: var(--content-height, auto);
-}
-
 je-popover::part(content) {
+  width: var(--content-width, auto);
   box-sizing: border-box;
   padding: 0px;
 }

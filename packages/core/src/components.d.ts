@@ -8,9 +8,11 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { DialogButton, DialogControl } from "./components/je-alert/je-alert";
 import { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
 import { PanelState } from "./components/je-page/je-page";
+import { PositionStrategy, Target } from "./components/je-popover/je-popover";
 export { DialogButton, DialogControl } from "./components/je-alert/je-alert";
 export { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
 export { PanelState } from "./components/je-page/je-page";
+export { PositionStrategy, Target } from "./components/je-popover/je-popover";
 export namespace Components {
     interface JeAlert {
         /**
@@ -174,6 +176,10 @@ export namespace Components {
          */
         "dropdown": boolean;
         /**
+          * Whether or not the input should expand to the full width of it's container
+         */
+        "expand"?: boolean;
+        /**
           * Formatter function that gets applied as the user types
          */
         "format"?: FormatterFn | AsyncFormatterFn;
@@ -296,10 +302,6 @@ export namespace Components {
          */
         "dismissOnClick": boolean;
         /**
-          * Used by uss-select
-         */
-        "getContentHeight": () => Promise<number>;
-        /**
           * Horizontal offset used when auto positioning the popover content
          */
         "offsetX": number;
@@ -310,11 +312,13 @@ export namespace Components {
         /**
           * If the popover should auto position itself using the mouse event or the triggerElement.
          */
-        "position": 'click' | 'element';
+        "position": PositionStrategy;
         /**
-          * Used internally to present the popover. Can also be used to manually present it if needed. Will auto position itself using the last click event on the window. Can optionally override the click event;
+          * Used internally to present the popover. Can also be used to manually present it if needed. Will auto position itself using the specified position strategy. If no target is provided, it will use the last mouse event on the window or the trigger element.
+          * @param positionStrategy The strategy to use when positioning the popover
+          * @param target Can optionally override the target the popover bases it's position off of
          */
-        "present": (event?: MouseEvent | null) => Promise<void>;
+        "present": <T extends PositionStrategy>(positionStrategy: T, target?: Target<T>) => Promise<void>;
         /**
           * Whether or not the backdrop will be visible to the user
          */
@@ -335,6 +339,10 @@ export namespace Components {
     interface JeRadioGroup {
     }
     interface JeSelect {
+        "expand"?: boolean;
+        "label"?: string;
+        "placeholder"?: string;
+        "value"?: string;
     }
     interface JeSelectOption {
     }
@@ -794,6 +802,10 @@ declare namespace LocalJSX {
          */
         "dropdown"?: boolean;
         /**
+          * Whether or not the input should expand to the full width of it's container
+         */
+        "expand"?: boolean;
+        /**
           * Formatter function that gets applied as the user types
          */
         "format"?: FormatterFn | AsyncFormatterFn;
@@ -937,7 +949,7 @@ declare namespace LocalJSX {
         /**
           * If the popover should auto position itself using the mouse event or the triggerElement.
          */
-        "position"?: 'click' | 'element';
+        "position"?: PositionStrategy;
         /**
           * Whether or not the backdrop will be visible to the user
          */
@@ -958,6 +970,10 @@ declare namespace LocalJSX {
     interface JeRadioGroup {
     }
     interface JeSelect {
+        "expand"?: boolean;
+        "label"?: string;
+        "placeholder"?: string;
+        "value"?: string;
     }
     interface JeSelectOption {
     }

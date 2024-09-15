@@ -163,6 +163,11 @@ export class JeInput {
   @Prop() dropdown = false;
 
   /**
+   * Whether or not the input should expand to the full width of it's container
+   */
+  @Prop({ reflect: true }) expand?: boolean;
+
+  /**
    * Emits as the user types
    */
   @Event({ bubbles: false }) valueChange: EventEmitter<any>;
@@ -264,15 +269,8 @@ export class JeInput {
     this.containerEl.classList.add('focus');
     if (this.dropdown) {
       this.open = true;
-      this.hostEl.style.setProperty('--width', `${this.hostEl.clientWidth}px`);
-      await this.popoverEl.present(null);
-      const { bottom: pageY } = this.hostEl.getBoundingClientRect();
-      const height = await this.popoverEl.getContentHeight();
-      const remainingSpace = window.innerHeight - pageY;
-      const isNearBottom = height > remainingSpace;
-      if (isNearBottom) {
-        this.hostEl.style.setProperty('--content-height', `${remainingSpace}px`);
-      }
+      this.hostEl.style.setProperty('--content-width', `${this.hostEl.clientWidth}px`);
+      await this.popoverEl.present('element', this.hostEl);
     }
   }
 
@@ -280,9 +278,8 @@ export class JeInput {
     this.isTouched = true;
     this.containerEl.classList.remove('focus');
     if (this.open) {
-      this.popoverEl.dismiss();
+      this.popoverEl.dismiss('inputBlur');
       this.open = false;
-      this.hostEl.style.setProperty('--content-height', 'auto');
     }
   }
 

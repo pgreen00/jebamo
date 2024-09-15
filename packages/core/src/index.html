@@ -48,8 +48,19 @@
       <je-form onsubmit="presentAlert()">
         <je-input label="Name" placeholder="What's your name?" expand="true"></je-input>
         <je-input required label="Password" type="password" placeholder="Type your password" expand="true"></je-input>
-        <je-input type="number" required id="customInput" label="Custom Input" helper-text="Enter a number between 4 and 12" expand="true"></je-input>
-        <je-input id="customFormatter" name="phone" type="tel" autocomplete="phone" label="Custom Phone formatter" expand="true"></je-input>
+        <je-input type="number" required id="customInput" label="Custom Validator" helper-text="Enter a number between 4 and 12" expand="true"></je-input>
+        <je-input id="customFormatter" name="phone" type="tel" autocomplete="phone" placeholder="Type your phone" label="Custom Formatter" expand="true">
+          <je-icon icon="phone" fill slot="end"></je-icon>
+        </je-input>
+        <je-select expand label="Day" placeholder="Select a day of the week">
+          <je-select-option>Monday</je-select-option>
+          <je-select-option>Tuesday</je-select-option>
+          <je-select-option>Wednesday</je-select-option>
+          <je-select-option>Thursday</je-select-option>
+          <je-select-option>Friday</je-select-option>
+          <je-select-option>Saturday</je-select-option>
+          <je-select-option>Sunday</je-select-option>
+        </je-select>
         <je-button type="submit">Submit</je-button>
       </je-form>
       <je-alert id="formAlert"></je-alert>
@@ -113,10 +124,10 @@
         </je-button>
       </div>
 
-      <h2>Input</h2>
+      <h2>Input as searchbar</h2>
       <div style="gap: var(--gap); display: flex; flex-direction: column;">
-        <je-input label="Phone Number" placeholder="Type your phone">
-          <je-icon icon="phone" fill slot="end"></je-icon>
+        <je-input placeholder="Search for a client...">
+          <je-icon icon="search" fill slot="start"></je-icon>
         </je-input>
       </div>
 
@@ -134,7 +145,7 @@
 
       <h2>Loading Indicators</h2>
       <je-loading></je-loading>
-      <je-skeleton-text style="height: 40px; width: 100%;"></je-skeleton-text>
+      <je-skeleton-text style="height: 40px; width: 300px;"></je-skeleton-text>
     </div>
     <div style="background-color: var(--je-primary-800); color: var(--je-primary-100); padding-inline: var(--padding);" slot="footer">
       <h1>Footer</h1>

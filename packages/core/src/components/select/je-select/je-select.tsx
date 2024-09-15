@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-select',
@@ -6,10 +6,25 @@ import { Component, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class JeSelect {
+  @Prop() label?: string;
+  @Prop() placeholder?: string;
+  @Prop() value?: string;
+  @Prop() expand?: boolean;
+
   render() {
     return (
       <Host>
-        <slot></slot>
+        <je-input
+          exportparts='outer-container, start-container, end-container, native-input, content'
+          dropdown={true}
+          label={this.label}
+          placeholder={this.placeholder}
+          noTyping={true}
+          value={this.value}
+          expand={this.expand}
+        >
+          <slot slot='dropdown'></slot>
+        </je-input>
       </Host>
     );
   }
