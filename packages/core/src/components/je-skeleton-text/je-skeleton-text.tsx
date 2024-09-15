@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-skeleton-text',
@@ -6,9 +6,14 @@ import { Component, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class JeSkeletonText {
+  /**
+   * Whether or not the component should have the animated "shimmer" effect
+   */
+  @Prop() animated = true;
+
   render() {
     return (
-      <Host>
+      <Host class={{'animated': this.animated}}>
         <slot></slot>
       </Host>
     );

@@ -1,3 +1,52 @@
 :host {
-  display: block;
+  display: inline-block;
+  position: relative;
+  width: 23px;
+  height: 23px;
+  user-select: none;
+}
+
+svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateZ(0);
+}
+
+:host(.spinner-lines) line,
+:host(.spinner-lines-small) line {
+  stroke-width: 7px;
+}
+
+:host(.spinner-lines-sharp) line,
+:host(.spinner-lines-sharp-small) line {
+  stroke-width: 4px;
+}
+
+:host(.spinner-lines) line,
+:host(.spinner-lines-small) line,
+:host(.spinner-lines-sharp) line,
+:host(.spinner-lines-sharp-small) line {
+  stroke-linecap: round;
+  stroke: currentColor;
+}
+
+:host(.spinner-lines) svg,
+:host(.spinner-lines-small) svg,
+:host(.spinner-lines-sharp) svg,
+:host(.spinner-lines-sharp-small) svg {
+  animation: spinner-fade-out 1s linear infinite;
+}
+
+@keyframes spinner-fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+
 }

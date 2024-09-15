@@ -1,16 +1,65 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Listen, Method, Prop, h } from '@stencil/core';
+
+export type FormValidationFn = (elements: HTMLFormControlsCollection) => Promise<string[]>;
 
 @Component({
   tag: 'je-form',
   styleUrl: 'je-form.scss',
-  shadow: true,
+  scoped: true
 })
 export class JeForm {
+  private el!: HTMLFormElement;
+
+  /** Form level validators */
+  @Prop() validators?: FormValidationFn[];
+
+  componentDidLoad() {
+    this.el.setAttribute('novalidate', '');
+  }
+
+  @Listen('submit', { capture: true })
+  async handleSubmit(event: SubmitEvent) {
+    event.preventDefault();
+    this.markAllAsTouched();
+    let errors: string[] = [];
+    if (this.validators) {
+      for (const validator of this.validators) {
+        const result = await validator(this.el.elements);
+        errors = [...errors, ...result];
+      }
+    }
+    if (!this.el.checkValidity() || errors.length) {
+      event.stopImmediatePropagation();
+    }
+  }
+
+  @Listen('keyup')
+  handleKeyup(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.el.dispatchEvent(new Event('submit', {
+        bubbles: true,
+        cancelable: true
+      }));
+    }
+  }
+
+  @Method()
+  markAllAsTouched() {
+    return new Promise<void>(resolve => {
+      const elements = this.el.querySelectorAll('je-select, je-input');
+      elements.forEach((el: any) => {
+        el.markAsTouched();
+      });
+      resolve();
+    });
+  }
+
   render() {
     return (
-      <Host>
-        <slot></slot>
-      </Host>
+      <form ref={el => this.el = el}>
+        <slot />
+      </form>
     );
   }
 }
