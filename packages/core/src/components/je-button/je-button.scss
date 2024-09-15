@@ -20,10 +20,10 @@
   --max-width: 150px;
   --font-size: 14px;
   --inner-padding: 9px 12px;
-  --color: var(--je-primary-100);
-  --background: var(--je-primary-500);
-  --hover-background: var(--je-primary-600);
-  --active-background: var(--je-primary-700);
+  --color: var(--je-primary-100, buttontext);
+  --background: var(--je-primary-500, buttonface);
+  --hover-background: var(--je-primary-600, buttonface);
+  --active-background: var(--je-primary-700, buttonface);
 }
 
 :host([color=error]) {

@@ -3,13 +3,19 @@
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ionic-team/stencil-component-starter.git"
+    "url": "https://github.com/pgreen00/jebamo.git"
   },
   "scripts": {
     "build": "npm run build --workspace=@jebamo/core --workspace=@jebamo/angular --workspace=@jebamo/vue"
   },
   "keywords": [
-    "web component",
+    "web",
+    "component",
+    "library",
+    "angular",
+    "vue",
+    "typescript",
+    "stencil",
     "jebamo"
   ],
   "author": "Peter Green",
@@ -17,8 +23,5 @@
   "description": "",
   "workspaces": [
     "packages/*"
-  ],
-  "devDependencies": {
-    "@stencil/sass": "^3.0.12"
-  }
+  ]
 }

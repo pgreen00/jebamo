@@ -1,29 +1,22 @@
-import { Component, Listen, Method, Prop, h } from '@stencil/core';
-
-export type FormValidationFn = (elements: HTMLFormControlsCollection) => Promise<string[]>;
+import { Component, Listen, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-form',
-  styleUrl: 'je-form.scss'
+  styleUrl: 'je-form.scss',
+  scoped: true
 })
 export class JeForm {
   private el!: HTMLFormElement;
 
-  /** Form level validators */
-  @Prop() validators?: FormValidationFn[];
+  /**
+   * Removes the default gap between elements passed in
+   */
+  @Prop() gap: 'none' | 'default' = 'default';
 
   @Listen('submit', { capture: true })
   async handleSubmit(event: SubmitEvent) {
     event.preventDefault();
-    this.markAllAsTouched();
-    let errors: string[] = [];
-    if (this.validators) {
-      for (const validator of this.validators) {
-        const result = await validator(this.el.elements);
-        errors = [...errors, ...result];
-      }
-    }
-    if (!this.el.checkValidity() || errors.length) {
+    if (!this.el.checkValidity()) {
       event.stopImmediatePropagation();
     }
   }
@@ -31,23 +24,11 @@ export class JeForm {
   @Listen('keydown', { capture: true })
   handleKeyup(event: KeyboardEvent) {
     if (event.key === 'Enter') {
-      event.preventDefault();
-      this.el.dispatchEvent(new Event('submit', {
-        bubbles: true,
-        cancelable: true
-      }));
+      const submitButton = this.el.querySelector('button[type=submit]') as HTMLButtonElement | null;
+      if (submitButton) {
+        submitButton.click();
+      }
     }
-  }
-
-  @Method()
-  markAllAsTouched() {
-    return new Promise<void>(resolve => {
-      const elements = this.el.querySelectorAll('je-select, je-input');
-      elements.forEach((el: any) => {
-        el.markAsTouched();
-      });
-      resolve();
-    });
   }
 
   render() {

@@ -6,11 +6,9 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { DialogButton, DialogControl } from "./components/je-alert/je-alert";
-import { FormValidationFn } from "./components/je-form/je-form";
 import { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
 import { PanelState } from "./components/je-page/je-page";
 export { DialogButton, DialogControl } from "./components/je-alert/je-alert";
-export { FormValidationFn } from "./components/je-form/je-form";
 export { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
 export { PanelState } from "./components/je-page/je-page";
 export namespace Components {
@@ -117,11 +115,10 @@ export namespace Components {
     interface JeColumnGroup {
     }
     interface JeForm {
-        "markAllAsTouched": () => Promise<void>;
         /**
-          * Form level validators
+          * Removes the default gap between elements passed in
          */
-        "validators"?: FormValidationFn[];
+        "gap": 'none' | 'default';
     }
     interface JeIcon {
         /**
@@ -177,7 +174,7 @@ export namespace Components {
          */
         "dropdown": boolean;
         /**
-          * Formatters functions that are applied as the user types
+          * Formatter function that gets applied as the user types
          */
         "format"?: FormatterFn | AsyncFormatterFn;
         "hasError": () => Promise<boolean>;
@@ -197,7 +194,7 @@ export namespace Components {
         /**
           * Passed to native input
          */
-        "max"?: any;
+        "max"?: number | string;
         /**
           * Passed to native input
          */
@@ -205,7 +202,7 @@ export namespace Components {
         /**
           * Passed to native input
          */
-        "min"?: any;
+        "min"?: number | string;
         /**
           * Passed to native input
          */
@@ -252,7 +249,7 @@ export namespace Components {
          */
         "type": string;
         /**
-          * Validator functions for form participation
+          * Custom validator functions for form participation
          */
         "validators"?: (ValidationFn | AsyncValidationFn)[];
         /**
@@ -457,8 +454,7 @@ declare global {
         new (): HTMLJeInfiniteElement;
     };
     interface HTMLJeInputElementEventMap {
-        "didInput": any;
-        "didChange": any;
+        "valueChange": any;
     }
     interface HTMLJeInputElement extends Components.JeInput, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeInputElementEventMap>(type: K, listener: (this: HTMLJeInputElement, ev: JeInputCustomEvent<HTMLJeInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -740,9 +736,9 @@ declare namespace LocalJSX {
     }
     interface JeForm {
         /**
-          * Form level validators
+          * Removes the default gap between elements passed in
          */
-        "validators"?: FormValidationFn[];
+        "gap"?: 'none' | 'default';
     }
     interface JeIcon {
         /**
@@ -798,7 +794,7 @@ declare namespace LocalJSX {
          */
         "dropdown"?: boolean;
         /**
-          * Formatters functions that are applied as the user types
+          * Formatter function that gets applied as the user types
          */
         "format"?: FormatterFn | AsyncFormatterFn;
         /**
@@ -816,7 +812,7 @@ declare namespace LocalJSX {
         /**
           * Passed to native input
          */
-        "max"?: any;
+        "max"?: number | string;
         /**
           * Passed to native input
          */
@@ -824,7 +820,7 @@ declare namespace LocalJSX {
         /**
           * Passed to native input
          */
-        "min"?: any;
+        "min"?: number | string;
         /**
           * Passed to native input
          */
@@ -842,13 +838,9 @@ declare namespace LocalJSX {
          */
         "noTyping"?: boolean;
         /**
-          * Emits whenever the user hits enter or the control loses focus
-         */
-        "onDidChange"?: (event: JeInputCustomEvent<any>) => void;
-        /**
           * Emits as the user types
          */
-        "onDidInput"?: (event: JeInputCustomEvent<any>) => void;
+        "onValueChange"?: (event: JeInputCustomEvent<any>) => void;
         /**
           * Passed to native input
          */
@@ -878,7 +870,7 @@ declare namespace LocalJSX {
          */
         "type"?: string;
         /**
-          * Validator functions for form participation
+          * Custom validator functions for form participation
          */
         "validators"?: (ValidationFn | AsyncValidationFn)[];
         /**

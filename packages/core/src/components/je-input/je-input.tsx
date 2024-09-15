@@ -11,7 +11,7 @@ export type AsyncValidationFn = (value: string) => Promise<string[]>;
   tag: 'je-input',
   styleUrl: 'je-input.scss',
   shadow: true,
-  formAssociated: true,
+  formAssociated: true
 })
 export class JeInput {
   private popoverEl!: HTMLJePopoverElement;
@@ -65,12 +65,12 @@ export class JeInput {
   /**
    * Passed to native input
    */
-  @Prop() min?: any;
+  @Prop() min?: number | string;
 
   /**
    * Passed to native input
    */
-  @Prop() max?: any;
+  @Prop() max?: number | string;
 
   /**
    * Passed to native input
@@ -90,7 +90,7 @@ export class JeInput {
   /**
    * Name used in form, defaults to label value if not provided
    */
-  @Prop() name?: string;
+  @Prop({ reflect: true }) name?: string;
 
   /**
    * Passed to native input
@@ -138,12 +138,12 @@ export class JeInput {
   @Prop() debounce = 0;
 
   /**
-   * Formatters functions that are applied as the user types
+   * Formatter function that gets applied as the user types
    */
   @Prop() format?: FormatterFn | AsyncFormatterFn;
 
   /**
-   * Validator functions for form participation
+   * Custom validator functions for form participation
    */
   @Prop() validators?: (ValidationFn | AsyncValidationFn)[];
 
@@ -165,23 +165,20 @@ export class JeInput {
   /**
    * Emits as the user types
    */
-  @Event({ bubbles: false }) didInput: EventEmitter<any>;
-
-  /**
-   * Emits whenever the user hits enter or the control loses focus
-   */
-  @Event({ bubbles: false }) didChange: EventEmitter<any>;
+  @Event({ bubbles: false }) valueChange: EventEmitter<any>;
 
   componentWillLoad() {
-    if (this.label) {
+    if (this.label && !this.name) {
       this.hostEl.setAttribute('name', this.label)
     }
   }
 
   async componentDidLoad() {
     this.originalValue = this.value;
-    const { didInput: didInput, debounce } = this;
-    this.didInput = debounceEvent(didInput, debounce);
+    const { valueChange, debounce } = this;
+    if (debounce) {
+      this.valueChange = debounceEvent(valueChange, debounce);
+    }
     if (this.format) {
       this.value = await this.format(this.value);
     } else {
@@ -222,7 +219,6 @@ export class JeInput {
     if (this.inputEl && this.inputEl.value !== this.value) {
       this.inputEl.value = this.value;
     }
-
     this.validatorsChanged();
   }
 
@@ -249,22 +245,19 @@ export class JeInput {
     this.type = this.type == 'text' ? 'password' : 'text';
   }
 
-  private handleInput = async (ev: InputEvent) => {
-    this.inputEl.focus();
+  private formatInput = async (ev: InputEvent) => {
     const input = ev.target as HTMLInputElement | null;
-    if (input) {
-      if (this.format) {
-        input.value = await this.format(input.value, this.value, ev);
-      }
-      this.value = input.value;
+    if (input && this.format) {
+      input.value = await this.format(input.value, this.value, ev);
     }
-    this.didInput.emit(this.value);
   }
 
-  private handleChange = (ev: InputEvent) => {
-    this.didChange.emit({ value: this.value, event: ev })
-    if (this.type !== 'date' && this.type !== 'datetime-local' && this.type !== 'number')
-      this.inputEl.blur()
+  private handleInput = async (ev: InputEvent) => {
+    const input = ev.target as HTMLInputElement | null;
+    if (input) {
+      this.value = input.value;
+      this.valueChange.emit(this.value);
+    }
   }
 
   private handleFocus = async () => {
@@ -294,33 +287,32 @@ export class JeInput {
   }
 
   private setValidity() {
-    const hasError = this.errors.length > 0 || (this.required && ((this.value ?? '') === ''));
+    const requiredError = this.required && ((this.value ?? '') === '');
+    const hasError = this.errors.length > 0 || requiredError;
     if (hasError) {
-      this.internals.setValidity({ badInput: true }, this.errors.length ? this.errors[0] : `${this.label || 'This field'} is required`, this.inputEl);
-      if (this.isTouched) {
-        this.internals.reportValidity();
+      if (requiredError) {
+        this.internals.setValidity({ valueMissing: true }, `${this.label || 'This field'} is required`, this.inputEl);
+      } else {
+        this.internals.setValidity({ customError: true }, this.errors[0], this.inputEl);
       }
     } else {
       this.internals.setValidity({});
     }
   }
 
-  @Watch('isTouched')
-  watchTouched(newVal: boolean) {
-    const hasError = this.errors.length > 0 || (this.required && ((this.value ?? '') === ''));
-    if (hasError && newVal) {
-      this.internals.reportValidity();
-    }
-  }
-
   render() {
     const requiredIcon = <je-icon style={{ fontSize: '10px', color: 'var(--je-error-500)' }} icon="asterisk"></je-icon>;
     const label = <label part='label' style={{ display: 'flex' }}>{this.label} {this.required && requiredIcon}</label>;
+    const invalid = this.errors.length > 0 || (this.required && ((this.value ?? '') === ''));
     const containerClasses = {
       disabled: this.disabled,
-      invalid: this.errors.length > 0 || (this.isTouched && this.required && ((this.value ?? '') === '')),
+      invalid: invalid,
       touched: this.isTouched
     };
+
+    if (invalid && this.isTouched) {
+      this.internals.reportValidity();
+    }
 
     return (
       <Host>
@@ -332,8 +324,8 @@ export class JeInput {
 
           <input part="native-input"
             ref={el => this.inputEl = el}
+            onInputCapture={this.formatInput}
             onInput={this.handleInput}
-            onChange={this.handleChange}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
             disabled={this.disabled}

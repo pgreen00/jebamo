@@ -44,17 +44,18 @@
       <je-button size="sm" onclick="handlePanelToggle()" color="light" slot="end">Toggle panel</je-button>
     </je-toolbar>
     <div style="padding: var(--padding);" slot="left-panel">
-      <h2>This panel has a form!</h2>
+      <h2>Example Form</h2>
       <je-form onsubmit="presentAlert()">
-        <div style="gap: var(--gap); display: flex; flex-direction: column;">
-          <je-input required label="Name" helper-text="This is some helper text" placeholder="What's your name?" expand="true"></je-input>
-          <je-input required label="Password" type="password" placeholder="Type your password" expand="true"></je-input>
-          <je-button type="submit">Submit</je-button>
-        </div>
+        <je-input label="Name" placeholder="What's your name?" expand="true"></je-input>
+        <je-input required label="Password" type="password" placeholder="Type your password" expand="true"></je-input>
+        <je-input type="number" required id="customInput" label="Custom Input" helper-text="Enter a number between 4 and 12" expand="true"></je-input>
+        <je-input id="customFormatter" name="phone" type="tel" autocomplete="phone" label="Custom Phone formatter" expand="true"></je-input>
+        <je-button type="submit">Submit</je-button>
       </je-form>
       <je-alert id="formAlert"></je-alert>
     </div>
     <div slot="body" style="padding: var(--padding-lg);">
+      <h2>Buttons</h2>
       <div style="display: flex; flex-direction: column; gap: var(--gap); margin-bottom: var(--margin);">
         <div style="display: flex; gap: var(--gap);">
           <je-button>solid</je-button>
@@ -111,19 +112,27 @@
           <je-icon fill icon="home"></je-icon> Home
         </je-button>
       </div>
+
+      <h2>Input</h2>
       <div style="gap: var(--gap); display: flex; flex-direction: column;">
         <je-input label="Phone Number" placeholder="Type your phone">
           <je-icon icon="phone" fill slot="end"></je-icon>
         </je-input>
       </div>
+
+      <h2>Popover</h2>
       <je-button id="popoverButton">Popover</je-button>
       <je-popover trigger="popoverButton">
         <p>Hello! This is popover text.</p>
       </je-popover>
+
+      <h2>Modal</h2>
       <je-button id="modalButton">modal</je-button>
       <je-modal trigger="modalButton">
         <p>Hello! This is modal text.</p>
       </je-modal>
+
+      <h2>Loading Indicators</h2>
       <je-loading></je-loading>
       <je-skeleton-text style="height: 40px; width: 100%;"></je-skeleton-text>
     </div>
@@ -132,6 +141,60 @@
     </div>
   </je-page>
   <script>
+    const customInputEl = document.getElementById('customInput')
+    customInputEl.validators = [
+      (val) => {
+        let errors = [];
+        const num = Number(val);
+        if (num <= 4) {
+          errors.push('Value must be greater than 4')
+        }
+        if (num >= 12) {
+          errors.push('Value must be less than 12')
+        }
+        return errors;
+      }
+    ]
+
+    const customFormatterEl = document.getElementById('customFormatter');
+    customFormatterEl.format = input => {
+      const phoneNumber = input?.replace(/\D/g, '') ?? ''; // Remove all non-digit characters
+      let formattedNumber = '';
+
+      if (phoneNumber.length <= 7) {
+        // Format as XXX-XXXX (no area code)
+        if (phoneNumber.length > 3) {
+          formattedNumber += `${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 7)}`;
+        } else {
+          formattedNumber += phoneNumber;
+        }
+      } else {
+        // Format as (XXX) XXX-XXXX
+        // Add area code part
+        if (phoneNumber.length > 0) {
+          formattedNumber += `(${phoneNumber.substring(0, 3)}`;
+        }
+        if (phoneNumber.length >= 3) {
+          formattedNumber += `) `;
+        }
+
+        // Add the first three digits
+        if (phoneNumber.length > 3) {
+          formattedNumber += `${phoneNumber.substring(3, 6)}`;
+        }
+        if (phoneNumber.length >= 6) {
+          formattedNumber += `-`;
+        }
+
+        // Add the last four digits
+        if (phoneNumber.length > 6) {
+          formattedNumber += `${phoneNumber.substring(6, 10)}`;
+        }
+      }
+
+      return formattedNumber;
+    };
+
     function handlePanelToggle() {
       const el = document.getElementById('main-page')
       const panelState = el.leftPanel;
