@@ -97,6 +97,52 @@ export namespace Components {
     interface JePill {
     }
     interface JePopover {
+        /**
+          * Backdrop will dismiss the popover on click when enabled
+         */
+        "backdropDismiss": boolean;
+        /**
+          * Manually dismisses the popover. Role and data get passed to the didDismiss event.
+         */
+        "dismiss": (role?: string, data?: any) => Promise<void>;
+        /**
+          * Popover will automatically dismiss itself when something is clicked in the popover when enabled
+         */
+        "dismissOnClick": boolean;
+        /**
+          * Used by uss-select
+         */
+        "getContentHeight": () => Promise<number>;
+        /**
+          * Horizontal offset used when auto positioning the popover content
+         */
+        "offsetX": number;
+        /**
+          * Vertical offset used when auto positioning the popover content
+         */
+        "offsetY": number;
+        /**
+          * If the popover should auto position itself using the mouse event or the triggerElement.
+         */
+        "position": 'click' | 'element';
+        /**
+          * Used internally to present the popover. Can also be used to manually present it if needed. Will auto position itself using the last click event on the window. Can optionally override the click event;
+         */
+        "present": (event?: MouseEvent | null) => Promise<void>;
+        /**
+          * Whether or not the backdrop will be visible to the user
+         */
+        "showBackdrop": boolean;
+        /**
+          * The id of the element that will present the menu on click. If not provided, you will have to manually present the popover using present().
+         */
+        "trigger"?: string;
+        /**
+          * @click Popover will show on left click or tap on mobile.
+          * @context-menu Popover will show on right click or press on mobile.
+          * @hover Popover will show on hover or tap on mobile. No backdrop will be rendered.
+         */
+        "triggerAction": 'click' | 'hover' | 'context-menu';
     }
     interface JeRadio {
     }
@@ -120,6 +166,10 @@ export namespace Components {
     }
     interface JeToolbar {
     }
+}
+export interface JePopoverCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJePopoverElement;
 }
 declare global {
     interface HTMLJeAlertElement extends Components.JeAlert, HTMLStencilElement {
@@ -224,7 +274,19 @@ declare global {
         prototype: HTMLJePillElement;
         new (): HTMLJePillElement;
     };
+    interface HTMLJePopoverElementEventMap {
+        "didPresent": any;
+        "didDismiss": { role?: string, data?: any };
+    }
     interface HTMLJePopoverElement extends Components.JePopover, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJePopoverElementEventMap>(type: K, listener: (this: HTMLJePopoverElement, ev: JePopoverCustomEvent<HTMLJePopoverElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJePopoverElementEventMap>(type: K, listener: (this: HTMLJePopoverElement, ev: JePopoverCustomEvent<HTMLJePopoverElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJePopoverElement: {
         prototype: HTMLJePopoverElement;
@@ -418,6 +480,48 @@ declare namespace LocalJSX {
     interface JePill {
     }
     interface JePopover {
+        /**
+          * Backdrop will dismiss the popover on click when enabled
+         */
+        "backdropDismiss"?: boolean;
+        /**
+          * Popover will automatically dismiss itself when something is clicked in the popover when enabled
+         */
+        "dismissOnClick"?: boolean;
+        /**
+          * Horizontal offset used when auto positioning the popover content
+         */
+        "offsetX"?: number;
+        /**
+          * Vertical offset used when auto positioning the popover content
+         */
+        "offsetY"?: number;
+        /**
+          * Emits whenever the popover has finished dismissing. Emits the role and optional data object passed to the dismiss() method.
+         */
+        "onDidDismiss"?: (event: JePopoverCustomEvent<{ role?: string, data?: any }>) => void;
+        /**
+          * Emits whenever the popover has presented. Does not emit any data
+         */
+        "onDidPresent"?: (event: JePopoverCustomEvent<any>) => void;
+        /**
+          * If the popover should auto position itself using the mouse event or the triggerElement.
+         */
+        "position"?: 'click' | 'element';
+        /**
+          * Whether or not the backdrop will be visible to the user
+         */
+        "showBackdrop"?: boolean;
+        /**
+          * The id of the element that will present the menu on click. If not provided, you will have to manually present the popover using present().
+         */
+        "trigger"?: string;
+        /**
+          * @click Popover will show on left click or tap on mobile.
+          * @context-menu Popover will show on right click or press on mobile.
+          * @hover Popover will show on hover or tap on mobile. No backdrop will be rendered.
+         */
+        "triggerAction"?: 'click' | 'hover' | 'context-menu';
     }
     interface JeRadio {
     }

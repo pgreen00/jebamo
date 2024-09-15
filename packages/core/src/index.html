@@ -29,7 +29,6 @@
     overflow: hidden;
     margin: 0;
     padding: 0;
-    color-scheme: light;
   }
 </style>
 </head>
@@ -44,8 +43,9 @@
       <je-button size="sm" onclick="handleThemeToggle()" color="light" slot="end">Toggle theme</je-button>
       <je-button size="sm" onclick="handlePanelToggle()" color="light" slot="end">Toggle panel</je-button>
     </je-toolbar>
-    <div slot="left-panel">
+    <div style="padding: var(--padding);" slot="left-panel">
       <p>I'm in a panel</p>
+      <div style="height: 2000px; background-color: var(--je-primary-400);"></div>
     </div>
     <div slot="body" style="padding: var(--padding-lg);">
       <div style="display: flex; flex-direction: column; gap: var(--gap); margin-bottom: var(--margin);">
@@ -110,8 +110,12 @@
         </je-input>
         <je-input label="Name" placeholder="What's your name?" expand="true"></je-input>
       </div>
+      <je-button id="popoverButton">Popover</je-button>
+      <je-popover trigger="popoverButton">
+        <p>Hello! This is popover text.</p>
+      </je-popover>
     </div>
-    <div slot="footer">
+    <div style="background-color: var(--je-primary-800); color: var(--je-primary-100); padding-inline: var(--padding);" slot="footer">
       <h1>Footer</h1>
     </div>
   </je-page>

@@ -1,10 +1,9 @@
 @use 'styles/colors' as colors;
 
 :host {
-  display: flex;
-  flex-direction: column;
+  display: block;
   height: 100%;
-  box-sizing: border-box;
+  overflow: hidden;
   font-size: var(--font-size);
   font-family: var(--font-family);
   color: var(--color);
@@ -34,6 +33,8 @@
   --input-background: var(--je-medium-200);
   --input-color: var(--je-medium-850);
 
+  --backdrop-color: rgba(0, 0, 0, 0.5);
+
   --sidepanel-width: 0px;
   --sidepanel-display: none;
   --sidepanel-border: none;
@@ -55,9 +56,18 @@
   }
 }
 
-.body-container {
+[part='page-container'] {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+[part='body-container'] {
   display: flex;
   flex: 1;
+  overflow: hidden;
 }
 
 ::slotted([slot='body']) {
@@ -76,7 +86,7 @@
 ::slotted([slot='footer']) {
   box-sizing: border-box;
   box-shadow: #00000069 0px -5px 20px -10px;
-  border-top: solid 1px lightgray;
+  //border-top: solid 1px lightgray;
   z-index: 10;
 }
 
@@ -110,6 +120,7 @@
 ::slotted([slot='left-panel']) {
   display: var(--sidepanel-display);
   overflow-y: auto;
+  overflow-x: hidden;
   width: var(--sidepanel-width);
   border-right: var(--sidepanel-border);
   transition: all 250ms ease-in-out;

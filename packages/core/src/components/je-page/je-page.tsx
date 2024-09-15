@@ -16,13 +16,18 @@ export class JePage {
   render() {
     return (
       <Host>
-        <slot name='header' />
-        <div part='body-container' class="body-container">
-          <slot name='left-panel' />
-          <slot name='body' />
-          <slot name='right-panel' />
+        <div part='page-container'>
+          <slot name='header' />
+          <div part='body-container'>
+            <slot name='left-panel' />
+            <slot name='body' />
+            <slot name='right-panel' />
+          </div>
+          <slot name='footer' />
         </div>
-        <slot name='footer' />
+        <div part='overlay-container'>
+          <slot name='overlay' />
+        </div>
       </Host>
     );
   }
