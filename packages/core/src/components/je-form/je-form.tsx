@@ -4,18 +4,13 @@ export type FormValidationFn = (elements: HTMLFormControlsCollection) => Promise
 
 @Component({
   tag: 'je-form',
-  styleUrl: 'je-form.scss',
-  scoped: true
+  styleUrl: 'je-form.scss'
 })
 export class JeForm {
   private el!: HTMLFormElement;
 
   /** Form level validators */
   @Prop() validators?: FormValidationFn[];
-
-  componentDidLoad() {
-    this.el.setAttribute('novalidate', '');
-  }
 
   @Listen('submit', { capture: true })
   async handleSubmit(event: SubmitEvent) {
@@ -33,7 +28,7 @@ export class JeForm {
     }
   }
 
-  @Listen('keyup')
+  @Listen('keydown', { capture: true })
   handleKeyup(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       event.preventDefault();

@@ -1,3 +1,79 @@
 :host {
-  display: block;
+  display: flex;
+}
+
+@media (width > 1200px) {
+  :host {
+    --width: 75%;
+    --height: 85%;
+  }
+}
+
+@media (992px < width < 1201px) {
+  :host {
+    --width: 80%;
+    --height: 90%;
+  }
+}
+
+@media (768px < width < 993px) {
+  :host {
+    --width: 85%;
+    --height: 95%;
+  }
+}
+
+@media (width < 769px) {
+  :host {
+    --width: 100%;
+    --height: 100%;
+  }
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 910;
+  width: var(--width);
+  height: var(--height);
+  background-color: var(--background-color);
+  color: var(--color);
+  box-shadow: 0px 0px 15px 5px #4d4d4d73;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.modal-transition {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.modal.open {
+  opacity: 1;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--backdrop-color);
+  z-index: 909;
+}
+
+.backdrop-transition {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.backdrop.fade {
+  opacity: 1;
+}
+
+.clear {
+  background: rgba(0, 0, 0, 0);
 }

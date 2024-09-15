@@ -5,7 +5,11 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { FormValidationFn } from "./components/je-form/je-form";
+import { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
 import { PanelState } from "./components/je-page/je-page";
+export { FormValidationFn } from "./components/je-form/je-form";
+export { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
 export { PanelState } from "./components/je-page/je-page";
 export namespace Components {
     interface JeAlert {
@@ -49,10 +53,39 @@ export namespace Components {
     interface JeCheckboxOption {
     }
     interface JeColumn {
+        /**
+          * The size of the column, in terms of how many columns it should take up out of the total available.
+         */
+        "size"?: string;
+        /**
+          * The size of the column for lg screens, in terms of how many columns it should take up out of the total available.
+         */
+        "sizeLg"?: string;
+        /**
+          * The size of the column for md screens, in terms of how many columns it should take up out of the total available.
+         */
+        "sizeMd"?: string;
+        /**
+          * The size of the column for sm screens, in terms of how many columns it should take up out of the total available.
+         */
+        "sizeSm"?: string;
+        /**
+          * The size of the column for xl screens, in terms of how many columns it should take up out of the total available.
+         */
+        "sizeXl"?: string;
+        /**
+          * The size of the column for xs screens, in terms of how many columns it should take up out of the total available.
+         */
+        "sizeXs"?: string;
     }
     interface JeColumnGroup {
     }
     interface JeForm {
+        "markAllAsTouched": () => Promise<void>;
+        /**
+          * Form level validators
+         */
+        "validators"?: FormValidationFn[];
     }
     interface JeIcon {
         /**
@@ -79,15 +112,135 @@ export namespace Components {
     interface JeInfinite {
     }
     interface JeInput {
-        "expand"?: boolean;
-        "label"?: string;
-        "placeholder"?: string;
-    }
-    interface JeItem {
+        /**
+          * Passed to native input
+         */
+        "autoCapitalize": string;
+        /**
+          * Passed to native input
+         */
+        "autoComplete": string;
+        /**
+          * Passed to native input
+         */
+        "autoCorrect": 'off' | 'on';
+        /**
+          * Passed to native input
+         */
+        "autoFocus"?: boolean;
+        /**
+          * Optional debounce of the didInput event
+         */
+        "debounce": number;
+        /**
+          * Renders input as disabled and prevents changes
+         */
+        "disabled": boolean;
+        /**
+          * Whether or not to render a dropdown when input is focused
+         */
+        "dropdown": boolean;
+        /**
+          * Formatters functions that are applied as the user types
+         */
+        "format"?: FormatterFn | AsyncFormatterFn;
+        "hasError": () => Promise<boolean>;
+        /**
+          * Helper text directly below the control
+         */
+        "helperText"?: string;
+        /**
+          * Passed to native input
+         */
+        "inputMode": string;
+        /**
+          * Text above the control
+         */
+        "label": string;
+        "markAsTouched": () => Promise<void>;
+        /**
+          * Passed to native input
+         */
+        "max"?: any;
+        /**
+          * Passed to native input
+         */
+        "maxLength"?: number;
+        /**
+          * Passed to native input
+         */
+        "min"?: any;
+        /**
+          * Passed to native input
+         */
+        "minLength"?: number;
+        /**
+          * Passed to native input
+         */
+        "multiple": boolean;
+        /**
+          * Name used in form, defaults to label value if not provided
+         */
+        "name"?: string;
+        /**
+          * Will prevent changes, does not change the input's state in any way
+         */
+        "noTyping": boolean;
+        /**
+          * Passed to native input
+         */
+        "pattern"?: string;
+        /**
+          * Input placeholder text
+         */
+        "placeholder": string;
+        /**
+          * Renders input as read only and prevents changes
+         */
+        "readOnly": boolean;
+        /**
+          * Marks as required in form and adds asterisk to the end of the label
+         */
+        "required": boolean;
+        "reset": () => Promise<void>;
+        /**
+          * Passed to native input
+         */
+        "spellcheck": boolean;
+        /**
+          * Passed to native input
+         */
+        "step"?: string;
+        /**
+          * Passed to native input
+         */
+        "type": string;
+        /**
+          * Validator functions for form participation
+         */
+        "validators"?: (ValidationFn | AsyncValidationFn)[];
+        /**
+          * Current value of the input
+         */
+        "value": string;
     }
     interface JeLoading {
     }
     interface JeModal {
+        /**
+          * Backdrop will close the modal on click when enabled
+         */
+        "backdropClose": boolean;
+        "dismiss": (role?: string, data?: any) => Promise<void>;
+        "present": () => Promise<void>;
+        /**
+          * Whether or not the backdrop will be visible to the user
+         */
+        "showBackdrop": boolean;
+        /**
+          * The id of the element that will present the modal on click. If not provided, you will have to manually present the modal using openModal().
+         */
+        "trigger"?: string;
     }
     interface JePage {
         "leftPanel": PanelState;
@@ -153,6 +306,10 @@ export namespace Components {
     interface JeSelectOption {
     }
     interface JeSkeletonText {
+        /**
+          * Whether or not the component should have the animated "shimmer" effect
+         */
+        "animated": boolean;
     }
     interface JeTab {
     }
@@ -166,6 +323,14 @@ export namespace Components {
     }
     interface JeToolbar {
     }
+}
+export interface JeInputCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeInputElement;
+}
+export interface JeModalCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeModalElement;
 }
 export interface JePopoverCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -238,17 +403,23 @@ declare global {
         prototype: HTMLJeInfiniteElement;
         new (): HTMLJeInfiniteElement;
     };
+    interface HTMLJeInputElementEventMap {
+        "didInput": any;
+        "didChange": any;
+    }
     interface HTMLJeInputElement extends Components.JeInput, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeInputElementEventMap>(type: K, listener: (this: HTMLJeInputElement, ev: JeInputCustomEvent<HTMLJeInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeInputElementEventMap>(type: K, listener: (this: HTMLJeInputElement, ev: JeInputCustomEvent<HTMLJeInputElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeInputElement: {
         prototype: HTMLJeInputElement;
         new (): HTMLJeInputElement;
-    };
-    interface HTMLJeItemElement extends Components.JeItem, HTMLStencilElement {
-    }
-    var HTMLJeItemElement: {
-        prototype: HTMLJeItemElement;
-        new (): HTMLJeItemElement;
     };
     interface HTMLJeLoadingElement extends Components.JeLoading, HTMLStencilElement {
     }
@@ -256,7 +427,19 @@ declare global {
         prototype: HTMLJeLoadingElement;
         new (): HTMLJeLoadingElement;
     };
+    interface HTMLJeModalElementEventMap {
+        "didPresent": any;
+        "didDismiss": { role: string, data: any };
+    }
     interface HTMLJeModalElement extends Components.JeModal, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeModalElementEventMap>(type: K, listener: (this: HTMLJeModalElement, ev: JeModalCustomEvent<HTMLJeModalElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeModalElementEventMap>(type: K, listener: (this: HTMLJeModalElement, ev: JeModalCustomEvent<HTMLJeModalElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeModalElement: {
         prototype: HTMLJeModalElement;
@@ -371,7 +554,6 @@ declare global {
         "je-icon": HTMLJeIconElement;
         "je-infinite": HTMLJeInfiniteElement;
         "je-input": HTMLJeInputElement;
-        "je-item": HTMLJeItemElement;
         "je-loading": HTMLJeLoadingElement;
         "je-modal": HTMLJeModalElement;
         "je-page": HTMLJePageElement;
@@ -432,10 +614,38 @@ declare namespace LocalJSX {
     interface JeCheckboxOption {
     }
     interface JeColumn {
+        /**
+          * The size of the column, in terms of how many columns it should take up out of the total available.
+         */
+        "size"?: string;
+        /**
+          * The size of the column for lg screens, in terms of how many columns it should take up out of the total available.
+         */
+        "sizeLg"?: string;
+        /**
+          * The size of the column for md screens, in terms of how many columns it should take up out of the total available.
+         */
+        "sizeMd"?: string;
+        /**
+          * The size of the column for sm screens, in terms of how many columns it should take up out of the total available.
+         */
+        "sizeSm"?: string;
+        /**
+          * The size of the column for xl screens, in terms of how many columns it should take up out of the total available.
+         */
+        "sizeXl"?: string;
+        /**
+          * The size of the column for xs screens, in terms of how many columns it should take up out of the total available.
+         */
+        "sizeXs"?: string;
     }
     interface JeColumnGroup {
     }
     interface JeForm {
+        /**
+          * Form level validators
+         */
+        "validators"?: FormValidationFn[];
     }
     interface JeIcon {
         /**
@@ -462,15 +672,146 @@ declare namespace LocalJSX {
     interface JeInfinite {
     }
     interface JeInput {
-        "expand"?: boolean;
+        /**
+          * Passed to native input
+         */
+        "autoCapitalize"?: string;
+        /**
+          * Passed to native input
+         */
+        "autoComplete"?: string;
+        /**
+          * Passed to native input
+         */
+        "autoCorrect"?: 'off' | 'on';
+        /**
+          * Passed to native input
+         */
+        "autoFocus"?: boolean;
+        /**
+          * Optional debounce of the didInput event
+         */
+        "debounce"?: number;
+        /**
+          * Renders input as disabled and prevents changes
+         */
+        "disabled"?: boolean;
+        /**
+          * Whether or not to render a dropdown when input is focused
+         */
+        "dropdown"?: boolean;
+        /**
+          * Formatters functions that are applied as the user types
+         */
+        "format"?: FormatterFn | AsyncFormatterFn;
+        /**
+          * Helper text directly below the control
+         */
+        "helperText"?: string;
+        /**
+          * Passed to native input
+         */
+        "inputMode"?: string;
+        /**
+          * Text above the control
+         */
         "label"?: string;
+        /**
+          * Passed to native input
+         */
+        "max"?: any;
+        /**
+          * Passed to native input
+         */
+        "maxLength"?: number;
+        /**
+          * Passed to native input
+         */
+        "min"?: any;
+        /**
+          * Passed to native input
+         */
+        "minLength"?: number;
+        /**
+          * Passed to native input
+         */
+        "multiple"?: boolean;
+        /**
+          * Name used in form, defaults to label value if not provided
+         */
+        "name"?: string;
+        /**
+          * Will prevent changes, does not change the input's state in any way
+         */
+        "noTyping"?: boolean;
+        /**
+          * Emits whenever the user hits enter or the control loses focus
+         */
+        "onDidChange"?: (event: JeInputCustomEvent<any>) => void;
+        /**
+          * Emits as the user types
+         */
+        "onDidInput"?: (event: JeInputCustomEvent<any>) => void;
+        /**
+          * Passed to native input
+         */
+        "pattern"?: string;
+        /**
+          * Input placeholder text
+         */
         "placeholder"?: string;
-    }
-    interface JeItem {
+        /**
+          * Renders input as read only and prevents changes
+         */
+        "readOnly"?: boolean;
+        /**
+          * Marks as required in form and adds asterisk to the end of the label
+         */
+        "required"?: boolean;
+        /**
+          * Passed to native input
+         */
+        "spellcheck"?: boolean;
+        /**
+          * Passed to native input
+         */
+        "step"?: string;
+        /**
+          * Passed to native input
+         */
+        "type"?: string;
+        /**
+          * Validator functions for form participation
+         */
+        "validators"?: (ValidationFn | AsyncValidationFn)[];
+        /**
+          * Current value of the input
+         */
+        "value"?: string;
     }
     interface JeLoading {
     }
     interface JeModal {
+        /**
+          * Backdrop will close the modal on click when enabled
+         */
+        "backdropClose"?: boolean;
+        /**
+          * Emits whenever the modal has finished closing. Emits the role and optional data object passed to the closeModal() method.
+         */
+        "onDidDismiss"?: (event: JeModalCustomEvent<{ role: string, data: any }>) => void;
+        /**
+          * Emits whenever the modal has opened. Does not emit any data
+         */
+        "onDidPresent"?: (event: JeModalCustomEvent<any>) => void;
+        /**
+          * Whether or not the backdrop will be visible to the user
+         */
+        "showBackdrop"?: boolean;
+        /**
+          * The id of the element that will present the modal on click. If not provided, you will have to manually present the modal using openModal().
+         */
+        "trigger"?: string;
     }
     interface JePage {
         "leftPanel"?: PanelState;
@@ -532,6 +873,10 @@ declare namespace LocalJSX {
     interface JeSelectOption {
     }
     interface JeSkeletonText {
+        /**
+          * Whether or not the component should have the animated "shimmer" effect
+         */
+        "animated"?: boolean;
     }
     interface JeTab {
     }
@@ -558,7 +903,6 @@ declare namespace LocalJSX {
         "je-icon": JeIcon;
         "je-infinite": JeInfinite;
         "je-input": JeInput;
-        "je-item": JeItem;
         "je-loading": JeLoading;
         "je-modal": JeModal;
         "je-page": JePage;
@@ -593,7 +937,6 @@ declare module "@stencil/core" {
             "je-icon": LocalJSX.JeIcon & JSXBase.HTMLAttributes<HTMLJeIconElement>;
             "je-infinite": LocalJSX.JeInfinite & JSXBase.HTMLAttributes<HTMLJeInfiniteElement>;
             "je-input": LocalJSX.JeInput & JSXBase.HTMLAttributes<HTMLJeInputElement>;
-            "je-item": LocalJSX.JeItem & JSXBase.HTMLAttributes<HTMLJeItemElement>;
             "je-loading": LocalJSX.JeLoading & JSXBase.HTMLAttributes<HTMLJeLoadingElement>;
             "je-modal": LocalJSX.JeModal & JSXBase.HTMLAttributes<HTMLJeModalElement>;
             "je-page": LocalJSX.JePage & JSXBase.HTMLAttributes<HTMLJePageElement>;

@@ -23,8 +23,15 @@ div[part='outer-container'] {
   overflow: hidden;
   border: solid 1px var(--border-color);
   transition: border 150ms ease-in-out;
-  &.focused {
+  &.focus {
     --border-color: var(--je-primary-500, accentcolor);
+  }
+  &.touched.invalid {
+    --border-color: var(--je-error-500, red);
+  }
+  &.disabled {
+    opacity: 0.6;
+    cursor: default;
   }
 }
 
@@ -60,4 +67,25 @@ input {
   &:focus {
     outline: 0;
   }
+}
+
+small.helper {
+  font-size: 12px;
+  margin-top: 7px;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none !important;
+}
+
+::slotted([slot='dropdown']) {
+  box-sizing: border-box;
+  width: var(--width, auto);
+  height: var(--content-height, auto);
+}
+
+je-popover::part(content) {
+  box-sizing: border-box;
+  padding: 0px;
 }

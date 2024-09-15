@@ -44,8 +44,14 @@
       <je-button size="sm" onclick="handlePanelToggle()" color="light" slot="end">Toggle panel</je-button>
     </je-toolbar>
     <div style="padding: var(--padding);" slot="left-panel">
-      <p>I'm in a panel</p>
-      <div style="height: 2000px; background-color: var(--je-primary-400);"></div>
+      <h2>This panel has a form!</h2>
+      <je-form>
+        <div style="gap: var(--gap); display: flex; flex-direction: column;">
+          <je-input required label="Name" placeholder="What's your name?" expand="true"></je-input>
+          <je-input required label="Password" type="password" placeholder="Type your password" expand="true"></je-input>
+          <je-button type="submit">Submit</je-button>
+        </div>
+      </je-form>
     </div>
     <div slot="body" style="padding: var(--padding-lg);">
       <div style="display: flex; flex-direction: column; gap: var(--gap); margin-bottom: var(--margin);">
@@ -108,12 +114,17 @@
         <je-input label="Phone Number" placeholder="Type your phone">
           <je-icon icon="phone" fill slot="end"></je-icon>
         </je-input>
-        <je-input label="Name" placeholder="What's your name?" expand="true"></je-input>
       </div>
       <je-button id="popoverButton">Popover</je-button>
       <je-popover trigger="popoverButton">
         <p>Hello! This is popover text.</p>
       </je-popover>
+      <je-button id="modalButton">modal</je-button>
+      <je-modal trigger="modalButton">
+        <p>Hello! This is modal text.</p>
+      </je-modal>
+      <je-loading></je-loading>
+      <je-skeleton-text style="height: 40px; width: 100%;"></je-skeleton-text>
     </div>
     <div style="background-color: var(--je-primary-800); color: var(--je-primary-100); padding-inline: var(--padding);" slot="footer">
       <h1>Footer</h1>
