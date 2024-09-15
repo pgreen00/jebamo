@@ -45,13 +45,14 @@
     </je-toolbar>
     <div style="padding: var(--padding);" slot="left-panel">
       <h2>This panel has a form!</h2>
-      <je-form>
+      <je-form onsubmit="presentAlert()">
         <div style="gap: var(--gap); display: flex; flex-direction: column;">
-          <je-input required label="Name" placeholder="What's your name?" expand="true"></je-input>
+          <je-input required label="Name" helper-text="This is some helper text" placeholder="What's your name?" expand="true"></je-input>
           <je-input required label="Password" type="password" placeholder="Type your password" expand="true"></je-input>
           <je-button type="submit">Submit</je-button>
         </div>
       </je-form>
+      <je-alert id="formAlert"></je-alert>
     </div>
     <div slot="body" style="padding: var(--padding-lg);">
       <div style="display: flex; flex-direction: column; gap: var(--gap); margin-bottom: var(--margin);">
@@ -141,6 +142,17 @@
       const el = document.getElementById('main-page')
       const themeState = el.theme;
       el.theme = themeState == 'light' ? 'dark' : 'light'
+    }
+
+    function presentAlert() {
+      var dialogElement = document.getElementById("formAlert");
+      dialogElement.header = "Form Submitted!";
+      dialogElement.message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+      dialogElement.buttons = [
+        { text: 'Cancel', fill: 'outline', handler: () => console.log('clicked') },
+        { text: 'Ok', fill: 'solid', handler: () => console.log('clicked') }
+      ]
+      dialogElement.present();
     }
   </script>
 </body>

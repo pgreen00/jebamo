@@ -316,12 +316,9 @@ export class JeInput {
   render() {
     const requiredIcon = <je-icon style={{ fontSize: '10px', color: 'var(--je-error-500)' }} icon="asterisk"></je-icon>;
     const label = <label part='label' style={{ display: 'flex' }}>{this.label} {this.required && requiredIcon}</label>;
-    const showRequired = this.isTouched && this.required && ((this.value ?? '') === '');
-    const helper = <small class="helper">{this.helperText}</small>;
-    const showHelper = this.errors.length === 0 && !showRequired && this.helperText;
     const containerClasses = {
       disabled: this.disabled,
-      invalid: this.errors.length > 0 || showRequired,
+      invalid: this.errors.length > 0 || (this.isTouched && this.required && ((this.value ?? '') === '')),
       touched: this.isTouched
     };
 
@@ -367,7 +364,7 @@ export class JeInput {
           </div>
         </div>
 
-        {showHelper && helper}
+        {this.helperText && <small class="helper">{this.helperText}</small>}
 
         {this.dropdown && <je-popover exportparts='content' backdropDismiss={false} ref={el => this.popoverEl = el}>
           <slot name='dropdown'></slot>
