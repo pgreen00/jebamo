@@ -34,36 +34,29 @@
 </head>
 
 <body>
-  <je-page id="main-page" left-panel="open">
+  <je-page id="main-page" left-panel="minimized" right-panel="open">
     <je-toolbar style="--background-color: var(--je-primary-800); --color: var(--je-primary-100); padding-inline: var(--padding);" slot="header">
       <je-button slot="start" fill="clear" icon-only="true" color="light">
         <je-icon icon="menu"></je-icon>
       </je-button>
       <h1>Jebamo</h1>
       <je-button size="sm" onclick="handleThemeToggle()" color="light" slot="end">Toggle theme</je-button>
-      <je-button size="sm" onclick="handlePanelToggle()" color="light" slot="end">Toggle panel</je-button>
+      <je-button size="sm" onclick="handlePanelToggle('left')" color="light" slot="end">Toggle left panel</je-button>
+      <je-button size="sm" onclick="handlePanelToggle('right')" color="light" slot="end">Toggle right panel</je-button>
     </je-toolbar>
-    <div style="padding: var(--padding);" slot="left-panel">
-      <h2>Example Form</h2>
-      <je-form onsubmit="presentAlert()">
-        <je-input label="Name" placeholder="What's your name?" expand="true"></je-input>
-        <je-input required label="Password" type="password" placeholder="Type your password" expand="true"></je-input>
-        <je-input type="number" required id="customInput" label="Custom Validator" helper-text="Enter a number between 4 and 12" expand="true"></je-input>
-        <je-input id="customFormatter" name="phone" type="tel" autocomplete="phone" placeholder="Type your phone" label="Custom Formatter" expand="true">
-          <je-icon icon="phone" fill slot="end"></je-icon>
-        </je-input>
-        <je-select expand label="Day" placeholder="Select a day of the week">
-          <je-select-option>Monday</je-select-option>
-          <je-select-option>Tuesday</je-select-option>
-          <je-select-option>Wednesday</je-select-option>
-          <je-select-option>Thursday</je-select-option>
-          <je-select-option>Friday</je-select-option>
-          <je-select-option>Saturday</je-select-option>
-          <je-select-option>Sunday</je-select-option>
-        </je-select>
-        <je-button type="submit">Submit</je-button>
-      </je-form>
-      <je-alert id="formAlert"></je-alert>
+    <div style="padding: var(--padding); display: flex; flex-direction: column; gap: var(--gap-lg);" slot="left-panel">
+      <je-button icon-only expand>
+        <je-icon fill icon="home"></je-icon>
+      </je-button>
+      <je-button icon-only expand>
+        <je-icon fill icon="inbox"></je-icon>
+      </je-button>
+      <je-button icon-only expand>
+        <je-icon fill icon="apps"></je-icon>
+      </je-button>
+      <je-button icon-only expand>
+        <je-icon fill icon="favorite"></je-icon>
+      </je-button>
     </div>
     <div slot="body" style="padding: var(--padding-lg);">
       <h2>Buttons</h2>
@@ -147,6 +140,28 @@
       <je-loading></je-loading>
       <je-skeleton-text style="height: 40px; width: 300px;"></je-skeleton-text>
     </div>
+    <div style="padding: var(--padding);" slot="right-panel">
+      <h2>Example Form</h2>
+      <je-form id="form">
+        <je-input label="Name" placeholder="What's your name?" expand="true"></je-input>
+        <je-select native expand label="Day" placeholder="Select a day of the week">
+          <je-select-option>Monday</je-select-option>
+          <je-select-option>Tuesday</je-select-option>
+          <je-select-option>Wednesday</je-select-option>
+          <je-select-option>Thursday</je-select-option>
+          <je-select-option>Friday</je-select-option>
+          <je-select-option>Saturday</je-select-option>
+          <je-select-option>Sunday</je-select-option>
+        </je-select>
+        <je-input required label="Password" type="password" placeholder="Type your password" expand="true"></je-input>
+        <je-input type="number" required id="customInput" label="Custom Validator" helper-text="Enter a number between 4 and 12" expand="true"></je-input>
+        <je-input id="customFormatter" name="phone" type="tel" autocomplete="phone" placeholder="Type your phone" label="Custom Formatter" expand="true">
+          <je-icon icon="phone" fill slot="end"></je-icon>
+        </je-input>
+        <je-button type="submit">Submit</je-button>
+      </je-form>
+      <je-alert id="formAlert"></je-alert>
+    </div>
     <div style="background-color: var(--je-primary-800); color: var(--je-primary-100); padding-inline: var(--padding);" slot="footer">
       <h1>Footer</h1>
     </div>
@@ -166,6 +181,7 @@
         return errors;
       }
     ]
+    customInputEl.addEventListener('valueChange', (ev) => console.log(ev.detail, typeof ev.detail))
 
     const customFormatterEl = document.getElementById('customFormatter');
     customFormatterEl.format = input => {
@@ -206,10 +222,15 @@
       return formattedNumber;
     };
 
-    function handlePanelToggle() {
+    function handlePanelToggle(side) {
       const el = document.getElementById('main-page')
-      const panelState = el.leftPanel;
-      el.leftPanel = panelState === 'open' ? 'closed' : 'open';
+      if (side == 'left') {
+        const panelState = el.leftPanel;
+        el.leftPanel = panelState === 'open' ? 'minimized' : 'open';
+      } else {
+        const panelState = el.rightPanel;
+        el.rightPanel = panelState === 'open' ? 'closed' : 'open';
+      }
     }
 
     function handleThemeToggle() {
@@ -218,7 +239,8 @@
       el.theme = themeState == 'light' ? 'dark' : 'light'
     }
 
-    function presentAlert() {
+    const formEl = document.getElementById('form');
+    formEl.addEventListener('submit', ev => {
       var dialogElement = document.getElementById("formAlert");
       dialogElement.header = "Form Submitted!";
       dialogElement.message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
@@ -227,7 +249,11 @@
         { text: 'Ok', fill: 'solid', handler: () => console.log('clicked') }
       ]
       dialogElement.present();
-    }
+    })
+    formEl.onformdata = e => {
+      const data = e.formData;
+      console.log(data.get('password'))
+    };
   </script>
 </body>
 

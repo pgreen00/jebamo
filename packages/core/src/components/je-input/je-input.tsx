@@ -1,4 +1,4 @@
-import { Component, Host, Prop, h, Element, Event, AttachInternals, EventEmitter, Method, State, Watch } from '@stencil/core';
+import { Component, Host, Prop, h, Element, Event, AttachInternals, EventEmitter, Method, State, Watch, Listen } from '@stencil/core';
 import { debounceEvent } from '../../utils/utils';
 
 export type FormatterFn = (newValue: string, oldValue?: string, ev?: InputEvent) => string;
@@ -14,18 +14,16 @@ export type AsyncValidationFn = (value: string) => Promise<string[]>;
   formAssociated: true
 })
 export class JeInput {
-  private popoverEl!: HTMLJePopoverElement;
+  @Element() hostEl!: HTMLJeInputElement;
+  @AttachInternals() internals: ElementInternals;
+  @State() isTouched = false;
+  private dropdownActive = false;
   private containerEl!: HTMLDivElement;
+  private popoverEl!: HTMLJePopoverElement;
   private inputEl!: HTMLInputElement;
   private showPassword = false;
   private errors: string[] = [];
   private originalValue = '';
-
-  @Element() hostEl!: HTMLJeInputElement;
-  @AttachInternals() internals: ElementInternals;
-
-  @State() isTouched = false;
-  @State() open = false;
 
   /**
    * Text above the control
@@ -90,7 +88,7 @@ export class JeInput {
   /**
    * Name used in form, defaults to label value if not provided
    */
-  @Prop({ reflect: true }) name?: string;
+  @Prop({ reflect: true, mutable: true }) name?: string;
 
   /**
    * Passed to native input
@@ -168,13 +166,18 @@ export class JeInput {
   @Prop({ reflect: true }) expand?: boolean;
 
   /**
+   * Whether or not the dropdown should dismiss itself on click
+   */
+  @Prop({ reflect: true }) dismissOnClick?: boolean;
+
+  /**
    * Emits as the user types
    */
-  @Event({ bubbles: false }) valueChange: EventEmitter<any>;
+  @Event({ bubbles: false }) valueChange: EventEmitter<string>;
 
   componentWillLoad() {
     if (this.label && !this.name) {
-      this.hostEl.setAttribute('name', this.label)
+      this.name = this.label.replace(' ', '-').toLowerCase();
     }
   }
 
@@ -202,6 +205,19 @@ export class JeInput {
     }
   }
 
+  @Listen('focus')
+  handleFocus() {
+    this.containerEl.classList.add('focus');
+  }
+
+  @Listen('blur')
+  handleBlur() {
+    this.isTouched = true;
+    if (!this.dropdownActive) {
+      this.containerEl.classList.remove('focus');
+    }
+  }
+
   @Watch('validators')
   async validatorsChanged() {
     this.errors = [];
@@ -225,6 +241,16 @@ export class JeInput {
       this.inputEl.value = this.value;
     }
     this.validatorsChanged();
+  }
+
+  @Method()
+  getInputElement() {
+    return Promise.resolve(this.inputEl);
+  }
+
+  @Method()
+  dismissDropdown(role = 'manualDismiss') {
+    return this.popoverEl.dismiss(role);
   }
 
   @Method()
@@ -257,29 +283,11 @@ export class JeInput {
     }
   }
 
-  private handleInput = async (ev: InputEvent) => {
+  private handleInput = (ev: InputEvent) => {
     const input = ev.target as HTMLInputElement | null;
     if (input) {
       this.value = input.value;
       this.valueChange.emit(this.value);
-    }
-  }
-
-  private handleFocus = async () => {
-    this.containerEl.classList.add('focus');
-    if (this.dropdown) {
-      this.open = true;
-      this.hostEl.style.setProperty('--content-width', `${this.hostEl.clientWidth}px`);
-      await this.popoverEl.present('element', this.hostEl);
-    }
-  }
-
-  private handleBlur = () => {
-    this.isTouched = true;
-    this.containerEl.classList.remove('focus');
-    if (this.open) {
-      this.popoverEl.dismiss('inputBlur');
-      this.open = false;
     }
   }
 
@@ -295,6 +303,19 @@ export class JeInput {
     } else {
       this.internals.setValidity({});
     }
+  }
+
+  private handleContainerClick = async () => {
+    if (this.dropdown) {
+      this.dropdownActive = true;
+      this.hostEl.style.setProperty('--content-width', `${this.hostEl.clientWidth}px`);
+      await this.popoverEl.present('element', this.hostEl);
+    }
+  }
+
+  private handleDismiss = () => {
+    this.dropdownActive = false;
+    this.containerEl.classList.remove('focus');
   }
 
   render() {
@@ -313,7 +334,7 @@ export class JeInput {
 
     return (
       <Host>
-        <div ref={el => this.containerEl = el} part='outer-container' class={containerClasses}>
+        <div ref={el => this.containerEl = el} part='outer-container' onClick={this.handleContainerClick} class={containerClasses}>
           <div part='start-container'>
             <slot name='start'/>
             {this.label && label}
@@ -323,8 +344,6 @@ export class JeInput {
             ref={el => this.inputEl = el}
             onInputCapture={this.formatInput}
             onInput={this.handleInput}
-            onFocus={this.handleFocus}
-            onBlur={this.handleBlur}
             disabled={this.disabled}
             autoCapitalize={this.autoCapitalize}
             autoComplete={this.autoComplete}
@@ -355,7 +374,7 @@ export class JeInput {
 
         {this.helperText && <small class="helper">{this.helperText}</small>}
 
-        {this.dropdown && <je-popover exportparts='content' backdropDismiss={false} ref={el => this.popoverEl = el}>
+        {this.dropdown && <je-popover ref={el => this.popoverEl = el} exportparts='content' dismissOnClick={this.dismissOnClick} onDidDismiss={this.handleDismiss}>
           <slot name='dropdown'></slot>
         </je-popover>}
       </Host>

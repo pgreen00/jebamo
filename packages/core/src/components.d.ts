@@ -171,6 +171,11 @@ export namespace Components {
           * Renders input as disabled and prevents changes
          */
         "disabled": boolean;
+        "dismissDropdown": (role?: string) => Promise<void>;
+        /**
+          * Whether or not the dropdown should dismiss itself on click
+         */
+        "dismissOnClick"?: boolean;
         /**
           * Whether or not to render a dropdown when input is focused
          */
@@ -183,6 +188,7 @@ export namespace Components {
           * Formatter function that gets applied as the user types
          */
         "format"?: FormatterFn | AsyncFormatterFn;
+        "getInputElement": () => Promise<HTMLInputElement>;
         "hasError": () => Promise<boolean>;
         /**
           * Helper text directly below the control
@@ -341,6 +347,7 @@ export namespace Components {
     interface JeSelect {
         "expand"?: boolean;
         "label"?: string;
+        "native"?: boolean;
         "placeholder"?: string;
         "value"?: string;
     }
@@ -462,7 +469,7 @@ declare global {
         new (): HTMLJeInfiniteElement;
     };
     interface HTMLJeInputElementEventMap {
-        "valueChange": any;
+        "valueChange": string;
     }
     interface HTMLJeInputElement extends Components.JeInput, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeInputElementEventMap>(type: K, listener: (this: HTMLJeInputElement, ev: JeInputCustomEvent<HTMLJeInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -798,6 +805,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Whether or not the dropdown should dismiss itself on click
+         */
+        "dismissOnClick"?: boolean;
+        /**
           * Whether or not to render a dropdown when input is focused
          */
         "dropdown"?: boolean;
@@ -852,7 +863,7 @@ declare namespace LocalJSX {
         /**
           * Emits as the user types
          */
-        "onValueChange"?: (event: JeInputCustomEvent<any>) => void;
+        "onValueChange"?: (event: JeInputCustomEvent<string>) => void;
         /**
           * Passed to native input
          */
@@ -972,6 +983,7 @@ declare namespace LocalJSX {
     interface JeSelect {
         "expand"?: boolean;
         "label"?: string;
+        "native"?: boolean;
         "placeholder"?: string;
         "value"?: string;
     }
