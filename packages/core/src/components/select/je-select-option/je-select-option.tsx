@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-select-option',
@@ -6,11 +6,14 @@ import { Component, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class JeSelectOption {
+  @Prop() value: string;
+  @Prop({ reflect: true }) selected?: boolean;
+
   render() {
     return (
-      <Host>
+      <span part='container'>
         <slot></slot>
-      </Host>
+      </span>
     );
   }
 }

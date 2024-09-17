@@ -1,4 +1,4 @@
-import { Component, Host, Prop, h, Element, forceUpdate } from '@stencil/core';
+import { Component, Host, Prop, h, Element, forceUpdate, State, Listen } from '@stencil/core';
 
 @Component({
   tag: 'je-select',
@@ -7,11 +7,17 @@ import { Component, Host, Prop, h, Element, forceUpdate } from '@stencil/core';
 })
 export class JeSelect {
   @Element() el: HTMLElement;
+  @State() open = false;
   @Prop() label?: string;
   @Prop() placeholder?: string;
   @Prop() value?: string;
   @Prop({ reflect: true }) expand?: boolean;
   @Prop({ reflect: true }) native?: boolean;
+
+  @Listen('click')
+  handleClick() {
+    this.open = !this.open;
+  }
 
   render() {
     if (this.native) {
@@ -33,6 +39,7 @@ export class JeSelect {
 
             <div part='end-container'>
               <slot name='end' />
+              <je-icon icon='expand_more' />
             </div>
           </div>
           <div style={{ display: 'none' }}>
@@ -51,8 +58,10 @@ export class JeSelect {
             noTyping={true}
             value={this.value}
             expand={this.expand}
+            dismissOnClick={true}
           >
             <slot slot='dropdown'></slot>
+            <je-icon slot='end' icon='expand_more' class={{ open: this.open }} />
           </je-input>
         </Host>
       );

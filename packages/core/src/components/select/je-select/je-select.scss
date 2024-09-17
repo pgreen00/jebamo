@@ -6,6 +6,10 @@
   --border-color: transparent;
 }
 
+je-input::part(native-input) {
+  cursor: pointer;
+}
+
 :host([expand]) {
   width: 100%;
 }
@@ -45,9 +49,10 @@ label {
 }
 
 select {
-  appearance: none; /* Removes default styling */
-  -webkit-appearance: none; /* For WebKit browsers */
-  -moz-appearance: none; /* For Firefox */
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   font-family: var(--font-family, inherit);
   font-size: var(--font-size, 1rem);
   background: transparent;
@@ -70,4 +75,12 @@ select {
   &:focus {
     outline: 0;
   }
+}
+
+je-icon {
+  transition: transform 0.3s ease;
+}
+
+je-icon.open {
+  transform: rotate(180deg);
 }

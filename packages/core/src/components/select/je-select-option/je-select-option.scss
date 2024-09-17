@@ -1,3 +1,26 @@
 :host {
   display: block;
+  width: 100%;
+}
+
+span[part='container'] {
+  display: block;
+  user-select: none;
+  cursor: pointer;
+  width: 100%;
+  padding: var(--padding-sm, 10px);
+  background-color: transparent;
+  color: inherit;
+  transition: background-color 200ms ease-in-out;
+  &:hover {
+    background-color: var(--je-primary-200);
+  }
+}
+
+:host([selected]) span[part='container'] {
+  color: var(--je-primary-100);
+  background-color: var(--je-primary-500);
+  &:hover {
+    background-color: var(--je-primary-600);
+  }
 }

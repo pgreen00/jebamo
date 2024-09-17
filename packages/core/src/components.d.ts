@@ -352,6 +352,8 @@ export namespace Components {
         "value"?: string;
     }
     interface JeSelectOption {
+        "selected"?: boolean;
+        "value": string;
     }
     interface JeSkeletonText {
         /**
@@ -988,6 +990,8 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface JeSelectOption {
+        "selected"?: boolean;
+        "value"?: string;
     }
     interface JeSkeletonText {
         /**

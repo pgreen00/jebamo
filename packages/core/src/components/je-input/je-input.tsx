@@ -319,7 +319,7 @@ export class JeInput {
   }
 
   render() {
-    const requiredIcon = <je-icon style={{ fontSize: '10px', color: 'var(--je-error-500)' }} icon="asterisk"></je-icon>;
+    const requiredIcon = <je-icon style={{ fontSize: '10px', color: 'var(--je-error-500)' }} icon="asterisk" />;
     const label = <label part='label' style={{ display: 'flex' }}>{this.label} {this.required && requiredIcon}</label>;
     const invalid = this.errors.length > 0 || (this.required && ((this.value ?? '') === ''));
     const containerClasses = {
@@ -367,8 +367,8 @@ export class JeInput {
 
           <div part='end-container'>
             <slot name='end'/>
-            {!this.showPassword && this.type == 'password' && <je-icon icon="visibility" fill onClick={this.togglePassword}></je-icon>}
-            {this.showPassword && this.type == 'text' && <je-icon icon="visibility_off" fill onClick={this.togglePassword}></je-icon>}
+            {!this.showPassword && this.type == 'password' && <je-icon icon="visibility" fill onClick={this.togglePassword} />}
+            {this.showPassword && this.type == 'text' && <je-icon icon="visibility_off" fill onClick={this.togglePassword} />}
           </div>
         </div>
 
