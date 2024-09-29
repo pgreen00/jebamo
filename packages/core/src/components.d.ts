@@ -118,6 +118,8 @@ export namespace Components {
     }
     interface JeColumnGroup {
     }
+    interface JeFiles {
+    }
     interface JeForm {
         /**
           * Removes the default gap between elements passed in
@@ -288,6 +290,10 @@ export namespace Components {
           * The id of the element that will present the modal on click. If not provided, you will have to manually present the modal using openModal().
          */
         "trigger"?: string;
+    }
+    interface JeMultiselect {
+    }
+    interface JeMultiselectOption {
     }
     interface JePage {
         "bottomDrawer": DrawerState;
@@ -461,6 +467,12 @@ declare global {
         prototype: HTMLJeColumnGroupElement;
         new (): HTMLJeColumnGroupElement;
     };
+    interface HTMLJeFilesElement extends Components.JeFiles, HTMLStencilElement {
+    }
+    var HTMLJeFilesElement: {
+        prototype: HTMLJeFilesElement;
+        new (): HTMLJeFilesElement;
+    };
     interface HTMLJeFormElement extends Components.JeForm, HTMLStencilElement {
     }
     var HTMLJeFormElement: {
@@ -519,6 +531,18 @@ declare global {
     var HTMLJeModalElement: {
         prototype: HTMLJeModalElement;
         new (): HTMLJeModalElement;
+    };
+    interface HTMLJeMultiselectElement extends Components.JeMultiselect, HTMLStencilElement {
+    }
+    var HTMLJeMultiselectElement: {
+        prototype: HTMLJeMultiselectElement;
+        new (): HTMLJeMultiselectElement;
+    };
+    interface HTMLJeMultiselectOptionElement extends Components.JeMultiselectOption, HTMLStencilElement {
+    }
+    var HTMLJeMultiselectOptionElement: {
+        prototype: HTMLJeMultiselectOptionElement;
+        new (): HTMLJeMultiselectOptionElement;
     };
     interface HTMLJePageElement extends Components.JePage, HTMLStencilElement {
     }
@@ -638,12 +662,15 @@ declare global {
         "je-checkbox-option": HTMLJeCheckboxOptionElement;
         "je-column": HTMLJeColumnElement;
         "je-column-group": HTMLJeColumnGroupElement;
+        "je-files": HTMLJeFilesElement;
         "je-form": HTMLJeFormElement;
         "je-icon": HTMLJeIconElement;
         "je-infinite": HTMLJeInfiniteElement;
         "je-input": HTMLJeInputElement;
         "je-loading": HTMLJeLoadingElement;
         "je-modal": HTMLJeModalElement;
+        "je-multiselect": HTMLJeMultiselectElement;
+        "je-multiselect-option": HTMLJeMultiselectOptionElement;
         "je-page": HTMLJePageElement;
         "je-pill": HTMLJePillElement;
         "je-popover": HTMLJePopoverElement;
@@ -772,6 +799,8 @@ declare namespace LocalJSX {
         "sizeXs"?: string;
     }
     interface JeColumnGroup {
+    }
+    interface JeFiles {
     }
     interface JeForm {
         /**
@@ -949,6 +978,10 @@ declare namespace LocalJSX {
          */
         "trigger"?: string;
     }
+    interface JeMultiselect {
+    }
+    interface JeMultiselectOption {
+    }
     interface JePage {
         "bottomDrawer"?: DrawerState;
         "leftDrawer"?: DrawerState;
@@ -1054,12 +1087,15 @@ declare namespace LocalJSX {
         "je-checkbox-option": JeCheckboxOption;
         "je-column": JeColumn;
         "je-column-group": JeColumnGroup;
+        "je-files": JeFiles;
         "je-form": JeForm;
         "je-icon": JeIcon;
         "je-infinite": JeInfinite;
         "je-input": JeInput;
         "je-loading": JeLoading;
         "je-modal": JeModal;
+        "je-multiselect": JeMultiselect;
+        "je-multiselect-option": JeMultiselectOption;
         "je-page": JePage;
         "je-pill": JePill;
         "je-popover": JePopover;
@@ -1088,12 +1124,15 @@ declare module "@stencil/core" {
             "je-checkbox-option": LocalJSX.JeCheckboxOption & JSXBase.HTMLAttributes<HTMLJeCheckboxOptionElement>;
             "je-column": LocalJSX.JeColumn & JSXBase.HTMLAttributes<HTMLJeColumnElement>;
             "je-column-group": LocalJSX.JeColumnGroup & JSXBase.HTMLAttributes<HTMLJeColumnGroupElement>;
+            "je-files": LocalJSX.JeFiles & JSXBase.HTMLAttributes<HTMLJeFilesElement>;
             "je-form": LocalJSX.JeForm & JSXBase.HTMLAttributes<HTMLJeFormElement>;
             "je-icon": LocalJSX.JeIcon & JSXBase.HTMLAttributes<HTMLJeIconElement>;
             "je-infinite": LocalJSX.JeInfinite & JSXBase.HTMLAttributes<HTMLJeInfiniteElement>;
             "je-input": LocalJSX.JeInput & JSXBase.HTMLAttributes<HTMLJeInputElement>;
             "je-loading": LocalJSX.JeLoading & JSXBase.HTMLAttributes<HTMLJeLoadingElement>;
             "je-modal": LocalJSX.JeModal & JSXBase.HTMLAttributes<HTMLJeModalElement>;
+            "je-multiselect": LocalJSX.JeMultiselect & JSXBase.HTMLAttributes<HTMLJeMultiselectElement>;
+            "je-multiselect-option": LocalJSX.JeMultiselectOption & JSXBase.HTMLAttributes<HTMLJeMultiselectOptionElement>;
             "je-page": LocalJSX.JePage & JSXBase.HTMLAttributes<HTMLJePageElement>;
             "je-pill": LocalJSX.JePill & JSXBase.HTMLAttributes<HTMLJePillElement>;
             "je-popover": LocalJSX.JePopover & JSXBase.HTMLAttributes<HTMLJePopoverElement>;
