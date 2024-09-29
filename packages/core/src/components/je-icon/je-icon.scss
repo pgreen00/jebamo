@@ -2,21 +2,21 @@
   /**
    * @prop --fill: 1 or 0, true or false
    * @prop --weight: icon weight
-   * @prop --grade: Clarity?
-   * @prop --size: icon size
+   * @prop --grade: Emphasis?
+   * @prop --optical: Stroke weight
    */
   --fill: 0;
   --weight: 400;
   --grade: 0;
-  --size: 24;
+  --optical: 24;
 
   display: block;
   cursor: default;
-  font-family: 'Material Symbols Outlined';
+  font-family: 'Material Symbols Rounded';
   font-weight: normal;
   font-style: normal;
   font-size: 24px;
-  line-height: 1;
+  line-height: unset;
   letter-spacing: normal;
   text-transform: none;
   user-select: none;
@@ -25,7 +25,7 @@
   word-wrap: normal;
   direction: ltr;
   -webkit-font-smoothing: antialiased;
-  font-variation-settings: 'FILL' var(--fill), 'wght' var(--weight), 'GRAD' var(--grade), 'opsz' var(--size);
+  font-variation-settings: 'FILL' var(--fill), 'wght' var(--weight), 'GRAD' var(--grade), 'opsz' var(--optical);
 }
 
 :host([fill]) {
@@ -33,21 +33,29 @@
 }
 
 :host([size=sm]) {
-  --size: 20;
+  --optical: 20;
   font-size: 20px;
 }
 
 :host([size=md]) {
-  --size: 24;
+  --optical: 24;
   font-size: 24px;
 }
 
 :host([size=lg]) {
-  --size: 40;
+  --optical: 40;
   font-size: 40px;
 }
 
 :host([size=xl]) {
-  --size: 48;
+  --optical: 48;
   font-size: 48px;
+}
+
+:host([grade=low]) {
+  --grade: -25;
+}
+
+:host([grade=high]) {
+  --grade: 200;
 }

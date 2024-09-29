@@ -1,70 +1,167 @@
-import { Component, Host, Prop, h, Element, forceUpdate, State, Listen } from '@stencil/core';
+import { Component, Host, Prop, h, Element, State, Listen, Watch } from '@stencil/core';
 
 @Component({
   tag: 'je-select',
   styleUrl: 'je-select.scss',
   shadow: true,
+  formAssociated: true
 })
 export class JeSelect {
   @Element() el: HTMLElement;
+  private inputEl!: HTMLJeInputElement;
+  private originalValue?: string;
   @State() open = false;
   @Prop() label?: string;
   @Prop() placeholder?: string;
-  @Prop() value?: string;
-  @Prop({ reflect: true }) expand?: boolean;
-  @Prop({ reflect: true }) native?: boolean;
+  @Prop({ mutable: true }) value?: string;
+  @Prop() expand?: boolean;
+  @Prop() required?: boolean;
 
-  @Listen('click')
-  handleClick() {
-    this.open = !this.open;
+  componentDidLoad() {
+    this.originalValue = this.value;
+  }
+
+  componentWillLoad() {
+    if (this.label) {
+      this.el.setAttribute('name', this.label);
+    }
+  }
+
+  formResetCallback() {
+    this.value = this.originalValue;
+    const options = Array.from(this.el.querySelectorAll('je-select-option'));
+    if (!options.some(t => t.value === this.value)) {
+      this.inputEl.value = '';
+    }
+  }
+
+  @Listen('didPresent')
+  handlePopoverPresent() {
+    this.open = true;
+  }
+
+  @Listen('didDismiss')
+  handlePopoverDismiss() {
+    this.open = false;
+    const options = this.el.querySelectorAll('je-select-option');
+    options.forEach(option => option.classList.remove('focus'));
+  }
+
+  @Listen('optionSelected')
+  handleOptionSelected(event: CustomEvent<string>) {
+    this.value = event.detail;
+  }
+
+  @Watch('value')
+  handleValueChange() {
+    const options = this.el.querySelectorAll('je-select-option');
+    options.forEach(option => {
+      if (option.value === this.value) {
+        option.selected = true;
+        this.inputEl.value = option.textContent || option.value;
+      } else {
+        option.selected = false;
+      }
+    });
+  }
+
+  private focusOption(option: HTMLJeSelectOptionElement) {
+    option.classList.add('focus')
+  }
+
+  private blurOption(option: HTMLJeSelectOptionElement) {
+    option.classList.remove('focus')
+  }
+
+  private hasFocus(option: HTMLJeSelectOptionElement) {
+    return option.classList.contains('focus');
+  }
+
+  @Listen('keydown', { capture: true })
+  handleKeyDown(event: KeyboardEvent) {
+    if (this.open || (event.key !== 'Tab' && event.key !== 'Enter')) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    const options = Array.from(this.el.querySelectorAll('je-select-option'));
+    if (event.key == 'Enter' && this.open) {
+      options.forEach(option => {
+        if (this.hasFocus(option)) {
+          this.value = option.value;
+        }
+      });
+      this.inputEl.dismissDropdown();
+    } else if (event.key == 'Escape') {
+      this.inputEl.dismissDropdown()
+    } else if ((event.key == 'ArrowDown' || event.key == 'ArrowUp') && !this.open) {
+      (this.inputEl.shadowRoot.querySelector("[part='outer-container']") as HTMLElement).click();
+    } else if ((event.key == 'ArrowDown' || event.key == 'ArrowUp') && this.open) {
+      if (!options.some(t => this.hasFocus(t))) {
+        const indexToFocus = options.findIndex(t => t.selected)
+        if (indexToFocus > -1) {
+          this.focusOption(options[indexToFocus]);
+        } else {
+          this.focusOption(options[0]);
+        }
+      } else {
+        if (event.key == 'ArrowUp') {
+          options.forEach(option => {
+            if (this.hasFocus(option)) {
+              const prevOption = option.previousElementSibling as HTMLJeSelectOptionElement;
+              if (prevOption) {
+                this.blurOption(option);
+                this.focusOption(prevOption);
+              }
+            }
+          });
+        } else {
+          const optionToFocus = options.find(t => this.hasFocus(t))?.nextElementSibling;
+          if (optionToFocus) {
+            this.blurOption(options.find(t => this.hasFocus(t)));
+            this.focusOption(optionToFocus as HTMLJeSelectOptionElement);
+          }
+        }
+      }
+    } else if (event.key.length == 1) {
+      const currentFocusedOption = options.find(t => this.hasFocus(t));
+      const optionsWithKey = options.filter(t => t.textContent.toLowerCase().startsWith(event.key.toLowerCase()))
+      if (optionsWithKey.length) {
+        const currentFocuedIndex = optionsWithKey.findIndex(t => this.hasFocus(t));
+        if (currentFocuedIndex > -1) {
+          if (currentFocuedIndex < optionsWithKey.length - 1) {
+            this.blurOption(optionsWithKey[currentFocuedIndex]);
+            this.focusOption(optionsWithKey[currentFocuedIndex + 1]);
+          } else {
+            this.blurOption(optionsWithKey[currentFocuedIndex]);
+            this.focusOption(optionsWithKey[0]);
+          }
+        } else {
+          if (currentFocusedOption) this.blurOption(currentFocusedOption);
+          this.focusOption(optionsWithKey[0]);
+        }
+      } else if (currentFocusedOption) {
+        this.blurOption(currentFocusedOption);
+      }
+    }
   }
 
   render() {
-    if (this.native) {
-      const slot = this.el.shadowRoot.querySelector('slot:not([name])') as HTMLSlotElement;
-      const assignedNodes = slot?.assignedNodes({ flatten: true }).filter(t => t.nodeName === 'JE-SELECT-OPTION');
-      return (
-        <Host>
-          <div part='outer-container'>
-            <div part='start-container'>
-              <slot name='start' />
-              {this.label && <label>{this.label}</label>}
-            </div>
-
-            <select part='native-select'>
-              {assignedNodes?.length && assignedNodes.map(node => <option>
-                {node.textContent}
-              </option>)}
-            </select>
-
-            <div part='end-container'>
-              <slot name='end' />
-              <je-icon icon='expand_more' />
-            </div>
-          </div>
-          <div style={{ display: 'none' }}>
-            <slot onSlotchange={() => forceUpdate(this.el)} />
-          </div>
-        </Host>
-      );
-    } else {
-      return (
-        <Host>
-          <je-input
-            exportparts='outer-container, start-container, end-container, native-input, content'
-            dropdown={true}
-            label={this.label}
-            placeholder={this.placeholder}
-            noTyping={true}
-            value={this.value}
-            expand={this.expand}
-            dismissOnClick={true}
-          >
-            <slot slot='dropdown'></slot>
-            <je-icon slot='end' icon='expand_more' class={{ open: this.open }} />
-          </je-input>
-        </Host>
-      );
-    }
+    return (
+      <Host>
+        <je-input ref={el => this.inputEl = el}
+          exportparts='outer-container, start-container, end-container, native-input, content'
+          dropdown={true}
+          label={this.label}
+          placeholder={this.placeholder}
+          noTyping={true}
+          expand={this.expand}
+          dismissOnClick={true}
+          required={this.required}
+        >
+          <slot onSlotchange={() => this.handleValueChange()} slot='dropdown' />
+          <je-icon slot='end' icon='expand_more' class={{ open: this.open }} />
+        </je-input>
+      </Host>
+    );
   }
 }

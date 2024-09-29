@@ -12,10 +12,10 @@
   @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
   @font-face {
-    font-family: 'Material Symbols Outlined';
+    font-family: 'Material Symbols Rounded';
     font-style: normal;
     font-weight: 100 700;
-    src: url(https://fonts.gstatic.com/s/materialsymbolsoutlined/v166/kJEhBvYX7BgnkSrUwT8OhrdQw4oELdPIeeII9v6oFsI.woff2) format('woff2');
+    src: url(https://fonts.gstatic.com/s/materialsymbolsrounded/v206/sykg-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190FjzaqkNCeE.woff2) format('woff2');
   }
 
   je-page {
@@ -145,13 +145,13 @@
       <je-form id="form">
         <je-input label="Name" placeholder="What's your name?" expand="true"></je-input>
         <je-select expand label="Day" placeholder="Select a day of the week">
-          <je-select-option>Monday</je-select-option>
-          <je-select-option>Tuesday</je-select-option>
-          <je-select-option>Wednesday</je-select-option>
-          <je-select-option>Thursday</je-select-option>
-          <je-select-option>Friday</je-select-option>
-          <je-select-option>Saturday</je-select-option>
-          <je-select-option>Sunday</je-select-option>
+          <je-select-option value="1">Monday</je-select-option>
+          <je-select-option value="2">Tuesday</je-select-option>
+          <je-select-option value="3">Wednesday</je-select-option>
+          <je-select-option value="4">Thursday</je-select-option>
+          <je-select-option value="5">Friday</je-select-option>
+          <je-select-option value="6">Saturday</je-select-option>
+          <je-select-option value="7">Sunday</je-select-option>
         </je-select>
         <je-input required label="Password" type="password" placeholder="Type your password" expand="true"></je-input>
         <je-input type="number" required id="customInput" label="Custom Validator" helper-text="Enter a number between 4 and 12" expand="true"></je-input>
@@ -159,6 +159,7 @@
           <je-icon icon="phone" fill slot="end"></je-icon>
         </je-input>
         <je-button type="submit">Submit</je-button>
+        <je-button type="reset">Reset</je-button>
       </je-form>
       <je-alert id="formAlert"></je-alert>
     </div>

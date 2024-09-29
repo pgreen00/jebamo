@@ -21,7 +21,7 @@ export class JeForm {
     }
   }
 
-  @Listen('keydown', { capture: true })
+  @Listen('keydown')
   handleKeyup(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       const submitButton = this.el.querySelector('button[type=submit]') as HTMLButtonElement | null;

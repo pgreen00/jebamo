@@ -196,7 +196,7 @@ export class JeInput {
 
   async formResetCallback() {
     this.isTouched = false;
-    if (this.value !== this.originalValue && this.hostEl.parentElement.tagName.toLowerCase() !== 'je-select') {
+    if (this.value !== this.originalValue) {
       if (this.format) {
         this.value = await this.format(this.originalValue);
       } else {

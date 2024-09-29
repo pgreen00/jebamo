@@ -1,6 +1,7 @@
 import { Component, Element, Host, Prop, h } from '@stencil/core';
 
 export type PanelState = 'open' | 'closed' | 'minimized';
+export type DrawerState = 'open' | 'closed';
 
 @Component({
   tag: 'je-page',
@@ -11,6 +12,9 @@ export class JePage {
   @Element() el!: HTMLElement;
   @Prop({ reflect: true }) leftPanel: PanelState = 'closed';
   @Prop({ reflect: true }) rightPanel: PanelState = 'closed';
+  @Prop({ reflect: true }) leftDrawer: DrawerState = 'closed';
+  @Prop({ reflect: true }) rightDrawer: DrawerState = 'closed';
+  @Prop({ reflect: true }) bottomDrawer: DrawerState = 'closed';
   @Prop({ reflect: true }) theme: 'light' | 'dark' | 'auto' = 'light';
 
   render() {
@@ -27,6 +31,9 @@ export class JePage {
         </div>
         <div part='overlay-container'>
           <slot name='overlay' />
+          <slot name='left-drawer' />
+          <slot name='bottom-drawer' />
+          <slot name='right-drawer' />
         </div>
       </Host>
     );

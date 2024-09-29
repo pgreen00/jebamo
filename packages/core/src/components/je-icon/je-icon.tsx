@@ -18,16 +18,12 @@ export class JeIcon {
   @Prop({ reflect: true }) fill?: boolean;
 
   /** Icon grade */
-  @Prop() grade?: number;
+  @Prop({ reflect: true }) grade?: 'high' | 'low';
 
   /** Icon weight */
   @Prop() weight?: number;
 
   componentDidLoad() {
-    if (this.grade) {
-      this.el.style.setProperty('--grade', this.grade.toString());
-    }
-
     if (this.weight) {
       this.el.style.setProperty('--weight', this.weight.toString());
     }

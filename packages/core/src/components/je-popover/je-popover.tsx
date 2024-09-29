@@ -65,13 +65,19 @@ export class JePopover {
   @Prop() triggerAction: 'click' | 'hover' | 'context-menu' = 'click';
 
   /** Emits whenever the popover has presented. Does not emit any data */
-  @Event({ bubbles: false }) didPresent: EventEmitter;
+  @Event({ composed: true }) didPresent: EventEmitter;
 
   /**
    * Emits whenever the popover has finished dismissing. Emits the role
    * and optional data object passed to the dismiss() method.
    */
-  @Event({ bubbles: false }) didDismiss: EventEmitter<{ role?: string, data?: any }>;
+  @Event({ composed: true }) didDismiss: EventEmitter<{ role?: string, data?: any }>;
+
+  /** Emits before the popover starts presenting itself. Does not emit any data */
+  @Event({ composed: true }) willPresent: EventEmitter;
+
+  /** Emits before the popover starts dismissing itself. Does not emit any data */
+  @Event({ composed: true }) wilDismiss: EventEmitter;
 
   componentDidLoad() {
     this.pagEl = this.el.closest('je-page') as HTMLElement;

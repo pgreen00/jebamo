@@ -3,23 +3,21 @@
   width: fit-content;
 
   /**
-   * @prop --min-height: Minimum height
+   * @prop --height: Fixed height
    * @prop --width: Optional fixed width
-   * @prop --min-width: Optional fixed width
-   * @prop --max-width: Optional fixed width
-   * @prop --font-size: Optional fixed width
-   * @prop --inner-padding: Optional fixed width
+   * @prop --min-width: Minimum width
+   * @prop --font-size: Font size
+   * @prop --inline-padding: Inner inline padding
    * @prop --color: Text color
    * @prop --background: Default background color
    * @prop --hover-background: Hovered background color
    * @prop --active-background: Pressed background color
    */
-  --min-height: 40px;
+  --height: 40px;
   --width: auto;
   --min-width: 80px;
-  --max-width: 150px;
   --font-size: 14px;
-  --inner-padding: 9px 12px;
+  --inline-padding: 12px;
   --color: var(--je-primary-100, buttontext);
   --background: var(--je-primary-500, buttonface);
   --hover-background: var(--je-primary-600, buttonface);
@@ -83,29 +81,27 @@
 }
 
 :host([expand]) {
-  --width: 100%;
   width: 100%;
-  --max-width: 100%;
+  --width: 100%;
 }
 
 :host([icon-only]) {
-  --min-width: 1px;
-  --min-height: 1px;
-  --inner-padding: 3px;
+  --min-width: 2px;
+  --inline-padding: 0;
 }
 
 :host([size=sm]) {
   --min-width: 60px;
-  --min-height: 30px;
+  --height: 30px;
   --font-size: 12px;
-  --inner-padding: 6px 8px;
+  --inline-padding: 8px;
 }
 
 :host([size=lg]) {
   --min-width: 100px;
-  --min-height: 50px;
+  --height: 50px;
   --font-size: 16px;
-  --inner-padding: 15px 20px;
+  --inline-padding: 20px;
 }
 
 button {
@@ -113,13 +109,12 @@ button {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  flex-wrap: wrap;
   position: relative;
   box-sizing: border-box;
   overflow: hidden;
   border: none;
   border-radius: 2px;
-  padding: var(--inner-padding);
+  padding-inline: var(--inline-padding);
   cursor: pointer;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -130,9 +125,8 @@ button {
   font-size: var(--font-size);
   font-weight: var(--font-semi-bold);
   width: var(--width);
-  min-height: var(--min-height);
+  height: var(--height);
   min-width: var(--min-width);
-  max-width: var(--max-width);
   color: var(--color);
   background-color: var(--background);
   transition: all 125ms ease-in-out;
@@ -169,4 +163,8 @@ button {
       opacity: 0.8;
     }
   }
+}
+
+::slotted(je-icon) {
+  cursor: pointer;
 }

@@ -1,5 +1,7 @@
 import { EventEmitter } from "@stencil/core";
 
+export type Color = 'primary' | 'secondary' | 'tertiary' | 'success' | 'error' | 'warning' | 'medium' | 'light' | 'dark';
+
 export const animationUpdate = () => {
   return new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
 }

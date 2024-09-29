@@ -1,4 +1,5 @@
 import { Component, Prop, h, Element, Listen } from '@stencil/core';
+import { Color } from '../../utils/utils';
 
 @Component({
   tag: 'je-button',
@@ -29,7 +30,7 @@ export class JeButton {
   @Prop({ reflect: true }) size: 'md' | 'lg' | 'sm' = 'md';
 
   /** Predefined colors */
-  @Prop({ reflect: true }) color: 'primary' | 'secondary' | 'tertiary' | 'success' | 'error' | 'warning' | 'medium' | 'light' | 'dark' = 'primary';
+  @Prop({ reflect: true }) color: Color = 'primary';
 
   componentDidLoad() {
     if (this.type == 'submit' || this.type == 'reset') {

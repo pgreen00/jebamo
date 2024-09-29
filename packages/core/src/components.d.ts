@@ -6,12 +6,14 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { DialogButton, DialogControl } from "./components/je-alert/je-alert";
+import { Color } from "./utils/utils";
 import { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
-import { PanelState } from "./components/je-page/je-page";
+import { DrawerState, PanelState } from "./components/je-page/je-page";
 import { PositionStrategy, Target } from "./components/je-popover/je-popover";
 export { DialogButton, DialogControl } from "./components/je-alert/je-alert";
+export { Color } from "./utils/utils";
 export { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
-export { PanelState } from "./components/je-page/je-page";
+export { DrawerState, PanelState } from "./components/je-page/je-page";
 export { PositionStrategy, Target } from "./components/je-popover/je-popover";
 export namespace Components {
     interface JeAlert {
@@ -54,7 +56,7 @@ export namespace Components {
         /**
           * Predefined colors
          */
-        "color": 'primary' | 'secondary' | 'tertiary' | 'success' | 'error' | 'warning' | 'medium' | 'light' | 'dark';
+        "color": Color;
         /**
           * Disables button
          */
@@ -130,7 +132,7 @@ export namespace Components {
         /**
           * Icon grade
          */
-        "grade"?: number;
+        "grade"?: 'high' | 'low';
         /**
           * Google material icon name
          */
@@ -288,7 +290,10 @@ export namespace Components {
         "trigger"?: string;
     }
     interface JePage {
+        "bottomDrawer": DrawerState;
+        "leftDrawer": DrawerState;
         "leftPanel": PanelState;
+        "rightDrawer": DrawerState;
         "rightPanel": PanelState;
         "theme": 'light' | 'dark' | 'auto';
     }
@@ -347,12 +352,12 @@ export namespace Components {
     interface JeSelect {
         "expand"?: boolean;
         "label"?: string;
-        "native"?: boolean;
         "placeholder"?: string;
+        "required"?: boolean;
         "value"?: string;
     }
     interface JeSelectOption {
-        "selected"?: boolean;
+        "selected": boolean;
         "value": string;
     }
     interface JeSkeletonText {
@@ -389,6 +394,10 @@ export interface JeModalCustomEvent<T> extends CustomEvent<T> {
 export interface JePopoverCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJePopoverElement;
+}
+export interface JeSelectOptionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeSelectOptionElement;
 }
 declare global {
     interface HTMLJeAlertElementEventMap {
@@ -526,6 +535,8 @@ declare global {
     interface HTMLJePopoverElementEventMap {
         "didPresent": any;
         "didDismiss": { role?: string, data?: any };
+        "willPresent": any;
+        "wilDismiss": any;
     }
     interface HTMLJePopoverElement extends Components.JePopover, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJePopoverElementEventMap>(type: K, listener: (this: HTMLJePopoverElement, ev: JePopoverCustomEvent<HTMLJePopoverElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -559,7 +570,18 @@ declare global {
         prototype: HTMLJeSelectElement;
         new (): HTMLJeSelectElement;
     };
+    interface HTMLJeSelectOptionElementEventMap {
+        "optionSelected": string;
+    }
     interface HTMLJeSelectOptionElement extends Components.JeSelectOption, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeSelectOptionElementEventMap>(type: K, listener: (this: HTMLJeSelectOptionElement, ev: JeSelectOptionCustomEvent<HTMLJeSelectOptionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeSelectOptionElementEventMap>(type: K, listener: (this: HTMLJeSelectOptionElement, ev: JeSelectOptionCustomEvent<HTMLJeSelectOptionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeSelectOptionElement: {
         prototype: HTMLJeSelectOptionElement;
@@ -689,7 +711,7 @@ declare namespace LocalJSX {
         /**
           * Predefined colors
          */
-        "color"?: 'primary' | 'secondary' | 'tertiary' | 'success' | 'error' | 'warning' | 'medium' | 'light' | 'dark';
+        "color"?: Color;
         /**
           * Disables button
          */
@@ -765,7 +787,7 @@ declare namespace LocalJSX {
         /**
           * Icon grade
          */
-        "grade"?: number;
+        "grade"?: 'high' | 'low';
         /**
           * Google material icon name
          */
@@ -928,7 +950,10 @@ declare namespace LocalJSX {
         "trigger"?: string;
     }
     interface JePage {
+        "bottomDrawer"?: DrawerState;
+        "leftDrawer"?: DrawerState;
         "leftPanel"?: PanelState;
+        "rightDrawer"?: DrawerState;
         "rightPanel"?: PanelState;
         "theme"?: 'light' | 'dark' | 'auto';
     }
@@ -960,6 +985,14 @@ declare namespace LocalJSX {
          */
         "onDidPresent"?: (event: JePopoverCustomEvent<any>) => void;
         /**
+          * Emits before the popover starts dismissing itself. Does not emit any data
+         */
+        "onWilDismiss"?: (event: JePopoverCustomEvent<any>) => void;
+        /**
+          * Emits before the popover starts presenting itself. Does not emit any data
+         */
+        "onWillPresent"?: (event: JePopoverCustomEvent<any>) => void;
+        /**
           * If the popover should auto position itself using the mouse event or the triggerElement.
          */
         "position"?: PositionStrategy;
@@ -985,11 +1018,12 @@ declare namespace LocalJSX {
     interface JeSelect {
         "expand"?: boolean;
         "label"?: string;
-        "native"?: boolean;
         "placeholder"?: string;
+        "required"?: boolean;
         "value"?: string;
     }
     interface JeSelectOption {
+        "onOptionSelected"?: (event: JeSelectOptionCustomEvent<string>) => void;
         "selected"?: boolean;
         "value"?: string;
     }
