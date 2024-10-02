@@ -1,11 +1,11 @@
 import { Component, Host, Prop, h } from '@stencil/core';
 
 @Component({
-  tag: 'je-skeleton-text',
-  styleUrl: 'je-skeleton-text.scss',
+  tag: 'je-placeholder',
+  styleUrl: 'je-placeholder.scss',
   shadow: true,
 })
-export class JeSkeletonText {
+export class JePlaceholder {
   /**
    * Whether or not the component should have the animated "shimmer" effect
    */

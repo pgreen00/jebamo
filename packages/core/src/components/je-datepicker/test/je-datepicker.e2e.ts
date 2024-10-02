@@ -1,11 +1,11 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('je-skeleton-text', () => {
+describe('je-datepicker', () => {
   it('renders', async () => {
     const page = await newE2EPage();
-    await page.setContent('<je-skeleton-text></je-skeleton-text>');
+    await page.setContent('<je-datepicker></je-datepicker>');
 
-    const element = await page.find('je-skeleton-text');
+    const element = await page.find('je-datepicker');
     expect(element).toHaveClass('hydrated');
   });
 });

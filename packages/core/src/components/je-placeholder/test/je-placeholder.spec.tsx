@@ -1,18 +1,18 @@
 import { newSpecPage } from '@stencil/core/testing';
-import { JeSkeletonText } from '../je-skeleton-text';
+import { JePlaceholder } from '../je-placeholder';
 
-describe('je-skeleton-text', () => {
+describe('je-placeholder', () => {
   it('renders', async () => {
     const page = await newSpecPage({
-      components: [JeSkeletonText],
-      html: `<je-skeleton-text></je-skeleton-text>`,
+      components: [JePlaceholder],
+      html: `<je-placeholder></je-placeholder>`,
     });
     expect(page.root).toEqualHtml(`
-      <je-skeleton-text>
+      <je-placeholder>
         <mock:shadow-root>
           <slot></slot>
         </mock:shadow-root>
-      </je-skeleton-text>
+      </je-placeholder>
     `);
   });
 });
