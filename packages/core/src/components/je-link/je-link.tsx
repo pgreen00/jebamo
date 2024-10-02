@@ -1,11 +1,11 @@
 import { Component, Host, h } from '@stencil/core';
 
 @Component({
-  tag: 'je-tree-branch',
-  styleUrl: 'je-tree-branch.scss',
+  tag: 'je-link',
+  styleUrl: 'je-link.scss',
   shadow: true,
 })
-export class JeTreeBranch {
+export class JeLink {
   render() {
     return (
       <Host>

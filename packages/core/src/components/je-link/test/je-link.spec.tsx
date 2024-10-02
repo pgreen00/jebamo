@@ -1,18 +1,18 @@
 import { newSpecPage } from '@stencil/core/testing';
-import { JeTreeBranch } from '../je-tree-branch';
+import { JeLink } from '../je-link';
 
-describe('je-tree-branch', () => {
+describe('je-link', () => {
   it('renders', async () => {
     const page = await newSpecPage({
-      components: [JeTreeBranch],
-      html: `<je-tree-branch></je-tree-branch>`,
+      components: [JeLink],
+      html: `<je-link></je-link>`,
     });
     expect(page.root).toEqualHtml(`
-      <je-tree-branch>
+      <je-link>
         <mock:shadow-root>
           <slot></slot>
         </mock:shadow-root>
-      </je-tree-branch>
+      </je-link>
     `);
   });
 });

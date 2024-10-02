@@ -16,6 +16,8 @@ export { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "
 export { DrawerState, PanelState } from "./components/je-page/je-page";
 export { PositionStrategy, Target } from "./components/je-popover/je-popover";
 export namespace Components {
+    interface JeAccordion {
+    }
     interface JeAlert {
         /**
           * Whether or not the user can close the dialog by clicking the backdrop
@@ -51,6 +53,8 @@ export namespace Components {
           * Trigger element id
          */
         "trigger"?: string;
+    }
+    interface JeBranch {
     }
     interface JeButton {
         /**
@@ -117,6 +121,8 @@ export namespace Components {
         "sizeXs"?: string;
     }
     interface JeColumnGroup {
+    }
+    interface JeDatepicker {
     }
     interface JeFiles {
     }
@@ -273,6 +279,8 @@ export namespace Components {
          */
         "value": string;
     }
+    interface JeLink {
+    }
     interface JeLoading {
     }
     interface JeModal {
@@ -304,6 +312,12 @@ export namespace Components {
         "theme": 'light' | 'dark' | 'auto';
     }
     interface JePill {
+    }
+    interface JePlaceholder {
+        /**
+          * Whether or not the component should have the animated "shimmer" effect
+         */
+        "animated": boolean;
     }
     interface JePopover {
         /**
@@ -366,12 +380,6 @@ export namespace Components {
         "selected": boolean;
         "value": string;
     }
-    interface JeSkeletonText {
-        /**
-          * Whether or not the component should have the animated "shimmer" effect
-         */
-        "animated": boolean;
-    }
     interface JeTab {
     }
     interface JeTabs {
@@ -383,6 +391,8 @@ export namespace Components {
     interface JeToggle {
     }
     interface JeToolbar {
+    }
+    interface JeTree {
     }
 }
 export interface JeAlertCustomEvent<T> extends CustomEvent<T> {
@@ -406,6 +416,12 @@ export interface JeSelectOptionCustomEvent<T> extends CustomEvent<T> {
     target: HTMLJeSelectOptionElement;
 }
 declare global {
+    interface HTMLJeAccordionElement extends Components.JeAccordion, HTMLStencilElement {
+    }
+    var HTMLJeAccordionElement: {
+        prototype: HTMLJeAccordionElement;
+        new (): HTMLJeAccordionElement;
+    };
     interface HTMLJeAlertElementEventMap {
         "didPresent": any;
         "didDismiss": { role: string, data: any };
@@ -424,6 +440,12 @@ declare global {
     var HTMLJeAlertElement: {
         prototype: HTMLJeAlertElement;
         new (): HTMLJeAlertElement;
+    };
+    interface HTMLJeBranchElement extends Components.JeBranch, HTMLStencilElement {
+    }
+    var HTMLJeBranchElement: {
+        prototype: HTMLJeBranchElement;
+        new (): HTMLJeBranchElement;
     };
     interface HTMLJeButtonElement extends Components.JeButton, HTMLStencilElement {
     }
@@ -467,6 +489,12 @@ declare global {
         prototype: HTMLJeColumnGroupElement;
         new (): HTMLJeColumnGroupElement;
     };
+    interface HTMLJeDatepickerElement extends Components.JeDatepicker, HTMLStencilElement {
+    }
+    var HTMLJeDatepickerElement: {
+        prototype: HTMLJeDatepickerElement;
+        new (): HTMLJeDatepickerElement;
+    };
     interface HTMLJeFilesElement extends Components.JeFiles, HTMLStencilElement {
     }
     var HTMLJeFilesElement: {
@@ -507,6 +535,12 @@ declare global {
     var HTMLJeInputElement: {
         prototype: HTMLJeInputElement;
         new (): HTMLJeInputElement;
+    };
+    interface HTMLJeLinkElement extends Components.JeLink, HTMLStencilElement {
+    }
+    var HTMLJeLinkElement: {
+        prototype: HTMLJeLinkElement;
+        new (): HTMLJeLinkElement;
     };
     interface HTMLJeLoadingElement extends Components.JeLoading, HTMLStencilElement {
     }
@@ -555,6 +589,12 @@ declare global {
     var HTMLJePillElement: {
         prototype: HTMLJePillElement;
         new (): HTMLJePillElement;
+    };
+    interface HTMLJePlaceholderElement extends Components.JePlaceholder, HTMLStencilElement {
+    }
+    var HTMLJePlaceholderElement: {
+        prototype: HTMLJePlaceholderElement;
+        new (): HTMLJePlaceholderElement;
     };
     interface HTMLJePopoverElementEventMap {
         "didPresent": any;
@@ -611,12 +651,6 @@ declare global {
         prototype: HTMLJeSelectOptionElement;
         new (): HTMLJeSelectOptionElement;
     };
-    interface HTMLJeSkeletonTextElement extends Components.JeSkeletonText, HTMLStencilElement {
-    }
-    var HTMLJeSkeletonTextElement: {
-        prototype: HTMLJeSkeletonTextElement;
-        new (): HTMLJeSkeletonTextElement;
-    };
     interface HTMLJeTabElement extends Components.JeTab, HTMLStencilElement {
     }
     var HTMLJeTabElement: {
@@ -653,8 +687,16 @@ declare global {
         prototype: HTMLJeToolbarElement;
         new (): HTMLJeToolbarElement;
     };
+    interface HTMLJeTreeElement extends Components.JeTree, HTMLStencilElement {
+    }
+    var HTMLJeTreeElement: {
+        prototype: HTMLJeTreeElement;
+        new (): HTMLJeTreeElement;
+    };
     interface HTMLElementTagNameMap {
+        "je-accordion": HTMLJeAccordionElement;
         "je-alert": HTMLJeAlertElement;
+        "je-branch": HTMLJeBranchElement;
         "je-button": HTMLJeButtonElement;
         "je-card": HTMLJeCardElement;
         "je-checkbox": HTMLJeCheckboxElement;
@@ -662,32 +704,37 @@ declare global {
         "je-checkbox-option": HTMLJeCheckboxOptionElement;
         "je-column": HTMLJeColumnElement;
         "je-column-group": HTMLJeColumnGroupElement;
+        "je-datepicker": HTMLJeDatepickerElement;
         "je-files": HTMLJeFilesElement;
         "je-form": HTMLJeFormElement;
         "je-icon": HTMLJeIconElement;
         "je-infinite": HTMLJeInfiniteElement;
         "je-input": HTMLJeInputElement;
+        "je-link": HTMLJeLinkElement;
         "je-loading": HTMLJeLoadingElement;
         "je-modal": HTMLJeModalElement;
         "je-multiselect": HTMLJeMultiselectElement;
         "je-multiselect-option": HTMLJeMultiselectOptionElement;
         "je-page": HTMLJePageElement;
         "je-pill": HTMLJePillElement;
+        "je-placeholder": HTMLJePlaceholderElement;
         "je-popover": HTMLJePopoverElement;
         "je-radio": HTMLJeRadioElement;
         "je-radio-group": HTMLJeRadioGroupElement;
         "je-select": HTMLJeSelectElement;
         "je-select-option": HTMLJeSelectOptionElement;
-        "je-skeleton-text": HTMLJeSkeletonTextElement;
         "je-tab": HTMLJeTabElement;
         "je-tabs": HTMLJeTabsElement;
         "je-textarea": HTMLJeTextareaElement;
         "je-toast": HTMLJeToastElement;
         "je-toggle": HTMLJeToggleElement;
         "je-toolbar": HTMLJeToolbarElement;
+        "je-tree": HTMLJeTreeElement;
     }
 }
 declare namespace LocalJSX {
+    interface JeAccordion {
+    }
     interface JeAlert {
         /**
           * Whether or not the user can close the dialog by clicking the backdrop
@@ -733,6 +780,8 @@ declare namespace LocalJSX {
           * Trigger element id
          */
         "trigger"?: string;
+    }
+    interface JeBranch {
     }
     interface JeButton {
         /**
@@ -799,6 +848,8 @@ declare namespace LocalJSX {
         "sizeXs"?: string;
     }
     interface JeColumnGroup {
+    }
+    interface JeDatepicker {
     }
     interface JeFiles {
     }
@@ -954,6 +1005,8 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface JeLink {
+    }
     interface JeLoading {
     }
     interface JeModal {
@@ -991,6 +1044,12 @@ declare namespace LocalJSX {
         "theme"?: 'light' | 'dark' | 'auto';
     }
     interface JePill {
+    }
+    interface JePlaceholder {
+        /**
+          * Whether or not the component should have the animated "shimmer" effect
+         */
+        "animated"?: boolean;
     }
     interface JePopover {
         /**
@@ -1060,12 +1119,6 @@ declare namespace LocalJSX {
         "selected"?: boolean;
         "value"?: string;
     }
-    interface JeSkeletonText {
-        /**
-          * Whether or not the component should have the animated "shimmer" effect
-         */
-        "animated"?: boolean;
-    }
     interface JeTab {
     }
     interface JeTabs {
@@ -1078,8 +1131,12 @@ declare namespace LocalJSX {
     }
     interface JeToolbar {
     }
+    interface JeTree {
+    }
     interface IntrinsicElements {
+        "je-accordion": JeAccordion;
         "je-alert": JeAlert;
+        "je-branch": JeBranch;
         "je-button": JeButton;
         "je-card": JeCard;
         "je-checkbox": JeCheckbox;
@@ -1087,36 +1144,41 @@ declare namespace LocalJSX {
         "je-checkbox-option": JeCheckboxOption;
         "je-column": JeColumn;
         "je-column-group": JeColumnGroup;
+        "je-datepicker": JeDatepicker;
         "je-files": JeFiles;
         "je-form": JeForm;
         "je-icon": JeIcon;
         "je-infinite": JeInfinite;
         "je-input": JeInput;
+        "je-link": JeLink;
         "je-loading": JeLoading;
         "je-modal": JeModal;
         "je-multiselect": JeMultiselect;
         "je-multiselect-option": JeMultiselectOption;
         "je-page": JePage;
         "je-pill": JePill;
+        "je-placeholder": JePlaceholder;
         "je-popover": JePopover;
         "je-radio": JeRadio;
         "je-radio-group": JeRadioGroup;
         "je-select": JeSelect;
         "je-select-option": JeSelectOption;
-        "je-skeleton-text": JeSkeletonText;
         "je-tab": JeTab;
         "je-tabs": JeTabs;
         "je-textarea": JeTextarea;
         "je-toast": JeToast;
         "je-toggle": JeToggle;
         "je-toolbar": JeToolbar;
+        "je-tree": JeTree;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "je-accordion": LocalJSX.JeAccordion & JSXBase.HTMLAttributes<HTMLJeAccordionElement>;
             "je-alert": LocalJSX.JeAlert & JSXBase.HTMLAttributes<HTMLJeAlertElement>;
+            "je-branch": LocalJSX.JeBranch & JSXBase.HTMLAttributes<HTMLJeBranchElement>;
             "je-button": LocalJSX.JeButton & JSXBase.HTMLAttributes<HTMLJeButtonElement>;
             "je-card": LocalJSX.JeCard & JSXBase.HTMLAttributes<HTMLJeCardElement>;
             "je-checkbox": LocalJSX.JeCheckbox & JSXBase.HTMLAttributes<HTMLJeCheckboxElement>;
@@ -1124,29 +1186,32 @@ declare module "@stencil/core" {
             "je-checkbox-option": LocalJSX.JeCheckboxOption & JSXBase.HTMLAttributes<HTMLJeCheckboxOptionElement>;
             "je-column": LocalJSX.JeColumn & JSXBase.HTMLAttributes<HTMLJeColumnElement>;
             "je-column-group": LocalJSX.JeColumnGroup & JSXBase.HTMLAttributes<HTMLJeColumnGroupElement>;
+            "je-datepicker": LocalJSX.JeDatepicker & JSXBase.HTMLAttributes<HTMLJeDatepickerElement>;
             "je-files": LocalJSX.JeFiles & JSXBase.HTMLAttributes<HTMLJeFilesElement>;
             "je-form": LocalJSX.JeForm & JSXBase.HTMLAttributes<HTMLJeFormElement>;
             "je-icon": LocalJSX.JeIcon & JSXBase.HTMLAttributes<HTMLJeIconElement>;
             "je-infinite": LocalJSX.JeInfinite & JSXBase.HTMLAttributes<HTMLJeInfiniteElement>;
             "je-input": LocalJSX.JeInput & JSXBase.HTMLAttributes<HTMLJeInputElement>;
+            "je-link": LocalJSX.JeLink & JSXBase.HTMLAttributes<HTMLJeLinkElement>;
             "je-loading": LocalJSX.JeLoading & JSXBase.HTMLAttributes<HTMLJeLoadingElement>;
             "je-modal": LocalJSX.JeModal & JSXBase.HTMLAttributes<HTMLJeModalElement>;
             "je-multiselect": LocalJSX.JeMultiselect & JSXBase.HTMLAttributes<HTMLJeMultiselectElement>;
             "je-multiselect-option": LocalJSX.JeMultiselectOption & JSXBase.HTMLAttributes<HTMLJeMultiselectOptionElement>;
             "je-page": LocalJSX.JePage & JSXBase.HTMLAttributes<HTMLJePageElement>;
             "je-pill": LocalJSX.JePill & JSXBase.HTMLAttributes<HTMLJePillElement>;
+            "je-placeholder": LocalJSX.JePlaceholder & JSXBase.HTMLAttributes<HTMLJePlaceholderElement>;
             "je-popover": LocalJSX.JePopover & JSXBase.HTMLAttributes<HTMLJePopoverElement>;
             "je-radio": LocalJSX.JeRadio & JSXBase.HTMLAttributes<HTMLJeRadioElement>;
             "je-radio-group": LocalJSX.JeRadioGroup & JSXBase.HTMLAttributes<HTMLJeRadioGroupElement>;
             "je-select": LocalJSX.JeSelect & JSXBase.HTMLAttributes<HTMLJeSelectElement>;
             "je-select-option": LocalJSX.JeSelectOption & JSXBase.HTMLAttributes<HTMLJeSelectOptionElement>;
-            "je-skeleton-text": LocalJSX.JeSkeletonText & JSXBase.HTMLAttributes<HTMLJeSkeletonTextElement>;
             "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
             "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;
             "je-textarea": LocalJSX.JeTextarea & JSXBase.HTMLAttributes<HTMLJeTextareaElement>;
             "je-toast": LocalJSX.JeToast & JSXBase.HTMLAttributes<HTMLJeToastElement>;
             "je-toggle": LocalJSX.JeToggle & JSXBase.HTMLAttributes<HTMLJeToggleElement>;
             "je-toolbar": LocalJSX.JeToolbar & JSXBase.HTMLAttributes<HTMLJeToolbarElement>;
+            "je-tree": LocalJSX.JeTree & JSXBase.HTMLAttributes<HTMLJeTreeElement>;
         }
     }
 }
