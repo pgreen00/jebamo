@@ -1,4 +1,4 @@
-import { Component, Element, Host, Prop, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
 
 export type PanelState = 'open' | 'closed' | 'minimized';
 export type DrawerState = 'open' | 'closed';
@@ -16,6 +16,20 @@ export class JePage {
   @Prop({ reflect: true }) rightDrawer: DrawerState = 'closed';
   @Prop({ reflect: true }) bottomDrawer: DrawerState = 'closed';
   @Prop({ reflect: true }) theme: 'light' | 'dark' | 'auto' = 'light';
+  @Event() themeChange: EventEmitter<'light' | 'dark'>;
+
+  componentDidLoad() {
+    this.themeChangeHandler(this.theme);
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => this.themeChangeHandler(this.theme));
+  }
+
+  @Watch('theme')
+  themeChangeHandler(newValue: 'light' | 'dark' | 'auto') {
+    if (newValue !== 'auto')
+      this.themeChange.emit(newValue);
+    else
+      this.themeChange.emit(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  }
 
   render() {
     return (

@@ -3,7 +3,9 @@ import { Component, Host, Prop, h, Element, State, Listen, Watch } from '@stenci
 @Component({
   tag: 'je-select',
   styleUrl: 'je-select.scss',
-  shadow: true,
+  shadow: {
+    delegatesFocus: true
+  },
   formAssociated: true
 })
 export class JeSelect {
@@ -22,7 +24,7 @@ export class JeSelect {
   }
 
   componentWillLoad() {
-    if (this.label) {
+    if (!this.el.getAttribute('name') && this.label) {
       this.el.setAttribute('name', this.label);
     }
   }
@@ -138,6 +140,13 @@ export class JeSelect {
         } else {
           if (currentFocusedOption) this.blurOption(currentFocusedOption);
           this.focusOption(optionsWithKey[0]);
+        }
+        if (!this.open) {
+          options.forEach(option => {
+            if (this.hasFocus(option)) {
+              this.value = option.value;
+            }
+          });
         }
       } else if (currentFocusedOption) {
         this.blurOption(currentFocusedOption);

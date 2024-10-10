@@ -106,7 +106,6 @@
           <je-button fill="outline" color="dark">outline</je-button>
           <je-button fill="clear" color="dark">clear</je-button>
         </div>
-        <je-button>This is a lot of text that wraps to the next line</je-button>
         <je-button size="sm">small</je-button>
         <je-button size="lg">large</je-button>
         <je-button fill="clear" icon-only="true">
@@ -124,6 +123,12 @@
         </je-input>
       </div>
 
+      <h2>Date Picker</h2>
+      <je-input dropdown="true" no-typing="true" placeholder="00/00/0000">
+        <je-icon icon="today" fill slot="start"></je-icon>
+        <je-datepicker slot="dropdown"></je-datepicker>
+      </je-input>
+
       <h2>Popover</h2>
       <je-button id="popoverButton">Popover</je-button>
       <je-popover trigger="popoverButton">
@@ -138,7 +143,17 @@
 
       <h2>Loading Indicators</h2>
       <je-loading></je-loading>
-      <je-skeleton-text style="height: 40px; width: 300px;"></je-skeleton-text>
+      <je-placeholder style="height: 40px; width: 300px;"></je-placeholder>
+
+      <h2>Card</h2>
+      <je-card>
+        <h3>Hello</h3>
+        <p>wyd</p>
+      </je-card>
+      <je-card button color="secondary">
+        <h3>Hello</h3>
+        <p>wyd</p>
+      </je-card>
     </div>
     <div style="padding: var(--padding);" slot="right-panel">
       <h2>Example Form</h2>

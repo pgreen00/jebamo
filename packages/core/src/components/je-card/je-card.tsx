@@ -1,4 +1,5 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, Prop, h } from '@stencil/core';
+import { Color } from '../../utils/utils';
 
 @Component({
   tag: 'je-card',
@@ -6,10 +7,14 @@ import { Component, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class JeCard {
+  @Prop({ reflect: true }) color?: Color;
+  @Prop({ reflect: true }) button?: boolean;
+
   render() {
     return (
       <Host>
-        <slot></slot>
+        <slot name='media' />
+        <slot />
       </Host>
     );
   }

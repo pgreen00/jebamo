@@ -1,3 +1,30 @@
 :host {
   display: block;
+  padding: var(--padding-sm);
+  box-sizing: border-box;
+}
+
+je-button.day {
+  --min-width: 20px;
+  --height: 20px;
+  --font-size: 12px;
+  --inline-padding: 0px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.footer {
+  margin-top: 10px;
+  text-align: center;
 }

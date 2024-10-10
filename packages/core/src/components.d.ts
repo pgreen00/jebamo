@@ -87,6 +87,8 @@ export namespace Components {
         "type": string;
     }
     interface JeCard {
+        "button"?: boolean;
+        "color"?: Color;
     }
     interface JeCheckbox {
     }
@@ -123,6 +125,7 @@ export namespace Components {
     interface JeColumnGroup {
     }
     interface JeDatepicker {
+        "value"?: Date | string;
     }
     interface JeFiles {
     }
@@ -399,6 +402,10 @@ export interface JeAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeAlertElement;
 }
+export interface JeDatepickerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeDatepickerElement;
+}
 export interface JeInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeInputElement;
@@ -406,6 +413,10 @@ export interface JeInputCustomEvent<T> extends CustomEvent<T> {
 export interface JeModalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeModalElement;
+}
+export interface JePageCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJePageElement;
 }
 export interface JePopoverCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -489,7 +500,18 @@ declare global {
         prototype: HTMLJeColumnGroupElement;
         new (): HTMLJeColumnGroupElement;
     };
+    interface HTMLJeDatepickerElementEventMap {
+        "valueChange": Date | undefined;
+    }
     interface HTMLJeDatepickerElement extends Components.JeDatepicker, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeDatepickerElementEventMap>(type: K, listener: (this: HTMLJeDatepickerElement, ev: JeDatepickerCustomEvent<HTMLJeDatepickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeDatepickerElementEventMap>(type: K, listener: (this: HTMLJeDatepickerElement, ev: JeDatepickerCustomEvent<HTMLJeDatepickerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeDatepickerElement: {
         prototype: HTMLJeDatepickerElement;
@@ -578,7 +600,18 @@ declare global {
         prototype: HTMLJeMultiselectOptionElement;
         new (): HTMLJeMultiselectOptionElement;
     };
+    interface HTMLJePageElementEventMap {
+        "themeChange": 'light' | 'dark';
+    }
     interface HTMLJePageElement extends Components.JePage, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJePageElementEventMap>(type: K, listener: (this: HTMLJePageElement, ev: JePageCustomEvent<HTMLJePageElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJePageElementEventMap>(type: K, listener: (this: HTMLJePageElement, ev: JePageCustomEvent<HTMLJePageElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJePageElement: {
         prototype: HTMLJePageElement;
@@ -814,6 +847,8 @@ declare namespace LocalJSX {
         "type"?: string;
     }
     interface JeCard {
+        "button"?: boolean;
+        "color"?: Color;
     }
     interface JeCheckbox {
     }
@@ -850,6 +885,8 @@ declare namespace LocalJSX {
     interface JeColumnGroup {
     }
     interface JeDatepicker {
+        "onValueChange"?: (event: JeDatepickerCustomEvent<Date | undefined>) => void;
+        "value"?: Date | string;
     }
     interface JeFiles {
     }
@@ -1039,6 +1076,7 @@ declare namespace LocalJSX {
         "bottomDrawer"?: DrawerState;
         "leftDrawer"?: DrawerState;
         "leftPanel"?: PanelState;
+        "onThemeChange"?: (event: JePageCustomEvent<'light' | 'dark'>) => void;
         "rightDrawer"?: DrawerState;
         "rightPanel"?: PanelState;
         "theme"?: 'light' | 'dark' | 'auto';
