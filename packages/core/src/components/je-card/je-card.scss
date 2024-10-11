@@ -1,7 +1,6 @@
 :host {
   display: block;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+  border: solid 1px var(--card-border-color);
   border-radius: 12px;
   overflow: hidden;
   box-sizing: border-box;
@@ -13,6 +12,7 @@
   --card-background: inherit;
   --card-hover-background: #9f9e9e0e;
   --card-active-background: #9f9e9e19;
+  --card-border-color: var(--je-medium-300);
 }
 
 :host([button]) {
@@ -28,15 +28,12 @@
   background-color: var(--card-active-background);
 }
 
-::slotted([slot="media"]) {
-  width: 100%;
-}
-
 :host([color=error]) {
   --card-color: var(--je-error-100);
   --card-background: var(--je-error-500);
   --card-hover-background: var(--je-error-600);
   --card-active-background: var(--je-error-700);
+  --card-border-color: var(--je-error-300);
 }
 
 :host([color=secondary]) {
@@ -44,6 +41,7 @@
   --card-background: var(--je-secondary-500);
   --card-hover-background: var(--je-secondary-600);
   --card-active-background: var(--je-secondary-700);
+  --card-border-color: var(--je-secondary-300);
 }
 
 :host([color=tertiary]) {
@@ -51,6 +49,7 @@
   --card-background: var(--je-tertiary-500);
   --card-hover-background: var(--je-tertiary-600);
   --card-active-background: var(--je-tertiary-700);
+  --card-border-color: var(--je-tertiary-300);
 }
 
 :host([color=warning]) {
@@ -58,6 +57,7 @@
   --card-background: var(--je-warning-500);
   --card-hover-background: var(--je-warning-600);
   --card-active-background: var(--je-warning-700);
+  --card-border-color: var(--je-warning-300);
 }
 
 :host([color=success]) {
@@ -65,6 +65,7 @@
   --card-background: var(--je-success-500);
   --card-hover-background: var(--je-success-600);
   --card-active-background: var(--je-success-700);
+  --card-border-color: var(--je-success-300);
 }
 
 :host([color=medium]) {
@@ -86,4 +87,25 @@
   --card-background: var(--je-medium-800);
   --card-hover-background: var(--je-medium-800);
   --card-active-background: var(--je-medium-850);
+}
+
+::slotted([slot="media"]) {
+  width: 100%;
+}
+
+::slotted([slot="header"]) {
+  box-sizing: border-box;
+  padding-inline: var(--padding-sm, 10px);
+  border-bottom: solid 1px var(--card-border-color);
+}
+
+::slotted([slot="footer"]) {
+  display: flex;
+  padding-block: var(--padding-sm, 10px);
+  gap: var(--gap-sm, 8px);
+}
+
+.container {
+  box-sizing: border-box;
+  padding: var(--padding-sm, 10px);
 }

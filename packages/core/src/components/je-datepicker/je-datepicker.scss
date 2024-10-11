@@ -7,15 +7,39 @@
 je-button.day {
   --min-width: 20px;
   --height: 20px;
-  --font-size: 12px;
+  --font-size: 14px;
   --inline-padding: 0px;
+  &::part(inner-button) {
+    font-weight: 400;
+  }
 }
 
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  div {
+    user-select: none;
+    display: flex;
+    cursor: pointer;
+    flex: 1;
+    align-items: center;
+  }
+}
+
+.weekdays-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-bottom: 8px;
+  div {
+    height: 20px;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--je-medium-600);
+    text-align: center;
+    align-content: center;
+  }
 }
 
 .days-grid {
@@ -24,7 +48,10 @@ je-button.day {
   gap: 5px;
 }
 
-.footer {
-  margin-top: 10px;
-  text-align: center;
+je-icon {
+  transition: transform 0.3s ease;
+}
+
+je-icon.open {
+  transform: rotate(180deg);
 }

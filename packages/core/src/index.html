@@ -146,11 +146,17 @@
       <je-placeholder style="height: 40px; width: 300px;"></je-placeholder>
 
       <h2>Card</h2>
-      <je-card>
-        <h3>Hello</h3>
+      <je-card style="margin-block: var(--margin); max-width: 500px;">
+        <div slot="header">
+          <h3>Hello</h3>
+        </div>
         <p>wyd</p>
+        <div slot="footer">
+          <je-button size="sm">Action 1</je-button>
+          <je-button size="sm">Action 2</je-button>
+        </div>
       </je-card>
-      <je-card button color="secondary">
+      <je-card style="max-width: 500px;" button color="secondary">
         <h3>Hello</h3>
         <p>wyd</p>
       </je-card>

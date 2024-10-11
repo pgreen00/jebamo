@@ -14,7 +14,11 @@ export class JeCard {
     return (
       <Host>
         <slot name='media' />
-        <slot />
+        <slot name='header' />
+        <div class='container'>
+          <slot />
+          <slot name='footer' />
+        </div>
       </Host>
     );
   }
