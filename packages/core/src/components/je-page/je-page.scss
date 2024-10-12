@@ -4,79 +4,72 @@
   display: block;
   height: 100%;
   overflow: hidden;
-  font-size: var(--font-size);
-  font-family: var(--font-family);
-  color: var(--color);
-  background-color: var(--background-color);
+  font-size: var(--je-font-size);
+  font-family: var(--je-font-family);
+  color: var(--je-color);
+  background-color: var(--je-background-color);
   color-scheme: light;
 
-  --font-size: 13px;
-  --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  --font-light: 400;
-  --font-regular: 500;
-  --font-semi-bold: 600;
-  --font-bold: 700;
-  --color: canvastext;
-  --background-color: canvas;
-  --gap: 16px;
-  --gap-sm: 8px;
-  --gap-lg: 32px;
-  --padding: 20px;
-  --padding-sm: 10px;
-  --padding-lg: 40px;
-  --margin: 12px;
-  --margin-sm: 6px;
-  --margin-lg: 24px;
+  --je-font-size: 13px;
+  --je-font-family: system-ui, Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --je-font-light: 400;
+  --je-font-regular: 500;
+  --je-font-semi-bold: 600;
+  --je-font-bold: 700;
+  --je-color: canvastext;
+  --je-background-color: canvas;
+  --je-backdrop-color: rgba(0, 0, 0, 0.5);
+  --je-gap: 16px;
+  --je-gap-sm: 8px;
+  --je-gap-lg: 32px;
+  --je-padding: 20px;
+  --je-padding-sm: 10px;
+  --je-padding-lg: 40px;
+  --je-margin: 12px;
+  --je-margin-sm: 6px;
+  --je-margin-lg: 24px;
 
   @include colors.generate-color-variables;
 
-  --input-background: var(--je-medium-200);
-  --input-color: var(--je-medium-850);
+  --je-input-background: var(--je-medium-200);
+  --je-input-color: var(--je-medium-850);
 
-  --option-hover-color: var(--je-primary-100);
+  --je-option-hover-color: var(--je-primary-100);
 
-  --popover-background-color: rgb(233, 236, 236);
-  --popover-color: var(--je-medium-850);
-  --popover-box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.12);
-  --popover-border: solid 1px rgb(197, 200, 204);
+  --je-popover-background-color: rgb(233, 236, 236);
+  --je-popover-color: var(--je-medium-850);
+  --je-popover-box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.12);
+  --je-popover-border: solid 1px rgb(197, 200, 204);
 
-  --backdrop-color: rgba(0, 0, 0, 0.5);
+  --je-left-sidepanel-open-width: 500px;
+  --je-left-sidepanel-minimized-width: 100px;
+  --je-left-sidepanel-border: solid 1px canvastext;
+  --je-right-sidepanel-open-width: 500px;
+  --je-right-sidepanel-minimized-width: 100px;
+  --je-right-sidepanel-border: solid 1px canvastext;
+}
 
-  --grid-columns: 12;
+@mixin dark-theme-styles {
+  --je-input-background: var(--je-medium-800);
+  --je-input-color: var(--je-medium-100);
 
-  --left-sidepanel-open-width: 500px;
-  --left-sidepanel-minimized-width: 100px;
-  --left-sidepanel-border: solid 1px canvastext;
-  --right-sidepanel-open-width: 500px;
-  --right-sidepanel-minimized-width: 100px;
-  --right-sidepanel-border: solid 1px canvastext;
+  --je-option-hover-color: var(--je-medium-800);
+
+  --je-popover-background-color: rgb(41, 45, 46);
+  --je-popover-color: var(--je-medium-100);
+  --je-popover-box-shadow: 0px 4px 16px 0px rgba(68, 68, 68, 0.12);
+  --je-popover-border: solid 1px rgb(86, 87, 90);
 }
 
 :host([theme='dark']) {
   color-scheme: dark;
-
-  --input-background: var(--je-medium-800);
-  --input-color: var(--je-medium-100);
-
-  --option-hover-color: var(--je-medium-800);
-
-  --popover-background-color: rgb(41, 45, 46);
-  --popover-color: var(--je-medium-100);
-  --popover-box-shadow: 0px 4px 16px 0px rgba(68, 68, 68, 0.12);
-  --popover-border: solid 1px rgb(86, 87, 90);
+  @include dark-theme-styles;
 }
 
 :host([theme='auto']) {
   color-scheme: light dark;
-
   @media (prefers-color-scheme: dark) {
-    --input-background: var(--je-medium-800);
-    --input-color: var(--je-medium-100);
-
-    --popover-background-color: var(--je-medium-800);
-    --popover-color: var(--je-medium-100);
-    --popover-box-shadow: none;
-    --popover-border: solid 0.1em var(--je-medium-100);
+    @include dark-theme-styles;
   }
 }
 
@@ -137,29 +130,29 @@
 
 :host([left-panel='open']) {
   ::slotted([slot='left-panel']) {
-    width: var(--left-sidepanel-open-width);
-    border-right: var(--left-sidepanel-border);
+    width: var(--je-left-sidepanel-open-width);
+    border-right: var(--je-left-sidepanel-border);
   }
 }
 
 :host([left-panel='minimized']) {
   ::slotted([slot='left-panel']) {
-    width: var(--left-sidepanel-minimized-width);
-    border-right: var(--left-sidepanel-border);
+    width: var(--je-left-sidepanel-minimized-width);
+    border-right: var(--je-left-sidepanel-border);
   }
 }
 
 :host([right-panel='open']) {
   ::slotted([slot='right-panel']) {
-    width: var(--right-sidepanel-open-width);
-    border-left: var(--right-sidepanel-border);
+    width: var(--je-right-sidepanel-open-width);
+    border-left: var(--je-right-sidepanel-border);
   }
 }
 
 :host([right-panel='minimized']) {
   ::slotted([slot='right-panel']) {
-    width: var(--right-sidepanel-minimized-width);
-    border-left: var(--right-sidepanel-border);
+    width: var(--je-right-sidepanel-minimized-width);
+    border-left: var(--je-right-sidepanel-border);
   }
 }
 

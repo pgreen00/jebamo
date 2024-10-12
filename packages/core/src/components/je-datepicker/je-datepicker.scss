@@ -1,14 +1,14 @@
 :host {
   display: block;
-  padding: var(--padding-sm);
+  padding: var(--je-padding-sm);
   box-sizing: border-box;
 }
 
 je-button.day {
-  --min-width: 20px;
-  --height: 20px;
-  --font-size: 14px;
-  --inline-padding: 0px;
+  --je-min-width: 20px;
+  --je-height: 20px;
+  --je-font-size: 14px;
+  --je-inline-padding: 0px;
   &::part(inner-button) {
     font-weight: 400;
   }

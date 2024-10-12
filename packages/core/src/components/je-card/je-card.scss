@@ -1,18 +1,18 @@
 :host {
   display: block;
-  border: solid 1px var(--card-border-color);
-  border-radius: 12px;
+  border: solid 1px var(--je-card-border-color);
+  border-radius: 2px;
   overflow: hidden;
   box-sizing: border-box;
   position: relative;
-  color: var(--card-color);
-  background-color: var(--card-background);
+  color: var(--je-card-color);
+  background-color: var(--je-card-background);
 
-  --card-color: inherit;
-  --card-background: inherit;
-  --card-hover-background: #9f9e9e0e;
-  --card-active-background: #9f9e9e19;
-  --card-border-color: var(--je-medium-300);
+  --je-card-color: inherit;
+  --je-card-background: inherit;
+  --je-card-hover-background: #9f9e9e0e;
+  --je-card-active-background: #9f9e9e19;
+  --je-card-border-color: var(--je-medium-300);
 }
 
 :host([button]) {
@@ -21,72 +21,72 @@
 }
 
 :host([button]:hover) {
-  background-color: var(--card-hover-background);
+  background-color: var(--je-card-hover-background);
 }
 
 :host([button]:active) {
-  background-color: var(--card-active-background);
+  background-color: var(--je-card-active-background);
 }
 
 :host([color=error]) {
-  --card-color: var(--je-error-100);
-  --card-background: var(--je-error-500);
-  --card-hover-background: var(--je-error-600);
-  --card-active-background: var(--je-error-700);
-  --card-border-color: var(--je-error-300);
+  --je-card-color: var(--je-error-100);
+  --je-card-background: var(--je-error-500);
+  --je-card-hover-background: var(--je-error-600);
+  --je-card-active-background: var(--je-error-700);
+  --je-card-border-color: var(--je-error-300);
 }
 
 :host([color=secondary]) {
-  --card-color: var(--je-secondary-100);
-  --card-background: var(--je-secondary-500);
-  --card-hover-background: var(--je-secondary-600);
-  --card-active-background: var(--je-secondary-700);
-  --card-border-color: var(--je-secondary-300);
+  --je-card-color: var(--je-secondary-100);
+  --je-card-background: var(--je-secondary-500);
+  --je-card-hover-background: var(--je-secondary-600);
+  --je-card-active-background: var(--je-secondary-700);
+  --je-card-border-color: var(--je-secondary-300);
 }
 
 :host([color=tertiary]) {
-  --card-color: var(--je-tertiary-100);
-  --card-background: var(--je-tertiary-500);
-  --card-hover-background: var(--je-tertiary-600);
-  --card-active-background: var(--je-tertiary-700);
-  --card-border-color: var(--je-tertiary-300);
+  --je-card-color: var(--je-tertiary-100);
+  --je-card-background: var(--je-tertiary-500);
+  --je-card-hover-background: var(--je-tertiary-600);
+  --je-card-active-background: var(--je-tertiary-700);
+  --je-card-border-color: var(--je-tertiary-300);
 }
 
 :host([color=warning]) {
-  --card-color: var(--je-warning-100);
-  --card-background: var(--je-warning-500);
-  --card-hover-background: var(--je-warning-600);
-  --card-active-background: var(--je-warning-700);
-  --card-border-color: var(--je-warning-300);
+  --je-card-color: var(--je-warning-100);
+  --je-card-background: var(--je-warning-500);
+  --je-card-hover-background: var(--je-warning-600);
+  --je-card-active-background: var(--je-warning-700);
+  --je-card-border-color: var(--je-warning-300);
 }
 
 :host([color=success]) {
-  --card-color: var(--je-success-100);
-  --card-background: var(--je-success-500);
-  --card-hover-background: var(--je-success-600);
-  --card-active-background: var(--je-success-700);
-  --card-border-color: var(--je-success-300);
+  --je-card-color: var(--je-success-100);
+  --je-card-background: var(--je-success-500);
+  --je-card-hover-background: var(--je-success-600);
+  --je-card-active-background: var(--je-success-700);
+  --je-card-border-color: var(--je-success-300);
 }
 
 :host([color=medium]) {
-  --card-color: var(--je-medium-100);
-  --card-background: var(--je-medium-500);
-  --card-hover-background: var(--je-medium-600);
-  --card-active-background: var(--je-medium-650);
+  --je-card-color: var(--je-medium-100);
+  --je-card-background: var(--je-medium-500);
+  --je-card-hover-background: var(--je-medium-600);
+  --je-card-active-background: var(--je-medium-650);
 }
 
 :host([color=light]) {
-  --card-color: var(--je-medium-850);
-  --card-background: var(--je-medium-200);
-  --card-hover-background: var(--je-medium-400);
-  --card-active-background: var(--je-medium-500);
+  --je-card-color: var(--je-medium-850);
+  --je-card-background: var(--je-medium-200);
+  --je-card-hover-background: var(--je-medium-400);
+  --je-card-active-background: var(--je-medium-500);
 }
 
 :host([color=dark]) {
-  --card-color: var(--je-medium-100);
-  --card-background: var(--je-medium-800);
-  --card-hover-background: var(--je-medium-800);
-  --card-active-background: var(--je-medium-850);
+  --je-card-color: var(--je-medium-100);
+  --je-card-background: var(--je-medium-800);
+  --je-card-hover-background: var(--je-medium-800);
+  --je-card-active-background: var(--je-medium-850);
 }
 
 ::slotted([slot="media"]) {
@@ -95,17 +95,17 @@
 
 ::slotted([slot="header"]) {
   box-sizing: border-box;
-  padding-inline: var(--padding-sm, 10px);
-  border-bottom: solid 1px var(--card-border-color);
+  padding-inline: var(--je-padding-sm, 10px);
+  border-bottom: solid 1px var(--je-card-border-color);
 }
 
 ::slotted([slot="footer"]) {
   display: flex;
-  padding-block: var(--padding-sm, 10px);
-  gap: var(--gap-sm, 8px);
+  padding-block: var(--je-padding-sm, 10px);
+  gap: var(--je-gap-sm, 8px);
 }
 
 .container {
   box-sizing: border-box;
-  padding: var(--padding-sm, 10px);
+  padding: var(--je-padding-sm, 10px);
 }

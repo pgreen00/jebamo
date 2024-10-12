@@ -123,6 +123,10 @@ export namespace Components {
         "sizeXs"?: string;
     }
     interface JeColumnGroup {
+        /**
+          * The number of columns the flex grid has.
+         */
+        "columns"?: number;
     }
     interface JeDatepicker {
         "value"?: Date | string;
@@ -883,6 +887,10 @@ declare namespace LocalJSX {
         "sizeXs"?: string;
     }
     interface JeColumnGroup {
+        /**
+          * The number of columns the flex grid has.
+         */
+        "columns"?: number;
     }
     interface JeDatepicker {
         "onValueChange"?: (event: JeDatepickerCustomEvent<Date | undefined>) => void;

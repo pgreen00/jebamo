@@ -4,17 +4,17 @@
 }
 
 :host(:hover) span[part='container'], :host(.focus) span[part='container'] {
-  background-color: var(--option-hover-color);
+  background-color: var(--je-option-hover-color);
 }
 
 span[part='container'] {
   display: flex;
   align-items: center;
-  gap: var(--gap-sm);
+  gap: var(--je-gap-sm);
   user-select: none;
   cursor: pointer;
   width: 100%;
-  padding: var(--padding-sm, 10px);
+  padding: var(--je-padding-sm, 10px);
   background-color: transparent;
   color: inherit;
   transition: background-color 75ms ease-in;

@@ -25,7 +25,7 @@ export class JeIcon {
 
   componentDidLoad() {
     if (this.weight) {
-      this.el.style.setProperty('--weight', this.weight.toString());
+      this.el.style.setProperty('--je-weight', this.weight.toString());
     }
   }
 

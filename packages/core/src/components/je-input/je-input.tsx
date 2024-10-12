@@ -308,7 +308,7 @@ export class JeInput {
   private handleContainerClick = async () => {
     if (this.dropdown) {
       this.dropdownActive = true;
-      this.hostEl.style.setProperty('--content-width', `${this.hostEl.clientWidth}px`);
+      this.hostEl.style.setProperty('--je-content-width', `${this.hostEl.clientWidth}px`);
       await this.popoverEl.present('element', this.hostEl);
     }
   }

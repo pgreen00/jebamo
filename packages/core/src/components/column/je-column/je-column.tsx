@@ -1,9 +1,7 @@
 import { Component, Host, Listen, Prop, forceUpdate, h } from '@stencil/core';
 
-const win = typeof (window as any) !== 'undefined' ? (window as any) : undefined;
-const SUPPORTS_VARS = win && !!(win.CSS && win.CSS.supports && win.CSS.supports('--a: 0'));
 const BREAKPOINTS = ['', 'xs', 'sm', 'md', 'lg', 'xl'];
-const SIZE_TO_MEDIA: any = {
+const SIZE_TO_MEDIA = {
   xs: '(min-width: 0px)',
   sm: '(min-width: 576px)',
   md: '(min-width: 768px)',
@@ -68,18 +66,12 @@ export class JeColumn {
 
     for (const breakpoint of BREAKPOINTS) {
       const matches = this.matchBreakpoint(breakpoint);
-
-      // Grab the value of the property, if it exists and our
-      // media query matches we return the value
       const columns = (this as any)[property + breakpoint.charAt(0).toUpperCase() + breakpoint.slice(1)];
-
       if (matches && columns !== undefined) {
         matched = columns;
       }
     }
 
-    // Return the last matched columns since the breakpoints
-    // increase in size and we want to return the largest match
     return matched;
   }
 
@@ -90,16 +82,7 @@ export class JeColumn {
       return;
     }
 
-    // If the size is set to auto then don't calculate a size
-    const colSize =
-      columns === 'auto'
-        ? 'auto'
-        : // If CSS supports variables we should use the grid columns var
-        SUPPORTS_VARS
-        ? `calc(calc(${columns} / var(--grid-columns, 12)) * 100%)`
-        : // Convert the columns to a percentage by dividing by the total number
-          // of columns (12) and then multiplying by 100
-          (columns / 12) * 100 + '%';
+    const colSize = columns === 'auto' ? 'auto' : `calc(calc(${columns} / var(--je-columns, 12)) * 100%)`;
 
     return {
       flex: `0 0 ${colSize}`,

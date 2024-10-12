@@ -3,7 +3,7 @@
 }
 
 :host(:not([gap=none])) form {
-  gap: var(--gap, 16px);
+  gap: var(--je-gap, 16px);
 }
 
 form {

@@ -1,14 +1,14 @@
 :host {
   /**
-   * @prop --fill: 1 or 0, true or false
-   * @prop --weight: icon weight
-   * @prop --grade: Emphasis?
-   * @prop --optical: Stroke weight
+   * @prop --je-fill: 1 or 0, true or false
+   * @prop --je-weight: icon weight
+   * @prop --je-grade: Emphasis?
+   * @prop --je-optical: Stroke weight
    */
-  --fill: 0;
-  --weight: 400;
-  --grade: 0;
-  --optical: 24;
+  --je-fill: 0;
+  --je-weight: 400;
+  --je-grade: 0;
+  --je-optical: 24;
 
   display: block;
   cursor: default;
@@ -25,37 +25,37 @@
   word-wrap: normal;
   direction: ltr;
   -webkit-font-smoothing: antialiased;
-  font-variation-settings: 'FILL' var(--fill), 'wght' var(--weight), 'GRAD' var(--grade), 'opsz' var(--optical);
+  font-variation-settings: 'FILL' var(--je-fill), 'wght' var(--je-weight), 'GRAD' var(--je-grade), 'opsz' var(--je-optical);
 }
 
 :host([fill]) {
-  --fill: 1;
+  --je-fill: 1;
 }
 
 :host([size=sm]) {
-  --optical: 20;
+  --je-optical: 20;
   font-size: 20px;
 }
 
 :host([size=md]) {
-  --optical: 24;
+  --je-optical: 24;
   font-size: 24px;
 }
 
 :host([size=lg]) {
-  --optical: 40;
+  --je-optical: 40;
   font-size: 40px;
 }
 
 :host([size=xl]) {
-  --optical: 48;
+  --je-optical: 48;
   font-size: 48px;
 }
 
 :host([grade=low]) {
-  --grade: -25;
+  --je-grade: -25;
 }
 
 :host([grade=high]) {
-  --grade: 200;
+  --je-grade: 200;
 }

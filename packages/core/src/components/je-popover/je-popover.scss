@@ -3,13 +3,13 @@
 }
 
 .content {
-  font-family: var(--font-family);
+  font-family: var(--je-font-family);
   position: absolute;
-  background-color: var(--popover-background-color, canvas);
-  color: var(--popover-color, canvastext);
-  padding-inline: var(--padding-sm, 10px);
-  box-shadow: var(--popover-box-shadow);
-  border: var(--popover-border);
+  background-color: var(--je-popover-background-color, canvas);
+  color: var(--je-popover-color, canvastext);
+  padding-inline: var(--je-padding-sm, 10px);
+  box-shadow: var(--je-popover-box-shadow);
+  border: var(--je-popover-border);
   z-index: 1000;
   border-radius: 2px;
   overflow: hidden;
@@ -31,7 +31,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--backdrop-color, rgba(0, 0, 0, 0.5));
+  background: var(--je-backdrop-color, rgba(0, 0, 0, 0.5));
   z-index: 999;
 }
 
