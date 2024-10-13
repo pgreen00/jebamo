@@ -58,9 +58,13 @@ export namespace Components {
     }
     interface JeButton {
         /**
-          * Predefined colors
+          * Predefined colors. Auto will switch between light and dark based on the closest je-page's theme.
          */
-        "color": Color;
+        "color": Color | 'auto';
+        /**
+          * Overrides what the dark mode color will be when color is "auto".
+         */
+        "darkModeColor": Color;
         /**
           * Disables button
          */
@@ -77,6 +81,10 @@ export namespace Components {
           * Removes the padding, ideal for turning an icon or image into a button
          */
         "iconOnly": boolean;
+        /**
+          * Overrides what the light mode color will be when color is "auto".
+         */
+        "lightModeColor": Color;
         /**
           * Button size
          */
@@ -822,9 +830,13 @@ declare namespace LocalJSX {
     }
     interface JeButton {
         /**
-          * Predefined colors
+          * Predefined colors. Auto will switch between light and dark based on the closest je-page's theme.
          */
-        "color"?: Color;
+        "color"?: Color | 'auto';
+        /**
+          * Overrides what the dark mode color will be when color is "auto".
+         */
+        "darkModeColor"?: Color;
         /**
           * Disables button
          */
@@ -841,6 +853,10 @@ declare namespace LocalJSX {
           * Removes the padding, ideal for turning an icon or image into a button
          */
         "iconOnly"?: boolean;
+        /**
+          * Overrides what the light mode color will be when color is "auto".
+         */
+        "lightModeColor"?: Color;
         /**
           * Button size
          */

@@ -1,4 +1,4 @@
-import { Component, Element, Event, EventEmitter, Host, Prop, State, Watch, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Listen, Prop, State, Watch, h } from '@stencil/core';
 import { startOfMonth, endOfMonth, eachDayOfInterval, addMonths, subMonths, isSameDay, isToday, format, getDay } from 'date-fns';
 
 @Component({
@@ -14,8 +14,9 @@ export class JeDatepicker {
   @State() isDark = false;
   @State() monthYearPicker = false;
 
-  componentDidLoad() {
-    this.el.closest('je-page')?.addEventListener('themeChange', ev => this.isDark = ev.detail === 'dark');
+  @Listen('themeChange', { target: 'body' })
+  handleThemeChange(e: CustomEvent<'light' | 'dark'>) {
+    this.isDark = e.detail === 'dark';
   }
 
   @Watch('value')

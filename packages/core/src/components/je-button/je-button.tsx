@@ -29,8 +29,14 @@ export class JeButton {
   /** Button size */
   @Prop({ reflect: true }) size: 'md' | 'lg' | 'sm' = 'md';
 
-  /** Predefined colors */
-  @Prop({ reflect: true }) color: Color = 'primary';
+  /** Predefined colors. Auto will switch between light and dark based on the closest je-page's theme. */
+  @Prop({ reflect: true }) color: Color | 'auto' = 'primary';
+
+  /** Overrides what the light mode color will be when color is "auto". */
+  @Prop() lightModeColor: Color = 'dark';
+
+  /** Overrides what the dark mode color will be when color is "auto". */
+  @Prop() darkModeColor: Color = 'light';
 
   componentDidLoad() {
     if (this.type == 'submit' || this.type == 'reset') {
@@ -41,6 +47,14 @@ export class JeButton {
         this.formButtonEl.style.display = 'none';
         this.formEl.append(this.formButtonEl);
       }
+    }
+  }
+
+  @Listen('themeChange', { target: 'body' })
+  handleThemeChange(e: CustomEvent<'light' | 'dark'>) {
+    if (this.color == 'auto') {
+      this.el.toggleAttribute(this.lightModeColor, e.detail == 'light')
+      this.el.toggleAttribute(this.darkModeColor, e.detail == 'dark')
     }
   }
 

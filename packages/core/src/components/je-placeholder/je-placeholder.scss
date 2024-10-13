@@ -1,14 +1,12 @@
 :host {
   /**
-   * @prop --je-border-radius: Border radios of the component
    * @prop --je-background: background color
    * @prop shimmer-color: color of the shimmer animation
    */
-  --je-border-radius: 2px;
   --je-background: #c7c7c7c5;
   --je-shimmer-color: #ffffff;
 
-  border-radius: var(--je-border-radius);
+  border-radius: var(--je-border-radius, 2px);
   display: block;
   width: 100%;
   height: inherit;

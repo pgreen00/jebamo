@@ -3,105 +3,105 @@
   width: fit-content;
 
   /**
-   * @prop --je-height: Fixed height
-   * @prop --je-width: Optional fixed width
-   * @prop --je-min-width: Minimum width
-   * @prop --je-font-size: Font size
-   * @prop --je-inline-padding: Inner inline padding
-   * @prop --je-color: Text color
-   * @prop --je-background: Default background color
-   * @prop --je-hover-background: Hovered background color
-   * @prop --je-active-background: Pressed background color
+   * @prop --je-button-height: Fixed height
+   * @prop --je-button-width: Optional fixed width
+   * @prop --je-button-min-width: Minimum width
+   * @prop --je-button-font-size: Font size
+   * @prop --je-button-inline-padding: Inner inline padding
+   * @prop --je-button-color: Text color
+   * @prop --je-button-background: Default background color
+   * @prop --je-button-hover-background: Hovered background color
+   * @prop --je-button-active-background: Pressed background color
    */
-  --je-height: 40px;
-  --je-width: auto;
-  --je-min-width: 80px;
-  --je-font-size: 14px;
-  --je-inline-padding: 12px;
-  --je-color: var(--je-primary-100, buttontext);
-  --je-background: var(--je-primary-500, buttonface);
-  --je-hover-background: var(--je-primary-600, buttonface);
-  --je-active-background: var(--je-primary-700, buttonface);
+  --je-button-height: 40px;
+  --je-button-width: auto;
+  --je-button-min-width: 80px;
+  --je-button-font-size: 14px;
+  --je-button-inline-padding: 12px;
+  --je-button-color: var(--je-primary-100, buttontext);
+  --je-button-background: var(--je-primary-500, buttonface);
+  --je-button-hover-background: var(--je-primary-600, buttonface);
+  --je-button-active-background: var(--je-primary-700, buttonface);
 }
 
-:host([color=error]) {
-  --je-color: var(--je-error-100);
-  --je-background: var(--je-error-500);
-  --je-hover-background: var(--je-error-600);
-  --je-active-background: var(--je-error-700);
+:host([color=error]), :host([color=auto][error]) {
+  --je-button-color: var(--je-error-100);
+  --je-button-background: var(--je-error-500);
+  --je-button-hover-background: var(--je-error-600);
+  --je-button-active-background: var(--je-error-700);
 }
 
-:host([color=secondary]) {
-  --je-color: var(--je-secondary-100);
-  --je-background: var(--je-secondary-500);
-  --je-hover-background: var(--je-secondary-600);
-  --je-active-background: var(--je-secondary-700);
+:host([color=secondary]), :host([color=auto][secondary]) {
+  --je-button-color: var(--je-secondary-100);
+  --je-button-background: var(--je-secondary-500);
+  --je-button-hover-background: var(--je-secondary-600);
+  --je-button-active-background: var(--je-secondary-700);
 }
 
-:host([color=tertiary]) {
-  --je-color: var(--je-tertiary-100);
-  --je-background: var(--je-tertiary-500);
-  --je-hover-background: var(--je-tertiary-600);
-  --je-active-background: var(--je-tertiary-700);
+:host([color=tertiary]), :host([color=auto][tertiary]) {
+  --je-button-color: var(--je-tertiary-100);
+  --je-button-background: var(--je-tertiary-500);
+  --je-button-hover-background: var(--je-tertiary-600);
+  --je-button-active-background: var(--je-tertiary-700);
 }
 
-:host([color=warning]) {
-  --je-color: var(--je-warning-100);
-  --je-background: var(--je-warning-500);
-  --je-hover-background: var(--je-warning-600);
-  --je-active-background: var(--je-warning-700);
+:host([color=warning]), :host([color=auto][warning]) {
+  --je-button-color: var(--je-warning-100);
+  --je-button-background: var(--je-warning-500);
+  --je-button-hover-background: var(--je-warning-600);
+  --je-button-active-background: var(--je-warning-700);
 }
 
-:host([color=success]) {
-  --je-color: var(--je-success-100);
-  --je-background: var(--je-success-500);
-  --je-hover-background: var(--je-success-600);
-  --je-active-background: var(--je-success-700);
+:host([color=success]), :host([color=auto][success]) {
+  --je-button-color: var(--je-success-100);
+  --je-button-background: var(--je-success-500);
+  --je-button-hover-background: var(--je-success-600);
+  --je-button-active-background: var(--je-success-700);
 }
 
-:host([color=medium]) {
-  --je-color: var(--je-medium-100);
-  --je-background: var(--je-medium-500);
-  --je-hover-background: var(--je-medium-600);
-  --je-active-background: var(--je-medium-650);
+:host([color=medium]), :host([color=auto][medium]) {
+  --je-button-color: var(--je-medium-100);
+  --je-button-background: var(--je-medium-500);
+  --je-button-hover-background: var(--je-medium-600);
+  --je-button-active-background: var(--je-medium-650);
 }
 
-:host([color=light]) {
-  --je-color: var(--je-medium-850);
-  --je-background: var(--je-medium-200);
-  --je-hover-background: var(--je-medium-400);
-  --je-active-background: var(--je-medium-500);
+:host([color=light]), :host([color=auto][light]) {
+  --je-button-color: var(--je-medium-850);
+  --je-button-background: var(--je-medium-200);
+  --je-button-hover-background: var(--je-medium-400);
+  --je-button-active-background: var(--je-medium-500);
 }
 
-:host([color=dark]) {
-  --je-color: var(--je-medium-100);
-  --je-background: var(--je-medium-800);
-  --je-hover-background: var(--je-medium-800);
-  --je-active-background: var(--je-medium-850);
+:host([color=dark]), :host([color=auto][dark]) {
+  --je-button-color: var(--je-medium-100);
+  --je-button-background: var(--je-medium-800);
+  --je-button-hover-background: var(--je-medium-800);
+  --je-button-active-background: var(--je-medium-850);
 }
 
 :host([expand]) {
   width: 100%;
-  --je-width: 100%;
+  --je-button-width: 100%;
 }
 
 :host([icon-only]) {
-  --je-min-width: 2px;
-  --je-inline-padding: 0;
+  --je-button-min-width: 2px;
+  --je-button-inline-padding: 0;
 }
 
 :host([size=sm]) {
-  --je-min-width: 60px;
-  --je-height: 30px;
-  --je-font-size: 12px;
-  --je-inline-padding: 8px;
+  --je-button-min-width: 60px;
+  --je-button-height: 30px;
+  --je-button-font-size: 12px;
+  --je-button-inline-padding: 8px;
 }
 
 :host([size=lg]) {
-  --je-min-width: 100px;
-  --je-height: 50px;
-  --je-font-size: 16px;
-  --je-inline-padding: 20px;
+  --je-button-min-width: 100px;
+  --je-button-height: 50px;
+  --je-button-font-size: 16px;
+  --je-button-inline-padding: 20px;
 }
 
 button {
@@ -113,8 +113,8 @@ button {
   box-sizing: border-box;
   overflow: hidden;
   border: none;
-  border-radius: 2px;
-  padding-inline: var(--je-inline-padding);
+  border-radius: var(--je-border-radius, 2px);
+  padding-inline: var(--je-button-inline-padding);
   cursor: pointer;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -122,23 +122,23 @@ button {
   text-transform: uppercase;
   text-wrap: wrap;
   font-family: var(--je-font-family);
-  font-size: var(--je-font-size);
+  font-size: var(--je-button-font-size);
   font-weight: var(--je-font-semi-bold);
-  width: var(--je-width);
-  height: var(--je-height);
-  min-width: var(--je-min-width);
-  color: var(--je-color);
-  background-color: var(--je-background);
+  width: var(--je-button-width);
+  height: var(--je-button-height);
+  min-width: var(--je-button-min-width);
+  color: var(--je-button-color);
+  background-color: var(--je-button-background);
   transition: all 125ms ease-in-out;
 
   @media (hover: hover) {
     &:hover {
-      --je-background: var(--je-hover-background);
+      --je-button-background: var(--je-button-hover-background);
     }
   }
 
   &:active {
-    --je-background: var(--je-active-background);
+    --je-button-background: var(--je-button-active-background);
   }
 
   &:disabled {
@@ -148,13 +148,13 @@ button {
 }
 
 :host([fill=outline]) button {
-  color: var(--je-background);
+  color: var(--je-button-background);
   background-color: transparent;
-  border: solid 1px var(--je-background);
+  border: solid 1px var(--je-button-background);
 }
 
 :host([fill=clear]) button {
-  color: var(--je-background);
+  color: var(--je-button-background);
   background-color: transparent;
   font-weight: var(--je-font-bold);
 

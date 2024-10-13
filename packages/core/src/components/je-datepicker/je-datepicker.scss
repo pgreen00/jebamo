@@ -5,10 +5,10 @@
 }
 
 je-button.day {
-  --je-min-width: 20px;
-  --je-height: 20px;
-  --je-font-size: 14px;
-  --je-inline-padding: 0px;
+  --je-button-min-width: 20px;
+  --je-button-height: 20px;
+  --je-button-font-size: 14px;
+  --je-button-inline-padding: 0px;
   &::part(inner-button) {
     font-weight: 400;
   }

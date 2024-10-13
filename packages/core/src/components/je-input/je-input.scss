@@ -19,7 +19,7 @@ div[part='outer-container'] {
   background-color: var(--je-input-background, field);
   color: var(--je-input-color, fieldtext);
   padding-inline: var(--je-padding-sm, 10px);
-  border-radius: 2px;
+  border-radius: var(--je-border-radius, 2px);
   overflow: hidden;
   border: solid 1px var(--je-border-color);
   transition: border 150ms ease-in-out;
