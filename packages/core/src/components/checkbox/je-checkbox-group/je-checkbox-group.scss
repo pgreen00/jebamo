@@ -1,3 +1,10 @@
 :host {
   display: block;
+  width: fit-content;
+}
+
+label {
+  display: block;
+  font-weight: var(--je-font-semi-bold);
+  margin-bottom: var(--je-gap-sm);
 }

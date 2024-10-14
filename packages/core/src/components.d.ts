@@ -99,10 +99,58 @@ export namespace Components {
         "color"?: Color;
     }
     interface JeCheckbox {
+        /**
+          * Shows the disabled state and prevents changes
+         */
+        "disabled": boolean;
+        /**
+          * If the checkbox should contain a 3rd indeterminate state
+         */
+        "indeterminate": boolean;
+        /**
+          * Will hide the checkbox and just display the label
+         */
+        "labelOnly": boolean;
+        /**
+          * Whether or not the label should go before or after the checkbox
+         */
+        "labelPlacement": 'start' | 'end';
+        /**
+          * Shows the readonly state and prevents changes
+         */
+        "readonly": boolean;
+        /**
+          * Whether or not the checkbox is active
+         */
+        "value"?: boolean;
     }
     interface JeCheckboxGroup {
+        /**
+          * Label that shows above the controls
+         */
+        "label"?: string;
+        /**
+          * Current selected values
+         */
+        "value": string[];
     }
     interface JeCheckboxOption {
+        /**
+          * Whether or not this option is currently checked
+         */
+        "checked": boolean;
+        /**
+          * Shows disabled state and prevents changes to this option
+         */
+        "disabled": boolean;
+        /**
+          * Shows readonly state and prevents changes to this option
+         */
+        "readonly": boolean;
+        /**
+          * Value of this option that the checkbox group will compare against
+         */
+        "value": any;
     }
     interface JeColumn {
         /**
@@ -381,8 +429,36 @@ export namespace Components {
         "triggerAction": 'click' | 'hover' | 'context-menu';
     }
     interface JeRadio {
+        /**
+          * Whether or not the label will appear before or after the control
+         */
+        "labelPlacement": 'start' | 'end';
+        /**
+          * If the option is currently selected
+         */
+        "selected": boolean;
+        /**
+          * The value of this option and the radio group will compare against
+         */
+        "value": any;
     }
     interface JeRadioGroup {
+        /**
+          * Shows disabled state for all the controls and prevents changes
+         */
+        "disabled": boolean;
+        /**
+          * Label that shows above the controls
+         */
+        "label"?: string;
+        /**
+          * Shows readonly state for all the controls and prevents changes
+         */
+        "readonly": boolean;
+        /**
+          * The currently selected value
+         */
+        "value"?: any;
     }
     interface JeSelect {
         "expand"?: boolean;
@@ -414,6 +490,18 @@ export interface JeAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeAlertElement;
 }
+export interface JeCheckboxCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeCheckboxElement;
+}
+export interface JeCheckboxGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeCheckboxGroupElement;
+}
+export interface JeCheckboxOptionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeCheckboxOptionElement;
+}
 export interface JeDatepickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeDatepickerElement;
@@ -433,6 +521,14 @@ export interface JePageCustomEvent<T> extends CustomEvent<T> {
 export interface JePopoverCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJePopoverElement;
+}
+export interface JeRadioCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeRadioElement;
+}
+export interface JeRadioGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeRadioGroupElement;
 }
 export interface JeSelectOptionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -482,19 +578,53 @@ declare global {
         prototype: HTMLJeCardElement;
         new (): HTMLJeCardElement;
     };
+    interface HTMLJeCheckboxElementEventMap {
+        "valueChange": boolean | undefined;
+    }
     interface HTMLJeCheckboxElement extends Components.JeCheckbox, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeCheckboxElementEventMap>(type: K, listener: (this: HTMLJeCheckboxElement, ev: JeCheckboxCustomEvent<HTMLJeCheckboxElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeCheckboxElementEventMap>(type: K, listener: (this: HTMLJeCheckboxElement, ev: JeCheckboxCustomEvent<HTMLJeCheckboxElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeCheckboxElement: {
         prototype: HTMLJeCheckboxElement;
         new (): HTMLJeCheckboxElement;
     };
+    interface HTMLJeCheckboxGroupElementEventMap {
+        "valueChange": string[];
+    }
     interface HTMLJeCheckboxGroupElement extends Components.JeCheckboxGroup, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeCheckboxGroupElementEventMap>(type: K, listener: (this: HTMLJeCheckboxGroupElement, ev: JeCheckboxGroupCustomEvent<HTMLJeCheckboxGroupElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeCheckboxGroupElementEventMap>(type: K, listener: (this: HTMLJeCheckboxGroupElement, ev: JeCheckboxGroupCustomEvent<HTMLJeCheckboxGroupElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeCheckboxGroupElement: {
         prototype: HTMLJeCheckboxGroupElement;
         new (): HTMLJeCheckboxGroupElement;
     };
+    interface HTMLJeCheckboxOptionElementEventMap {
+        "check": any;
+        "uncheck": any;
+    }
     interface HTMLJeCheckboxOptionElement extends Components.JeCheckboxOption, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeCheckboxOptionElementEventMap>(type: K, listener: (this: HTMLJeCheckboxOptionElement, ev: JeCheckboxOptionCustomEvent<HTMLJeCheckboxOptionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeCheckboxOptionElementEventMap>(type: K, listener: (this: HTMLJeCheckboxOptionElement, ev: JeCheckboxOptionCustomEvent<HTMLJeCheckboxOptionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeCheckboxOptionElement: {
         prototype: HTMLJeCheckboxOptionElement;
@@ -661,13 +791,35 @@ declare global {
         prototype: HTMLJePopoverElement;
         new (): HTMLJePopoverElement;
     };
+    interface HTMLJeRadioElementEventMap {
+        "radioSelect": any;
+    }
     interface HTMLJeRadioElement extends Components.JeRadio, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeRadioElementEventMap>(type: K, listener: (this: HTMLJeRadioElement, ev: JeRadioCustomEvent<HTMLJeRadioElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeRadioElementEventMap>(type: K, listener: (this: HTMLJeRadioElement, ev: JeRadioCustomEvent<HTMLJeRadioElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeRadioElement: {
         prototype: HTMLJeRadioElement;
         new (): HTMLJeRadioElement;
     };
+    interface HTMLJeRadioGroupElementEventMap {
+        "valueChange": any;
+    }
     interface HTMLJeRadioGroupElement extends Components.JeRadioGroup, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeRadioGroupElementEventMap>(type: K, listener: (this: HTMLJeRadioGroupElement, ev: JeRadioGroupCustomEvent<HTMLJeRadioGroupElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeRadioGroupElementEventMap>(type: K, listener: (this: HTMLJeRadioGroupElement, ev: JeRadioGroupCustomEvent<HTMLJeRadioGroupElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeRadioGroupElement: {
         prototype: HTMLJeRadioGroupElement;
@@ -871,10 +1023,74 @@ declare namespace LocalJSX {
         "color"?: Color;
     }
     interface JeCheckbox {
+        /**
+          * Shows the disabled state and prevents changes
+         */
+        "disabled"?: boolean;
+        /**
+          * If the checkbox should contain a 3rd indeterminate state
+         */
+        "indeterminate"?: boolean;
+        /**
+          * Will hide the checkbox and just display the label
+         */
+        "labelOnly"?: boolean;
+        /**
+          * Whether or not the label should go before or after the checkbox
+         */
+        "labelPlacement"?: 'start' | 'end';
+        /**
+          * Emits the current value whenever it's state changes
+         */
+        "onValueChange"?: (event: JeCheckboxCustomEvent<boolean | undefined>) => void;
+        /**
+          * Shows the readonly state and prevents changes
+         */
+        "readonly"?: boolean;
+        /**
+          * Whether or not the checkbox is active
+         */
+        "value"?: boolean;
     }
     interface JeCheckboxGroup {
+        /**
+          * Label that shows above the controls
+         */
+        "label"?: string;
+        /**
+          * Emits the current selected values whenever they change
+         */
+        "onValueChange"?: (event: JeCheckboxGroupCustomEvent<string[]>) => void;
+        /**
+          * Current selected values
+         */
+        "value"?: string[];
     }
     interface JeCheckboxOption {
+        /**
+          * Whether or not this option is currently checked
+         */
+        "checked"?: boolean;
+        /**
+          * Shows disabled state and prevents changes to this option
+         */
+        "disabled"?: boolean;
+        /**
+          * Emits the value whenever it is checked
+         */
+        "onCheck"?: (event: JeCheckboxOptionCustomEvent<any>) => void;
+        /**
+          * Emits the value whenever it is unchecked
+         */
+        "onUncheck"?: (event: JeCheckboxOptionCustomEvent<any>) => void;
+        /**
+          * Shows readonly state and prevents changes to this option
+         */
+        "readonly"?: boolean;
+        /**
+          * Value of this option that the checkbox group will compare against
+         */
+        "value"?: any;
     }
     interface JeColumn {
         /**
@@ -1166,8 +1382,44 @@ declare namespace LocalJSX {
         "triggerAction"?: 'click' | 'hover' | 'context-menu';
     }
     interface JeRadio {
+        /**
+          * Whether or not the label will appear before or after the control
+         */
+        "labelPlacement"?: 'start' | 'end';
+        /**
+          * Emits the value whenever it is selected
+         */
+        "onRadioSelect"?: (event: JeRadioCustomEvent<any>) => void;
+        /**
+          * If the option is currently selected
+         */
+        "selected"?: boolean;
+        /**
+          * The value of this option and the radio group will compare against
+         */
+        "value"?: any;
     }
     interface JeRadioGroup {
+        /**
+          * Shows disabled state for all the controls and prevents changes
+         */
+        "disabled"?: boolean;
+        /**
+          * Label that shows above the controls
+         */
+        "label"?: string;
+        /**
+          * Emits the selected value whenever it changes
+         */
+        "onValueChange"?: (event: JeRadioGroupCustomEvent<any>) => void;
+        /**
+          * Shows readonly state for all the controls and prevents changes
+         */
+        "readonly"?: boolean;
+        /**
+          * The currently selected value
+         */
+        "value"?: any;
     }
     interface JeSelect {
         "expand"?: boolean;
