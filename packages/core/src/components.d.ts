@@ -375,6 +375,9 @@ export namespace Components {
         "theme": 'light' | 'dark' | 'auto';
     }
     interface JePill {
+        "button": boolean;
+        "disabled": boolean;
+        "outline": boolean;
     }
     interface JePlaceholder {
         /**
@@ -1322,6 +1325,9 @@ declare namespace LocalJSX {
         "theme"?: 'light' | 'dark' | 'auto';
     }
     interface JePill {
+        "button"?: boolean;
+        "disabled"?: boolean;
+        "outline"?: boolean;
     }
     interface JePlaceholder {
         /**

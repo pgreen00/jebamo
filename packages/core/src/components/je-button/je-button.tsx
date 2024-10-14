@@ -69,6 +69,7 @@ export class JeButton {
     return (
       <button part='inner-button' disabled={this.disabled} type={this.type}>
         <slot></slot>
+        <slot name='badge'></slot>
       </button>
     );
   }

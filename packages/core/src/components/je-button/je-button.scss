@@ -1,6 +1,7 @@
 :host {
   display: block;
   width: fit-content;
+  position: relative;
 
   /**
    * @prop --je-button-height: Fixed height
@@ -111,7 +112,6 @@ button {
   gap: 4px;
   position: relative;
   box-sizing: border-box;
-  overflow: hidden;
   border: none;
   border-radius: var(--je-border-radius, 2px);
   padding-inline: var(--je-button-inline-padding);
@@ -167,4 +167,19 @@ button {
 
 ::slotted(je-icon) {
   cursor: pointer;
+}
+
+::slotted([slot=badge]) {
+  top: 0;
+  right: 0;
+  position: absolute;
+  transform: translate(50%, -50%);
+  border-radius: 14px;
+  color: var(--je-button-background);
+  background-color: var(--je-button-color);
+  padding-inline: 4px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

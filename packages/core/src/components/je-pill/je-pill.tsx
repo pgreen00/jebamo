@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-pill',
@@ -6,6 +6,10 @@ import { Component, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class JePill {
+  @Prop({ reflect: true }) outline = false;
+  @Prop({ reflect: true }) button = true;
+  @Prop({ reflect: true }) disabled = false;
+
   render() {
     return (
       <Host>

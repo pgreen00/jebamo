@@ -1,3 +1,43 @@
 :host {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  gap: var(--je-gap-sm);
+  padding-inline: 4px;
+  border-radius: var(--je-border-radius, 2px);
+  height: 20px;
+  min-width: 40px;
+  user-select: none;
+  transition: all 125ms ease-in-out;
+  color: var(--je-pill-color);
+  background-color: var(--je-pill-background);
+
+  --je-pill-color: var(--je-primary-500, buttonface);
+  --je-pill-background: var(--je-primary-100, buttontext);
+  --je-pill-hover-background: var(--je-primary-200, buttontext);
+}
+
+:host(:not([button=false])) {
+  cursor: pointer;
+  ::slotted(je-icon) {
+    cursor: pointer;
+  }
+}
+
+:host(:not([button=false]):not([disabled]):hover) {
+  @media (hover: hover) {
+    --je-pill-background: var(--je-pill-hover-background);
+  }
+}
+
+:host([disabled]) {
+  opacity: 0.8;
+  cursor: default;
+}
+
+:host([outline]) {
+  background-color: transparent;
+  color: var(--je-pill-color);
+  border: solid 1px var(--je-pill-background);
 }

@@ -8,18 +8,41 @@
 
 <script type="module" src="/build/jebamo.esm.js"></script>
 <script nomodule src="/build/jebamo.js"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap">
+
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-
-  @font-face {
-    font-family: 'Material Symbols Rounded';
-    font-style: normal;
-    font-weight: 100 700;
-    src: url(https://fonts.gstatic.com/s/materialsymbolsrounded/v206/sykg-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190FjzaqkNCeE.woff2) format('woff2');
-  }
-
   je-page {
     --je-font-family: "Work Sans";
+    --je-border-radius: 2px;
+
+    .header {
+      --je-background-color: var(--je-primary-800);
+      --je-color: var(--je-primary-100);
+      padding-inline: var(--je-padding);
+    }
+
+    [slot=left-panel] {
+      padding: var(--je-padding);
+      display: flex;
+      flex-direction: column;
+      gap: var(--je-gap-lg);
+    }
+
+    [slot=body] {
+      padding: var(--je-padding-lg);
+    }
+
+    [slot=right-panel] {
+      padding: var(--je-padding);
+    }
+
+    .footer {
+      background-color: var(--je-primary-800);
+      color: var(--je-primary-100);
+      padding-inline: var(--je-padding);
+    }
   }
 
   html,
@@ -35,7 +58,7 @@
 
 <body>
   <je-page id="main-page" left-panel="minimized" right-panel="open">
-    <je-toolbar style="--je-background-color: var(--je-primary-800); --je-color: var(--je-primary-100); padding-inline: var(--je-padding);" slot="header">
+    <je-toolbar class="header" slot="header">
       <je-button slot="start" fill="clear" icon-only="true" color="light">
         <je-icon icon="menu"></je-icon>
       </je-button>
@@ -44,7 +67,7 @@
       <je-button size="sm" onclick="handlePanelToggle('left')" color="light" slot="end">Toggle left panel</je-button>
       <je-button size="sm" onclick="handlePanelToggle('right')" color="light" slot="end">Toggle right panel</je-button>
     </je-toolbar>
-    <div style="padding: var(--je-padding); display: flex; flex-direction: column; gap: var(--je-gap-lg);" slot="left-panel">
+    <div slot="left-panel">
       <je-button icon-only expand>
         <je-icon fill icon="home"></je-icon>
       </je-button>
@@ -58,7 +81,7 @@
         <je-icon fill icon="favorite"></je-icon>
       </je-button>
     </div>
-    <div slot="body" style="padding: var(--je-padding-lg);">
+    <div slot="body">
       <h2>Buttons</h2>
       <div style="display: flex; flex-direction: column; gap: var(--je-gap); margin-bottom: var(--je-margin);">
         <div style="display: flex; gap: var(--je-gap);">
@@ -112,7 +135,7 @@
           <je-icon icon="search"></je-icon>
         </je-button>
         <je-button>
-          <je-icon fill icon="home"></je-icon> Home
+          <je-icon fill icon="home"></je-icon> Home <span slot="badge">22</span>
         </je-button>
       </div>
 
@@ -160,8 +183,17 @@
         <h3>Hello</h3>
         <p>wyd</p>
       </je-card>
+
+      <h2>Pills</h2>
+      <div style="display: flex; gap: var(--je-gap);">
+        <je-pill>Hey</je-pill>
+        <je-pill outline>
+          <je-icon size="sm" icon="person"></je-icon> Hey <je-icon size="sm" icon="close"></je-icon>
+        </je-pill>
+        <je-pill disabled>Wall</je-pill>
+      </div>
     </div>
-    <div style="padding: var(--je-padding);" slot="right-panel">
+    <div slot="right-panel">
       <h2>Example Form</h2>
       <je-form id="form">
         <je-input label="Name" placeholder="What's your name?" expand="true"></je-input>
@@ -196,7 +228,7 @@
       </je-form>
       <je-alert id="formAlert"></je-alert>
     </div>
-    <div style="background-color: var(--je-primary-800); color: var(--je-primary-100); padding-inline: var(--je-padding);" slot="footer">
+    <div class="footer" slot="footer">
       <h1>Footer</h1>
     </div>
   </je-page>
