@@ -7,7 +7,7 @@
   color: var(--je-color, inherit);
   background-color: var(--je-background-color, inherit);
 
-  --je-toolbar-gap: var(--je-gap, 6px);
+  --je-toolbar-gap: var(--je-spacing, 16px);
 }
 
 .center-container {

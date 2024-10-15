@@ -1,9 +1,11 @@
 :host {
   display: flex;
   align-items: center;
-  gap: var(--je-gap-sm);
+  gap: var(--je-spacing-2xs);
   width: fit-content;
   cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 je-icon {

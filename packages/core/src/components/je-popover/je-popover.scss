@@ -7,7 +7,7 @@
   position: absolute;
   background-color: var(--je-popover-background-color, canvas);
   color: var(--je-popover-color, canvastext);
-  padding-inline: var(--je-padding-sm, 10px);
+  padding-inline: var(--je-spacing-xs, 10px);
   box-shadow: var(--je-popover-box-shadow);
   border: var(--je-popover-border);
   z-index: 1000;

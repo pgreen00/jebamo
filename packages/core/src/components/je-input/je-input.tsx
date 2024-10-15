@@ -324,7 +324,6 @@ export class JeInput {
     const invalid = this.errors.length > 0 || (this.required && ((this.value ?? '') === ''));
     const containerClasses = {
       disabled: this.disabled,
-      invalid: invalid,
       touched: this.isTouched
     };
 

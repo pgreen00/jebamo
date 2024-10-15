@@ -95,18 +95,18 @@
 
 ::slotted([slot="header"]) {
   box-sizing: border-box;
-  padding-inline: var(--je-padding-sm, 10px);
+  padding-inline: var(--je-spacing-xs, 10px);
   border-bottom: solid 1px var(--je-card-border-color);
 }
 
 ::slotted([slot="footer"]) {
   box-sizing: border-box;
   display: flex;
-  padding-block: var(--je-padding-sm, 10px);
-  gap: var(--je-gap-sm, 8px);
+  padding-block: var(--je-spacing-xs, 10px);
+  gap: var(--je-spacing-2xs, 8px);
 }
 
 .container {
   box-sizing: border-box;
-  padding: var(--je-padding-sm, 10px);
+  padding: var(--je-spacing-xs, 10px);
 }

@@ -3,11 +3,12 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  gap: var(--je-gap-sm);
+  gap: var(--je-spacing-2xs);
   padding-inline: 4px;
   border-radius: var(--je-border-radius, 2px);
   height: 20px;
   min-width: 40px;
+  -webkit-user-select: none;
   user-select: none;
   transition: all 125ms ease-in-out;
   color: var(--je-pill-color);

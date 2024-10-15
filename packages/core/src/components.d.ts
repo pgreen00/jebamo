@@ -363,6 +363,11 @@ export namespace Components {
         "trigger"?: string;
     }
     interface JeMultiselect {
+        "expand"?: boolean;
+        "label"?: string;
+        "placeholder"?: string;
+        "required"?: boolean;
+        "value"?: string;
     }
     interface JeMultiselectOption {
     }
@@ -1312,6 +1317,11 @@ declare namespace LocalJSX {
         "trigger"?: string;
     }
     interface JeMultiselect {
+        "expand"?: boolean;
+        "label"?: string;
+        "placeholder"?: string;
+        "required"?: boolean;
+        "value"?: string;
     }
     interface JeMultiselectOption {
     }

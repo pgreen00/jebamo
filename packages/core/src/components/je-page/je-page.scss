@@ -20,15 +20,16 @@
   --je-color: canvastext;
   --je-background-color: canvas;
   --je-backdrop-color: rgba(0, 0, 0, 0.5);
-  --je-gap: 16px;
-  --je-gap-sm: 8px;
-  --je-gap-lg: 32px;
-  --je-padding: 20px;
-  --je-padding-sm: 10px;
-  --je-padding-lg: 40px;
-  --je-margin: 12px;
-  --je-margin-sm: 6px;
-  --je-margin-lg: 24px;
+
+  --je-spacing-3xs: 4px;
+  --je-spacing-2xs: 8px;
+  --je-spacing-xs: 10px;
+  --je-spacing-sm: 12px;
+  --je-spacing: 16px;
+  --je-spacing-lg: 20px;
+  --je-spacing-xl: 24px;
+  --je-spacing-2xl: 32px;
+  --je-spacing-3xl: 40px;
 
   @include colors.generate-color-variables;
 
