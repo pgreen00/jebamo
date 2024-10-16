@@ -7,13 +7,15 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { DialogButton, DialogControl } from "./components/je-alert/je-alert";
 import { Color } from "./utils/utils";
+import { DrawerState } from "./components/je-drawer/je-drawer";
 import { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
-import { DrawerState, PanelState } from "./components/je-page/je-page";
+import { PanelState } from "./components/je-page/je-page";
 import { PositionStrategy, Target } from "./components/je-popover/je-popover";
 export { DialogButton, DialogControl } from "./components/je-alert/je-alert";
 export { Color } from "./utils/utils";
+export { DrawerState } from "./components/je-drawer/je-drawer";
 export { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
-export { DrawerState, PanelState } from "./components/je-page/je-page";
+export { PanelState } from "./components/je-page/je-page";
 export { PositionStrategy, Target } from "./components/je-popover/je-popover";
 export namespace Components {
     interface JeAccordion {
@@ -186,6 +188,9 @@ export namespace Components {
     }
     interface JeDatepicker {
         "value"?: Date | string;
+    }
+    interface JeDrawer {
+        "state": DrawerState;
     }
     interface JeFiles {
     }
@@ -372,10 +377,7 @@ export namespace Components {
     interface JeMultiselectOption {
     }
     interface JePage {
-        "bottomDrawer": DrawerState;
-        "leftDrawer": DrawerState;
         "leftPanel": PanelState;
-        "rightDrawer": DrawerState;
         "rightPanel": PanelState;
         "theme": 'light' | 'dark' | 'auto';
     }
@@ -667,6 +669,12 @@ declare global {
         prototype: HTMLJeDatepickerElement;
         new (): HTMLJeDatepickerElement;
     };
+    interface HTMLJeDrawerElement extends Components.JeDrawer, HTMLStencilElement {
+    }
+    var HTMLJeDrawerElement: {
+        prototype: HTMLJeDrawerElement;
+        new (): HTMLJeDrawerElement;
+    };
     interface HTMLJeFilesElement extends Components.JeFiles, HTMLStencilElement {
     }
     var HTMLJeFilesElement: {
@@ -910,6 +918,7 @@ declare global {
         "je-column": HTMLJeColumnElement;
         "je-column-group": HTMLJeColumnGroupElement;
         "je-datepicker": HTMLJeDatepickerElement;
+        "je-drawer": HTMLJeDrawerElement;
         "je-files": HTMLJeFilesElement;
         "je-form": HTMLJeFormElement;
         "je-icon": HTMLJeIconElement;
@@ -1136,6 +1145,9 @@ declare namespace LocalJSX {
         "onValueChange"?: (event: JeDatepickerCustomEvent<Date | undefined>) => void;
         "value"?: Date | string;
     }
+    interface JeDrawer {
+        "state"?: DrawerState;
+    }
     interface JeFiles {
     }
     interface JeForm {
@@ -1326,11 +1338,8 @@ declare namespace LocalJSX {
     interface JeMultiselectOption {
     }
     interface JePage {
-        "bottomDrawer"?: DrawerState;
-        "leftDrawer"?: DrawerState;
         "leftPanel"?: PanelState;
         "onThemeChange"?: (event: JePageCustomEvent<'light' | 'dark'>) => void;
-        "rightDrawer"?: DrawerState;
         "rightPanel"?: PanelState;
         "theme"?: 'light' | 'dark' | 'auto';
     }
@@ -1475,6 +1484,7 @@ declare namespace LocalJSX {
         "je-column": JeColumn;
         "je-column-group": JeColumnGroup;
         "je-datepicker": JeDatepicker;
+        "je-drawer": JeDrawer;
         "je-files": JeFiles;
         "je-form": JeForm;
         "je-icon": JeIcon;
@@ -1517,6 +1527,7 @@ declare module "@stencil/core" {
             "je-column": LocalJSX.JeColumn & JSXBase.HTMLAttributes<HTMLJeColumnElement>;
             "je-column-group": LocalJSX.JeColumnGroup & JSXBase.HTMLAttributes<HTMLJeColumnGroupElement>;
             "je-datepicker": LocalJSX.JeDatepicker & JSXBase.HTMLAttributes<HTMLJeDatepickerElement>;
+            "je-drawer": LocalJSX.JeDrawer & JSXBase.HTMLAttributes<HTMLJeDrawerElement>;
             "je-files": LocalJSX.JeFiles & JSXBase.HTMLAttributes<HTMLJeFilesElement>;
             "je-form": LocalJSX.JeForm & JSXBase.HTMLAttributes<HTMLJeFormElement>;
             "je-icon": LocalJSX.JeIcon & JSXBase.HTMLAttributes<HTMLJeIconElement>;

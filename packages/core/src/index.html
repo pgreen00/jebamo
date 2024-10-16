@@ -78,7 +78,7 @@
 <body>
   <je-page id="main-page" left-panel="minimized" right-panel="open">
     <je-toolbar class="header" slot="header">
-      <je-button slot="start" fill="clear" icon-only="true" color="light">
+      <je-button slot="start" fill="clear" icon-only="true" color="light" onclick="handleDrawerToggle()">
         <je-icon icon="menu"></je-icon>
       </je-button>
       <h1>Jebamo</h1>
@@ -101,6 +101,19 @@
       </je-button>
     </div>
     <div slot="body">
+
+      <je-drawer id="drawer">
+        <h1>Hey</h1>
+        <je-select label="Day" placeholder="Select a day of the week">
+          <je-select-option value="1">Monday</je-select-option>
+          <je-select-option value="2">Tuesday</je-select-option>
+          <je-select-option value="3">Wednesday</je-select-option>
+          <je-select-option value="4">Thursday</je-select-option>
+          <je-select-option value="5">Friday</je-select-option>
+          <je-select-option value="6">Saturday</je-select-option>
+          <je-select-option value="7">Sunday</je-select-option>
+        </je-select>
+      </je-drawer>
       <je-multiselect></je-multiselect>
       <h2>Buttons</h2>
       <div style="display: flex; flex-direction: column; gap: var(--je-spacing); margin-bottom: var(--je-spacing-sm);">
@@ -317,6 +330,11 @@
         const panelState = el.rightPanel;
         el.rightPanel = panelState === 'open' ? 'closed' : 'open';
       }
+    }
+
+    function handleDrawerToggle() {
+      const el = document.getElementById('drawer')
+      el.state = el.state == 'open' ? 'closed' : 'open';
     }
 
     function handleThemeToggle() {
