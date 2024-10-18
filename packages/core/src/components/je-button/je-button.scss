@@ -17,7 +17,7 @@
   --je-button-height: 40px;
   --je-button-width: auto;
   --je-button-min-width: 80px;
-  --je-button-font-size: 14px;
+  --je-button-font-size: 1.1em;
   --je-button-inline-padding: 12px;
   --je-button-color: var(--je-primary-100, buttontext);
   --je-button-background: var(--je-primary-500, buttonface);
@@ -61,24 +61,24 @@
 }
 
 :host([color=medium]), :host([color=auto][medium]) {
-  --je-button-color: var(--je-medium-100);
+  --je-button-color: var(--je-medium-50);
   --je-button-background: var(--je-medium-500);
   --je-button-hover-background: var(--je-medium-600);
-  --je-button-active-background: var(--je-medium-650);
+  --je-button-active-background: var(--je-medium-700);
 }
 
 :host([color=light]), :host([color=auto][light]) {
-  --je-button-color: var(--je-medium-850);
-  --je-button-background: var(--je-medium-200);
+  --je-button-color: var(--je-medium-900);
+  --je-button-background: var(--je-medium-100);
   --je-button-hover-background: var(--je-medium-400);
   --je-button-active-background: var(--je-medium-500);
 }
 
 :host([color=dark]), :host([color=auto][dark]) {
-  --je-button-color: var(--je-medium-100);
-  --je-button-background: var(--je-medium-800);
-  --je-button-hover-background: var(--je-medium-800);
-  --je-button-active-background: var(--je-medium-850);
+  --je-button-color: var(--je-medium-50);
+  --je-button-background: var(--je-medium-850);
+  --je-button-hover-background: var(--je-medium-850);
+  --je-button-active-background: var(--je-medium-900);
 }
 
 :host([expand]) {
@@ -94,14 +94,14 @@
 :host([size=sm]) {
   --je-button-min-width: 60px;
   --je-button-height: 30px;
-  --je-button-font-size: 12px;
+  --je-button-font-size: 0.9em;
   --je-button-inline-padding: 8px;
 }
 
 :host([size=lg]) {
   --je-button-min-width: 100px;
   --je-button-height: 50px;
-  --je-button-font-size: 16px;
+  --je-button-font-size: 1.3em;
   --je-button-inline-padding: 20px;
 }
 

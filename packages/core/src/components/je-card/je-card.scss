@@ -69,24 +69,24 @@
 }
 
 :host([color=medium]) {
-  --je-card-color: var(--je-medium-100);
+  --je-card-color: var(--je-medium-50);
   --je-card-background: var(--je-medium-500);
   --je-card-hover-background: var(--je-medium-600);
-  --je-card-active-background: var(--je-medium-650);
+  --je-card-active-background: var(--je-medium-700);
 }
 
 :host([color=light]) {
-  --je-card-color: var(--je-medium-850);
-  --je-card-background: var(--je-medium-200);
+  --je-card-color: var(--je-medium-900);
+  --je-card-background: var(--je-medium-100);
   --je-card-hover-background: var(--je-medium-400);
   --je-card-active-background: var(--je-medium-500);
 }
 
 :host([color=dark]) {
-  --je-card-color: var(--je-medium-100);
-  --je-card-background: var(--je-medium-800);
-  --je-card-hover-background: var(--je-medium-800);
-  --je-card-active-background: var(--je-medium-850);
+  --je-card-color: var(--je-medium-50);
+  --je-card-background: var(--je-medium-850);
+  --je-card-hover-background: var(--je-medium-850);
+  --je-card-active-background: var(--je-medium-900);
 }
 
 ::slotted([slot="media"]) {

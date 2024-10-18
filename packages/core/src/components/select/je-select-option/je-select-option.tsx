@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Listen, Prop, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Listen, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-select-option',
@@ -6,6 +6,7 @@ import { Component, Event, EventEmitter, Listen, Prop, h } from '@stencil/core';
   shadow: true,
 })
 export class JeSelectOption {
+  @Element() hostEl!: HTMLElement;
   @Prop() value: string;
   @Prop({ reflect: true }) selected = false;
   @Event() optionSelected: EventEmitter<string>;
@@ -13,6 +14,11 @@ export class JeSelectOption {
   @Listen('click')
   handleClick() {
     this.optionSelected.emit(this.value);
+  }
+
+  @Listen('themeChange', { target: 'body' })
+  handleThemeChange(e: CustomEvent<'light' | 'dark'>) {
+    this.hostEl.toggleAttribute('darkmode', e.detail == 'dark')
   }
 
   render() {

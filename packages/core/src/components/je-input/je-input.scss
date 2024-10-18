@@ -4,6 +4,13 @@
 
   --je-height: 42px;
   --je-border-color: transparent;
+  --je-input-background: var(--je-medium-100);
+  --je-input-color: var(--je-medium-900);
+}
+
+:host([darkmode]) {
+  --je-input-background: var(--je-medium-850);
+  --je-input-color: var(--je-medium-50);
 }
 
 :host([expand]) {

@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: space-around;
   gap: var(--je-toolbar-gap);
-  color: var(--je-color, inherit);
+  color: var(--je-text-color, inherit);
   background-color: var(--je-background-color, inherit);
 
   --je-toolbar-gap: var(--je-spacing, 16px);

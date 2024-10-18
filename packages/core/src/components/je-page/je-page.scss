@@ -6,7 +6,7 @@
   overflow: hidden;
   font-size: var(--je-font-size);
   font-family: var(--je-font-family);
-  color: var(--je-color);
+  color: var(--je-text-color);
   background-color: var(--je-background-color);
   color-scheme: light;
 
@@ -17,7 +17,7 @@
   --je-font-semi-bold: 600;
   --je-font-bold: 700;
   --je-border-radius: 2px;
-  --je-color: canvastext;
+  --je-text-color: canvastext;
   --je-background-color: canvas;
   --je-backdrop-color: rgba(0, 0, 0, 0.5);
 
@@ -33,16 +33,6 @@
 
   @include colors.generate-color-variables;
 
-  --je-input-background: var(--je-medium-200);
-  --je-input-color: var(--je-medium-850);
-
-  --je-option-hover-color: var(--je-primary-100);
-
-  --je-popover-background-color: rgb(233, 236, 236);
-  --je-popover-color: var(--je-medium-850);
-  --je-popover-box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.12);
-  --je-popover-border: solid 1px rgb(197, 200, 204);
-
   --je-left-sidepanel-open-width: 500px;
   --je-left-sidepanel-minimized-width: 100px;
   --je-left-sidepanel-border: solid 1px canvastext;
@@ -52,15 +42,7 @@
 }
 
 @mixin dark-theme-styles {
-  --je-input-background: var(--je-medium-800);
-  --je-input-color: var(--je-medium-100);
-
-  --je-option-hover-color: var(--je-medium-800);
-
-  --je-popover-background-color: rgb(41, 45, 46);
-  --je-popover-color: var(--je-medium-100);
-  --je-popover-box-shadow: 0px 4px 16px 0px rgba(68, 68, 68, 0.12);
-  --je-popover-border: solid 1px rgb(86, 87, 90);
+  --test: 0px;
 }
 
 :host([theme='dark']) {

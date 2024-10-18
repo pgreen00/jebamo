@@ -205,6 +205,11 @@ export class JeInput {
     }
   }
 
+  @Listen('themeChange', { target: 'body' })
+  handleThemeChange(e: CustomEvent<'light' | 'dark'>) {
+    this.hostEl.toggleAttribute('darkmode', e.detail == 'dark')
+  }
+
   @Listen('focus')
   handleFocus() {
     this.containerEl.classList.add('focus');

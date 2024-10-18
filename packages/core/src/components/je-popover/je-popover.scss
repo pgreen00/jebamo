@@ -1,5 +1,17 @@
 :host {
   display: block;
+
+  --je-popover-background-color: rgb(233, 236, 236);
+  --je-popover-color: var(--je-medium-900);
+  --je-popover-box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.12);
+  --je-popover-border: solid 1px rgb(197, 200, 204);
+}
+
+:host([darkmode]) {
+  --je-popover-background-color: rgb(41, 45, 46);
+  --je-popover-color: var(--je-medium-50);
+  --je-popover-box-shadow: 0px 4px 16px 0px rgba(68, 68, 68, 0.12);
+  --je-popover-border: solid 1px rgb(86, 87, 90);
 }
 
 .content {

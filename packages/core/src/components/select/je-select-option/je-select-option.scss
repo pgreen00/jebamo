@@ -1,6 +1,11 @@
 :host {
   display: block;
   width: 100%;
+  --je-option-hover-color: var(--je-primary-100);
+}
+
+:host([darkmode]) {
+  --je-option-hover-color: var(--je-medium-850);
 }
 
 :host(:hover) span[part='container'], :host(.focus) span[part='container'] {

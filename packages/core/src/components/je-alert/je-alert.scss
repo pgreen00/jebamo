@@ -21,7 +21,7 @@
   z-index: 910;
   width: var(--je-width);
   background-color: var(--je-background-color);
-  color: var(--je-color);
+  color: var(--je-text-color);
   box-shadow: 0px 0px 15px 5px #4d4d4d73;
 }
 
@@ -39,7 +39,7 @@
 
 .content-container .header .close {
   margin-left: auto;
-  --je-background: var(--je-medium-800);
+  --je-background: var(--je-medium-850);
 }
 
 .content-container .controls {
