@@ -154,6 +154,8 @@ export namespace Components {
          */
         "value": any;
     }
+    interface JeColor {
+    }
     interface JeColumn {
         /**
           * The size of the column, in terms of how many columns it should take up out of the total available.
@@ -646,6 +648,12 @@ declare global {
         prototype: HTMLJeCheckboxOptionElement;
         new (): HTMLJeCheckboxOptionElement;
     };
+    interface HTMLJeColorElement extends Components.JeColor, HTMLStencilElement {
+    }
+    var HTMLJeColorElement: {
+        prototype: HTMLJeColorElement;
+        new (): HTMLJeColorElement;
+    };
     interface HTMLJeColumnElement extends Components.JeColumn, HTMLStencilElement {
     }
     var HTMLJeColumnElement: {
@@ -931,6 +939,7 @@ declare global {
         "je-checkbox": HTMLJeCheckboxElement;
         "je-checkbox-group": HTMLJeCheckboxGroupElement;
         "je-checkbox-option": HTMLJeCheckboxOptionElement;
+        "je-color": HTMLJeColorElement;
         "je-column": HTMLJeColumnElement;
         "je-column-group": HTMLJeColumnGroupElement;
         "je-datepicker": HTMLJeDatepickerElement;
@@ -1124,6 +1133,8 @@ declare namespace LocalJSX {
           * Value of this option that the checkbox group will compare against
          */
         "value"?: any;
+    }
+    interface JeColor {
     }
     interface JeColumn {
         /**
@@ -1493,6 +1504,7 @@ declare namespace LocalJSX {
         "je-checkbox": JeCheckbox;
         "je-checkbox-group": JeCheckboxGroup;
         "je-checkbox-option": JeCheckboxOption;
+        "je-color": JeColor;
         "je-column": JeColumn;
         "je-column-group": JeColumnGroup;
         "je-datepicker": JeDatepicker;
@@ -1536,6 +1548,7 @@ declare module "@stencil/core" {
             "je-checkbox": LocalJSX.JeCheckbox & JSXBase.HTMLAttributes<HTMLJeCheckboxElement>;
             "je-checkbox-group": LocalJSX.JeCheckboxGroup & JSXBase.HTMLAttributes<HTMLJeCheckboxGroupElement>;
             "je-checkbox-option": LocalJSX.JeCheckboxOption & JSXBase.HTMLAttributes<HTMLJeCheckboxOptionElement>;
+            "je-color": LocalJSX.JeColor & JSXBase.HTMLAttributes<HTMLJeColorElement>;
             "je-column": LocalJSX.JeColumn & JSXBase.HTMLAttributes<HTMLJeColumnElement>;
             "je-column-group": LocalJSX.JeColumnGroup & JSXBase.HTMLAttributes<HTMLJeColumnGroupElement>;
             "je-datepicker": LocalJSX.JeDatepicker & JSXBase.HTMLAttributes<HTMLJeDatepickerElement>;
