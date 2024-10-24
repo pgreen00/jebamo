@@ -17,6 +17,7 @@ span[part='container'] {
   align-items: center;
   gap: var(--je-spacing-2xs);
   user-select: none;
+  -webkit-user-select: none;
   cursor: pointer;
   width: 100%;
   padding: var(--je-spacing-xs, 10px);

@@ -17,6 +17,8 @@
 
 :host([button]) {
   cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
   transition: all 125ms ease-in-out;
 }
 

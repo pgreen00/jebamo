@@ -1,4 +1,4 @@
-import { Component, Host, h, Element, Listen, Prop, State, Watch } from '@stencil/core';
+import { Component, Host, h, Element, Listen, Prop, State, Watch, AttachInternals } from '@stencil/core';
 
 @Component({
   tag: 'je-multiselect',
@@ -8,12 +8,15 @@ import { Component, Host, h, Element, Listen, Prop, State, Watch } from '@stenci
 })
 export class JeMultiselect {
   @Element() el: HTMLElement;
-  private inputEl!: HTMLJeInputElement;
-  private originalValue?: string;
+  @AttachInternals() internals: ElementInternals;
+  @State() isTouched = false;
   @State() open = false;
+  private containerEl!: HTMLDivElement;
+  private popoverEl!: HTMLJePopoverElement;
+  private originalValue: string[] = [];
   @Prop() label?: string;
   @Prop() placeholder?: string;
-  @Prop({ mutable: true }) value?: string;
+  @Prop({ mutable: true }) value: string[] = [];
   @Prop() expand?: boolean;
   @Prop() required?: boolean;
 
@@ -25,14 +28,14 @@ export class JeMultiselect {
     if (!this.el.getAttribute('name') && this.label) {
       this.el.setAttribute('name', this.label);
     }
+
+    if (!Array.isArray(this.value)) {
+      this.value = [this.value];
+    }
   }
 
   formResetCallback() {
     this.value = this.originalValue;
-    const options = Array.from(this.el.querySelectorAll('je-select-option'));
-    if (!options.some(t => t.value === this.value)) {
-      this.inputEl.value = '';
-    }
   }
 
   @Listen('didPresent')
@@ -43,44 +46,90 @@ export class JeMultiselect {
   @Listen('didDismiss')
   handlePopoverDismiss() {
     this.open = false;
-    const options = this.el.querySelectorAll('je-select-option');
-    options.forEach(option => option.classList.remove('focus'));
+    this.el.style.removeProperty('--je-content-width')
+    this.containerEl.classList.remove('focus');
   }
 
-  @Listen('optionSelected')
-  handleOptionSelected(event: CustomEvent<string>) {
-    this.value = event.detail;
+  @Listen('themeChange', { target: 'body' })
+  handleThemeChange(e: CustomEvent<'light' | 'dark'>) {
+    this.el.toggleAttribute('darkmode', e.detail == 'dark')
+  }
+
+  @Listen('optionChecked')
+  handleOptionChecked(event: CustomEvent<string>) {
+    this.value = [...this.value, event.detail];
+  }
+
+  @Listen('optionUnchecked')
+  handleOptionUnchecked(event: CustomEvent<string>) {
+    this.value = this.value.filter(t => t !== event.detail);
+  }
+
+  @Listen('focus')
+  handleFocus() {
+    this.containerEl.classList.add('focus');
+  }
+
+  @Listen('blur')
+  handleBlur() {
+    this.isTouched = true;
+    if (!this.open) {
+      this.containerEl.classList.remove('focus');
+    }
   }
 
   @Watch('value')
   handleValueChange() {
-    const options = this.el.querySelectorAll('je-select-option');
+    const options = this.el.querySelectorAll('je-multiselect-option');
     options.forEach(option => {
-      if (option.value === this.value) {
-        option.selected = true;
-        this.inputEl.value = option.textContent || option.value;
+      if (this.value.includes(option.value)) {
+        option.checked = true;
       } else {
-        option.selected = false;
+        option.checked = false;
       }
     });
   }
 
+  private handleContainerClick = async () => {
+    this.el.style.setProperty('--je-content-width', `${this.el.clientWidth}px`);
+    await this.popoverEl.present('element', this.el);
+  }
+
   render() {
+    const requiredIcon = <je-icon style={{ fontSize: '10px', color: 'var(--je-error-500)' }} icon="asterisk" />;
+    const label = <label part='label' style={{ display: 'flex' }}>{this.label} {this.required && requiredIcon}</label>;
+    const invalid = this.required && ((this.value ?? '') === '');
+    const containerClasses = {
+      //disabled: this.disabled,
+      touched: this.isTouched
+    };
+
+    if (invalid && this.isTouched) {
+      this.internals.reportValidity();
+    }
+
     return (
       <Host>
-        <je-input ref={el => this.inputEl = el}
-          exportparts='outer-container, start-container, end-container, native-input, content'
-          dropdown={true}
-          label={this.label}
-          placeholder={this.placeholder}
-          noTyping={true}
-          expand={this.expand}
-          dismissOnClick={true}
-          required={this.required}
-        >
-          <slot onSlotchange={() => this.handleValueChange()} slot='dropdown' />
-          <je-icon slot='end' icon='expand_more' class={{ open: this.open }} />
-        </je-input>
+        <div ref={el => this.containerEl = el} part='outer-container' onClick={this.handleContainerClick} class={containerClasses}>
+          <div part='start-container'>
+            <slot name='start'/>
+            {this.label && label}
+          </div>
+
+          <div part='main-container'>
+            {this.value.length > 0 && this.value.map(t => <je-pill>{t}</je-pill>)}
+            {(this.value.length < 1 && this.placeholder) && this.placeholder}
+          </div>
+
+          <div part='end-container'>
+            <slot name='end'/>
+            <je-icon icon='expand_more' class={{ open: this.open }} />
+          </div>
+        </div>
+
+        <je-popover ref={el => this.popoverEl = el} exportparts='content'>
+          <slot></slot>
+        </je-popover>
       </Host>
     );
   }

@@ -71,6 +71,7 @@ input {
   &::placeholder {
     font-family: var(--je-font-family, inherit);
     font-size: var(--je-font-size, 1rem);
+    color: var(--je-medium-600);
   }
   &:focus {
     outline: 0;

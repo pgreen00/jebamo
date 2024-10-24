@@ -372,9 +372,11 @@ export namespace Components {
         "label"?: string;
         "placeholder"?: string;
         "required"?: boolean;
-        "value"?: string;
+        "value": string[];
     }
     interface JeMultiselectOption {
+        "checked": boolean;
+        "value": string;
     }
     interface JePage {
         "leftPanel": PanelState;
@@ -523,6 +525,10 @@ export interface JeInputCustomEvent<T> extends CustomEvent<T> {
 export interface JeModalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeModalElement;
+}
+export interface JeMultiselectOptionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeMultiselectOptionElement;
 }
 export interface JePageCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -752,7 +758,19 @@ declare global {
         prototype: HTMLJeMultiselectElement;
         new (): HTMLJeMultiselectElement;
     };
+    interface HTMLJeMultiselectOptionElementEventMap {
+        "optionChecked": string;
+        "optionUnchecked": string;
+    }
     interface HTMLJeMultiselectOptionElement extends Components.JeMultiselectOption, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeMultiselectOptionElementEventMap>(type: K, listener: (this: HTMLJeMultiselectOptionElement, ev: JeMultiselectOptionCustomEvent<HTMLJeMultiselectOptionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeMultiselectOptionElementEventMap>(type: K, listener: (this: HTMLJeMultiselectOptionElement, ev: JeMultiselectOptionCustomEvent<HTMLJeMultiselectOptionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeMultiselectOptionElement: {
         prototype: HTMLJeMultiselectOptionElement;
@@ -790,8 +808,6 @@ declare global {
     interface HTMLJePopoverElementEventMap {
         "didPresent": any;
         "didDismiss": { role?: string, data?: any };
-        "willPresent": any;
-        "wilDismiss": any;
     }
     interface HTMLJePopoverElement extends Components.JePopover, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJePopoverElementEventMap>(type: K, listener: (this: HTMLJePopoverElement, ev: JePopoverCustomEvent<HTMLJePopoverElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1333,9 +1349,13 @@ declare namespace LocalJSX {
         "label"?: string;
         "placeholder"?: string;
         "required"?: boolean;
-        "value"?: string;
+        "value"?: string[];
     }
     interface JeMultiselectOption {
+        "checked"?: boolean;
+        "onOptionChecked"?: (event: JeMultiselectOptionCustomEvent<string>) => void;
+        "onOptionUnchecked"?: (event: JeMultiselectOptionCustomEvent<string>) => void;
+        "value"?: string;
     }
     interface JePage {
         "leftPanel"?: PanelState;
@@ -1379,14 +1399,6 @@ declare namespace LocalJSX {
           * Emits whenever the popover has presented. Does not emit any data
          */
         "onDidPresent"?: (event: JePopoverCustomEvent<any>) => void;
-        /**
-          * Emits before the popover starts dismissing itself. Does not emit any data
-         */
-        "onWilDismiss"?: (event: JePopoverCustomEvent<any>) => void;
-        /**
-          * Emits before the popover starts presenting itself. Does not emit any data
-         */
-        "onWillPresent"?: (event: JePopoverCustomEvent<any>) => void;
         /**
           * If the popover should auto position itself using the mouse event or the triggerElement.
          */

@@ -65,19 +65,13 @@ export class JePopover {
   @Prop() triggerAction: 'click' | 'hover' | 'context-menu' = 'click';
 
   /** Emits whenever the popover has presented. Does not emit any data */
-  @Event({ composed: true }) didPresent: EventEmitter;
+  @Event() didPresent: EventEmitter;
 
   /**
    * Emits whenever the popover has finished dismissing. Emits the role
    * and optional data object passed to the dismiss() method.
    */
-  @Event({ composed: true }) didDismiss: EventEmitter<{ role?: string, data?: any }>;
-
-  /** Emits before the popover starts presenting itself. Does not emit any data */
-  @Event({ composed: true }) willPresent: EventEmitter;
-
-  /** Emits before the popover starts dismissing itself. Does not emit any data */
-  @Event({ composed: true }) wilDismiss: EventEmitter;
+  @Event() didDismiss: EventEmitter<{ role?: string, data?: any }>;
 
   componentDidLoad() {
     this.pagEl = this.el.closest('je-page') as HTMLElement;
@@ -223,7 +217,7 @@ export class JePopover {
 
   /** Manually dismisses the popover. Role and data get passed to the didDismiss event. */
   @Method()
-  async dismiss(role: string = 'manualDismiss', data?: any) {
+  async dismiss(role = 'manualDismiss', data?: any) {
     if (this.isOpen) {
       return new Promise<void>(resolve => {
         this.contentEl.addEventListener('transitionend', () => {
