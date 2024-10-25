@@ -20,8 +20,6 @@ export { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "
 export { PanelState } from "./components/je-page/je-page";
 export { PositionStrategy, Target } from "./components/je-popover/je-popover";
 export namespace Components {
-    interface JeAccordion {
-    }
     interface JeAlert {
         /**
           * Whether or not the user can close the dialog by clicking the backdrop
@@ -204,6 +202,12 @@ export namespace Components {
     }
     interface JeDatepicker {
         "value"?: Date | string;
+    }
+    interface JeDetails {
+        "state": 'open' | 'closed';
+        "summary"?: string;
+    }
+    interface JeDivider {
     }
     interface JeDrawer {
         "state": DrawerState;
@@ -603,12 +607,6 @@ export interface JeSelectOptionCustomEvent<T> extends CustomEvent<T> {
     target: HTMLJeSelectOptionElement;
 }
 declare global {
-    interface HTMLJeAccordionElement extends Components.JeAccordion, HTMLStencilElement {
-    }
-    var HTMLJeAccordionElement: {
-        prototype: HTMLJeAccordionElement;
-        new (): HTMLJeAccordionElement;
-    };
     interface HTMLJeAlertElementEventMap {
         "didPresent": any;
         "didDismiss": { role: string, data: any };
@@ -732,6 +730,18 @@ declare global {
     var HTMLJeDatepickerElement: {
         prototype: HTMLJeDatepickerElement;
         new (): HTMLJeDatepickerElement;
+    };
+    interface HTMLJeDetailsElement extends Components.JeDetails, HTMLStencilElement {
+    }
+    var HTMLJeDetailsElement: {
+        prototype: HTMLJeDetailsElement;
+        new (): HTMLJeDetailsElement;
+    };
+    interface HTMLJeDividerElement extends Components.JeDivider, HTMLStencilElement {
+    }
+    var HTMLJeDividerElement: {
+        prototype: HTMLJeDividerElement;
+        new (): HTMLJeDividerElement;
     };
     interface HTMLJeDrawerElement extends Components.JeDrawer, HTMLStencilElement {
     }
@@ -992,7 +1002,6 @@ declare global {
         new (): HTMLJeTreeElement;
     };
     interface HTMLElementTagNameMap {
-        "je-accordion": HTMLJeAccordionElement;
         "je-alert": HTMLJeAlertElement;
         "je-branch": HTMLJeBranchElement;
         "je-button": HTMLJeButtonElement;
@@ -1004,6 +1013,8 @@ declare global {
         "je-column": HTMLJeColumnElement;
         "je-column-group": HTMLJeColumnGroupElement;
         "je-datepicker": HTMLJeDatepickerElement;
+        "je-details": HTMLJeDetailsElement;
+        "je-divider": HTMLJeDividerElement;
         "je-drawer": HTMLJeDrawerElement;
         "je-files": HTMLJeFilesElement;
         "je-form": HTMLJeFormElement;
@@ -1033,8 +1044,6 @@ declare global {
     }
 }
 declare namespace LocalJSX {
-    interface JeAccordion {
-    }
     interface JeAlert {
         /**
           * Whether or not the user can close the dialog by clicking the backdrop
@@ -1244,6 +1253,12 @@ declare namespace LocalJSX {
     interface JeDatepicker {
         "onValueChange"?: (event: JeDatepickerCustomEvent<Date | undefined>) => void;
         "value"?: Date | string;
+    }
+    interface JeDetails {
+        "state"?: 'open' | 'closed';
+        "summary"?: string;
+    }
+    interface JeDivider {
     }
     interface JeDrawer {
         "state"?: DrawerState;
@@ -1602,7 +1617,6 @@ declare namespace LocalJSX {
     interface JeTree {
     }
     interface IntrinsicElements {
-        "je-accordion": JeAccordion;
         "je-alert": JeAlert;
         "je-branch": JeBranch;
         "je-button": JeButton;
@@ -1614,6 +1628,8 @@ declare namespace LocalJSX {
         "je-column": JeColumn;
         "je-column-group": JeColumnGroup;
         "je-datepicker": JeDatepicker;
+        "je-details": JeDetails;
+        "je-divider": JeDivider;
         "je-drawer": JeDrawer;
         "je-files": JeFiles;
         "je-form": JeForm;
@@ -1646,7 +1662,6 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "je-accordion": LocalJSX.JeAccordion & JSXBase.HTMLAttributes<HTMLJeAccordionElement>;
             "je-alert": LocalJSX.JeAlert & JSXBase.HTMLAttributes<HTMLJeAlertElement>;
             "je-branch": LocalJSX.JeBranch & JSXBase.HTMLAttributes<HTMLJeBranchElement>;
             "je-button": LocalJSX.JeButton & JSXBase.HTMLAttributes<HTMLJeButtonElement>;
@@ -1658,6 +1673,8 @@ declare module "@stencil/core" {
             "je-column": LocalJSX.JeColumn & JSXBase.HTMLAttributes<HTMLJeColumnElement>;
             "je-column-group": LocalJSX.JeColumnGroup & JSXBase.HTMLAttributes<HTMLJeColumnGroupElement>;
             "je-datepicker": LocalJSX.JeDatepicker & JSXBase.HTMLAttributes<HTMLJeDatepickerElement>;
+            "je-details": LocalJSX.JeDetails & JSXBase.HTMLAttributes<HTMLJeDetailsElement>;
+            "je-divider": LocalJSX.JeDivider & JSXBase.HTMLAttributes<HTMLJeDividerElement>;
             "je-drawer": LocalJSX.JeDrawer & JSXBase.HTMLAttributes<HTMLJeDrawerElement>;
             "je-files": LocalJSX.JeFiles & JSXBase.HTMLAttributes<HTMLJeFilesElement>;
             "je-form": LocalJSX.JeForm & JSXBase.HTMLAttributes<HTMLJeFormElement>;

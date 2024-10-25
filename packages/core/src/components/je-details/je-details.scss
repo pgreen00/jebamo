@@ -1,0 +1,42 @@
+:host {
+  display: block;
+}
+
+[part=summary-container] {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  align-items: center;
+}
+
+[part=details-icon] {
+  height: 24px;
+  width: 24px;
+  transition: transform 0.3s ease-in-out;
+}
+
+[part=details-container] {
+  box-sizing: border-box;
+  padding-top: 0px;
+  opacity: 0;
+  max-height: 0px;
+  transition: all 0.3s ease-in-out;
+}
+
+:host([state=open]) {
+  [part=details-container] {
+    padding-top: var(--je-spacing);
+    opacity: 1;
+    max-height: 2000px;
+  }
+}
+
+:host([state=closed]) {
+  [part=details-icon] {
+    height: 24px;
+    width: 24px;
+    transform: rotate(-180deg);
+  }
+}

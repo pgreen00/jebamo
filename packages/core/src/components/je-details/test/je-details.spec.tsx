@@ -1,18 +1,18 @@
 import { newSpecPage } from '@stencil/core/testing';
-import { JeAccordion } from '../je-accordion';
+import { JeDetails } from '../je-details';
 
-describe('je-accordion', () => {
+describe('je-details', () => {
   it('renders', async () => {
     const page = await newSpecPage({
-      components: [JeAccordion],
-      html: `<je-accordion></je-accordion>`,
+      components: [JeDetails],
+      html: `<je-details></je-details>`,
     });
     expect(page.root).toEqualHtml(`
-      <je-accordion>
+      <je-details>
         <mock:shadow-root>
           <slot></slot>
         </mock:shadow-root>
-      </je-accordion>
+      </je-details>
     `);
   });
 });

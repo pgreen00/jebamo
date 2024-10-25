@@ -1,11 +1,11 @@
 import { Component, Host, h } from '@stencil/core';
 
 @Component({
-  tag: 'je-accordion',
-  styleUrl: 'je-accordion.scss',
+  tag: 'je-divider',
+  styleUrl: 'je-divider.scss',
   shadow: true,
 })
-export class JeAccordion {
+export class JeDivider {
   render() {
     return (
       <Host>
