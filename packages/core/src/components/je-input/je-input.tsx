@@ -192,6 +192,10 @@ export class JeInput {
     } else {
       this.validatorsChanged();
     }
+    const formEl = this.internals.form;
+    if (formEl && this.name) {
+      formEl.addEventListener('formdata', ({ formData }) => formData.set(this.name, this.value))
+    }
   }
 
   async formResetCallback() {
@@ -244,6 +248,7 @@ export class JeInput {
   async valueChanged() {
     if (this.inputEl && this.inputEl.value !== this.value) {
       this.inputEl.value = this.value;
+      this.internals.setFormValue(this.value);
     }
     this.validatorsChanged();
   }
