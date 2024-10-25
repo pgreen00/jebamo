@@ -8,18 +8,18 @@ import { Component, Event, EventEmitter, Listen, Prop, h } from '@stencil/core';
 export class JeForm {
   private el!: HTMLFormElement;
 
-  @Event() submissionData: EventEmitter<FormData>;
+  @Event() formData: EventEmitter<FormData>;
 
   /**
    * Removes the default gap between elements passed in
    */
   @Prop() gap: 'none' | 'default' = 'default';
 
-  @Listen('submit', { capture: true })
+  @Listen('submit')
   async handleSubmit(event: SubmitEvent) {
     event.preventDefault();
     const formData = new FormData(this.el);
-    this.submissionData.emit(formData)
+    this.formData.emit(formData)
   }
 
   @Listen('keydown')

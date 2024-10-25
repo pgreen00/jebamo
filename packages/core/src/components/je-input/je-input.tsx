@@ -86,11 +86,6 @@ export class JeInput {
   @Prop() multiple = false;
 
   /**
-   * Name used in form, defaults to label value if not provided
-   */
-  @Prop({ reflect: true, mutable: true }) name?: string;
-
-  /**
    * Passed to native input
    */
   @Prop() pattern?: string;
@@ -176,9 +171,13 @@ export class JeInput {
   @Event({ bubbles: false }) valueChange: EventEmitter<string>;
 
   componentWillLoad() {
-    if (this.label && !this.name) {
-      this.name = this.label.replace(' ', '-').toLowerCase();
+    if (this.label && !this.hostEl.getAttribute('name')) {
+      this.hostEl.setAttribute('name', this.label.replace(' ', '-').toLowerCase());
     }
+  }
+
+  connectedCallback() {
+    this.internals.setFormValue(this.value);
   }
 
   async componentDidLoad() {
@@ -191,10 +190,6 @@ export class JeInput {
       this.value = await this.format(this.value);
     } else {
       this.validatorsChanged();
-    }
-    const formEl = this.internals.form;
-    if (formEl && this.name) {
-      formEl.addEventListener('formdata', ({ formData }) => formData.set(this.name, this.value))
     }
   }
 
@@ -248,8 +243,8 @@ export class JeInput {
   async valueChanged() {
     if (this.inputEl && this.inputEl.value !== this.value) {
       this.inputEl.value = this.value;
-      this.internals.setFormValue(this.value);
     }
+    this.internals.setFormValue(this.value);
     this.validatorsChanged();
   }
 
@@ -364,7 +359,6 @@ export class JeInput {
             minLength={this.minLength}
             maxLength={this.maxLength}
             multiple={this.multiple}
-            name={this.name}
             pattern={this.pattern}
             readOnly={this.readOnly || this.noTyping}
             required={this.required}

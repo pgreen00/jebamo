@@ -272,7 +272,7 @@
           <je-multiselect-option value="6">Saturday</je-multiselect-option>
           <je-multiselect-option value="7">Sunday</je-multiselect-option>
         </je-multiselect>
-        <je-input required label="Password" type="password" placeholder="Type your password" expand="true"></je-input>
+        <je-input required name="pw" label="Password" type="password" placeholder="Type your password" expand="true"></je-input>
         <je-input type="number" required id="customInput" label="Custom Validator" helper-text="Enter a number between 4 and 12" expand="true"></je-input>
         <je-input id="customFormatter" name="phone" type="tel" autocomplete="phone" placeholder="Type your phone" label="Custom Formatter" expand="true">
           <je-icon icon="phone" fill slot="end"></je-icon>
@@ -376,7 +376,7 @@
     }
 
     const formEl = document.getElementById('form');
-    formEl.addEventListener('submissionData', ev => {
+    formEl.addEventListener('formData', ev => {
       for (let [key, value] of ev.detail.entries()) {
         console.log(`${key}: ${value}`);
       }

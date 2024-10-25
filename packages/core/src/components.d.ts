@@ -318,10 +318,6 @@ export namespace Components {
          */
         "multiple": boolean;
         /**
-          * Name used in form, defaults to label value if not provided
-         */
-        "name"?: string;
-        /**
           * Will prevent changes, does not change the input's state in any way
          */
         "noTyping": boolean;
@@ -750,7 +746,7 @@ declare global {
         new (): HTMLJeFilesElement;
     };
     interface HTMLJeFormElementEventMap {
-        "submissionData": FormData;
+        "formData": FormData;
     }
     interface HTMLJeFormElement extends Components.JeForm, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeFormElementEventMap>(type: K, listener: (this: HTMLJeFormElement, ev: JeFormCustomEvent<HTMLJeFormElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1259,7 +1255,7 @@ declare namespace LocalJSX {
           * Removes the default gap between elements passed in
          */
         "gap"?: 'none' | 'default';
-        "onSubmissionData"?: (event: JeFormCustomEvent<FormData>) => void;
+        "onFormData"?: (event: JeFormCustomEvent<FormData>) => void;
     }
     interface JeIcon {
         /**
@@ -1358,10 +1354,6 @@ declare namespace LocalJSX {
           * Passed to native input
          */
         "multiple"?: boolean;
-        /**
-          * Name used in form, defaults to label value if not provided
-         */
-        "name"?: string;
         /**
           * Will prevent changes, does not change the input's state in any way
          */
