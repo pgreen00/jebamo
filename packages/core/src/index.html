@@ -101,7 +101,6 @@
       </je-button>
     </div>
     <div slot="body">
-
       <je-drawer id="drawer">
         <h1>Hey</h1>
         <je-select label="Day" placeholder="Select a day of the week">
@@ -114,15 +113,15 @@
           <je-select-option value="7">Sunday</je-select-option>
         </je-select>
       </je-drawer>
-      <je-multiselect label="Day" placeholder="Select a day of the week">
-        <je-multiselect-option value="1">Monday</je-multiselect-option>
-        <je-multiselect-option value="2">Tuesday</je-multiselect-option>
-        <je-multiselect-option value="3">Wednesday</je-multiselect-option>
-        <je-multiselect-option value="4">Thursday</je-multiselect-option>
-        <je-multiselect-option value="5">Friday</je-multiselect-option>
-        <je-multiselect-option value="6">Saturday</je-multiselect-option>
-        <je-multiselect-option value="7">Sunday</je-multiselect-option>
-      </je-multiselect>
+
+      <h2>Color</h2>
+      <div>
+        Hello <je-color color="primary">world!</je-color>
+      </div>
+      <div>
+        <je-color color="auto" light-mode-color="primary" dark-mode-color="secondary">This text is secondary in dark mode and primary in light mode</je-color>
+      </div>
+
       <h2>Buttons</h2>
       <div style="display: flex; flex-direction: column; gap: var(--je-spacing); margin-bottom: var(--je-spacing-sm);">
         <div style="display: flex; gap: var(--je-spacing);">
@@ -247,6 +246,15 @@
           <je-select-option value="6">Saturday</je-select-option>
           <je-select-option value="7">Sunday</je-select-option>
         </je-select>
+        <je-multiselect label="Day" placeholder="Select a day of the week">
+          <je-multiselect-option value="1">Monday</je-multiselect-option>
+          <je-multiselect-option value="2">Tuesday</je-multiselect-option>
+          <je-multiselect-option value="3">Wednesday</je-multiselect-option>
+          <je-multiselect-option value="4">Thursday</je-multiselect-option>
+          <je-multiselect-option value="5">Friday</je-multiselect-option>
+          <je-multiselect-option value="6">Saturday</je-multiselect-option>
+          <je-multiselect-option value="7">Sunday</je-multiselect-option>
+        </je-multiselect>
         <je-input required label="Password" type="password" placeholder="Type your password" expand="true"></je-input>
         <je-input type="number" required id="customInput" label="Custom Validator" helper-text="Enter a number between 4 and 12" expand="true"></je-input>
         <je-input id="customFormatter" name="phone" type="tel" autocomplete="phone" placeholder="Type your phone" label="Custom Formatter" expand="true">

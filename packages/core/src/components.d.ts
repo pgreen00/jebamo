@@ -7,12 +7,14 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { DialogButton, DialogControl } from "./components/je-alert/je-alert";
 import { Color } from "./utils/utils";
+import { Color as Color1 } from "./components";
 import { DrawerState } from "./components/je-drawer/je-drawer";
 import { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
 import { PanelState } from "./components/je-page/je-page";
 import { PositionStrategy, Target } from "./components/je-popover/je-popover";
 export { DialogButton, DialogControl } from "./components/je-alert/je-alert";
 export { Color } from "./utils/utils";
+export { Color as Color1 } from "./components";
 export { DrawerState } from "./components/je-drawer/je-drawer";
 export { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
 export { PanelState } from "./components/je-page/je-page";
@@ -155,6 +157,18 @@ export namespace Components {
         "value": any;
     }
     interface JeColor {
+        /**
+          * Predefined colors. Auto will switch between light and dark based on the closest je-page's theme.
+         */
+        "color": Color1 | 'auto';
+        /**
+          * Overrides what the dark mode color will be when color is "auto".
+         */
+        "darkModeColor": Color1;
+        /**
+          * Overrides what the light mode color will be when color is "auto".
+         */
+        "lightModeColor": Color1;
     }
     interface JeColumn {
         /**
@@ -1135,6 +1149,18 @@ declare namespace LocalJSX {
         "value"?: any;
     }
     interface JeColor {
+        /**
+          * Predefined colors. Auto will switch between light and dark based on the closest je-page's theme.
+         */
+        "color"?: Color1 | 'auto';
+        /**
+          * Overrides what the dark mode color will be when color is "auto".
+         */
+        "darkModeColor"?: Color1;
+        /**
+          * Overrides what the light mode color will be when color is "auto".
+         */
+        "lightModeColor"?: Color1;
     }
     interface JeColumn {
         /**
