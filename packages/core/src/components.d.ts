@@ -364,6 +364,42 @@ export namespace Components {
         "value": string;
     }
     interface JeLink {
+        /**
+          * Makes text bold
+         */
+        "bold": boolean;
+        /**
+          * Predefined colors. Auto will switch between light and dark based on the closest je-page's theme.
+         */
+        "color"?: Color1 | 'auto';
+        /**
+          * Overrides what the dark mode color will be when color is "auto".
+         */
+        "darkModeColor"?: Color1;
+        /**
+          * Passed to anchor
+         */
+        "download"?: string;
+        /**
+          * Passed to anchor
+         */
+        "href"?: string;
+        /**
+          * Overrides what the light mode color will be when color is "auto".
+         */
+        "lightModeColor"?: Color1;
+        /**
+          * Passed to anchor
+         */
+        "rel"?: string;
+        /**
+          * Passed to anchor
+         */
+        "target"?: string;
+        /**
+          * Underlines the text
+         */
+        "underline": boolean;
     }
     interface JeLoading {
     }
@@ -1356,6 +1392,42 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface JeLink {
+        /**
+          * Makes text bold
+         */
+        "bold"?: boolean;
+        /**
+          * Predefined colors. Auto will switch between light and dark based on the closest je-page's theme.
+         */
+        "color"?: Color1 | 'auto';
+        /**
+          * Overrides what the dark mode color will be when color is "auto".
+         */
+        "darkModeColor"?: Color1;
+        /**
+          * Passed to anchor
+         */
+        "download"?: string;
+        /**
+          * Passed to anchor
+         */
+        "href"?: string;
+        /**
+          * Overrides what the light mode color will be when color is "auto".
+         */
+        "lightModeColor"?: Color1;
+        /**
+          * Passed to anchor
+         */
+        "rel"?: string;
+        /**
+          * Passed to anchor
+         */
+        "target"?: string;
+        /**
+          * Underlines the text
+         */
+        "underline"?: boolean;
     }
     interface JeLoading {
     }

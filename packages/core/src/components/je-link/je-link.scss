@@ -1,3 +1,15 @@
 :host {
-  display: block;
+  display: inline-block;
+}
+
+a {
+  display: inline-block;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.bold {
+  font-weight: var(--je-font-semi-bold);
 }

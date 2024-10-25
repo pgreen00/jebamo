@@ -96,6 +96,7 @@ export class JeMultiselect {
   }
 
   render() {
+    const options = Array.from(this.el.querySelectorAll('je-multiselect-option'));
     const requiredIcon = <je-icon style={{ fontSize: '10px', color: 'var(--je-error-500)' }} icon="asterisk" />;
     const label = <label part='label' style={{ display: 'flex' }}>{this.label} {this.required && requiredIcon}</label>;
     const invalid = this.required && ((this.value ?? '') === '');
@@ -117,7 +118,7 @@ export class JeMultiselect {
           </div>
 
           <div part='main-container'>
-            {this.value.length > 0 && this.value.map(t => <je-pill>{t}</je-pill>)}
+            {this.value.length > 0 && options.filter(t => this.value.includes(t.value)).map(t => <je-pill>{t.textContent}</je-pill>)}
             {(this.value.length < 1 && this.placeholder) && this.placeholder}
           </div>
 

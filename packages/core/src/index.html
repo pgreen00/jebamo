@@ -122,6 +122,23 @@
         <je-color color="auto" light-mode-color="primary" dark-mode-color="secondary">This text is secondary in dark mode and primary in light mode</je-color>
       </div>
 
+      <h2>Link</h2>
+      <div>
+        This is a <je-link href="#">link</je-link>
+      </div>
+      <div>
+        This <je-link bold="true" href="#">link</je-link> stands out
+      </div>
+      <div>
+        This <je-link underline="false" href="#">link</je-link> is quiet
+      </div>
+      <div>
+        This <je-link underline="false" color="auto" href="#">link</je-link> is quieter
+      </div>
+      <div>
+        This <je-link underline="false" bold="true" color="auto" href="#">link</je-link> is quiet but bold
+      </div>
+
       <h2>Buttons</h2>
       <div style="display: flex; flex-direction: column; gap: var(--je-spacing); margin-bottom: var(--je-spacing-sm);">
         <div style="display: flex; gap: var(--je-spacing);">
@@ -246,7 +263,7 @@
           <je-select-option value="6">Saturday</je-select-option>
           <je-select-option value="7">Sunday</je-select-option>
         </je-select>
-        <je-multiselect label="Day" placeholder="Select a day of the week">
+        <je-multiselect expand label="Days" placeholder="Select multiple days of the week">
           <je-multiselect-option value="1">Monday</je-multiselect-option>
           <je-multiselect-option value="2">Tuesday</je-multiselect-option>
           <je-multiselect-option value="3">Wednesday</je-multiselect-option>
