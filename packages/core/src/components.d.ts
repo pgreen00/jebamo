@@ -208,6 +208,8 @@ export namespace Components {
         "summary"?: string;
     }
     interface JeDivider {
+        "spacing": 'sm' | 'md' | 'lg' | 'none';
+        "type": 'horizontal' | 'vertical';
     }
     interface JeDrawer {
         "state": DrawerState;
@@ -1259,6 +1261,8 @@ declare namespace LocalJSX {
         "summary"?: string;
     }
     interface JeDivider {
+        "spacing"?: 'sm' | 'md' | 'lg' | 'none';
+        "type"?: 'horizontal' | 'vertical';
     }
     interface JeDrawer {
         "state"?: DrawerState;
