@@ -1,11 +1,11 @@
 import { Component, Host, h } from '@stencil/core';
 
 @Component({
-  tag: 'je-files',
-  styleUrl: 'je-files.scss',
+  tag: 'je-dropzone',
+  styleUrl: 'je-dropzone.scss',
   shadow: true,
 })
-export class JeFiles {
+export class JeDropzone {
   render() {
     return (
       <Host>

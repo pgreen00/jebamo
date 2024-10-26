@@ -1,18 +1,18 @@
 import { newSpecPage } from '@stencil/core/testing';
-import { JeFiles } from '../je-files';
+import { JeDropzone } from '../je-dropzone';
 
-describe('je-files', () => {
+describe('je-dropzone', () => {
   it('renders', async () => {
     const page = await newSpecPage({
-      components: [JeFiles],
-      html: `<je-files></je-files>`,
+      components: [JeDropzone],
+      html: `<je-dropzone></je-dropzone>`,
     });
     expect(page.root).toEqualHtml(`
-      <je-files>
+      <je-dropzone>
         <mock:shadow-root>
           <slot></slot>
         </mock:shadow-root>
-      </je-files>
+      </je-dropzone>
     `);
   });
 });

@@ -214,7 +214,7 @@ export namespace Components {
     interface JeDrawer {
         "state": DrawerState;
     }
-    interface JeFiles {
+    interface JeDropzone {
     }
     interface JeForm {
         /**
@@ -763,11 +763,11 @@ declare global {
         prototype: HTMLJeDrawerElement;
         new (): HTMLJeDrawerElement;
     };
-    interface HTMLJeFilesElement extends Components.JeFiles, HTMLStencilElement {
+    interface HTMLJeDropzoneElement extends Components.JeDropzone, HTMLStencilElement {
     }
-    var HTMLJeFilesElement: {
-        prototype: HTMLJeFilesElement;
-        new (): HTMLJeFilesElement;
+    var HTMLJeDropzoneElement: {
+        prototype: HTMLJeDropzoneElement;
+        new (): HTMLJeDropzoneElement;
     };
     interface HTMLJeFormElementEventMap {
         "formData": FormData;
@@ -1041,7 +1041,7 @@ declare global {
         "je-details": HTMLJeDetailsElement;
         "je-divider": HTMLJeDividerElement;
         "je-drawer": HTMLJeDrawerElement;
-        "je-files": HTMLJeFilesElement;
+        "je-dropzone": HTMLJeDropzoneElement;
         "je-form": HTMLJeFormElement;
         "je-icon": HTMLJeIconElement;
         "je-infinite": HTMLJeInfiniteElement;
@@ -1290,7 +1290,7 @@ declare namespace LocalJSX {
     interface JeDrawer {
         "state"?: DrawerState;
     }
-    interface JeFiles {
+    interface JeDropzone {
     }
     interface JeForm {
         /**
@@ -1670,7 +1670,7 @@ declare namespace LocalJSX {
         "je-details": JeDetails;
         "je-divider": JeDivider;
         "je-drawer": JeDrawer;
-        "je-files": JeFiles;
+        "je-dropzone": JeDropzone;
         "je-form": JeForm;
         "je-icon": JeIcon;
         "je-infinite": JeInfinite;
@@ -1715,7 +1715,7 @@ declare module "@stencil/core" {
             "je-details": LocalJSX.JeDetails & JSXBase.HTMLAttributes<HTMLJeDetailsElement>;
             "je-divider": LocalJSX.JeDivider & JSXBase.HTMLAttributes<HTMLJeDividerElement>;
             "je-drawer": LocalJSX.JeDrawer & JSXBase.HTMLAttributes<HTMLJeDrawerElement>;
-            "je-files": LocalJSX.JeFiles & JSXBase.HTMLAttributes<HTMLJeFilesElement>;
+            "je-dropzone": LocalJSX.JeDropzone & JSXBase.HTMLAttributes<HTMLJeDropzoneElement>;
             "je-form": LocalJSX.JeForm & JSXBase.HTMLAttributes<HTMLJeFormElement>;
             "je-icon": LocalJSX.JeIcon & JSXBase.HTMLAttributes<HTMLJeIconElement>;
             "je-infinite": LocalJSX.JeInfinite & JSXBase.HTMLAttributes<HTMLJeInfiniteElement>;
