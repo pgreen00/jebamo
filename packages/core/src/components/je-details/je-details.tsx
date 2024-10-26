@@ -25,7 +25,9 @@ export class JeDetails {
           </div>
         </div>
         <div part='details-container'>
-          <slot></slot>
+          <div style={{overflow: 'hidden'}}>
+            <slot/>
+          </div>
         </div>
       </je-card>
     );
