@@ -546,6 +546,14 @@ export namespace Components {
     interface JeToast {
     }
     interface JeToggle {
+        /**
+          * Whether or not the toggle is active
+         */
+        "checked": boolean;
+        /**
+          * If the label should be placed at the start or end of the toggle
+         */
+        "labelPlacement": 'start' | 'end';
     }
     interface JeToolbar {
     }
@@ -607,6 +615,10 @@ export interface JeRadioGroupCustomEvent<T> extends CustomEvent<T> {
 export interface JeSelectOptionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeSelectOptionElement;
+}
+export interface JeToggleCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeToggleElement;
 }
 declare global {
     interface HTMLJeAlertElementEventMap {
@@ -985,7 +997,18 @@ declare global {
         prototype: HTMLJeToastElement;
         new (): HTMLJeToastElement;
     };
+    interface HTMLJeToggleElementEventMap {
+        "toggled": boolean;
+    }
     interface HTMLJeToggleElement extends Components.JeToggle, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeToggleElementEventMap>(type: K, listener: (this: HTMLJeToggleElement, ev: JeToggleCustomEvent<HTMLJeToggleElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeToggleElementEventMap>(type: K, listener: (this: HTMLJeToggleElement, ev: JeToggleCustomEvent<HTMLJeToggleElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeToggleElement: {
         prototype: HTMLJeToggleElement;
@@ -1615,6 +1638,18 @@ declare namespace LocalJSX {
     interface JeToast {
     }
     interface JeToggle {
+        /**
+          * Whether or not the toggle is active
+         */
+        "checked"?: boolean;
+        /**
+          * If the label should be placed at the start or end of the toggle
+         */
+        "labelPlacement"?: 'start' | 'end';
+        /**
+          * Emits the new value whenever toggle is clicked
+         */
+        "onToggled"?: (event: JeToggleCustomEvent<boolean>) => void;
     }
     interface JeToolbar {
     }

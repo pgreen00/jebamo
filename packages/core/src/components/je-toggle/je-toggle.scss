@@ -1,3 +1,49 @@
 :host {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+  width: fit-content;
+  cursor: pointer;
+
+  /**
+   * @prop --inactive-background: Background color when not checked
+   * @prop --active-background: Background color when checked
+   */
+  --inactive-background: var(--je-medium-500);
+  --active-background: var(--je-primary-500);
+}
+
+:host([checked]) .toggle-container {
+  background-color: var(--je-primary-500);
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  background-color: var(--inactive-background);
+  transition: background-color 0.3s ease-in-out;
+  border-radius: var(--je-border-radius);
+  padding: var(--je-spacing-3xs);
+  width: 30px;
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle-thumb {
+  position: absolute;
+  height: var(--je-spacing-lg);
+  width: var(--je-spacing-lg);
+  background-color: var(--je-background-color);
+  border: solid 1px var(--inactive-background);
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+  left: 0;
+  right: unset;
+}
+
+.checked {
+  border: solid 1px var(--active-background);
+  left: 100%;
+  transform: translateX(-100%);
 }
