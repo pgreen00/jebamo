@@ -29,7 +29,7 @@
 
 .content-transition {
   opacity: 0;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 250ms ease-in-out;
 }
 
 .content.open {
@@ -49,7 +49,7 @@
 
 .backdrop-transition {
   opacity: 0;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 250ms ease-in-out;
 }
 
 .backdrop.fade {

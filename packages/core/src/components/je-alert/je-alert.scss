@@ -55,7 +55,7 @@
 
 .modal-transition {
   opacity: 0;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 250ms ease-in-out;
 }
 
 .modal.open {
@@ -73,7 +73,7 @@
 
 .backdrop-transition {
   opacity: 0;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 250ms ease-in-out;
 }
 
 .backdrop.fade {

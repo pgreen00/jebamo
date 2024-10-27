@@ -14,7 +14,7 @@
 [part=details-icon] {
   height: 24px;
   width: 24px;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 250ms ease-in-out;
 }
 
 [part=details-container] {
@@ -23,7 +23,7 @@
   grid-template-rows: 0fr;
   padding-top: 0;
   opacity: 0;
-  transition: all 0.2s ease-out;
+  transition: all 250ms ease-out;
 }
 
 :host([state=open]) {

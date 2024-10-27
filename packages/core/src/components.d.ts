@@ -405,6 +405,10 @@ export namespace Components {
     }
     interface JeLoading {
     }
+    interface JeMenu {
+    }
+    interface JeMenuOption {
+    }
     interface JeModal {
         /**
           * Backdrop will close the modal on click when enabled
@@ -579,6 +583,10 @@ export interface JeCheckboxOptionCustomEvent<T> extends CustomEvent<T> {
 export interface JeDatepickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeDatepickerElement;
+}
+export interface JeDropzoneCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeDropzoneElement;
 }
 export interface JeFormCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -763,7 +771,18 @@ declare global {
         prototype: HTMLJeDrawerElement;
         new (): HTMLJeDrawerElement;
     };
+    interface HTMLJeDropzoneElementEventMap {
+        "dataDrop": DataTransfer;
+    }
     interface HTMLJeDropzoneElement extends Components.JeDropzone, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeDropzoneElementEventMap>(type: K, listener: (this: HTMLJeDropzoneElement, ev: JeDropzoneCustomEvent<HTMLJeDropzoneElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeDropzoneElementEventMap>(type: K, listener: (this: HTMLJeDropzoneElement, ev: JeDropzoneCustomEvent<HTMLJeDropzoneElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeDropzoneElement: {
         prototype: HTMLJeDropzoneElement;
@@ -826,6 +845,18 @@ declare global {
     var HTMLJeLoadingElement: {
         prototype: HTMLJeLoadingElement;
         new (): HTMLJeLoadingElement;
+    };
+    interface HTMLJeMenuElement extends Components.JeMenu, HTMLStencilElement {
+    }
+    var HTMLJeMenuElement: {
+        prototype: HTMLJeMenuElement;
+        new (): HTMLJeMenuElement;
+    };
+    interface HTMLJeMenuOptionElement extends Components.JeMenuOption, HTMLStencilElement {
+    }
+    var HTMLJeMenuOptionElement: {
+        prototype: HTMLJeMenuOptionElement;
+        new (): HTMLJeMenuOptionElement;
     };
     interface HTMLJeModalElementEventMap {
         "didPresent": any;
@@ -1048,6 +1079,8 @@ declare global {
         "je-input": HTMLJeInputElement;
         "je-link": HTMLJeLinkElement;
         "je-loading": HTMLJeLoadingElement;
+        "je-menu": HTMLJeMenuElement;
+        "je-menu-option": HTMLJeMenuOptionElement;
         "je-modal": HTMLJeModalElement;
         "je-multiselect": HTMLJeMultiselectElement;
         "je-multiselect-option": HTMLJeMultiselectOptionElement;
@@ -1291,6 +1324,7 @@ declare namespace LocalJSX {
         "state"?: DrawerState;
     }
     interface JeDropzone {
+        "onDataDrop"?: (event: JeDropzoneCustomEvent<DataTransfer>) => void;
     }
     interface JeForm {
         /**
@@ -1480,6 +1514,10 @@ declare namespace LocalJSX {
         "underline"?: boolean;
     }
     interface JeLoading {
+    }
+    interface JeMenu {
+    }
+    interface JeMenuOption {
     }
     interface JeModal {
         /**
@@ -1677,6 +1715,8 @@ declare namespace LocalJSX {
         "je-input": JeInput;
         "je-link": JeLink;
         "je-loading": JeLoading;
+        "je-menu": JeMenu;
+        "je-menu-option": JeMenuOption;
         "je-modal": JeModal;
         "je-multiselect": JeMultiselect;
         "je-multiselect-option": JeMultiselectOption;
@@ -1722,6 +1762,8 @@ declare module "@stencil/core" {
             "je-input": LocalJSX.JeInput & JSXBase.HTMLAttributes<HTMLJeInputElement>;
             "je-link": LocalJSX.JeLink & JSXBase.HTMLAttributes<HTMLJeLinkElement>;
             "je-loading": LocalJSX.JeLoading & JSXBase.HTMLAttributes<HTMLJeLoadingElement>;
+            "je-menu": LocalJSX.JeMenu & JSXBase.HTMLAttributes<HTMLJeMenuElement>;
+            "je-menu-option": LocalJSX.JeMenuOption & JSXBase.HTMLAttributes<HTMLJeMenuOptionElement>;
             "je-modal": LocalJSX.JeModal & JSXBase.HTMLAttributes<HTMLJeModalElement>;
             "je-multiselect": LocalJSX.JeMultiselect & JSXBase.HTMLAttributes<HTMLJeMultiselectElement>;
             "je-multiselect-option": LocalJSX.JeMultiselectOption & JSXBase.HTMLAttributes<HTMLJeMultiselectOptionElement>;

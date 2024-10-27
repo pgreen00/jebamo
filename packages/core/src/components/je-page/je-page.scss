@@ -17,8 +17,8 @@
   --je-font-semi-bold: 600;
   --je-font-bold: 700;
   --je-border-radius: 2px;
-  --je-text-color: canvastext;
-  --je-background-color: canvas;
+  --je-text-color: var(--je-medium-900);
+  --je-background-color: var(--je-medium-50);
   --je-backdrop-color: rgba(0, 0, 0, 0.5);
 
   --je-spacing-3xs: 4px;
@@ -35,14 +35,15 @@
 
   --je-left-sidepanel-open-width: 500px;
   --je-left-sidepanel-minimized-width: 100px;
-  --je-left-sidepanel-border: solid 1px canvastext;
+  --je-left-sidepanel-border: solid 1px var(--je-text-color);
   --je-right-sidepanel-open-width: 500px;
   --je-right-sidepanel-minimized-width: 100px;
-  --je-right-sidepanel-border: solid 1px canvastext;
+  --je-right-sidepanel-border: solid 1px var(--je-text-color);
 }
 
 @mixin dark-theme-styles {
-  --test: 0px;
+  --je-text-color: var(--je-medium-50);
+  --je-background-color: var(--je-medium-900);
 }
 
 :host([theme='dark']) {

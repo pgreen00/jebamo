@@ -33,7 +33,7 @@ div[part='outer-container'] {
   border-radius: var(--je-border-radius, 2px);
   overflow: hidden;
   border: solid 1px var(--je-border-color);
-  transition: border 150ms ease-in-out;
+  transition: border 125ms ease-in-out;
   &.focus {
     --je-border-color: var(--je-primary-500, accentcolor);
   }
