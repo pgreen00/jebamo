@@ -1,11 +1,11 @@
 {
   "name": "jebamo-angular",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "build": "ng build"
   },
   "dependencies": {
-    "jebamo": "0.0.2"
+    "jebamo": "0.0.3"
   },
   "peerDependencies": {
     "@angular/animations": ">= 18.2.0",

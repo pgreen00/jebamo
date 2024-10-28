@@ -4,51 +4,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Even
 
 import { ProxyCmp, proxyOutputs } from './angular-component-lib/utils';
 
-import type { Components } from 'jebamo/dist/components';
+import { Components } from 'jebamo';
 
-import { defineCustomElement as defineJeAlert } from 'jebamo/dist/components/je-alert.js';
-import { defineCustomElement as defineJeBranch } from 'jebamo/dist/components/je-branch.js';
-import { defineCustomElement as defineJeButton } from 'jebamo/dist/components/je-button.js';
-import { defineCustomElement as defineJeCard } from 'jebamo/dist/components/je-card.js';
-import { defineCustomElement as defineJeCheckbox } from 'jebamo/dist/components/je-checkbox.js';
-import { defineCustomElement as defineJeCheckboxGroup } from 'jebamo/dist/components/je-checkbox-group.js';
-import { defineCustomElement as defineJeCheckboxOption } from 'jebamo/dist/components/je-checkbox-option.js';
-import { defineCustomElement as defineJeColor } from 'jebamo/dist/components/je-color.js';
-import { defineCustomElement as defineJeColumn } from 'jebamo/dist/components/je-column.js';
-import { defineCustomElement as defineJeColumnGroup } from 'jebamo/dist/components/je-column-group.js';
-import { defineCustomElement as defineJeDatepicker } from 'jebamo/dist/components/je-datepicker.js';
-import { defineCustomElement as defineJeDetails } from 'jebamo/dist/components/je-details.js';
-import { defineCustomElement as defineJeDivider } from 'jebamo/dist/components/je-divider.js';
-import { defineCustomElement as defineJeDrawer } from 'jebamo/dist/components/je-drawer.js';
-import { defineCustomElement as defineJeDropzone } from 'jebamo/dist/components/je-dropzone.js';
-import { defineCustomElement as defineJeForm } from 'jebamo/dist/components/je-form.js';
-import { defineCustomElement as defineJeIcon } from 'jebamo/dist/components/je-icon.js';
-import { defineCustomElement as defineJeInfinite } from 'jebamo/dist/components/je-infinite.js';
-import { defineCustomElement as defineJeInput } from 'jebamo/dist/components/je-input.js';
-import { defineCustomElement as defineJeLink } from 'jebamo/dist/components/je-link.js';
-import { defineCustomElement as defineJeLoading } from 'jebamo/dist/components/je-loading.js';
-import { defineCustomElement as defineJeMenu } from 'jebamo/dist/components/je-menu.js';
-import { defineCustomElement as defineJeMenuOption } from 'jebamo/dist/components/je-menu-option.js';
-import { defineCustomElement as defineJeModal } from 'jebamo/dist/components/je-modal.js';
-import { defineCustomElement as defineJeMultiselect } from 'jebamo/dist/components/je-multiselect.js';
-import { defineCustomElement as defineJeMultiselectOption } from 'jebamo/dist/components/je-multiselect-option.js';
-import { defineCustomElement as defineJePage } from 'jebamo/dist/components/je-page.js';
-import { defineCustomElement as defineJePill } from 'jebamo/dist/components/je-pill.js';
-import { defineCustomElement as defineJePlaceholder } from 'jebamo/dist/components/je-placeholder.js';
-import { defineCustomElement as defineJePopover } from 'jebamo/dist/components/je-popover.js';
-import { defineCustomElement as defineJeRadio } from 'jebamo/dist/components/je-radio.js';
-import { defineCustomElement as defineJeRadioGroup } from 'jebamo/dist/components/je-radio-group.js';
-import { defineCustomElement as defineJeSelect } from 'jebamo/dist/components/je-select.js';
-import { defineCustomElement as defineJeSelectOption } from 'jebamo/dist/components/je-select-option.js';
-import { defineCustomElement as defineJeTab } from 'jebamo/dist/components/je-tab.js';
-import { defineCustomElement as defineJeTabs } from 'jebamo/dist/components/je-tabs.js';
-import { defineCustomElement as defineJeTextarea } from 'jebamo/dist/components/je-textarea.js';
-import { defineCustomElement as defineJeToast } from 'jebamo/dist/components/je-toast.js';
-import { defineCustomElement as defineJeToggle } from 'jebamo/dist/components/je-toggle.js';
-import { defineCustomElement as defineJeToolbar } from 'jebamo/dist/components/je-toolbar.js';
-import { defineCustomElement as defineJeTree } from 'jebamo/dist/components/je-tree.js';
+
 @ProxyCmp({
-  defineCustomElementFn: defineJeAlert,
   inputs: ['backdropClose', 'buttons', 'controls', 'header', 'icon', 'message', 'showBackdrop', 'trigger'],
   methods: ['present', 'dismiss']
 })
@@ -58,7 +17,6 @@ import { defineCustomElement as defineJeTree } from 'jebamo/dist/components/je-t
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['backdropClose', 'buttons', 'controls', 'header', 'icon', 'message', 'showBackdrop', 'trigger'],
-  standalone: true
 })
 export class JeAlert {
   protected el: HTMLElement;
@@ -87,7 +45,6 @@ export declare interface JeAlert extends Components.JeAlert {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeBranch
 })
 @Component({
   selector: 'je-branch',
@@ -95,7 +52,6 @@ export declare interface JeAlert extends Components.JeAlert {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
-  standalone: true
 })
 export class JeBranch {
   protected el: HTMLElement;
@@ -110,7 +66,6 @@ export declare interface JeBranch extends Components.JeBranch {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeButton,
   inputs: ['color', 'darkModeColor', 'disabled', 'expand', 'fill', 'iconOnly', 'lightModeColor', 'size', 'type']
 })
 @Component({
@@ -119,7 +74,6 @@ export declare interface JeBranch extends Components.JeBranch {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['color', 'darkModeColor', 'disabled', 'expand', 'fill', 'iconOnly', 'lightModeColor', 'size', 'type'],
-  standalone: true
 })
 export class JeButton {
   protected el: HTMLElement;
@@ -134,7 +88,6 @@ export declare interface JeButton extends Components.JeButton {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeCard,
   inputs: ['button', 'color']
 })
 @Component({
@@ -143,7 +96,6 @@ export declare interface JeButton extends Components.JeButton {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['button', 'color'],
-  standalone: true
 })
 export class JeCard {
   protected el: HTMLElement;
@@ -158,7 +110,6 @@ export declare interface JeCard extends Components.JeCard {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeCheckbox,
   inputs: ['disabled', 'indeterminate', 'labelOnly', 'labelPlacement', 'readonly', 'value']
 })
 @Component({
@@ -167,7 +118,6 @@ export declare interface JeCard extends Components.JeCard {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled', 'indeterminate', 'labelOnly', 'labelPlacement', 'readonly', 'value'],
-  standalone: true
 })
 export class JeCheckbox {
   protected el: HTMLElement;
@@ -188,7 +138,6 @@ export declare interface JeCheckbox extends Components.JeCheckbox {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeCheckboxGroup,
   inputs: ['label', 'value']
 })
 @Component({
@@ -197,7 +146,6 @@ export declare interface JeCheckbox extends Components.JeCheckbox {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['label', 'value'],
-  standalone: true
 })
 export class JeCheckboxGroup {
   protected el: HTMLElement;
@@ -218,7 +166,6 @@ export declare interface JeCheckboxGroup extends Components.JeCheckboxGroup {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeCheckboxOption,
   inputs: ['checked', 'disabled', 'readonly', 'value']
 })
 @Component({
@@ -227,7 +174,6 @@ export declare interface JeCheckboxGroup extends Components.JeCheckboxGroup {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['checked', 'disabled', 'readonly', 'value'],
-  standalone: true
 })
 export class JeCheckboxOption {
   protected el: HTMLElement;
@@ -252,7 +198,6 @@ export declare interface JeCheckboxOption extends Components.JeCheckboxOption {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeColor,
   inputs: ['color', 'darkModeColor', 'lightModeColor']
 })
 @Component({
@@ -261,7 +206,6 @@ export declare interface JeCheckboxOption extends Components.JeCheckboxOption {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['color', 'darkModeColor', 'lightModeColor'],
-  standalone: true
 })
 export class JeColor {
   protected el: HTMLElement;
@@ -276,7 +220,6 @@ export declare interface JeColor extends Components.JeColor {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeColumn,
   inputs: ['size', 'sizeLg', 'sizeMd', 'sizeSm', 'sizeXl', 'sizeXs']
 })
 @Component({
@@ -285,7 +228,6 @@ export declare interface JeColor extends Components.JeColor {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['size', 'sizeLg', 'sizeMd', 'sizeSm', 'sizeXl', 'sizeXs'],
-  standalone: true
 })
 export class JeColumn {
   protected el: HTMLElement;
@@ -300,7 +242,6 @@ export declare interface JeColumn extends Components.JeColumn {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeColumnGroup,
   inputs: ['columns']
 })
 @Component({
@@ -309,7 +250,6 @@ export declare interface JeColumn extends Components.JeColumn {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['columns'],
-  standalone: true
 })
 export class JeColumnGroup {
   protected el: HTMLElement;
@@ -324,7 +264,6 @@ export declare interface JeColumnGroup extends Components.JeColumnGroup {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeDatepicker,
   inputs: ['value']
 })
 @Component({
@@ -333,7 +272,6 @@ export declare interface JeColumnGroup extends Components.JeColumnGroup {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['value'],
-  standalone: true
 })
 export class JeDatepicker {
   protected el: HTMLElement;
@@ -352,7 +290,6 @@ export declare interface JeDatepicker extends Components.JeDatepicker {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeDetails,
   inputs: ['state', 'summary']
 })
 @Component({
@@ -361,7 +298,6 @@ export declare interface JeDatepicker extends Components.JeDatepicker {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['state', 'summary'],
-  standalone: true
 })
 export class JeDetails {
   protected el: HTMLElement;
@@ -376,7 +312,6 @@ export declare interface JeDetails extends Components.JeDetails {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeDivider,
   inputs: ['spacing', 'type']
 })
 @Component({
@@ -385,7 +320,6 @@ export declare interface JeDetails extends Components.JeDetails {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['spacing', 'type'],
-  standalone: true
 })
 export class JeDivider {
   protected el: HTMLElement;
@@ -400,7 +334,6 @@ export declare interface JeDivider extends Components.JeDivider {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeDrawer,
   inputs: ['state']
 })
 @Component({
@@ -409,7 +342,6 @@ export declare interface JeDivider extends Components.JeDivider {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['state'],
-  standalone: true
 })
 export class JeDrawer {
   protected el: HTMLElement;
@@ -424,7 +356,6 @@ export declare interface JeDrawer extends Components.JeDrawer {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeDropzone
 })
 @Component({
   selector: 'je-dropzone',
@@ -432,7 +363,6 @@ export declare interface JeDrawer extends Components.JeDrawer {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
-  standalone: true
 })
 export class JeDropzone {
   protected el: HTMLElement;
@@ -451,7 +381,6 @@ export declare interface JeDropzone extends Components.JeDropzone {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeForm,
   inputs: ['gap']
 })
 @Component({
@@ -460,7 +389,6 @@ export declare interface JeDropzone extends Components.JeDropzone {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['gap'],
-  standalone: true
 })
 export class JeForm {
   protected el: HTMLElement;
@@ -479,7 +407,6 @@ export declare interface JeForm extends Components.JeForm {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeIcon,
   inputs: ['fill', 'grade', 'icon', 'size', 'weight']
 })
 @Component({
@@ -488,7 +415,6 @@ export declare interface JeForm extends Components.JeForm {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['fill', 'grade', 'icon', 'size', 'weight'],
-  standalone: true
 })
 export class JeIcon {
   protected el: HTMLElement;
@@ -503,7 +429,6 @@ export declare interface JeIcon extends Components.JeIcon {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeInfinite,
   inputs: ['loading', 'rootMargin', 'threshold']
 })
 @Component({
@@ -512,7 +437,6 @@ export declare interface JeIcon extends Components.JeIcon {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['loading', 'rootMargin', 'threshold'],
-  standalone: true
 })
 export class JeInfinite {
   protected el: HTMLElement;
@@ -533,7 +457,6 @@ export declare interface JeInfinite extends Components.JeInfinite {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeInput,
   inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'dismissOnClick', 'dropdown', 'expand', 'format', 'helperText', 'inputMode', 'label', 'max', 'maxLength', 'min', 'minLength', 'multiple', 'noTyping', 'pattern', 'placeholder', 'readOnly', 'required', 'spellcheck', 'step', 'type', 'validators', 'value'],
   methods: ['getInputElement', 'dismissDropdown', 'markAsTouched', 'hasError', 'reset']
 })
@@ -543,7 +466,6 @@ export declare interface JeInfinite extends Components.JeInfinite {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'dismissOnClick', 'dropdown', 'expand', 'format', 'helperText', 'inputMode', 'label', 'max', 'maxLength', 'min', 'minLength', 'multiple', 'noTyping', 'pattern', 'placeholder', 'readOnly', 'required', 'spellcheck', 'step', 'type', 'validators', 'value'],
-  standalone: true
 })
 export class JeInput {
   protected el: HTMLElement;
@@ -564,7 +486,6 @@ export declare interface JeInput extends Components.JeInput {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeLink,
   inputs: ['bold', 'color', 'darkModeColor', 'download', 'href', 'lightModeColor', 'rel', 'target', 'underline']
 })
 @Component({
@@ -573,7 +494,6 @@ export declare interface JeInput extends Components.JeInput {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['bold', 'color', 'darkModeColor', 'download', 'href', 'lightModeColor', 'rel', 'target', 'underline'],
-  standalone: true
 })
 export class JeLink {
   protected el: HTMLElement;
@@ -588,7 +508,6 @@ export declare interface JeLink extends Components.JeLink {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeLoading
 })
 @Component({
   selector: 'je-loading',
@@ -596,7 +515,6 @@ export declare interface JeLink extends Components.JeLink {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
-  standalone: true
 })
 export class JeLoading {
   protected el: HTMLElement;
@@ -611,7 +529,6 @@ export declare interface JeLoading extends Components.JeLoading {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeMenu
 })
 @Component({
   selector: 'je-menu',
@@ -619,7 +536,6 @@ export declare interface JeLoading extends Components.JeLoading {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
-  standalone: true
 })
 export class JeMenu {
   protected el: HTMLElement;
@@ -634,7 +550,6 @@ export declare interface JeMenu extends Components.JeMenu {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeMenuOption
 })
 @Component({
   selector: 'je-menu-option',
@@ -642,7 +557,6 @@ export declare interface JeMenu extends Components.JeMenu {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
-  standalone: true
 })
 export class JeMenuOption {
   protected el: HTMLElement;
@@ -657,7 +571,6 @@ export declare interface JeMenuOption extends Components.JeMenuOption {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeModal,
   inputs: ['backdropClose', 'showBackdrop', 'trigger'],
   methods: ['present', 'dismiss']
 })
@@ -667,7 +580,6 @@ export declare interface JeMenuOption extends Components.JeMenuOption {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['backdropClose', 'showBackdrop', 'trigger'],
-  standalone: true
 })
 export class JeModal {
   protected el: HTMLElement;
@@ -692,7 +604,6 @@ export declare interface JeModal extends Components.JeModal {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeMultiselect,
   inputs: ['expand', 'label', 'placeholder', 'required', 'value']
 })
 @Component({
@@ -701,7 +612,6 @@ export declare interface JeModal extends Components.JeModal {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['expand', 'label', 'placeholder', 'required', 'value'],
-  standalone: true
 })
 export class JeMultiselect {
   protected el: HTMLElement;
@@ -716,7 +626,6 @@ export declare interface JeMultiselect extends Components.JeMultiselect {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeMultiselectOption,
   inputs: ['checked', 'value']
 })
 @Component({
@@ -725,7 +634,6 @@ export declare interface JeMultiselect extends Components.JeMultiselect {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['checked', 'value'],
-  standalone: true
 })
 export class JeMultiselectOption {
   protected el: HTMLElement;
@@ -746,7 +654,6 @@ export declare interface JeMultiselectOption extends Components.JeMultiselectOpt
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJePage,
   inputs: ['leftPanel', 'rightPanel', 'theme']
 })
 @Component({
@@ -755,7 +662,6 @@ export declare interface JeMultiselectOption extends Components.JeMultiselectOpt
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['leftPanel', 'rightPanel', 'theme'],
-  standalone: true
 })
 export class JePage {
   protected el: HTMLElement;
@@ -774,7 +680,6 @@ export declare interface JePage extends Components.JePage {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJePill,
   inputs: ['button', 'disabled', 'outline']
 })
 @Component({
@@ -783,7 +688,6 @@ export declare interface JePage extends Components.JePage {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['button', 'disabled', 'outline'],
-  standalone: true
 })
 export class JePill {
   protected el: HTMLElement;
@@ -798,7 +702,6 @@ export declare interface JePill extends Components.JePill {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJePlaceholder,
   inputs: ['animated']
 })
 @Component({
@@ -807,7 +710,6 @@ export declare interface JePill extends Components.JePill {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['animated'],
-  standalone: true
 })
 export class JePlaceholder {
   protected el: HTMLElement;
@@ -822,7 +724,6 @@ export declare interface JePlaceholder extends Components.JePlaceholder {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJePopover,
   inputs: ['backdropDismiss', 'dismissOnClick', 'offsetX', 'offsetY', 'position', 'showBackdrop', 'trigger', 'triggerAction'],
   methods: ['present', 'dismiss']
 })
@@ -832,7 +733,6 @@ export declare interface JePlaceholder extends Components.JePlaceholder {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['backdropDismiss', 'dismissOnClick', 'offsetX', 'offsetY', 'position', 'showBackdrop', 'trigger', 'triggerAction'],
-  standalone: true
 })
 export class JePopover {
   protected el: HTMLElement;
@@ -858,7 +758,6 @@ and optional data object passed to the dismiss() method.
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeRadio,
   inputs: ['labelPlacement', 'selected', 'value']
 })
 @Component({
@@ -867,7 +766,6 @@ and optional data object passed to the dismiss() method.
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['labelPlacement', 'selected', 'value'],
-  standalone: true
 })
 export class JeRadio {
   protected el: HTMLElement;
@@ -888,7 +786,6 @@ export declare interface JeRadio extends Components.JeRadio {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeRadioGroup,
   inputs: ['disabled', 'label', 'readonly', 'value']
 })
 @Component({
@@ -897,7 +794,6 @@ export declare interface JeRadio extends Components.JeRadio {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled', 'label', 'readonly', 'value'],
-  standalone: true
 })
 export class JeRadioGroup {
   protected el: HTMLElement;
@@ -918,7 +814,6 @@ export declare interface JeRadioGroup extends Components.JeRadioGroup {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeSelect,
   inputs: ['expand', 'label', 'placeholder', 'required', 'value']
 })
 @Component({
@@ -927,7 +822,6 @@ export declare interface JeRadioGroup extends Components.JeRadioGroup {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['expand', 'label', 'placeholder', 'required', 'value'],
-  standalone: true
 })
 export class JeSelect {
   protected el: HTMLElement;
@@ -942,7 +836,6 @@ export declare interface JeSelect extends Components.JeSelect {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeSelectOption,
   inputs: ['selected', 'value']
 })
 @Component({
@@ -951,7 +844,6 @@ export declare interface JeSelect extends Components.JeSelect {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['selected', 'value'],
-  standalone: true
 })
 export class JeSelectOption {
   protected el: HTMLElement;
@@ -970,7 +862,6 @@ export declare interface JeSelectOption extends Components.JeSelectOption {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeTab
 })
 @Component({
   selector: 'je-tab',
@@ -978,7 +869,6 @@ export declare interface JeSelectOption extends Components.JeSelectOption {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
-  standalone: true
 })
 export class JeTab {
   protected el: HTMLElement;
@@ -993,7 +883,6 @@ export declare interface JeTab extends Components.JeTab {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeTabs
 })
 @Component({
   selector: 'je-tabs',
@@ -1001,7 +890,6 @@ export declare interface JeTab extends Components.JeTab {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
-  standalone: true
 })
 export class JeTabs {
   protected el: HTMLElement;
@@ -1016,7 +904,6 @@ export declare interface JeTabs extends Components.JeTabs {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeTextarea,
   inputs: ['debounce', 'disabled', 'label', 'maxLength', 'placeholder', 'readonly', 'required', 'value']
 })
 @Component({
@@ -1025,7 +912,6 @@ export declare interface JeTabs extends Components.JeTabs {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['debounce', 'disabled', 'label', 'maxLength', 'placeholder', 'readonly', 'required', 'value'],
-  standalone: true
 })
 export class JeTextarea {
   protected el: HTMLElement;
@@ -1040,7 +926,6 @@ export declare interface JeTextarea extends Components.JeTextarea {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeToast
 })
 @Component({
   selector: 'je-toast',
@@ -1048,7 +933,6 @@ export declare interface JeTextarea extends Components.JeTextarea {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
-  standalone: true
 })
 export class JeToast {
   protected el: HTMLElement;
@@ -1063,7 +947,6 @@ export declare interface JeToast extends Components.JeToast {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeToggle,
   inputs: ['checked', 'labelPlacement']
 })
 @Component({
@@ -1072,7 +955,6 @@ export declare interface JeToast extends Components.JeToast {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['checked', 'labelPlacement'],
-  standalone: true
 })
 export class JeToggle {
   protected el: HTMLElement;
@@ -1093,7 +975,6 @@ export declare interface JeToggle extends Components.JeToggle {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeToolbar
 })
 @Component({
   selector: 'je-toolbar',
@@ -1101,7 +982,6 @@ export declare interface JeToggle extends Components.JeToggle {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
-  standalone: true
 })
 export class JeToolbar {
   protected el: HTMLElement;
@@ -1116,7 +996,6 @@ export declare interface JeToolbar extends Components.JeToolbar {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeTree
 })
 @Component({
   selector: 'je-tree',
@@ -1124,7 +1003,6 @@ export declare interface JeToolbar extends Components.JeToolbar {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
-  standalone: true
 })
 export class JeTree {
   protected el: HTMLElement;
