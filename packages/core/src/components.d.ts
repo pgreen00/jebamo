@@ -558,6 +558,14 @@ export namespace Components {
     interface JeTabs {
     }
     interface JeTextarea {
+        "debounce": number;
+        "disabled"?: boolean;
+        "label"?: string;
+        "maxLength"?: number;
+        "placeholder"?: string;
+        "readonly"?: boolean;
+        "required"?: boolean;
+        "value"?: string;
     }
     interface JeToast {
     }
@@ -1715,6 +1723,14 @@ declare namespace LocalJSX {
     interface JeTabs {
     }
     interface JeTextarea {
+        "debounce"?: number;
+        "disabled"?: boolean;
+        "label"?: string;
+        "maxLength"?: number;
+        "placeholder"?: string;
+        "readonly"?: boolean;
+        "required"?: boolean;
+        "value"?: string;
     }
     interface JeToast {
     }
