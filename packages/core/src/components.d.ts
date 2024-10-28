@@ -245,6 +245,18 @@ export namespace Components {
         "weight"?: number;
     }
     interface JeInfinite {
+        /**
+          * This must be manually set to true/false to show/hide the intersecting content
+         */
+        "loading": boolean;
+        /**
+          * Passed to observer api
+         */
+        "rootMargin": string;
+        /**
+          * Threshold passed to observer api
+         */
+        "threshold": number;
     }
     interface JeInput {
         /**
@@ -592,6 +604,10 @@ export interface JeFormCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeFormElement;
 }
+export interface JeInfiniteCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeInfiniteElement;
+}
 export interface JeInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeInputElement;
@@ -811,7 +827,18 @@ declare global {
         prototype: HTMLJeIconElement;
         new (): HTMLJeIconElement;
     };
+    interface HTMLJeInfiniteElementEventMap {
+        "intersect": void;
+    }
     interface HTMLJeInfiniteElement extends Components.JeInfinite, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeInfiniteElementEventMap>(type: K, listener: (this: HTMLJeInfiniteElement, ev: JeInfiniteCustomEvent<HTMLJeInfiniteElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeInfiniteElementEventMap>(type: K, listener: (this: HTMLJeInfiniteElement, ev: JeInfiniteCustomEvent<HTMLJeInfiniteElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeInfiniteElement: {
         prototype: HTMLJeInfiniteElement;
@@ -1356,6 +1383,22 @@ declare namespace LocalJSX {
         "weight"?: number;
     }
     interface JeInfinite {
+        /**
+          * This must be manually set to true/false to show/hide the intersecting content
+         */
+        "loading"?: boolean;
+        /**
+          * Emitted when the bottom of the scroll container is in the viewport
+         */
+        "onIntersect"?: (event: JeInfiniteCustomEvent<void>) => void;
+        /**
+          * Passed to observer api
+         */
+        "rootMargin"?: string;
+        /**
+          * Threshold passed to observer api
+         */
+        "threshold"?: number;
     }
     interface JeInput {
         /**
