@@ -32,15 +32,15 @@ export declare interface JeAlert extends Components.JeAlert {
   /**
    * Emitted when the dialog is presented
    */
-  didPresent: EventEmitter<CustomEvent<any>>;
+  didPresent: EventEmitter<any>;
   /**
    * Emitted when the dialog is dismissed
    */
-  didDismiss: EventEmitter<CustomEvent<{ role: string, data: any }>>;
+  didDismiss: EventEmitter<{ role: string, data: any }>;
   /**
    * Emitted when the inner form submission is triggered
    */
-  didSubmit: EventEmitter<CustomEvent<SubmitEvent>>;
+  didSubmit: EventEmitter<SubmitEvent>;
 }
 
 
@@ -133,7 +133,7 @@ export declare interface JeCheckbox extends Components.JeCheckbox {
   /**
    * Emits the current value whenever it's state changes
    */
-  valueChange: EventEmitter<CustomEvent<boolean | undefined>>;
+  valueChange: EventEmitter<boolean | undefined>;
 }
 
 
@@ -161,7 +161,7 @@ export declare interface JeCheckboxGroup extends Components.JeCheckboxGroup {
   /**
    * Emits the current selected values whenever they change
    */
-  valueChange: EventEmitter<CustomEvent<string[]>>;
+  valueChange: EventEmitter<string[]>;
 }
 
 
@@ -189,11 +189,11 @@ export declare interface JeCheckboxOption extends Components.JeCheckboxOption {
   /**
    * Emits the value whenever it is checked
    */
-  check: EventEmitter<CustomEvent<any>>;
+  check: EventEmitter<any>;
   /**
    * Emits the value whenever it is unchecked
    */
-  uncheck: EventEmitter<CustomEvent<any>>;
+  uncheck: EventEmitter<any>;
 }
 
 
@@ -285,7 +285,7 @@ export class JeDatepicker {
 
 export declare interface JeDatepicker extends Components.JeDatepicker {
 
-  valueChange: EventEmitter<CustomEvent<Date | undefined>>;
+  valueChange: EventEmitter<Date | undefined>;
 }
 
 
@@ -376,7 +376,7 @@ export class JeDropzone {
 
 export declare interface JeDropzone extends Components.JeDropzone {
 
-  dataDrop: EventEmitter<CustomEvent<DataTransfer>>;
+  dataDrop: EventEmitter<DataTransfer>;
 }
 
 
@@ -402,7 +402,7 @@ export class JeForm {
 
 export declare interface JeForm extends Components.JeForm {
 
-  formData: EventEmitter<CustomEvent<FormData>>;
+  formData: EventEmitter<FormData>;
 }
 
 
@@ -452,7 +452,7 @@ export declare interface JeInfinite extends Components.JeInfinite {
   /**
    * Emitted when the bottom of the scroll container is in the viewport
    */
-  intersect: EventEmitter<CustomEvent<void>>;
+  intersect: EventEmitter<void>;
 }
 
 
@@ -481,7 +481,7 @@ export declare interface JeInput extends Components.JeInput {
   /**
    * Emits as the user types
    */
-  valueChange: EventEmitter<CustomEvent<string>>;
+  valueChange: EventEmitter<string>;
 }
 
 
@@ -595,11 +595,11 @@ export declare interface JeModal extends Components.JeModal {
   /**
    * Emits whenever the modal has opened. Does not emit any data
    */
-  didPresent: EventEmitter<CustomEvent<any>>;
+  didPresent: EventEmitter<any>;
   /**
    * Emits whenever the modal has finished closing. Emits the role and optional data object passed to the closeModal() method.
    */
-  didDismiss: EventEmitter<CustomEvent<{ role: string, data: any }>>;
+  didDismiss: EventEmitter<{ role: string, data: any }>;
 }
 
 
@@ -647,9 +647,9 @@ export class JeMultiselectOption {
 
 export declare interface JeMultiselectOption extends Components.JeMultiselectOption {
 
-  optionChecked: EventEmitter<CustomEvent<string>>;
+  optionChecked: EventEmitter<string>;
 
-  optionUnchecked: EventEmitter<CustomEvent<string>>;
+  optionUnchecked: EventEmitter<string>;
 }
 
 
@@ -675,7 +675,7 @@ export class JePage {
 
 export declare interface JePage extends Components.JePage {
 
-  themeChange: EventEmitter<CustomEvent<'light' | 'dark'>>;
+  themeChange: EventEmitter<'light' | 'dark'>;
 }
 
 
@@ -748,12 +748,12 @@ export declare interface JePopover extends Components.JePopover {
   /**
    * Emits whenever the popover has presented. Does not emit any data
    */
-  didPresent: EventEmitter<CustomEvent<any>>;
+  didPresent: EventEmitter<any>;
   /**
    * Emits whenever the popover has finished dismissing. Emits the role
 and optional data object passed to the dismiss() method.
    */
-  didDismiss: EventEmitter<CustomEvent<{ role?: string, data?: any }>>;
+  didDismiss: EventEmitter<{ role?: string, data?: any }>;
 }
 
 
@@ -781,7 +781,7 @@ export declare interface JeRadio extends Components.JeRadio {
   /**
    * Emits the value whenever it is selected
    */
-  radioSelect: EventEmitter<CustomEvent<any>>;
+  radioSelect: EventEmitter<any>;
 }
 
 
@@ -809,7 +809,7 @@ export declare interface JeRadioGroup extends Components.JeRadioGroup {
   /**
    * Emits the selected value whenever it changes
    */
-  valueChange: EventEmitter<CustomEvent<any>>;
+  valueChange: EventEmitter<any>;
 }
 
 
@@ -857,7 +857,7 @@ export class JeSelectOption {
 
 export declare interface JeSelectOption extends Components.JeSelectOption {
 
-  optionSelected: EventEmitter<CustomEvent<string>>;
+  optionSelected: EventEmitter<string>;
 }
 
 
@@ -970,7 +970,7 @@ export declare interface JeToggle extends Components.JeToggle {
   /**
    * Emits the new value whenever toggle is clicked
    */
-  toggled: EventEmitter<CustomEvent<boolean>>;
+  toggled: EventEmitter<boolean>;
 }
 
 
