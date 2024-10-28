@@ -1,6 +1,6 @@
 {
-  "name": "@jebamo/core",
-  "version": "0.0.1",
+  "name": "jebamo",
+  "version": "0.0.2",
   "description": "Jebamo core web component library",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -23,6 +23,7 @@
     "date-fns": "^4.1.0"
   },
   "devDependencies": {
+    "@stencil/angular-output-target": "0.9.0",
     "@stencil/core": "^4.7.0",
     "@stencil/sass": "^3.0.12",
     "@types/jest": "^29.5.6",

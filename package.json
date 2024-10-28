@@ -6,7 +6,7 @@
     "url": "https://github.com/pgreen00/jebamo.git"
   },
   "scripts": {
-    "build": "npm run build --workspace=@jebamo/core --workspace=@jebamo/angular --workspace=@jebamo/vue"
+    "build": "npm run build --workspace=jebamo --workspace=jebamo-angular --workspace=jebamo-vue"
   },
   "keywords": [
     "web",
