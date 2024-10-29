@@ -1,7 +1,6 @@
 :host {
   --thickness: 1px;
   --color: var(--je-medium-500);
-  --spacing: var(--je-spacing-sm);
 
   background-color: var(--color);
 }
@@ -10,19 +9,19 @@
   --spacing: var(--je-spacing-2xs);
 }
 
-:host([spacing=lg]) {
-  --spacing: var(--je-spacing-lg);
+:host([spacing=md]) {
+  --spacing: var(--je-spacing-sm);
 }
 
-:host([spacing=none]) {
-  --spacing: 0;
+:host([spacing=lg]) {
+  --spacing: var(--je-spacing-lg);
 }
 
 :host([type=horizontal]) {
   display: block;
   width: 100%;
   height: var(--thickness);
-  margin-block: var(--spacing);
+  margin-block: var(--spacing, 0);
 }
 
 :host([type=vertical]) {

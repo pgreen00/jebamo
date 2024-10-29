@@ -1,3 +1,37 @@
 :host {
   display: block;
+  width: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  box-sizing: border-box;
+}
+
+je-toolbar {
+  --je-toolbar-gap: var(--je-spacing-3xs);
+  padding-inline: var(--je-spacing-3xs);
+  transition: background-color 75ms ease-in-out;
+  background-color: transparent;
+  color: inherit;
+  &:hover {
+    background-color: var(--je-primary-200);
+  }
+}
+
+je-toolbar::part(center-container) {
+  margin-block: var(--je-spacing-2xs);
+  align-items: center;
+}
+
+:host([darkmode]) je-toolbar:hover {
+  background-color: var(--je-medium-900);
+}
+
+div[slot=start],
+div[slot=end] {
+  box-sizing: border-box;
+  min-width: var(--je-spacing-xl);
+}
+
+* {
+  cursor: pointer;
 }

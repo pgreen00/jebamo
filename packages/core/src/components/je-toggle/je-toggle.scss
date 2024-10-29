@@ -5,6 +5,8 @@
   position: relative;
   width: fit-content;
   cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
 
   /**
    * @prop --inactive-background: Background color when not checked

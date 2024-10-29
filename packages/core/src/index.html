@@ -233,7 +233,21 @@
       <h2>Popover</h2>
       <je-button id="popoverButton">Popover</je-button>
       <je-popover trigger="popoverButton">
-        <p>Hello! This is popover text.</p>
+        <je-menu type="select">
+          <je-menu-option>Undo</je-menu-option>
+          <je-menu-option>Redo</je-menu-option>
+          <je-divider></je-divider>
+          <je-menu-option>Cut</je-menu-option>
+          <je-menu-option>Copy</je-menu-option>
+          <je-menu-option>Paste</je-menu-option>
+          <je-menu-option>
+            <je-icon slot="end" size="sm" icon="delete"></je-icon> Delete
+          </je-menu-option>
+          <je-divider></je-divider>
+          <je-menu-option>
+            <je-icon slot="end" size="sm" icon="favorite"></je-icon> Favorite
+          </je-menu-option>
+        </je-menu>
       </je-popover>
 
       <h2>Modal</h2>

@@ -32,15 +32,15 @@ export declare interface JeAlert extends Components.JeAlert {
   /**
    * Emitted when the dialog is presented
    */
-  didPresent: EventEmitter<any>;
+  didPresent: EventEmitter<CustomEvent<any>>;
   /**
    * Emitted when the dialog is dismissed
    */
-  didDismiss: EventEmitter<{ role: string, data: any }>;
+  didDismiss: EventEmitter<CustomEvent<{ role: string, data: any }>>;
   /**
    * Emitted when the inner form submission is triggered
    */
-  didSubmit: EventEmitter<SubmitEvent>;
+  didSubmit: EventEmitter<CustomEvent<SubmitEvent>>;
 }
 
 
@@ -133,7 +133,7 @@ export declare interface JeCheckbox extends Components.JeCheckbox {
   /**
    * Emits the current value whenever it's state changes
    */
-  valueChange: EventEmitter<boolean | undefined>;
+  valueChange: EventEmitter<CustomEvent<boolean | undefined>>;
 }
 
 
@@ -161,7 +161,7 @@ export declare interface JeCheckboxGroup extends Components.JeCheckboxGroup {
   /**
    * Emits the current selected values whenever they change
    */
-  valueChange: EventEmitter<string[]>;
+  valueChange: EventEmitter<CustomEvent<string[]>>;
 }
 
 
@@ -189,11 +189,11 @@ export declare interface JeCheckboxOption extends Components.JeCheckboxOption {
   /**
    * Emits the value whenever it is checked
    */
-  check: EventEmitter<any>;
+  check: EventEmitter<CustomEvent<any>>;
   /**
    * Emits the value whenever it is unchecked
    */
-  uncheck: EventEmitter<any>;
+  uncheck: EventEmitter<CustomEvent<any>>;
 }
 
 
@@ -285,7 +285,7 @@ export class JeDatepicker {
 
 export declare interface JeDatepicker extends Components.JeDatepicker {
 
-  valueChange: EventEmitter<Date | undefined>;
+  valueChange: EventEmitter<CustomEvent<Date | undefined>>;
 }
 
 
@@ -376,7 +376,7 @@ export class JeDropzone {
 
 export declare interface JeDropzone extends Components.JeDropzone {
 
-  dataDrop: EventEmitter<DataTransfer>;
+  dataDrop: EventEmitter<CustomEvent<DataTransfer>>;
 }
 
 
@@ -402,7 +402,7 @@ export class JeForm {
 
 export declare interface JeForm extends Components.JeForm {
 
-  formData: EventEmitter<FormData>;
+  formData: EventEmitter<CustomEvent<FormData>>;
 }
 
 
@@ -452,7 +452,7 @@ export declare interface JeInfinite extends Components.JeInfinite {
   /**
    * Emitted when the bottom of the scroll container is in the viewport
    */
-  intersect: EventEmitter<void>;
+  intersect: EventEmitter<CustomEvent<void>>;
 }
 
 
@@ -481,7 +481,7 @@ export declare interface JeInput extends Components.JeInput {
   /**
    * Emits as the user types
    */
-  valueChange: EventEmitter<string>;
+  valueChange: EventEmitter<CustomEvent<string>>;
 }
 
 
@@ -529,45 +529,55 @@ export declare interface JeLoading extends Components.JeLoading {}
 
 
 @ProxyCmp({
+  inputs: ['type', 'value']
 })
 @Component({
   selector: 'je-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['type', 'value'],
 })
 export class JeMenu {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['valueChange']);
   }
 }
 
 
-export declare interface JeMenu extends Components.JeMenu {}
+export declare interface JeMenu extends Components.JeMenu {
+
+  valueChange: EventEmitter<CustomEvent<string>>;
+}
 
 
 @ProxyCmp({
+  inputs: ['checked', 'disabled', 'value']
 })
 @Component({
   selector: 'je-menu-option',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['checked', 'disabled', 'value'],
 })
 export class JeMenuOption {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['menuOptionSelect']);
   }
 }
 
 
-export declare interface JeMenuOption extends Components.JeMenuOption {}
+export declare interface JeMenuOption extends Components.JeMenuOption {
+
+  menuOptionSelect: EventEmitter<CustomEvent<string>>;
+}
 
 
 @ProxyCmp({
@@ -595,11 +605,11 @@ export declare interface JeModal extends Components.JeModal {
   /**
    * Emits whenever the modal has opened. Does not emit any data
    */
-  didPresent: EventEmitter<any>;
+  didPresent: EventEmitter<CustomEvent<any>>;
   /**
    * Emits whenever the modal has finished closing. Emits the role and optional data object passed to the closeModal() method.
    */
-  didDismiss: EventEmitter<{ role: string, data: any }>;
+  didDismiss: EventEmitter<CustomEvent<{ role: string, data: any }>>;
 }
 
 
@@ -647,9 +657,9 @@ export class JeMultiselectOption {
 
 export declare interface JeMultiselectOption extends Components.JeMultiselectOption {
 
-  optionChecked: EventEmitter<string>;
+  optionChecked: EventEmitter<CustomEvent<string>>;
 
-  optionUnchecked: EventEmitter<string>;
+  optionUnchecked: EventEmitter<CustomEvent<string>>;
 }
 
 
@@ -675,7 +685,7 @@ export class JePage {
 
 export declare interface JePage extends Components.JePage {
 
-  themeChange: EventEmitter<'light' | 'dark'>;
+  themeChange: EventEmitter<CustomEvent<'light' | 'dark'>>;
 }
 
 
@@ -748,12 +758,12 @@ export declare interface JePopover extends Components.JePopover {
   /**
    * Emits whenever the popover has presented. Does not emit any data
    */
-  didPresent: EventEmitter<any>;
+  didPresent: EventEmitter<CustomEvent<any>>;
   /**
    * Emits whenever the popover has finished dismissing. Emits the role
 and optional data object passed to the dismiss() method.
    */
-  didDismiss: EventEmitter<{ role?: string, data?: any }>;
+  didDismiss: EventEmitter<CustomEvent<{ role?: string, data?: any }>>;
 }
 
 
@@ -781,7 +791,7 @@ export declare interface JeRadio extends Components.JeRadio {
   /**
    * Emits the value whenever it is selected
    */
-  radioSelect: EventEmitter<any>;
+  radioSelect: EventEmitter<CustomEvent<any>>;
 }
 
 
@@ -809,7 +819,7 @@ export declare interface JeRadioGroup extends Components.JeRadioGroup {
   /**
    * Emits the selected value whenever it changes
    */
-  valueChange: EventEmitter<any>;
+  valueChange: EventEmitter<CustomEvent<any>>;
 }
 
 
@@ -857,7 +867,7 @@ export class JeSelectOption {
 
 export declare interface JeSelectOption extends Components.JeSelectOption {
 
-  optionSelected: EventEmitter<string>;
+  optionSelected: EventEmitter<CustomEvent<string>>;
 }
 
 
@@ -970,7 +980,7 @@ export declare interface JeToggle extends Components.JeToggle {
   /**
    * Emits the new value whenever toggle is clicked
    */
-  toggled: EventEmitter<boolean>;
+  toggled: EventEmitter<CustomEvent<boolean>>;
 }
 
 

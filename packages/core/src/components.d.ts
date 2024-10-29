@@ -418,8 +418,13 @@ export namespace Components {
     interface JeLoading {
     }
     interface JeMenu {
+        "type"?: 'select' | 'radio';
+        "value"?: string;
     }
     interface JeMenuOption {
+        "checked": boolean;
+        "disabled"?: boolean;
+        "value"?: string;
     }
     interface JeModal {
         /**
@@ -619,6 +624,14 @@ export interface JeInfiniteCustomEvent<T> extends CustomEvent<T> {
 export interface JeInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeInputElement;
+}
+export interface JeMenuCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeMenuElement;
+}
+export interface JeMenuOptionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeMenuOptionElement;
 }
 export interface JeModalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -881,13 +894,35 @@ declare global {
         prototype: HTMLJeLoadingElement;
         new (): HTMLJeLoadingElement;
     };
+    interface HTMLJeMenuElementEventMap {
+        "valueChange": string;
+    }
     interface HTMLJeMenuElement extends Components.JeMenu, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeMenuElementEventMap>(type: K, listener: (this: HTMLJeMenuElement, ev: JeMenuCustomEvent<HTMLJeMenuElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeMenuElementEventMap>(type: K, listener: (this: HTMLJeMenuElement, ev: JeMenuCustomEvent<HTMLJeMenuElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeMenuElement: {
         prototype: HTMLJeMenuElement;
         new (): HTMLJeMenuElement;
     };
+    interface HTMLJeMenuOptionElementEventMap {
+        "menuOptionSelect": string;
+    }
     interface HTMLJeMenuOptionElement extends Components.JeMenuOption, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeMenuOptionElementEventMap>(type: K, listener: (this: HTMLJeMenuOptionElement, ev: JeMenuOptionCustomEvent<HTMLJeMenuOptionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeMenuOptionElementEventMap>(type: K, listener: (this: HTMLJeMenuOptionElement, ev: JeMenuOptionCustomEvent<HTMLJeMenuOptionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeMenuOptionElement: {
         prototype: HTMLJeMenuOptionElement;
@@ -1567,8 +1602,15 @@ declare namespace LocalJSX {
     interface JeLoading {
     }
     interface JeMenu {
+        "onValueChange"?: (event: JeMenuCustomEvent<string>) => void;
+        "type"?: 'select' | 'radio';
+        "value"?: string;
     }
     interface JeMenuOption {
+        "checked"?: boolean;
+        "disabled"?: boolean;
+        "onMenuOptionSelect"?: (event: JeMenuOptionCustomEvent<string>) => void;
+        "value"?: string;
     }
     interface JeModal {
         /**

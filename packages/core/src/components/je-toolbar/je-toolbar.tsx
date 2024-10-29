@@ -10,7 +10,7 @@ export class JeToolbar {
     return (
       <Host>
         <slot name='start'/>
-        <div class='center-container'><slot/></div>
+        <div part='center-container'><slot/></div>
         <slot name='end'/>
       </Host>
     );
