@@ -72,11 +72,24 @@
   overflow: hidden;
 }
 
+[part='inner-body-container'] {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 ::slotted([slot='body']) {
   flex: 1;
   box-sizing: border-box;
-  overflow-y: auto;
-  overflow-x: hidden;
+}
+
+:host([footer=fixed]) {
+  ::slotted([slot=body]) {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 }
 
 ::slotted([slot='header']) {

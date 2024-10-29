@@ -664,14 +664,14 @@ export declare interface JeMultiselectOption extends Components.JeMultiselectOpt
 
 
 @ProxyCmp({
-  inputs: ['leftPanel', 'rightPanel', 'theme']
+  inputs: ['footer', 'leftPanel', 'rightPanel', 'theme']
 })
 @Component({
   selector: 'je-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['leftPanel', 'rightPanel', 'theme'],
+  inputs: ['footer', 'leftPanel', 'rightPanel', 'theme'],
 })
 export class JePage {
   protected el: HTMLElement;

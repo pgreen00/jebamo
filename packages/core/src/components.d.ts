@@ -454,6 +454,7 @@ export namespace Components {
         "value": string;
     }
     interface JePage {
+        "footer": 'sticky' | 'fixed';
         "leftPanel": PanelState;
         "rightPanel": PanelState;
         "theme": 'light' | 'dark' | 'auto';
@@ -1648,6 +1649,7 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface JePage {
+        "footer"?: 'sticky' | 'fixed';
         "leftPanel"?: PanelState;
         "onThemeChange"?: (event: JePageCustomEvent<'light' | 'dark'>) => void;
         "rightPanel"?: PanelState;

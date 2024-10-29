@@ -12,6 +12,7 @@ export class JePage {
   @Prop({ reflect: true }) leftPanel: PanelState = 'closed';
   @Prop({ reflect: true }) rightPanel: PanelState = 'closed';
   @Prop({ reflect: true }) theme: 'light' | 'dark' | 'auto' = 'light';
+  @Prop({ reflect: true }) footer: 'sticky' | 'fixed' = 'fixed';
   @Event() themeChange: EventEmitter<'light' | 'dark'>;
 
   componentDidLoad() {
@@ -28,21 +29,42 @@ export class JePage {
   }
 
   render() {
-    return (
-      <Host>
-        <div part='page-container'>
-          <slot name='header' />
-          <div part='body-container'>
-            <slot name='left-panel' />
-            <slot name='body' />
-            <slot name='right-panel' />
+    if (this.footer === 'sticky') {
+      return (
+        <Host>
+          <div part='page-container'>
+            <slot name='header' />
+            <div part='body-container'>
+              <slot name='left-panel' />
+              <div part='inner-body-container'>
+                <slot name='body' />
+                <slot name='footer' />
+              </div>
+              <slot name='right-panel' />
+            </div>
           </div>
-          <slot name='footer' />
-        </div>
-        <div part='overlay-container'>
-          <slot name='overlay' />
-        </div>
-      </Host>
-    );
+          <div part='overlay-container'>
+            <slot name='overlay' />
+          </div>
+        </Host>
+      );
+    } else {
+      return (
+        <Host>
+          <div part='page-container'>
+            <slot name='header' />
+            <div part='body-container'>
+              <slot name='left-panel' />
+              <slot name='body' />
+              <slot name='right-panel' />
+            </div>
+            <slot name='footer' />
+          </div>
+          <div part='overlay-container'>
+            <slot name='overlay' />
+          </div>
+        </Host>
+      );
+    }
   }
 }
