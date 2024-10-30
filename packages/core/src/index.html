@@ -15,7 +15,7 @@
 <style>
   je-page {
     --je-font-family: "Work Sans";
-    --je-border-radius: 4px;
+    --je-border-radius: 5px;
 
     .header {
       --je-background-color: var(--je-primary-800);
@@ -287,6 +287,19 @@
         </je-pill>
         <je-pill disabled>Wall</je-pill>
       </div>
+
+      <h2>Tabs</h2>
+      <je-tabs mode="pill">
+        <je-tab>
+          <je-icon icon="home"></je-icon> Home
+        </je-tab>
+        <je-tab>
+          <je-icon icon="calendar_month"></je-icon> Appointments
+        </je-tab>
+        <je-tab>
+          <je-icon icon="chat"></je-icon> Messages
+        </je-tab>
+      </je-tabs>
 
       <h2>Toggle</h2>
       <je-toggle>Hey</je-toggle>

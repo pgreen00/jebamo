@@ -3,6 +3,7 @@ import { sass } from '@stencil/sass';
 import { angularOutputTarget } from '@stencil/angular-output-target';
 
 export const config: Config = {
+  globalScript: 'src/global.ts',
   plugins: [
     sass()
   ],

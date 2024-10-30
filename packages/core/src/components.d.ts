@@ -560,8 +560,11 @@ export namespace Components {
         "value": string;
     }
     interface JeTab {
+        "active": boolean;
+        "value"?: string;
     }
     interface JeTabs {
+        "mode": 'mobile' | 'pill' | 'segment';
     }
     interface JeTextarea {
         "debounce": number;
@@ -661,6 +664,10 @@ export interface JeRadioGroupCustomEvent<T> extends CustomEvent<T> {
 export interface JeSelectOptionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeSelectOptionElement;
+}
+export interface JeTabCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeTabElement;
 }
 export interface JeToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1075,7 +1082,18 @@ declare global {
         prototype: HTMLJeSelectOptionElement;
         new (): HTMLJeSelectOptionElement;
     };
+    interface HTMLJeTabElementEventMap {
+        "tabClick": string;
+    }
     interface HTMLJeTabElement extends Components.JeTab, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeTabElementEventMap>(type: K, listener: (this: HTMLJeTabElement, ev: JeTabCustomEvent<HTMLJeTabElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeTabElementEventMap>(type: K, listener: (this: HTMLJeTabElement, ev: JeTabCustomEvent<HTMLJeTabElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeTabElement: {
         prototype: HTMLJeTabElement;
@@ -1763,8 +1781,12 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface JeTab {
+        "active"?: boolean;
+        "onTabClick"?: (event: JeTabCustomEvent<string>) => void;
+        "value"?: string;
     }
     interface JeTabs {
+        "mode"?: 'mobile' | 'pill' | 'segment';
     }
     interface JeTextarea {
         "debounce"?: number;

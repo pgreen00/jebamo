@@ -12,7 +12,7 @@ export class JeMenuOption {
   @Prop() disabled?: boolean;
   @Event() menuOptionSelect: EventEmitter<string>;
 
-  componentDidLoad() {
+  componentWillLoad() {
     if (!this.value) {
       this.value = this.el.textContent;
     }

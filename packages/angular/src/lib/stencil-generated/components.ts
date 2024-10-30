@@ -872,34 +872,40 @@ export declare interface JeSelectOption extends Components.JeSelectOption {
 
 
 @ProxyCmp({
+  inputs: ['active', 'value']
 })
 @Component({
   selector: 'je-tab',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['active', 'value'],
 })
 export class JeTab {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['tabClick']);
   }
 }
 
 
-export declare interface JeTab extends Components.JeTab {}
+export declare interface JeTab extends Components.JeTab {
+
+  tabClick: EventEmitter<CustomEvent<string>>;
+}
 
 
 @ProxyCmp({
+  inputs: ['mode']
 })
 @Component({
   selector: 'je-tabs',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['mode'],
 })
 export class JeTabs {
   protected el: HTMLElement;

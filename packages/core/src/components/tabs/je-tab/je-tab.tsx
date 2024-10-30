@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Listen, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-tab',
@@ -6,9 +6,19 @@ import { Component, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class JeTab {
+  @Element() el: HTMLJeTabElement;
+  @Prop() value?: string;
+  @Prop() active = false;
+  @Event() tabClick: EventEmitter<string>;
+
+  @Listen('click')
+  onClick() {
+    this.tabClick.emit(this.value ?? this.el.textContent);
+  }
+
   render() {
     return (
-      <Host>
+      <Host class={{ active: this.active == true }}>
         <slot></slot>
       </Host>
     );
