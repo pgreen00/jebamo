@@ -37,12 +37,6 @@
     [slot=right-panel] {
       padding: var(--je-spacing-lg);
     }
-
-    .footer {
-      background-color: var(--je-primary-800);
-      color: var(--je-primary-100);
-      padding-inline: var(--je-spacing-lg);
-    }
   }
 
   html,
@@ -300,6 +294,17 @@
           <je-icon icon="chat"></je-icon> Messages
         </je-tab>
       </je-tabs>
+      <je-tabs mode="segment">
+        <je-tab>
+          <je-icon icon="home"></je-icon> Home
+        </je-tab>
+        <je-tab>
+          <je-icon icon="calendar_month"></je-icon> Appointments
+        </je-tab>
+        <je-tab>
+          <je-icon icon="chat"></je-icon> Messages
+        </je-tab>
+      </je-tabs>
 
       <h2>Toggle</h2>
       <je-toggle>Hey</je-toggle>
@@ -350,7 +355,17 @@
       <je-alert id="formAlert"></je-alert>
     </div>
     <div class="footer" slot="footer">
-      <h1>Footer</h1>
+      <je-tabs mode="mobile">
+        <je-tab>
+          <je-icon icon="home"></je-icon> Home
+        </je-tab>
+        <je-tab>
+          <je-icon icon="calendar_month"></je-icon> Appointments
+        </je-tab>
+        <je-tab>
+          <je-icon icon="chat"></je-icon> Messages
+        </je-tab>
+      </je-tabs>
     </div>
   </je-page>
   <script>

@@ -23,7 +23,7 @@ je-toolbar::part(center-container) {
 }
 
 :host([darkmode]) je-toolbar:hover {
-  background-color: var(--je-medium-900);
+  background-color: var(--je-medium-850);
 }
 
 div[slot=start],

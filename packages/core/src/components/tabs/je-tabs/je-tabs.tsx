@@ -38,7 +38,7 @@ export class JeTabs {
       width: `${width}px`,
       transform: `translateX(${xOffset}px)`,
       transition: 'transform 250ms ease',
-      height: `${height}px`
+      height: `${this.mode == 'pill' ? height : '1'}px`
     };
   }
 
