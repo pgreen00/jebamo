@@ -54,7 +54,7 @@ export class JeBranch {
     return (
       <Host>
         <div part="container">
-          {this.hasChildren && <je-icon icon={this.open ? 'expand_more' : 'chevron_right'} />}
+          <je-icon icon={this.open ? 'expand_more' : 'chevron_right'} style={{opacity: this.hasChildren ? '1' : '0'}}/>
           {this.selection === 'multiple' && <je-icon icon={this.selected === true ? 'check_box' : this.selected === false ? 'check_box_outline_blank' : 'indeterminate_check_box'} />}
           <slot name="label">
             {this.label && <span>{this.label}</span>}
