@@ -45,24 +45,30 @@ export declare interface JeAlert extends Components.JeAlert {
 
 
 @ProxyCmp({
+  inputs: ['label', 'open', 'selected', 'value'],
+  methods: ['isLeaf', 'getParentBranch']
 })
 @Component({
   selector: 'je-branch',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['label', 'open', 'selected', 'value'],
 })
 export class JeBranch {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['branchSelect']);
   }
 }
 
 
-export declare interface JeBranch extends Components.JeBranch {}
+export declare interface JeBranch extends Components.JeBranch {
+
+  branchSelect: EventEmitter<CustomEvent<string>>;
+}
 
 
 @ProxyCmp({
@@ -1012,23 +1018,28 @@ export declare interface JeToolbar extends Components.JeToolbar {}
 
 
 @ProxyCmp({
+  inputs: ['selection', 'value']
 })
 @Component({
   selector: 'je-tree',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['selection', 'value'],
 })
 export class JeTree {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['valueChange']);
   }
 }
 
 
-export declare interface JeTree extends Components.JeTree {}
+export declare interface JeTree extends Components.JeTree {
+
+  valueChange: EventEmitter<CustomEvent<string>>;
+}
 
 

@@ -57,6 +57,12 @@ export namespace Components {
         "trigger"?: string;
     }
     interface JeBranch {
+        "getParentBranch": () => Promise<HTMLJeBranchElement | null>;
+        "isLeaf": () => Promise<boolean>;
+        "label"?: string;
+        "open": boolean;
+        "selected": boolean | null;
+        "value"?: string;
     }
     interface JeButton {
         /**
@@ -591,11 +597,17 @@ export namespace Components {
     interface JeToolbar {
     }
     interface JeTree {
+        "selection": 'single' | 'multiple' | 'leaf';
+        "value"?: string | string[];
     }
 }
 export interface JeAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeAlertElement;
+}
+export interface JeBranchCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeBranchElement;
 }
 export interface JeCheckboxCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -673,6 +685,10 @@ export interface JeToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeToggleElement;
 }
+export interface JeTreeCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeTreeElement;
+}
 declare global {
     interface HTMLJeAlertElementEventMap {
         "didPresent": any;
@@ -693,7 +709,18 @@ declare global {
         prototype: HTMLJeAlertElement;
         new (): HTMLJeAlertElement;
     };
+    interface HTMLJeBranchElementEventMap {
+        "branchSelect": string;
+    }
     interface HTMLJeBranchElement extends Components.JeBranch, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeBranchElementEventMap>(type: K, listener: (this: HTMLJeBranchElement, ev: JeBranchCustomEvent<HTMLJeBranchElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeBranchElementEventMap>(type: K, listener: (this: HTMLJeBranchElement, ev: JeBranchCustomEvent<HTMLJeBranchElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeBranchElement: {
         prototype: HTMLJeBranchElement;
@@ -1140,7 +1167,18 @@ declare global {
         prototype: HTMLJeToolbarElement;
         new (): HTMLJeToolbarElement;
     };
+    interface HTMLJeTreeElementEventMap {
+        "valueChange": string;
+    }
     interface HTMLJeTreeElement extends Components.JeTree, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeTreeElementEventMap>(type: K, listener: (this: HTMLJeTreeElement, ev: JeTreeCustomEvent<HTMLJeTreeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeTreeElementEventMap>(type: K, listener: (this: HTMLJeTreeElement, ev: JeTreeCustomEvent<HTMLJeTreeElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeTreeElement: {
         prototype: HTMLJeTreeElement;
@@ -1238,6 +1276,11 @@ declare namespace LocalJSX {
         "trigger"?: string;
     }
     interface JeBranch {
+        "label"?: string;
+        "onBranchSelect"?: (event: JeBranchCustomEvent<string>) => void;
+        "open"?: boolean;
+        "selected"?: boolean | null;
+        "value"?: string;
     }
     interface JeButton {
         /**
@@ -1817,6 +1860,9 @@ declare namespace LocalJSX {
     interface JeToolbar {
     }
     interface JeTree {
+        "onValueChange"?: (event: JeTreeCustomEvent<string>) => void;
+        "selection"?: 'single' | 'multiple' | 'leaf';
+        "value"?: string | string[];
     }
     interface IntrinsicElements {
         "je-alert": JeAlert;
