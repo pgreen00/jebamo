@@ -1,3 +1,6 @@
+@use '../../../styles/global';
+@use '../../../styles/spacing';
+
 :host {
   display: block;
   width: fit-content;
@@ -5,6 +8,6 @@
 
 label {
   display: block;
-  font-weight: var(--je-font-semi-bold);
-  margin-bottom: var(--je-spacing-2xs);
+  font-weight: global.font-weight(semi-bold);
+  margin-bottom: spacing.get(2xs);
 }

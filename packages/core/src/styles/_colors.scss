@@ -60,7 +60,7 @@ $colors: (
     800: #b45309
   ),
   medium: (
-    50: #f7fafc, // background color for light mode
+    50: #f7fafc, // background color
     100: #edf2f7,
     200: #e8eef4,
     300: #e2e8f0,
@@ -69,15 +69,23 @@ $colors: (
     600: #718096,
     700: #5f6b82,
     800: #4a5568,
-    850: #2d3748, // text color for light mode
-    900: #17191d
+    850: #2d3748,
+    900: #17191d // text color
   )
 );
 
-@mixin generate-color-variables {
+@mixin color-variables {
   @each $group, $shades in $colors {
     @each $shade, $color in $shades {
       --je-#{$group}-#{$shade}: #{$color};
     }
   }
+}
+
+@function get-value($group, $shade) {
+  @return map-get(map-get($colors, $group), $shade);
+}
+
+@function get($group, $shade) {
+  @return var(--je-#{$group}-#{$shade}, #{map-get(map-get($colors, $group), $shade)});
 }

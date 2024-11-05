@@ -1,3 +1,5 @@
+@use '../../../styles/colors';
+
 :host {
   display: flex;
   align-items: center;
@@ -9,5 +11,5 @@
 
 je-icon {
   cursor: pointer;
-  color: var(--je-primary-500);
+  color: colors.get(primary, 500);
 }

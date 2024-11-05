@@ -1,4 +1,6 @@
-@use 'styles/colors' as colors;
+@use '../../styles/colors' as colors;
+@use '../../styles/spacing' as spacing;
+@use '../../styles/global' as global;
 
 :host {
   display: block;
@@ -10,35 +12,16 @@
   background-color: var(--je-background-color);
   color-scheme: light;
 
-  --je-font-size: 13px;
-  --je-font-family: system-ui, Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
-  --je-font-light: 400;
-  --je-font-regular: 500;
-  --je-font-semi-bold: 600;
-  --je-font-bold: 700;
-  --je-border-radius: 2px;
-  --je-text-color: var(--je-medium-900);
-  --je-background-color: var(--je-medium-50);
-  --je-backdrop-color: rgba(0, 0, 0, 0.5);
+  @include global.global-variables;
+  @include spacing.spacing-variables;
+  @include colors.color-variables;
 
-  --je-spacing-3xs: 4px;
-  --je-spacing-2xs: 8px;
-  --je-spacing-xs: 10px;
-  --je-spacing-sm: 12px;
-  --je-spacing: 16px;
-  --je-spacing-lg: 20px;
-  --je-spacing-xl: 24px;
-  --je-spacing-2xl: 32px;
-  --je-spacing-3xl: 40px;
-
-  @include colors.generate-color-variables;
-
-  --je-left-sidepanel-open-width: 500px;
-  --je-left-sidepanel-minimized-width: 100px;
-  --je-left-sidepanel-border: solid 1px var(--je-text-color);
-  --je-right-sidepanel-open-width: 500px;
-  --je-right-sidepanel-minimized-width: 100px;
-  --je-right-sidepanel-border: solid 1px var(--je-text-color);
+  --left-sidepanel-open-width: 500px;
+  --left-sidepanel-minimized-width: 100px;
+  --left-sidepanel-border: solid 1px var(--je-text-color);
+  --right-sidepanel-open-width: 500px;
+  --right-sidepanel-minimized-width: 100px;
+  --right-sidepanel-border: solid 1px var(--je-text-color);
 }
 
 @mixin dark-theme-styles {
@@ -128,29 +111,29 @@
 
 :host([left-panel='open']) {
   ::slotted([slot='left-panel']) {
-    width: var(--je-left-sidepanel-open-width);
-    border-right: var(--je-left-sidepanel-border);
+    width: var(--left-sidepanel-open-width);
+    border-right: var(--left-sidepanel-border);
   }
 }
 
 :host([left-panel='minimized']) {
   ::slotted([slot='left-panel']) {
-    width: var(--je-left-sidepanel-minimized-width);
-    border-right: var(--je-left-sidepanel-border);
+    width: var(--left-sidepanel-minimized-width);
+    border-right: var(--left-sidepanel-border);
   }
 }
 
 :host([right-panel='open']) {
   ::slotted([slot='right-panel']) {
-    width: var(--je-right-sidepanel-open-width);
-    border-left: var(--je-right-sidepanel-border);
+    width: var(--right-sidepanel-open-width);
+    border-left: var(--right-sidepanel-border);
   }
 }
 
 :host([right-panel='minimized']) {
   ::slotted([slot='right-panel']) {
-    width: var(--je-right-sidepanel-minimized-width);
-    border-left: var(--je-right-sidepanel-border);
+    width: var(--right-sidepanel-minimized-width);
+    border-left: var(--right-sidepanel-border);
   }
 }
 

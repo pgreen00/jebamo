@@ -1,0 +1,31 @@
+$spacing: (
+  3xs: 4px,
+  2xs: 8px,
+  xs: 10px,
+  sm: 12px,
+  default: 16px,
+  lg: 20px,
+  xl: 24px,
+  2xl: 32px,
+  3xl: 40px
+);
+
+@mixin spacing-variables {
+  --je-spacing-3xs: #{map-get($spacing, 3xs)};
+  --je-spacing-2xs: #{map-get($spacing, 2xs)};
+  --je-spacing-xs: #{map-get($spacing, xs)};
+  --je-spacing-sm: #{map-get($spacing, sm)};
+  --je-spacing: #{map-get($spacing, default)};
+  --je-spacing-lg: #{map-get($spacing, lg)};
+  --je-spacing-xl: #{map-get($spacing, xl)};
+  --je-spacing-2xl: #{map-get($spacing, 2xl)};
+  --je-spacing-3xl: #{map-get($spacing, 3xl)};
+}
+
+@function get($var) {
+  @if $var == default {
+    @return var(--je-spacing, #{map-get($spacing, $var)});
+  } @else {
+    @return var(--je-spacing-#{$var}, #{map-get($spacing, $var)});
+  }
+}

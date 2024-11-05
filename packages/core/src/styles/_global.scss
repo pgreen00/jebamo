@@ -1,0 +1,61 @@
+@use 'colors';
+
+$font-size: 13px;
+$font-family: system-ui, Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
+$font-light: 400;
+$font-regular: 500;
+$font-semi-bold: 600;
+$font-bold: 700;
+$border-radius: 2px;
+$backdrop-color: rgba(0, 0, 0, 0.5);
+$text-color: colors.get-value(medium, 900);
+$background-color: colors.get-value(medium, 50);
+
+@mixin global-variables {
+  --je-font-size: #{$font-size};
+  --je-font-family: #{$font-family};
+  --je-font-light: #{$font-light};
+  --je-font-regular: #{$font-regular};
+  --je-font-semi-bold: #{$font-semi-bold};
+  --je-font-bold: #{$font-bold};
+  --je-border-radius: #{$border-radius};
+  --je-text-color: var(--je-medium-900, #{$text-color});
+  --je-background-color: var(--je-medium-50, #{$background-color});
+  --je-backdrop-color: #{$backdrop-color};
+}
+
+@function font-size() {
+  @return var(--je-font-size, #{$font-size});
+}
+
+@function font-family() {
+  @return var(--je-font-family, #{$font-family});
+}
+
+@function font-weight($var) {
+  @if $var == light {
+    @return var(--je-font-light, #{$font-light});
+  } @else if $var == semi-bold {
+    @return var(--je-font-semi-bold, #{$font-semi-bold});
+  } @else if $var == bold {
+    @return var(--je-font-bold, #{$font-bold});
+  } @else {
+    @return var(--je-font-regular, #{$font-regular});
+  }
+}
+
+@function border-radius() {
+  @return var(--je-border-radius, #{$border-radius});
+}
+
+@function backdrop-color() {
+  @return var(--je-backdrop-color, #{$backdrop-color});
+}
+
+@function text-color() {
+  @return var(--je-text-color, #{$text-color});
+}
+
+@function background-color() {
+  @return var(--je-background-color, #{$background-color});
+}

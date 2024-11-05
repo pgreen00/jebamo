@@ -1,7 +1,7 @@
 import { animationUpdate } from './utils';
 
 describe('animationUpdate', () => {
-  it('returns empty string for no names defined', () => {
+  it('returns a promise', () => {
     expect(animationUpdate()).resolves;
   });
 });
