@@ -14,11 +14,6 @@ export const config: Config = {
       esmLoaderPath: '../loader',
     },
     {
-      type: 'dist-custom-elements',
-      customElementsExportBehavior: "single-export-module",
-      includeGlobalScripts: true
-    },
-    {
       type: 'docs-readme',
       dir: 'documentation'
     },
@@ -28,10 +23,9 @@ export const config: Config = {
     },
     angularOutputTarget({
       componentCorePackage: 'jebamo',
-      outputType: 'standalone',
-      directivesProxyFile: '../angular/src/lib/components.ts',
-      directivesArrayFile: '../angular/src/lib/index.ts',
-      customElementsDir: 'dist/components'
+      outputType: 'component',
+      directivesProxyFile: '../angular/src/lib/stencil-generated/components.ts',
+      directivesArrayFile: '../angular/src/lib/stencil-generated/index.ts'
     }),
     {
       type: 'www',

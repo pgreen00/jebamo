@@ -12,7 +12,6 @@ import { Directive, input, output } from '@angular/core';
  */
 @Directive({
   selector: '[jeModel]',
-  standalone: true,
   host: {
     '(valueChange)': 'handleChange($event.target.value)',
     '[value]': 'jeModel()'
