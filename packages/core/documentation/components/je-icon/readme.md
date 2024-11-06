@@ -28,10 +28,12 @@
 ### Used by
 
  - [je-alert](../je-alert)
+ - [je-branch](../tree/je-branch)
  - [je-checkbox](../je-checkbox)
  - [je-checkbox-option](../checkbox-group/je-checkbox-option)
  - [je-datepicker](../je-datepicker)
  - [je-input](../je-input)
+ - [je-menu-option](../menu/je-menu-option)
  - [je-multiselect](../multiselect/je-multiselect)
  - [je-multiselect-option](../multiselect/je-multiselect-option)
  - [je-radio](../radio/je-radio)
@@ -42,10 +44,12 @@
 ```mermaid
 graph TD;
   je-alert --> je-icon
+  je-branch --> je-icon
   je-checkbox --> je-icon
   je-checkbox-option --> je-icon
   je-datepicker --> je-icon
   je-input --> je-icon
+  je-menu-option --> je-icon
   je-multiselect --> je-icon
   je-multiselect-option --> je-icon
   je-radio --> je-icon

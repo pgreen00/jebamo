@@ -40,7 +40,24 @@
         "kind": "markdown",
         "value": ""
       },
-      "attributes": []
+      "attributes": [
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "open",
+          "description": ""
+        },
+        {
+          "name": "selected",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "description": ""
+        }
+      ]
     },
     {
       "name": "je-button",
@@ -950,7 +967,24 @@
         "kind": "markdown",
         "value": ""
       },
-      "attributes": []
+      "attributes": [
+        {
+          "name": "type",
+          "description": "",
+          "values": [
+            {
+              "name": "radio"
+            },
+            {
+              "name": "select"
+            }
+          ]
+        },
+        {
+          "name": "value",
+          "description": ""
+        }
+      ]
     },
     {
       "name": "je-menu-option",
@@ -958,7 +992,20 @@
         "kind": "markdown",
         "value": ""
       },
-      "attributes": []
+      "attributes": [
+        {
+          "name": "checked",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "description": ""
+        }
+      ]
     },
     {
       "name": "je-modal",
@@ -1030,6 +1077,18 @@
         "value": ""
       },
       "attributes": [
+        {
+          "name": "footer",
+          "description": "",
+          "values": [
+            {
+              "name": "fixed"
+            },
+            {
+              "name": "sticky"
+            }
+          ]
+        },
         {
           "name": "left-panel",
           "description": "",
@@ -1280,7 +1339,16 @@
         "kind": "markdown",
         "value": ""
       },
-      "attributes": []
+      "attributes": [
+        {
+          "name": "active",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "description": ""
+        }
+      ]
     },
     {
       "name": "je-tabs",
@@ -1288,7 +1356,23 @@
         "kind": "markdown",
         "value": ""
       },
-      "attributes": []
+      "attributes": [
+        {
+          "name": "mode",
+          "description": "",
+          "values": [
+            {
+              "name": "mobile"
+            },
+            {
+              "name": "pill"
+            },
+            {
+              "name": "segment"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "je-textarea",
@@ -1378,7 +1462,27 @@
         "kind": "markdown",
         "value": ""
       },
-      "attributes": []
+      "attributes": [
+        {
+          "name": "selection",
+          "description": "",
+          "values": [
+            {
+              "name": "leaf"
+            },
+            {
+              "name": "multiple"
+            },
+            {
+              "name": "single"
+            }
+          ]
+        },
+        {
+          "name": "value",
+          "description": ""
+        }
+      ]
     }
   ]
 }

@@ -2,6 +2,5 @@
  * Public API Surface of jebamo-angular
  */
 
-export { DIRECTIVES } from './lib/stencil-generated';
-export * from './lib/stencil-generated/components';
-export * from './lib/jebamo.module';
+export { DIRECTIVES } from './lib';
+export * from './lib/components';
