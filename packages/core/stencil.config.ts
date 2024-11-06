@@ -15,7 +15,8 @@ export const config: Config = {
     },
     {
       type: 'dist-custom-elements',
-      customElementsExportBehavior: "single-export-module"
+      customElementsExportBehavior: "single-export-module",
+      includeGlobalScripts: true
     },
     {
       type: 'docs-readme',
