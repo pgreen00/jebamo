@@ -1,61 +1,65 @@
+@use '../../styles/global' as global;
+@use '../../styles/colors' as colors;
+
 :host {
   display: block;
+  width: fit-content;
 
-  --je-popover-background-color: rgb(233, 236, 236);
-  --je-popover-color: var(--je-medium-900);
-  --je-popover-box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.12);
-  --je-popover-border: solid 1px rgb(197, 200, 204);
+  --background: rgb(233, 236, 236);
+  --color: colors.get(medium, 900);
+  --box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.12);
+  --border: solid 1px rgb(197, 200, 204);
 }
 
 :host([darkmode]) {
-  --je-popover-background-color: rgb(41, 45, 46);
-  --je-popover-color: var(--je-medium-50);
-  --je-popover-box-shadow: 0px 4px 16px 0px rgba(68, 68, 68, 0.12);
-  --je-popover-border: solid 1px rgb(86, 87, 90);
+  --background: rgb(41, 45, 46);
+  --color: colors.get(medium, 50);
+  --box-shadow: 0px 4px 16px 0px rgba(68, 68, 68, 0.12);
+  --border: solid 1px rgb(86, 87, 90);
 }
 
-.content {
-  font-family: var(--je-font-family);
-  position: absolute;
-  background-color: var(--je-popover-background-color, canvas);
-  color: var(--je-popover-color, canvastext);
-  //padding-inline: var(--je-spacing-xs, 10px);
-  box-shadow: var(--je-popover-box-shadow);
-  border: var(--je-popover-border);
-  z-index: 1000;
-  border-radius: var(--je-border-radius, 2px);
-  overflow: hidden;
-}
-
-.content-transition {
+[part=content] {
+  width: var(--content-width, max-content);
+  max-height: var(--content-height, var(--available-height));
   opacity: 0;
-  transition: opacity 250ms ease-in-out;
-}
-
-.content.open {
-  opacity: 1;
-}
-
-.backdrop {
-  display: block;
+  transition: opacity 0.2s ease-in-out;
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--je-backdrop-color, rgba(0, 0, 0, 0.5));
-  z-index: 999;
+  z-index: -1;
+  border-radius: global.border-radius();
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: global.font-family();
+  background-color: var(--background, canvas);
+  color: var(--color, canvastext);
+  box-shadow: var(--box-shadow);
+  box-sizing: border-box;
+  &.open {
+    display: block;
+    z-index: 700;
+  }
 }
 
-.backdrop-transition {
+[part=backdrop] {
   opacity: 0;
-  transition: opacity 250ms ease-in-out;
-}
-
-.backdrop.fade {
-  opacity: 1;
-}
-
-.clear {
-  background: rgba(0, 0, 0, 0);
+  transition: opacity 0.2s ease-in-out;
+  z-index: 699;
+  position: fixed;
+  width: 0;
+  height: 0;
+  left: 0;
+  top: 0;
+  background: global.backdrop-color();
+  &.clear {
+    background: rgba(0, 0, 0, 0);
+  }
+  &.open {
+    height: 100%;
+    width: 100%;
+  }
+  &.pointer {
+    cursor: pointer;
+  }
 }

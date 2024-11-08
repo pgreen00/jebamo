@@ -11,14 +11,14 @@ import { Color as Color1 } from "./components";
 import { DrawerState } from "./components/je-drawer/je-drawer";
 import { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
 import { PanelState } from "./components/je-page/je-page";
-import { PositionStrategy, Target } from "./components/je-popover/je-popover";
+import { Placement } from "@floating-ui/dom";
 export { DialogButton, DialogControl } from "./components/je-alert/je-alert";
 export { Color } from "./utils/utils";
 export { Color as Color1 } from "./components";
 export { DrawerState } from "./components/je-drawer/je-drawer";
 export { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
 export { PanelState } from "./components/je-page/je-page";
-export { PositionStrategy, Target } from "./components/je-popover/je-popover";
+export { Placement } from "@floating-ui/dom";
 export namespace Components {
     interface JeAlert {
         /**
@@ -218,6 +218,7 @@ export namespace Components {
         "type": 'horizontal' | 'vertical';
     }
     interface JeDrawer {
+        "side": 'left' | 'right' | 'bottom';
         "state": DrawerState;
     }
     interface JeDropzone {
@@ -289,15 +290,6 @@ export namespace Components {
           * Renders input as disabled and prevents changes
          */
         "disabled": boolean;
-        "dismissDropdown": (role?: string) => Promise<void>;
-        /**
-          * Whether or not the dropdown should dismiss itself on click
-         */
-        "dismissOnClick"?: boolean;
-        /**
-          * Whether or not to render a dropdown when input is focused
-         */
-        "dropdown": boolean;
         /**
           * Whether or not the input should expand to the full width of it's container
          */
@@ -482,13 +474,13 @@ export namespace Components {
          */
         "backdropDismiss": boolean;
         /**
-          * Manually dismisses the popover. Role and data get passed to the didDismiss event.
-         */
-        "dismiss": (role?: string, data?: any) => Promise<void>;
-        /**
           * Popover will automatically dismiss itself when something is clicked in the popover when enabled
          */
         "dismissOnClick": boolean;
+        /**
+          * If the popover should match the width of the trigger element
+         */
+        "matchWidth": boolean;
         /**
           * Horizontal offset used when auto positioning the popover content
          */
@@ -498,23 +490,21 @@ export namespace Components {
          */
         "offsetY": number;
         /**
-          * If the popover should auto position itself using the mouse event or the triggerElement.
+          * Opens/closes the popover
          */
-        "position": PositionStrategy;
+        "open": boolean;
         /**
-          * Used internally to present the popover. Can also be used to manually present it if needed. Will auto position itself using the specified position strategy. If no target is provided, it will use the last mouse event on the window or the trigger element.
-          * @param positionStrategy The strategy to use when positioning the popover
-          * @param target Can optionally override the target the popover bases it's position off of
+          * Where the popover should be placed
          */
-        "present": <T extends PositionStrategy>(positionStrategy: T, target?: Target<T>) => Promise<void>;
+        "placement": Placement;
+        /**
+          * If the popover should position itself using the mouse event or the triggerElement.
+         */
+        "positionStrategy": 'click' | 'element';
         /**
           * Whether or not the backdrop will be visible to the user
          */
         "showBackdrop": boolean;
-        /**
-          * The id of the element that will present the menu on click. If not provided, you will have to manually present the popover using present().
-         */
-        "trigger"?: string;
         /**
           * @click Popover will show on left click or tap on mobile.
           * @context-menu Popover will show on right click or press on mobile.
@@ -1035,8 +1025,8 @@ declare global {
         new (): HTMLJePlaceholderElement;
     };
     interface HTMLJePopoverElementEventMap {
-        "didPresent": any;
-        "didDismiss": { role?: string, data?: any };
+        "popoverPresent": any;
+        "popoverDismiss": any;
     }
     interface HTMLJePopoverElement extends Components.JePopover, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJePopoverElementEventMap>(type: K, listener: (this: HTMLJePopoverElement, ev: JePopoverCustomEvent<HTMLJePopoverElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1453,6 +1443,7 @@ declare namespace LocalJSX {
         "type"?: 'horizontal' | 'vertical';
     }
     interface JeDrawer {
+        "side"?: 'left' | 'right' | 'bottom';
         "state"?: DrawerState;
     }
     interface JeDropzone {
@@ -1530,14 +1521,6 @@ declare namespace LocalJSX {
           * Renders input as disabled and prevents changes
          */
         "disabled"?: boolean;
-        /**
-          * Whether or not the dropdown should dismiss itself on click
-         */
-        "dismissOnClick"?: boolean;
-        /**
-          * Whether or not to render a dropdown when input is focused
-         */
-        "dropdown"?: boolean;
         /**
           * Whether or not the input should expand to the full width of it's container
          */
@@ -1737,6 +1720,10 @@ declare namespace LocalJSX {
          */
         "dismissOnClick"?: boolean;
         /**
+          * If the popover should match the width of the trigger element
+         */
+        "matchWidth"?: boolean;
+        /**
           * Horizontal offset used when auto positioning the popover content
          */
         "offsetX"?: number;
@@ -1745,25 +1732,29 @@ declare namespace LocalJSX {
          */
         "offsetY"?: number;
         /**
-          * Emits whenever the popover has finished dismissing. Emits the role and optional data object passed to the dismiss() method.
+          * Emits when the popover is closed
          */
-        "onDidDismiss"?: (event: JePopoverCustomEvent<{ role?: string, data?: any }>) => void;
+        "onPopoverDismiss"?: (event: JePopoverCustomEvent<any>) => void;
         /**
-          * Emits whenever the popover has presented. Does not emit any data
+          * Emits when the popover is opened
          */
-        "onDidPresent"?: (event: JePopoverCustomEvent<any>) => void;
+        "onPopoverPresent"?: (event: JePopoverCustomEvent<any>) => void;
         /**
-          * If the popover should auto position itself using the mouse event or the triggerElement.
+          * Opens/closes the popover
          */
-        "position"?: PositionStrategy;
+        "open"?: boolean;
+        /**
+          * Where the popover should be placed
+         */
+        "placement"?: Placement;
+        /**
+          * If the popover should position itself using the mouse event or the triggerElement.
+         */
+        "positionStrategy"?: 'click' | 'element';
         /**
           * Whether or not the backdrop will be visible to the user
          */
         "showBackdrop"?: boolean;
-        /**
-          * The id of the element that will present the menu on click. If not provided, you will have to manually present the popover using present().
-         */
-        "trigger"?: string;
         /**
           * @click Popover will show on left click or tap on mobile.
           * @context-menu Popover will show on right click or press on mobile.

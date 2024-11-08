@@ -61,12 +61,6 @@ label {
   font-weight: var(--je-font-semi-bold);
 }
 
-je-popover::part(content) {
-  width: var(--je-content-width, auto);
-  box-sizing: border-box;
-  padding: 0px;
-}
-
 je-icon {
   transition: transform 250ms ease;
 }
@@ -77,4 +71,8 @@ je-icon.open {
 
 je-pill {
   margin-right: var(--je-spacing-3xs);
+}
+
+je-popover {
+  width: 100%;
 }

@@ -12,7 +12,6 @@ export class JeMultiselect {
   @State() isTouched = false;
   @State() open = false;
   private containerEl!: HTMLDivElement;
-  private popoverEl!: HTMLJePopoverElement;
   private originalValue: string[] = [];
   @Prop() label?: string;
   @Prop() placeholder?: string;
@@ -90,11 +89,6 @@ export class JeMultiselect {
     });
   }
 
-  private handleContainerClick = async () => {
-    this.el.style.setProperty('--je-content-width', `${this.el.clientWidth}px`);
-    await this.popoverEl.present('element', this.el);
-  }
-
   render() {
     const options = Array.from(this.el.querySelectorAll('je-multiselect-option'));
     const requiredIcon = <je-icon style={{ fontSize: '10px', color: 'var(--je-error-500)' }} icon="asterisk" />;
@@ -111,24 +105,23 @@ export class JeMultiselect {
 
     return (
       <Host>
-        <div ref={el => this.containerEl = el} part='outer-container' onClick={this.handleContainerClick} class={containerClasses}>
-          <div part='start-container'>
-            <slot name='start'/>
-            {this.label && label}
-          </div>
+        <je-popover placement='bottom-start' exportparts='content' matchWidth={true}>
+          <div slot="trigger" ref={el => this.containerEl = el} part='outer-container' class={containerClasses}>
+            <div part='start-container'>
+              <slot name='start'/>
+              {this.label && label}
+            </div>
 
-          <div part='main-container'>
-            {this.value.length > 0 && options.filter(t => this.value.includes(t.value)).map(t => <je-pill>{t.textContent}</je-pill>)}
-            {(this.value.length < 1 && this.placeholder) && this.placeholder}
-          </div>
+            <div part='main-container'>
+              {this.value.length > 0 && options.filter(t => this.value.includes(t.value)).map(t => <je-pill>{t.textContent}</je-pill>)}
+              {(this.value.length < 1 && this.placeholder) && this.placeholder}
+            </div>
 
-          <div part='end-container'>
-            <slot name='end'/>
-            <je-icon icon='expand_more' class={{ open: this.open }} />
+            <div part='end-container'>
+              <slot name='end'/>
+              <je-icon icon='expand_more' class={{ open: this.open }} />
+            </div>
           </div>
-        </div>
-
-        <je-popover ref={el => this.popoverEl = el} exportparts='content'>
           <slot></slot>
         </je-popover>
       </Host>

@@ -17,9 +17,7 @@ export class JeInput {
   @Element() hostEl!: HTMLJeInputElement;
   @AttachInternals() internals: ElementInternals;
   @State() isTouched = false;
-  private dropdownActive = false;
   private containerEl!: HTMLDivElement;
-  private popoverEl!: HTMLJePopoverElement;
   private inputEl!: HTMLInputElement;
   private showPassword = false;
   private errors: string[] = [];
@@ -151,19 +149,9 @@ export class JeInput {
   @Prop() helperText?: string;
 
   /**
-   * Whether or not to render a dropdown when input is focused
-   */
-  @Prop() dropdown = false;
-
-  /**
    * Whether or not the input should expand to the full width of it's container
    */
   @Prop({ reflect: true }) expand?: boolean;
-
-  /**
-   * Whether or not the dropdown should dismiss itself on click
-   */
-  @Prop({ reflect: true }) dismissOnClick?: boolean;
 
   /**
    * Emits as the user types
@@ -217,9 +205,7 @@ export class JeInput {
   @Listen('blur')
   handleBlur() {
     this.isTouched = true;
-    if (!this.dropdownActive) {
-      this.containerEl.classList.remove('focus');
-    }
+    this.containerEl.classList.remove('focus');
   }
 
   @Watch('validators')
@@ -251,11 +237,6 @@ export class JeInput {
   @Method()
   getInputElement() {
     return Promise.resolve(this.inputEl);
-  }
-
-  @Method()
-  dismissDropdown(role = 'manualDismiss') {
-    return this.popoverEl.dismiss(role);
   }
 
   @Method()
@@ -310,19 +291,6 @@ export class JeInput {
     }
   }
 
-  private handleContainerClick = async () => {
-    if (this.dropdown) {
-      this.dropdownActive = true;
-      this.hostEl.style.setProperty('--je-content-width', `${this.hostEl.clientWidth}px`);
-      await this.popoverEl.present('element', this.hostEl);
-    }
-  }
-
-  private handleDismiss = () => {
-    this.dropdownActive = false;
-    this.containerEl.classList.remove('focus');
-  }
-
   render() {
     const requiredIcon = <je-icon style={{ fontSize: '10px', color: 'var(--je-error-500)' }} icon="asterisk" />;
     const label = <label part='label' style={{ display: 'flex' }}>{this.label} {this.required && requiredIcon}</label>;
@@ -338,7 +306,7 @@ export class JeInput {
 
     return (
       <Host>
-        <div ref={el => this.containerEl = el} part='outer-container' onClick={this.handleContainerClick} class={containerClasses}>
+        <div ref={el => this.containerEl = el} part='outer-container' class={containerClasses}>
           <div part='start-container'>
             <slot name='start'/>
             {this.label && label}
@@ -376,10 +344,6 @@ export class JeInput {
         </div>
 
         {this.helperText && <small class="helper">{this.helperText}</small>}
-
-        {this.dropdown && <je-popover ref={el => this.popoverEl = el} exportparts='content' dismissOnClick={this.dismissOnClick} onDidDismiss={this.handleDismiss}>
-          <slot name='dropdown'></slot>
-        </je-popover>}
       </Host>
     );
   }

@@ -234,14 +234,16 @@
       </div>
 
       <h2>Date Picker</h2>
-      <je-input dropdown="true" no-typing="true" placeholder="00/00/0000">
-        <je-icon icon="today" fill slot="start"></je-icon>
-        <je-datepicker slot="dropdown"></je-datepicker>
-      </je-input>
+      <je-popover match-width placement="bottom-start">
+        <je-input slot="trigger" no-typing="true" placeholder="00/00/0000">
+          <je-icon icon="today" fill slot="start"></je-icon>
+        </je-input>
+        <je-datepicker></je-datepicker>
+      </je-popover>
 
       <h2>Popover</h2>
-      <je-button id="popoverButton">Popover</je-button>
-      <je-popover trigger="popoverButton">
+      <je-popover placement="right-start">
+        <je-button slot="trigger">Popover</je-button>
         <je-menu type="select">
           <je-menu-option>Undo</je-menu-option>
           <je-menu-option>Redo</je-menu-option>

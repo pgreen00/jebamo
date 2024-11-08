@@ -1,4 +1,4 @@
-import { Component, Host, Prop, h, Element, State, Listen, Watch } from '@stencil/core';
+import { Component, Host, Prop, h, Element, Listen, Watch } from '@stencil/core';
 
 @Component({
   tag: 'je-select',
@@ -11,8 +11,8 @@ import { Component, Host, Prop, h, Element, State, Listen, Watch } from '@stenci
 export class JeSelect {
   @Element() el: HTMLElement;
   private inputEl!: HTMLJeInputElement;
+  private popoverEl!: HTMLJePopoverElement;
   private originalValue?: string;
-  @State() open = false;
   @Prop() label?: string;
   @Prop() placeholder?: string;
   @Prop({ mutable: true }) value?: string;
@@ -37,14 +37,8 @@ export class JeSelect {
     }
   }
 
-  @Listen('didPresent')
-  handlePopoverPresent() {
-    this.open = true;
-  }
-
-  @Listen('didDismiss')
+  @Listen('popoverDismiss')
   handlePopoverDismiss() {
-    this.open = false;
     const options = this.el.querySelectorAll('je-select-option');
     options.forEach(option => option.classList.remove('focus'));
   }
@@ -81,23 +75,24 @@ export class JeSelect {
 
   @Listen('keydown', { capture: true })
   handleKeyDown(event: KeyboardEvent) {
-    if (this.open || (event.key !== 'Tab' && event.key !== 'Enter')) {
+    const open = this.popoverEl.open;
+    if (open || (event.key !== 'Tab' && event.key !== 'Enter')) {
       event.preventDefault();
       event.stopPropagation();
     }
     const options = Array.from(this.el.querySelectorAll('je-select-option'));
-    if (event.key == 'Enter' && this.open) {
+    if (event.key == 'Enter' && open) {
       options.forEach(option => {
         if (this.hasFocus(option)) {
           this.value = option.value;
         }
       });
-      this.inputEl.dismissDropdown();
+      this.popoverEl.open = false;
     } else if (event.key == 'Escape') {
-      this.inputEl.dismissDropdown()
-    } else if ((event.key == 'ArrowDown' || event.key == 'ArrowUp') && !this.open) {
+      this.popoverEl.open = false;
+    } else if ((event.key == 'ArrowDown' || event.key == 'ArrowUp') && !open) {
       (this.inputEl.shadowRoot.querySelector("[part='outer-container']") as HTMLElement).click();
-    } else if ((event.key == 'ArrowDown' || event.key == 'ArrowUp') && this.open) {
+    } else if ((event.key == 'ArrowDown' || event.key == 'ArrowUp') && open) {
       if (!options.some(t => this.hasFocus(t))) {
         const indexToFocus = options.findIndex(t => t.selected)
         if (indexToFocus > -1) {
@@ -141,7 +136,7 @@ export class JeSelect {
           if (currentFocusedOption) this.blurOption(currentFocusedOption);
           this.focusOption(optionsWithKey[0]);
         }
-        if (!this.open) {
+        if (!open) {
           options.forEach(option => {
             if (this.hasFocus(option)) {
               this.value = option.value;
@@ -155,21 +150,22 @@ export class JeSelect {
   }
 
   render() {
+    const open = this.popoverEl?.open;
     return (
       <Host>
-        <je-input ref={el => this.inputEl = el}
-          exportparts='outer-container, start-container, end-container, native-input, content'
-          dropdown={true}
-          label={this.label}
-          placeholder={this.placeholder}
-          noTyping={true}
-          expand={this.expand}
-          dismissOnClick={true}
-          required={this.required}
-        >
-          <slot onSlotchange={() => this.handleValueChange()} slot='dropdown' />
-          <je-icon slot='end' icon='expand_more' class={{ open: this.open }} />
-        </je-input>
+        <je-popover placement='bottom-start' matchWidth={true} dismissOnClick={true} ref={el => this.popoverEl = el}>
+          <je-input slot="trigger" ref={el => this.inputEl = el}
+            exportparts='outer-container, start-container, end-container, native-input, content'
+            label={this.label}
+            placeholder={this.placeholder}
+            noTyping={true}
+            expand={this.expand}
+            required={this.required}
+          >
+            <je-icon slot='end' icon='expand_more' class={{ open: open }} />
+          </je-input>
+          <slot onSlotchange={() => this.handleValueChange()} />
+        </je-popover>
       </Host>
     );
   }

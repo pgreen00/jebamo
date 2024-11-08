@@ -340,14 +340,14 @@ export declare interface JeDivider extends Components.JeDivider {}
 
 
 @ProxyCmp({
-  inputs: ['state']
+  inputs: ['side', 'state']
 })
 @Component({
   selector: 'je-drawer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['state'],
+  inputs: ['side', 'state'],
 })
 export class JeDrawer {
   protected el: HTMLElement;
@@ -463,15 +463,15 @@ export declare interface JeInfinite extends Components.JeInfinite {
 
 
 @ProxyCmp({
-  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'dismissOnClick', 'dropdown', 'expand', 'format', 'helperText', 'inputMode', 'label', 'max', 'maxLength', 'min', 'minLength', 'multiple', 'noTyping', 'pattern', 'placeholder', 'readOnly', 'required', 'spellcheck', 'step', 'type', 'validators', 'value'],
-  methods: ['getInputElement', 'dismissDropdown', 'markAsTouched', 'hasError', 'reset']
+  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'expand', 'format', 'helperText', 'inputMode', 'label', 'max', 'maxLength', 'min', 'minLength', 'multiple', 'noTyping', 'pattern', 'placeholder', 'readOnly', 'required', 'spellcheck', 'step', 'type', 'validators', 'value'],
+  methods: ['getInputElement', 'markAsTouched', 'hasError', 'reset']
 })
 @Component({
   selector: 'je-input',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'dismissOnClick', 'dropdown', 'expand', 'format', 'helperText', 'inputMode', 'label', 'max', 'maxLength', 'min', 'minLength', 'multiple', 'noTyping', 'pattern', 'placeholder', 'readOnly', 'required', 'spellcheck', 'step', 'type', 'validators', 'value'],
+  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'expand', 'format', 'helperText', 'inputMode', 'label', 'max', 'maxLength', 'min', 'minLength', 'multiple', 'noTyping', 'pattern', 'placeholder', 'readOnly', 'required', 'spellcheck', 'step', 'type', 'validators', 'value'],
 })
 export class JeInput {
   protected el: HTMLElement;
@@ -740,36 +740,34 @@ export declare interface JePlaceholder extends Components.JePlaceholder {}
 
 
 @ProxyCmp({
-  inputs: ['backdropDismiss', 'dismissOnClick', 'offsetX', 'offsetY', 'position', 'showBackdrop', 'trigger', 'triggerAction'],
-  methods: ['present', 'dismiss']
+  inputs: ['backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'showBackdrop', 'triggerAction']
 })
 @Component({
   selector: 'je-popover',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['backdropDismiss', 'dismissOnClick', 'offsetX', 'offsetY', 'position', 'showBackdrop', 'trigger', 'triggerAction'],
+  inputs: ['backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'showBackdrop', 'triggerAction'],
 })
 export class JePopover {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['didPresent', 'didDismiss']);
+    proxyOutputs(this, this.el, ['popoverPresent', 'popoverDismiss']);
   }
 }
 
 
 export declare interface JePopover extends Components.JePopover {
   /**
-   * Emits whenever the popover has presented. Does not emit any data
+   * Emits when the popover is opened
    */
-  didPresent: EventEmitter<CustomEvent<any>>;
+  popoverPresent: EventEmitter<CustomEvent<any>>;
   /**
-   * Emits whenever the popover has finished dismissing. Emits the role
-and optional data object passed to the dismiss() method.
+   * Emits when the popover is closed
    */
-  didDismiss: EventEmitter<CustomEvent<{ role?: string, data?: any }>>;
+  popoverDismiss: EventEmitter<CustomEvent<any>>;
 }
 
 
