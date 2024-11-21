@@ -79,6 +79,9 @@ export class JePopover {
 
   componentDidLoad() {
     this.triggerElement = this.el.querySelector('[slot="trigger"]') ?? null;
+  }
+
+  componentWillRender() {
     if (this.triggerElement && this.matchWidth) {
       this.el.style.setProperty('--content-width', `${this.triggerElement.clientWidth}px`);
     }

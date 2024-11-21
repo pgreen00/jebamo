@@ -29,6 +29,14 @@ export const config: Config = {
     }),
     {
       type: 'www',
+      copy: [
+        {
+          src: 'styles.css'
+        },
+        {
+          src: 'main.js'
+        }
+      ],
       serviceWorker: null, // disable service workers
     },
   ],

@@ -1,484 +1,304 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Jebamo Component Library</title>
 
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-<title>Jebamo Component Library</title>
+    <script type="module" src="/build/jebamo.esm.js"></script>
+    <script nomodule src="/build/jebamo.js"></script>
 
-<script type="module" src="/build/jebamo.esm.js"></script>
-<script nomodule src="/build/jebamo.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap">
+  <body>
+    <je-page id="main-page" left-panel="minimized" right-panel="open">
+      <je-toolbar class="header" slot="header">
+        <je-drawer slot="start">
+          <je-button slot="trigger" fill="clear" icon-only="true" color="light">
+            <je-icon icon="menu"></je-icon>
+          </je-button>
+          <h1>Hey</h1>
+          <je-select label="Day" placeholder="Select a day of the week">
+            <je-select-option value="1">Monday</je-select-option>
+            <je-select-option value="2">Tuesday</je-select-option>
+            <je-select-option value="3">Wednesday</je-select-option>
+            <je-select-option value="4">Thursday</je-select-option>
+            <je-select-option value="5">Friday</je-select-option>
+            <je-select-option value="6">Saturday</je-select-option>
+            <je-select-option value="7">Sunday</je-select-option>
+          </je-select>
+        </je-drawer>
+        <h1>Jebamo</h1>
+        <je-button size="sm" onclick="handleThemeToggle()" color="light" slot="end">Toggle theme</je-button>
+        <je-button size="sm" onclick="handlePanelToggle('left')" color="light" slot="end">Toggle left panel</je-button>
+        <je-button size="sm" onclick="handlePanelToggle('right')" color="light" slot="end">Toggle right panel</je-button>
+      </je-toolbar>
 
-<style>
-  je-page {
-    --je-font-family: "Work Sans";
-    --je-border-radius: 5px;
+      <div slot="left-panel">
+        <je-button icon-only expand>
+          <je-icon fill icon="home"></je-icon>
+        </je-button>
+        <je-button icon-only expand>
+          <je-icon fill icon="inbox"></je-icon>
+        </je-button>
+        <je-button icon-only expand>
+          <je-icon fill icon="apps"></je-icon>
+        </je-button>
+        <je-button icon-only expand>
+          <je-icon fill icon="favorite"></je-icon>
+        </je-button>
+      </div>
 
-    .header {
-      --je-background-color: var(--je-primary-800);
-      --je-text-color: var(--je-primary-100);
-      padding-inline: var(--je-spacing-lg);
-    }
-
-    [slot=left-panel] {
-      padding: var(--je-spacing-lg);
-      display: flex;
-      flex-direction: column;
-      gap: var(--je-spacing-lg);
-    }
-
-    [slot=body] {
-      padding: var(--je-spacing-3xl);
-    }
-
-    [slot=right-panel] {
-      padding: var(--je-spacing-lg);
-    }
-  }
-
-  html,
-  body {
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-  }
-
-  h1, h2, h3, h4, h5, h6, p {
-    margin-block-start: 0;
-    margin-block-end: 0;
-    margin-inline-start: 0;
-    margin-inline-end: 0;
-  }
-
-  h1 {
-    line-height: 2.5;
-  }
-
-  h2, h3, h4 {
-    line-height: 2.25;
-  }
-
-  h5, h6, p {
-    line-height: 2;
-  }
-</style>
-</head>
-
-<body>
-  <je-page id="main-page" left-panel="minimized" right-panel="open">
-    <je-toolbar class="header" slot="header">
-      <je-button slot="start" fill="clear" icon-only="true" color="light" onclick="handleDrawerToggle()">
-        <je-icon icon="menu"></je-icon>
-      </je-button>
-      <h1>Jebamo</h1>
-      <je-button size="sm" onclick="handleThemeToggle()" color="light" slot="end">Toggle theme</je-button>
-      <je-button size="sm" onclick="handlePanelToggle('left')" color="light" slot="end">Toggle left panel</je-button>
-      <je-button size="sm" onclick="handlePanelToggle('right')" color="light" slot="end">Toggle right panel</je-button>
-    </je-toolbar>
-    <div slot="left-panel">
-      <je-button icon-only expand>
-        <je-icon fill icon="home"></je-icon>
-      </je-button>
-      <je-button icon-only expand>
-        <je-icon fill icon="inbox"></je-icon>
-      </je-button>
-      <je-button icon-only expand>
-        <je-icon fill icon="apps"></je-icon>
-      </je-button>
-      <je-button icon-only expand>
-        <je-icon fill icon="favorite"></je-icon>
-      </je-button>
-    </div>
-    <div slot="body">
-      <je-drawer id="drawer">
-        <h1>Hey</h1>
-        <je-select label="Day" placeholder="Select a day of the week">
-          <je-select-option value="1">Monday</je-select-option>
-          <je-select-option value="2">Tuesday</je-select-option>
-          <je-select-option value="3">Wednesday</je-select-option>
-          <je-select-option value="4">Thursday</je-select-option>
-          <je-select-option value="5">Friday</je-select-option>
-          <je-select-option value="6">Saturday</je-select-option>
-          <je-select-option value="7">Sunday</je-select-option>
-        </je-select>
-      </je-drawer>
-
-      <h2>Tree</h2>
-      <je-tree selection="multiple">
-        <je-branch label="Item 1">
-          <je-branch label="Item A">
-            <je-branch label="Item Z"></je-branch>
-            <je-branch label="Item Y"></je-branch>
-            <je-branch label="Item X"></je-branch>
+      <div slot="body">
+        <h2>Tree</h2>
+        <je-tree selection="multiple">
+          <je-branch label="Item 1">
+            <je-branch label="Item A">
+              <je-branch label="Item Z"></je-branch>
+              <je-branch label="Item Y"></je-branch>
+              <je-branch label="Item X"></je-branch>
+            </je-branch>
+            <je-branch label="Item B"></je-branch>
+            <je-branch label="Item C"></je-branch>
           </je-branch>
-          <je-branch label="Item B"></je-branch>
-          <je-branch label="Item C"></je-branch>
-        </je-branch>
-        <je-branch label="Item 2"></je-branch>
-        <je-branch label="Item 3"></je-branch>
-      </je-tree>
+          <je-branch label="Item 2"></je-branch>
+          <je-branch label="Item 3"></je-branch>
+        </je-tree>
 
-      <h2>Drop Zone</h2>
-      <je-dropzone>
-        <je-button>Upload file</je-button>
-      </je-dropzone>
+        <h2>Drop Zone</h2>
+        <je-dropzone>
+          <je-button>Upload file</je-button>
+        </je-dropzone>
 
-      <h2>Divider</h2>
-      <div style="max-width: 300px; margin-bottom: var(--je-spacing);">
-        <div>Helloo</div>
-        <je-divider></je-divider>
-        <div>Theree</div>
-        <je-divider></je-divider>
-        <div>Biatch</div>
-      </div>
-      <div style="margin-bottom: var(--je-spacing); display: flex; height: 40px; align-items: center;">
-        <div>Helloo</div>
-        <je-divider type="vertical"></je-divider>
-        <div>Theree</div>
-        <je-divider type="vertical"></je-divider>
-        <div>Biatch</div>
-      </div>
-
-      <h2>Color</h2>
-      <div>
-        Hello <je-color color="primary">world!</je-color>
-      </div>
-      <div>
-        <je-color color="auto" light-mode-color="primary" dark-mode-color="secondary">This text is secondary in dark mode and primary in light mode</je-color>
-      </div>
-
-      <h2>Link</h2>
-      <div>
-        This is a <je-link href="#">link</je-link>
-      </div>
-      <div>
-        This <je-link bold="true" href="#">link</je-link> stands out
-      </div>
-      <div>
-        This <je-link underline="false" href="#">link</je-link> is quiet
-      </div>
-      <div>
-        This <je-link underline="false" color="auto" href="#">link</je-link> is quieter
-      </div>
-      <div>
-        This <je-link underline="false" bold="true" color="auto" href="#">link</je-link> is quiet but bold
-      </div>
-
-      <h2>Buttons</h2>
-      <div style="display: flex; flex-direction: column; gap: var(--je-spacing); margin-bottom: var(--je-spacing-sm);">
-        <div style="display: flex; gap: var(--je-spacing);">
-          <je-button>solid</je-button>
-          <je-button fill="outline">outline</je-button>
-          <je-button fill="clear">clear</je-button>
-        </div>
-        <div style="display: flex; gap: var(--je-spacing);">
-          <je-button color="secondary">solid</je-button>
-          <je-button fill="outline" color="secondary">outline</je-button>
-          <je-button fill="clear" color="secondary">clear</je-button>
-        </div>
-        <div style="display: flex; gap: var(--je-spacing);">
-          <je-button color="tertiary">solid</je-button>
-          <je-button fill="outline" color="tertiary">outline</je-button>
-          <je-button fill="clear" color="tertiary">clear</je-button>
-        </div>
-        <div style="display: flex; gap: var(--je-spacing);">
-          <je-button color="error">solid</je-button>
-          <je-button fill="outline" color="error">outline</je-button>
-          <je-button fill="clear" color="error">clear</je-button>
-        </div>
-        <div style="display: flex; gap: var(--je-spacing);">
-          <je-button color="warning">solid</je-button>
-          <je-button fill="outline" color="warning">outline</je-button>
-          <je-button fill="clear" color="warning">clear</je-button>
-        </div>
-        <div style="display: flex; gap: var(--je-spacing);">
-          <je-button color="success">solid</je-button>
-          <je-button fill="outline" color="success">outline</je-button>
-          <je-button fill="clear" color="success">clear</je-button>
-        </div>
-        <div style="display: flex; gap: var(--je-spacing);">
-          <je-button color="medium">solid</je-button>
-          <je-button fill="outline" color="medium">outline</je-button>
-          <je-button fill="clear" color="medium">clear</je-button>
-        </div>
-        <div style="display: flex; gap: var(--je-spacing);">
-          <je-button color="light">solid</je-button>
-          <je-button fill="outline" color="light">outline</je-button>
-          <je-button fill="clear" color="light">clear</je-button>
-        </div>
-        <div style="display: flex; gap: var(--je-spacing);">
-          <je-button color="dark">solid</je-button>
-          <je-button fill="outline" color="dark">outline</je-button>
-          <je-button fill="clear" color="dark">clear</je-button>
-        </div>
-        <je-button size="sm">small</je-button>
-        <je-button size="lg">large</je-button>
-        <je-button fill="clear" icon-only="true">
-          <je-icon icon="search"></je-icon>
-        </je-button>
-        <je-button>
-          <je-icon fill icon="home"></je-icon> Home <span slot="badge">22</span>
-        </je-button>
-      </div>
-
-      <h2>Input as searchbar</h2>
-      <div style="gap: var(--je-spacing); display: flex; flex-direction: column;">
-        <je-input placeholder="Search for a client...">
-          <je-icon icon="search" fill slot="start"></je-icon>
-        </je-input>
-      </div>
-
-      <h2>Date Picker</h2>
-      <je-popover match-width placement="bottom-start">
-        <je-input slot="trigger" no-typing="true" placeholder="00/00/0000">
-          <je-icon icon="today" fill slot="start"></je-icon>
-        </je-input>
-        <je-datepicker></je-datepicker>
-      </je-popover>
-
-      <h2>Popover</h2>
-      <je-popover placement="right-start">
-        <je-button slot="trigger">Popover</je-button>
-        <je-menu type="select">
-          <je-menu-option>Undo</je-menu-option>
-          <je-menu-option>Redo</je-menu-option>
+        <h2>Divider</h2>
+        <div style="max-width: 300px; margin-bottom: var(--je-spacing)">
+          <div>Helloo</div>
           <je-divider></je-divider>
-          <je-menu-option>Cut</je-menu-option>
-          <je-menu-option>Copy</je-menu-option>
-          <je-menu-option>Paste</je-menu-option>
-          <je-menu-option>
-            <je-icon slot="end" size="sm" icon="delete"></je-icon> Delete
-          </je-menu-option>
+          <div>Theree</div>
           <je-divider></je-divider>
-          <je-menu-option>
-            <je-icon slot="end" size="sm" icon="favorite"></je-icon> Favorite
-          </je-menu-option>
-        </je-menu>
-      </je-popover>
+          <div>Biatch</div>
+        </div>
+        <div style="margin-bottom: var(--je-spacing); display: flex; height: 40px; align-items: center">
+          <div>Helloo</div>
+          <je-divider type="vertical"></je-divider>
+          <div>Theree</div>
+          <je-divider type="vertical"></je-divider>
+          <div>Biatch</div>
+        </div>
 
-      <h2>Modal</h2>
-      <je-button id="modalButton">modal</je-button>
-      <je-modal trigger="modalButton">
-        <p>Hello</p>
-      </je-modal>
+        <h2>Color</h2>
+        <div>Hello <je-color color="primary">world!</je-color></div>
+        <div>
+          <je-color color="auto" light-mode-color="primary" dark-mode-color="secondary">This text is secondary in dark mode and primary in light mode</je-color>
+        </div>
 
-      <h2>Loading Indicators</h2>
-      <je-loading></je-loading>
-      <je-placeholder style="height: 40px; width: 300px;"></je-placeholder>
+        <h2>Link</h2>
+        <div>This is a <je-link href="#">link</je-link></div>
+        <div>This <je-link bold="true" href="#">link</je-link> stands out</div>
+        <div>This <je-link underline="false" href="#">link</je-link> is quiet</div>
+        <div>This <je-link underline="false" color="auto" href="#">link</je-link> is quieter</div>
+        <div>This <je-link underline="false" bold="true" color="auto" href="#">link</je-link> is quiet but bold</div>
 
-      <h2>Card</h2>
-      <je-card style="margin-block: var(--je-spacing-sm); max-width: 500px;">
-        <div slot="header">
+        <h2>Buttons</h2>
+        <div style="display: flex; flex-direction: column; gap: var(--je-spacing); margin-bottom: var(--je-spacing-sm)">
+          <div style="display: flex; gap: var(--je-spacing)">
+            <je-button>solid</je-button>
+            <je-button fill="outline">outline</je-button>
+            <je-button fill="clear">clear</je-button>
+          </div>
+          <div style="display: flex; gap: var(--je-spacing)">
+            <je-button color="secondary">solid</je-button>
+            <je-button fill="outline" color="secondary">outline</je-button>
+            <je-button fill="clear" color="secondary">clear</je-button>
+          </div>
+          <div style="display: flex; gap: var(--je-spacing)">
+            <je-button color="tertiary">solid</je-button>
+            <je-button fill="outline" color="tertiary">outline</je-button>
+            <je-button fill="clear" color="tertiary">clear</je-button>
+          </div>
+          <div style="display: flex; gap: var(--je-spacing)">
+            <je-button color="error">solid</je-button>
+            <je-button fill="outline" color="error">outline</je-button>
+            <je-button fill="clear" color="error">clear</je-button>
+          </div>
+          <div style="display: flex; gap: var(--je-spacing)">
+            <je-button color="warning">solid</je-button>
+            <je-button fill="outline" color="warning">outline</je-button>
+            <je-button fill="clear" color="warning">clear</je-button>
+          </div>
+          <div style="display: flex; gap: var(--je-spacing)">
+            <je-button color="success">solid</je-button>
+            <je-button fill="outline" color="success">outline</je-button>
+            <je-button fill="clear" color="success">clear</je-button>
+          </div>
+          <div style="display: flex; gap: var(--je-spacing)">
+            <je-button color="medium">solid</je-button>
+            <je-button fill="outline" color="medium">outline</je-button>
+            <je-button fill="clear" color="medium">clear</je-button>
+          </div>
+          <div style="display: flex; gap: var(--je-spacing)">
+            <je-button color="light">solid</je-button>
+            <je-button fill="outline" color="light">outline</je-button>
+            <je-button fill="clear" color="light">clear</je-button>
+          </div>
+          <div style="display: flex; gap: var(--je-spacing)">
+            <je-button color="dark">solid</je-button>
+            <je-button fill="outline" color="dark">outline</je-button>
+            <je-button fill="clear" color="dark">clear</je-button>
+          </div>
+          <je-button size="sm">small</je-button>
+          <je-button size="lg">large</je-button>
+          <je-button fill="clear" icon-only="true">
+            <je-icon icon="search"></je-icon>
+          </je-button>
+          <je-button> <je-icon fill icon="home"></je-icon> Home <span slot="badge">22</span> </je-button>
+        </div>
+
+        <h2>Input as searchbar</h2>
+        <div style="gap: var(--je-spacing); display: flex; flex-direction: column">
+          <je-input type="search" placeholder="Search for a client...">
+            <je-icon icon="search" fill slot="start"></je-icon>
+          </je-input>
+        </div>
+
+        <h2>Date Picker</h2>
+        <je-popover match-width placement="bottom-start">
+          <je-input slot="trigger" no-typing="true" placeholder="00/00/0000">
+            <je-icon icon="today" fill slot="start"></je-icon>
+          </je-input>
+          <je-datepicker></je-datepicker>
+        </je-popover>
+
+        <h2>Popover</h2>
+        <je-popover placement="right-start">
+          <je-button slot="trigger">Popover</je-button>
+          <je-menu type="select">
+            <je-menu-option>Undo</je-menu-option>
+            <je-menu-option>Redo</je-menu-option>
+            <je-divider></je-divider>
+            <je-menu-option>Cut</je-menu-option>
+            <je-menu-option>Copy</je-menu-option>
+            <je-menu-option>Paste</je-menu-option>
+            <je-menu-option> <je-icon slot="end" size="sm" fill icon="delete"></je-icon> Delete </je-menu-option>
+            <je-divider></je-divider>
+            <je-menu-option> <je-icon slot="end" size="sm" fill icon="favorite"></je-icon> Favorite </je-menu-option>
+          </je-menu>
+        </je-popover>
+
+        <h2>Modal</h2>
+        <je-button id="modalButton">modal</je-button>
+        <je-modal trigger="modalButton">
+          <p>Hello</p>
+        </je-modal>
+
+        <h2>Loading Indicators</h2>
+        <je-loading></je-loading>
+        <je-placeholder style="height: 40px; width: 300px"></je-placeholder>
+
+        <h2>Card</h2>
+        <je-card style="margin-block: var(--je-spacing-sm); max-width: 500px">
+          <div slot="header">
+            <h3>Hello</h3>
+          </div>
+          <p>wyd</p>
+          <div slot="footer">
+            <je-button size="sm">Action 1</je-button>
+            <je-button size="sm">Action 2</je-button>
+          </div>
+        </je-card>
+        <je-card style="max-width: 500px" button color="secondary">
           <h3>Hello</h3>
-        </div>
-        <p>wyd</p>
-        <div slot="footer">
-          <je-button size="sm">Action 1</je-button>
-          <je-button size="sm">Action 2</je-button>
-        </div>
-      </je-card>
-      <je-card style="max-width: 500px;" button color="secondary">
-        <h3>Hello</h3>
-        <p>wyd</p>
-      </je-card>
-      <je-details style="margin-top: var(--je-spacing); max-width: 300px;" summary="Toggle me">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      </je-details>
+          <p>wyd</p>
+        </je-card>
+        <je-details style="margin-top: var(--je-spacing); max-width: 300px" summary="Toggle me">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+          exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </je-details>
 
-      <h2>Pills</h2>
-      <div style="display: flex; gap: var(--je-spacing);">
-        <je-pill>Hey</je-pill>
-        <je-pill outline>
-          <je-icon size="sm" icon="person"></je-icon> Hey <je-icon size="sm" icon="close"></je-icon>
-        </je-pill>
-        <je-pill disabled>Wall</je-pill>
+        <h2>Pills</h2>
+        <div style="display: flex; gap: var(--je-spacing)">
+          <je-pill>Hey</je-pill>
+          <je-pill outline> <je-icon size="sm" icon="person"></je-icon> Hey <je-icon size="sm" icon="close"></je-icon> </je-pill>
+          <je-pill disabled>Wall</je-pill>
+        </div>
+
+        <h2>Tabs</h2>
+        <je-tabs mode="pill">
+          <je-tab> <je-icon icon="home"></je-icon> Home </je-tab>
+          <je-tab> <je-icon icon="calendar_month"></je-icon> Appointments </je-tab>
+          <je-tab> <je-icon icon="chat"></je-icon> Messages </je-tab>
+        </je-tabs>
+        <je-tabs mode="segment">
+          <je-tab> <je-icon icon="home"></je-icon> Home </je-tab>
+          <je-tab> <je-icon icon="calendar_month"></je-icon> Appointments </je-tab>
+          <je-tab> <je-icon icon="chat"></je-icon> Messages </je-tab>
+        </je-tabs>
+
+        <h2>Toggle</h2>
+        <je-toggle>Hey</je-toggle>
       </div>
 
-      <h2>Tabs</h2>
-      <je-tabs mode="pill">
-        <je-tab>
-          <je-icon icon="home"></je-icon> Home
-        </je-tab>
-        <je-tab>
-          <je-icon icon="calendar_month"></je-icon> Appointments
-        </je-tab>
-        <je-tab>
-          <je-icon icon="chat"></je-icon> Messages
-        </je-tab>
-      </je-tabs>
-      <je-tabs mode="segment">
-        <je-tab>
-          <je-icon icon="home"></je-icon> Home
-        </je-tab>
-        <je-tab>
-          <je-icon icon="calendar_month"></je-icon> Appointments
-        </je-tab>
-        <je-tab>
-          <je-icon icon="chat"></je-icon> Messages
-        </je-tab>
-      </je-tabs>
+      <div slot="right-panel">
+        <h2>Example Form</h2>
+        <je-form id="form">
+          <je-input expand label="Date" type="date"></je-input>
+          <je-input expand label="Time" step="300" type="time"></je-input>
+          <je-input expand label="Date & Time" type="datetime-local"></je-input>
+          <je-input value="Peter Green" label="Name" placeholder="What's your name?" expand="true"></je-input>
+          <je-select expand label="Day" placeholder="Select a day of the week">
+            <je-select-option value="1">Monday</je-select-option>
+            <je-select-option value="2">Tuesday</je-select-option>
+            <je-select-option value="3">Wednesday</je-select-option>
+            <je-select-option value="4">Thursday</je-select-option>
+            <je-select-option value="5">Friday</je-select-option>
+            <je-select-option value="6">Saturday</je-select-option>
+            <je-select-option value="7">Sunday</je-select-option>
+          </je-select>
+          <je-multiselect expand label="Days" placeholder="Select multiple days of the week">
+            <je-multiselect-option value="1">Monday</je-multiselect-option>
+            <je-multiselect-option value="2">Tuesday</je-multiselect-option>
+            <je-multiselect-option value="3">Wednesday</je-multiselect-option>
+            <je-multiselect-option value="4">Thursday</je-multiselect-option>
+            <je-multiselect-option value="5">Friday</je-multiselect-option>
+            <je-multiselect-option value="6">Saturday</je-multiselect-option>
+            <je-multiselect-option value="7">Sunday</je-multiselect-option>
+          </je-multiselect>
+          <je-input required name="pw" label="Password" type="password" placeholder="Type your password" expand="true"></je-input>
+          <je-input type="number" required id="customInput" label="Custom Validator" helper-text="Enter a number between 4 and 12" expand="true"></je-input>
+          <je-input id="customFormatter" name="phone" type="tel" autocomplete="phone" placeholder="Type your phone" label="Custom Formatter" expand="true">
+            <je-icon icon="phone" fill slot="end"></je-icon>
+          </je-input>
+          <je-radio-group label="What's your fav fruit?">
+            <je-radio value="1">Apples</je-radio>
+            <je-radio value="2">Bananas</je-radio>
+            <je-radio value="3">Oranges</je-radio>
+          </je-radio-group>
+          <je-checkbox required indeterminate>Are you interested in frogs?</je-checkbox>
+          <je-checkbox-group label="Favorite Music Genres">
+            <je-checkbox-option value="1">Rock</je-checkbox-option>
+            <je-checkbox-option value="2">Pop</je-checkbox-option>
+            <je-checkbox-option value="3">Jazz</je-checkbox-option>
+            <je-checkbox-option value="4">Ska</je-checkbox-option>
+          </je-checkbox-group>
+          <je-textarea label="Comments" placeholder="Enter some comments"></je-textarea>
+          <je-button type="submit">Submit</je-button>
+          <je-button type="reset">Reset</je-button>
+        </je-form>
+        <je-alert id="formAlert"></je-alert>
+      </div>
 
-      <h2>Toggle</h2>
-      <je-toggle>Hey</je-toggle>
-    </div>
-    <div slot="right-panel">
-      <h2>Example Form</h2>
-      <je-form id="form">
-        <je-input label="Name" placeholder="What's your name?" expand="true"></je-input>
-        <je-select expand label="Day" placeholder="Select a day of the week">
-          <je-select-option value="1">Monday</je-select-option>
-          <je-select-option value="2">Tuesday</je-select-option>
-          <je-select-option value="3">Wednesday</je-select-option>
-          <je-select-option value="4">Thursday</je-select-option>
-          <je-select-option value="5">Friday</je-select-option>
-          <je-select-option value="6">Saturday</je-select-option>
-          <je-select-option value="7">Sunday</je-select-option>
-        </je-select>
-        <je-multiselect expand label="Days" placeholder="Select multiple days of the week">
-          <je-multiselect-option value="1">Monday</je-multiselect-option>
-          <je-multiselect-option value="2">Tuesday</je-multiselect-option>
-          <je-multiselect-option value="3">Wednesday</je-multiselect-option>
-          <je-multiselect-option value="4">Thursday</je-multiselect-option>
-          <je-multiselect-option value="5">Friday</je-multiselect-option>
-          <je-multiselect-option value="6">Saturday</je-multiselect-option>
-          <je-multiselect-option value="7">Sunday</je-multiselect-option>
-        </je-multiselect>
-        <je-input required name="pw" label="Password" type="password" placeholder="Type your password" expand="true"></je-input>
-        <je-input type="number" required id="customInput" label="Custom Validator" helper-text="Enter a number between 4 and 12" expand="true"></je-input>
-        <je-input id="customFormatter" name="phone" type="tel" autocomplete="phone" placeholder="Type your phone" label="Custom Formatter" expand="true">
-          <je-icon icon="phone" fill slot="end"></je-icon>
-        </je-input>
-        <je-radio-group label="What's your fav fruit?">
-          <je-radio value="1">Apples</je-radio>
-          <je-radio value="2">Bananas</je-radio>
-          <je-radio value="3">Oranges</je-radio>
-        </je-radio-group>
-        <je-checkbox>Are you interested in frogs?</je-checkbox>
-        <je-checkbox-group label="Favorite Music Genres">
-          <je-checkbox-option value="1">Rock</je-checkbox-option>
-          <je-checkbox-option value="2">Pop</je-checkbox-option>
-          <je-checkbox-option value="3">Jazz</je-checkbox-option>
-          <je-checkbox-option value="4">Ska</je-checkbox-option>
-        </je-checkbox-group>
-        <je-textarea label="Comments" placeholder="Enter some comments"></je-textarea>
-        <je-button type="submit">Submit</je-button>
-        <je-button type="reset">Reset</je-button>
-      </je-form>
-      <je-alert id="formAlert"></je-alert>
-    </div>
-    <div class="footer" slot="footer">
-      <je-tabs mode="mobile">
-        <je-tab>
-          <je-icon icon="home"></je-icon> Home
-        </je-tab>
-        <je-tab>
-          <je-icon icon="calendar_month"></je-icon> Appointments
-        </je-tab>
-        <je-tab>
-          <je-icon icon="chat"></je-icon> Messages
-        </je-tab>
-      </je-tabs>
-    </div>
-  </je-page>
-  <script>
-    const customInputEl = document.getElementById('customInput')
-    customInputEl.validators = [
-      (val) => {
-        let errors = [];
-        const num = Number(val);
-        if (num <= 4) {
-          errors.push('Value must be greater than 4')
-        }
-        if (num >= 12) {
-          errors.push('Value must be less than 12')
-        }
-        return errors;
-      }
-    ]
+      <div slot="footer">
+        <je-tabs mode="mobile">
+          <je-tab> <je-icon icon="home"></je-icon> Home </je-tab>
+          <je-tab> <je-icon icon="calendar_month"></je-icon> Appointments </je-tab>
+          <je-tab> <je-icon icon="chat"></je-icon> Messages </je-tab>
+        </je-tabs>
+      </div>
+    </je-page>
 
-    const customFormatterEl = document.getElementById('customFormatter');
-    customFormatterEl.format = input => {
-      const phoneNumber = input?.replace(/\D/g, '') ?? ''; // Remove all non-digit characters
-      let formattedNumber = '';
-
-      if (phoneNumber.length <= 7) {
-        // Format as XXX-XXXX (no area code)
-        if (phoneNumber.length > 3) {
-          formattedNumber += `${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 7)}`;
-        } else {
-          formattedNumber += phoneNumber;
-        }
-      } else {
-        // Format as (XXX) XXX-XXXX
-        // Add area code part
-        if (phoneNumber.length > 0) {
-          formattedNumber += `(${phoneNumber.substring(0, 3)}`;
-        }
-        if (phoneNumber.length >= 3) {
-          formattedNumber += `) `;
-        }
-
-        // Add the first three digits
-        if (phoneNumber.length > 3) {
-          formattedNumber += `${phoneNumber.substring(3, 6)}`;
-        }
-        if (phoneNumber.length >= 6) {
-          formattedNumber += `-`;
-        }
-
-        // Add the last four digits
-        if (phoneNumber.length > 6) {
-          formattedNumber += `${phoneNumber.substring(6, 10)}`;
-        }
-      }
-
-      return formattedNumber;
-    };
-
-    function handlePanelToggle(side) {
-      const el = document.getElementById('main-page')
-      if (side == 'left') {
-        const panelState = el.leftPanel;
-        el.leftPanel = panelState === 'open' ? 'minimized' : 'open';
-      } else {
-        const panelState = el.rightPanel;
-        el.rightPanel = panelState === 'open' ? 'closed' : 'open';
-      }
-    }
-
-    function handleDrawerToggle() {
-      const el = document.getElementById('drawer')
-      el.state = el.state == 'open' ? 'closed' : 'open';
-    }
-
-    function handleThemeToggle() {
-      const el = document.getElementById('main-page')
-      const themeState = el.theme;
-      el.theme = themeState == 'light' ? 'dark' : 'light'
-    }
-
-    const formEl = document.getElementById('form');
-    formEl.addEventListener('formData', ev => {
-      for (let [key, value] of ev.detail.entries()) {
-        console.log(`${key}: ${value}`);
-      }
-    })
-    formEl.addEventListener('submit', ev => {
-      var dialogElement = document.getElementById("formAlert");
-      dialogElement.header = "Form Submitted!";
-      dialogElement.message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
-      dialogElement.buttons = [
-        { text: 'Cancel', fill: 'outline', handler: () => console.log('clicked') },
-        { text: 'Ok', fill: 'solid', handler: () => console.log('clicked') }
-      ]
-      dialogElement.present();
-    })
-  </script>
-</body>
-
+    <script src="main.js"></script>
+  </body>
 </html>

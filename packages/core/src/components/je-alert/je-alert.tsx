@@ -1,5 +1,5 @@
 import { Component, Host, h, Element, EventEmitter, Event, Method, Prop, State } from '@stencil/core';
-import { AsyncValidationFn, ValidationFn } from '../je-input/je-input';
+import { AsyncValidationFn, ValidationFn } from '../../utils/utils';
 
 export type DialogButton = {
   text: string,

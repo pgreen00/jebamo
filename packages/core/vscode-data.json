@@ -278,10 +278,6 @@
           "description": "If the checkbox should contain a 3rd indeterminate state"
         },
         {
-          "name": "label-only",
-          "description": "Will hide the checkbox and just display the label"
-        },
-        {
           "name": "label-placement",
           "description": "Whether or not the label should go before or after the checkbox",
           "values": [
@@ -296,6 +292,10 @@
         {
           "name": "readonly",
           "description": "Shows the readonly state and prevents changes"
+        },
+        {
+          "name": "required",
+          "description": "Marks the control as required in the form. This will only affect indeterminate checkboxes."
         },
         {
           "name": "value",
@@ -583,6 +583,21 @@
       },
       "attributes": [
         {
+          "name": "side",
+          "description": "",
+          "values": [
+            {
+              "name": "bottom"
+            },
+            {
+              "name": "left"
+            },
+            {
+              "name": "right"
+            }
+          ]
+        },
+        {
           "name": "state",
           "description": "",
           "values": [
@@ -593,6 +608,10 @@
               "name": "open"
             }
           ]
+        },
+        {
+          "name": "template",
+          "description": ""
         }
       ]
     },
@@ -705,15 +724,15 @@
       },
       "attributes": [
         {
-          "name": "auto-capitalize",
+          "name": "autocapitalize",
           "description": "Passed to native input"
         },
         {
-          "name": "auto-complete",
+          "name": "autocomplete",
           "description": "Passed to native input"
         },
         {
-          "name": "auto-correct",
+          "name": "autocorrect",
           "description": "Passed to native input",
           "values": [
             {
@@ -725,7 +744,7 @@
           ]
         },
         {
-          "name": "auto-focus",
+          "name": "autofocus",
           "description": "Passed to native input"
         },
         {
@@ -737,14 +756,6 @@
           "description": "Renders input as disabled and prevents changes"
         },
         {
-          "name": "dismiss-on-click",
-          "description": "Whether or not the dropdown should dismiss itself on click"
-        },
-        {
-          "name": "dropdown",
-          "description": "Whether or not to render a dropdown when input is focused"
-        },
-        {
           "name": "expand",
           "description": "Whether or not the input should expand to the full width of it's container"
         },
@@ -753,7 +764,7 @@
           "description": "Helper text directly below the control"
         },
         {
-          "name": "input-mode",
+          "name": "inputmode",
           "description": "Passed to native input"
         },
         {
@@ -765,7 +776,7 @@
           "description": "Passed to native input"
         },
         {
-          "name": "max-length",
+          "name": "maxlength",
           "description": "Passed to native input"
         },
         {
@@ -773,16 +784,12 @@
           "description": "Passed to native input"
         },
         {
-          "name": "min-length",
+          "name": "minlength",
           "description": "Passed to native input"
         },
         {
           "name": "multiple",
           "description": "Passed to native input"
-        },
-        {
-          "name": "no-typing",
-          "description": "Will prevent changes, does not change the input's state in any way"
         },
         {
           "name": "pattern",
@@ -793,7 +800,7 @@
           "description": "Input placeholder text"
         },
         {
-          "name": "read-only",
+          "name": "readonly",
           "description": "Renders input as read only and prevents changes"
         },
         {
@@ -1186,6 +1193,10 @@
           "description": "Popover will automatically dismiss itself when something is\nclicked in the popover when enabled"
         },
         {
+          "name": "match-width",
+          "description": "If the popover should match the width of the trigger element"
+        },
+        {
           "name": "offset-x",
           "description": "Horizontal offset used when auto positioning the popover content"
         },
@@ -1194,27 +1205,66 @@
           "description": "Vertical offset used when auto positioning the popover content"
         },
         {
-          "name": "position",
-          "description": "If the popover should auto position itself using the mouse event or\nthe triggerElement.",
+          "name": "open",
+          "description": "Opens/closes the popover"
+        },
+        {
+          "name": "placement",
+          "description": "Where the popover should be placed",
+          "values": [
+            {
+              "name": "bottom"
+            },
+            {
+              "name": "bottom-end"
+            },
+            {
+              "name": "bottom-start"
+            },
+            {
+              "name": "left"
+            },
+            {
+              "name": "left-end"
+            },
+            {
+              "name": "left-start"
+            },
+            {
+              "name": "right"
+            },
+            {
+              "name": "right-end"
+            },
+            {
+              "name": "right-start"
+            },
+            {
+              "name": "top"
+            },
+            {
+              "name": "top-end"
+            },
+            {
+              "name": "top-start"
+            }
+          ]
+        },
+        {
+          "name": "position-strategy",
+          "description": "If the popover should position itself using the mouse event or\nthe triggerElement.",
           "values": [
             {
               "name": "click"
             },
             {
               "name": "element"
-            },
-            {
-              "name": "none"
             }
           ]
         },
         {
           "name": "show-backdrop",
           "description": "Whether or not the backdrop will be visible to the user"
-        },
-        {
-          "name": "trigger",
-          "description": "The id of the element that will present the menu on click.\nIf not provided, you will have to manually present the popover\nusing present()."
         },
         {
           "name": "trigger-action",

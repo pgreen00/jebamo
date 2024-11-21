@@ -3,7 +3,9 @@ import { Component, Host, h, Element, Listen, Prop, State, Watch, AttachInternal
 @Component({
   tag: 'je-multiselect',
   styleUrl: 'je-multiselect.scss',
-  shadow: true,
+  shadow: {
+    delegatesFocus: true
+  },
   formAssociated: true
 })
 export class JeMultiselect {
@@ -112,7 +114,7 @@ export class JeMultiselect {
               {this.label && label}
             </div>
 
-            <div part='main-container'>
+            <div tabindex={0} part='main-container'>
               {this.value.length > 0 && options.filter(t => this.value.includes(t.value)).map(t => <je-pill>{t.textContent}</je-pill>)}
               {(this.value.length < 1 && this.placeholder) && this.placeholder}
             </div>

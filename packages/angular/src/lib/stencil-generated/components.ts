@@ -116,14 +116,14 @@ export declare interface JeCard extends Components.JeCard {}
 
 
 @ProxyCmp({
-  inputs: ['disabled', 'indeterminate', 'labelOnly', 'labelPlacement', 'readonly', 'value']
+  inputs: ['disabled', 'indeterminate', 'labelPlacement', 'readonly', 'required', 'value']
 })
 @Component({
   selector: 'je-checkbox',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['disabled', 'indeterminate', 'labelOnly', 'labelPlacement', 'readonly', 'value'],
+  inputs: ['disabled', 'indeterminate', 'labelPlacement', 'readonly', 'required', 'value'],
 })
 export class JeCheckbox {
   protected el: HTMLElement;
@@ -340,14 +340,14 @@ export declare interface JeDivider extends Components.JeDivider {}
 
 
 @ProxyCmp({
-  inputs: ['side', 'state']
+  inputs: ['side', 'state', 'template']
 })
 @Component({
   selector: 'je-drawer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['side', 'state'],
+  inputs: ['side', 'state', 'template'],
 })
 export class JeDrawer {
   protected el: HTMLElement;
@@ -463,15 +463,15 @@ export declare interface JeInfinite extends Components.JeInfinite {
 
 
 @ProxyCmp({
-  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'expand', 'format', 'helperText', 'inputMode', 'label', 'max', 'maxLength', 'min', 'minLength', 'multiple', 'noTyping', 'pattern', 'placeholder', 'readOnly', 'required', 'spellcheck', 'step', 'type', 'validators', 'value'],
-  methods: ['getInputElement', 'markAsTouched', 'hasError', 'reset']
+  inputs: ['autocapitalize', 'autocomplete', 'autocorrect', 'autofocus', 'debounce', 'disabled', 'expand', 'format', 'helperText', 'inputmode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'pattern', 'placeholder', 'readonly', 'required', 'spellcheck', 'step', 'type', 'validators', 'value'],
+  methods: ['getInputElement', 'markAsTouched', 'getErrors', 'reset']
 })
 @Component({
   selector: 'je-input',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'expand', 'format', 'helperText', 'inputMode', 'label', 'max', 'maxLength', 'min', 'minLength', 'multiple', 'noTyping', 'pattern', 'placeholder', 'readOnly', 'required', 'spellcheck', 'step', 'type', 'validators', 'value'],
+  inputs: ['autocapitalize', 'autocomplete', 'autocorrect', 'autofocus', 'debounce', 'disabled', 'expand', 'format', 'helperText', 'inputmode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'pattern', 'placeholder', 'readonly', 'required', 'spellcheck', 'step', 'type', 'validators', 'value'],
 })
 export class JeInput {
   protected el: HTMLElement;

@@ -72,7 +72,6 @@ graph TD;
   je-alert --> je-button
   je-alert --> je-input
   je-input --> je-icon
-  je-input --> je-popover
   style je-alert fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

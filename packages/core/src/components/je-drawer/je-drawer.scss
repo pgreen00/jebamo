@@ -6,6 +6,10 @@
   --je-drawer-padding: var(--je-spacing-lg, 20px);
 }
 
+div[part=trigger] {
+  display: contents;
+}
+
 .backdrop {
   display: block;
   position: fixed;
@@ -15,16 +19,17 @@
   background: var(--je-backdrop-color);
   top: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: -1;
+  height: 0;
+  width: 0;
+  z-index: 699;
   &.open {
-    z-index: 899;
+    height: 100%;
+    width: 100%;
   }
 }
 
 div[part=container] {
-  display: block;
+  display: none;
   position: fixed;
   box-sizing: border-box;
   overflow-y: auto;
@@ -32,11 +37,11 @@ div[part=container] {
   background-color: canvas;
   color: canvastext;
   transition: margin 250ms ease-in-out;
-  z-index: -1;
+  z-index: 700;
   padding: var(--je-drawer-padding);
+  box-shadow: var(--je-drawer-shadow);
   &.open {
-    box-shadow: var(--je-drawer-shadow);
-    z-index: 900;
+    display: block;
   }
 }
 

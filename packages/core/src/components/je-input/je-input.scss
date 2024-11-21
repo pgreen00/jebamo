@@ -21,6 +21,10 @@
   --je-border-color: var(--je-error-500, red);
 }
 
+:host(:focus) {
+  --je-border-color: var(--je-primary-500, accentcolor);
+}
+
 div[part='outer-container'] {
   display: flex;
   align-items: center;
@@ -34,9 +38,6 @@ div[part='outer-container'] {
   overflow: hidden;
   border: solid 1px var(--je-border-color);
   transition: border 125ms ease-in-out;
-  &.focus {
-    --je-border-color: var(--je-primary-500, accentcolor);
-  }
   &.disabled {
     opacity: 0.6;
     cursor: default;
@@ -88,10 +89,4 @@ small.helper {
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
   display: none !important;
-}
-
-je-popover::part(content) {
-  width: var(--je-content-width, auto);
-  box-sizing: border-box;
-  padding: 0px;
 }

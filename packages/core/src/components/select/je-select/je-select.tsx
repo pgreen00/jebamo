@@ -1,4 +1,5 @@
 import { Component, Host, Prop, h, Element, Listen, Watch } from '@stencil/core';
+import { setName } from '../../../utils/utils';
 
 @Component({
   tag: 'je-select',
@@ -24,9 +25,7 @@ export class JeSelect {
   }
 
   componentWillLoad() {
-    if (!this.el.getAttribute('name') && this.label) {
-      this.el.setAttribute('name', this.label);
-    }
+    setName(this.el, this.label);
   }
 
   formResetCallback() {
@@ -154,11 +153,11 @@ export class JeSelect {
     return (
       <Host>
         <je-popover placement='bottom-start' matchWidth={true} dismissOnClick={true} ref={el => this.popoverEl = el}>
-          <je-input slot="trigger" ref={el => this.inputEl = el}
-            exportparts='outer-container, start-container, end-container, native-input, content'
+          <je-input tabindex={0} slot="trigger" ref={el => this.inputEl = el}
+            exportparts='outer-container, start-container, end-container, native-input'
             label={this.label}
             placeholder={this.placeholder}
-            noTyping={true}
+            readonly={true}
             expand={this.expand}
             required={this.required}
           >

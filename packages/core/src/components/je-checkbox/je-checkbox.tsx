@@ -1,14 +1,18 @@
-import { AttachInternals, Component, EventEmitter, Host, Prop, h, Element, Event, Listen } from '@stencil/core';
+import { AttachInternals, Component, EventEmitter, Host, Prop, h, Element, Event, Listen, Watch } from '@stencil/core';
+import { setName } from '../../utils/utils';
 
 @Component({
   tag: 'je-checkbox',
   styleUrl: 'je-checkbox.scss',
-  shadow: true,
+  shadow: {
+    delegatesFocus: true
+  },
   formAssociated: true
 })
 export class JeCheckbox {
   @AttachInternals() internals: ElementInternals;
   @Element() el!: HTMLElement;
+  private iconEl!: HTMLElement;
   private originalValue?: boolean;
 
   /**
@@ -24,12 +28,7 @@ export class JeCheckbox {
   /**
    * If the checkbox should contain a 3rd indeterminate state
    */
-  @Prop({ reflect: true }) indeterminate = false;
-
-  /**
-   * Will hide the checkbox and just display the label
-   */
-  @Prop() labelOnly = false;
+  @Prop() indeterminate = false;
 
   /**
    * Shows the readonly state and prevents changes
@@ -42,6 +41,11 @@ export class JeCheckbox {
   @Prop() disabled = false;
 
   /**
+   * Marks the control as required in the form. This will only affect indeterminate checkboxes.
+   */
+  @Prop() required = false;
+
+  /**
    * Emits the current value whenever it's state changes
    */
   @Event({ bubbles: false }) valueChange: EventEmitter<boolean | undefined>;
@@ -51,33 +55,45 @@ export class JeCheckbox {
       this.value = false;
     }
     this.originalValue = this.value;
+    setName(this.el);
+  }
+
+  componentDidLoad() {
+    this.handleValueChange();
   }
 
   formResetCallback() {
     if (this.value !== this.originalValue) {
       this.value = this.originalValue;
+      this.valueChange.emit(this.value);
     }
   }
 
   @Listen('click')
   onClick() {
     if (!this.readonly && !this.disabled) {
-      if (!this.indeterminate) {
-        this.value = !this.value;
-      } else {
-        // when indeterminate, the flow is false -> true -> null
-        this.value = this.value == false ? true : this.value == true ? null : false;
-      }
+      this.value = !this.value;
       this.valueChange.emit(this.value);
     }
   }
 
+  @Watch('value')
+  handleValueChange() {
+    this.internals.setFormValue(`${this.value}`);
+    if (this.value === undefined && this.required) {
+      this.internals.setValidity({ valueMissing: true }, 'This field is required', this.iconEl);
+    } else {
+      this.internals.setValidity({});
+    }
+  }
+
   render() {
+    const icon = this.value === true ? 'check_box' : this.value === false ? 'check_box_outline_blank' : 'indeterminate_check_box';
     return (
-      <Host>
-        {this.labelPlacement == 'start' && <slot></slot>}
-        <je-icon icon={this.value === true ? 'check_box' : this.value === false ? 'check_box_outline_blank' : 'indeterminate_check_box'} />
-        {this.labelPlacement == 'end' && <slot></slot>}
+      <Host class={{ disabled: this.disabled, readonly: this.readonly }}>
+        {this.labelPlacement == 'start' && <slot />}
+        <je-icon ref={el => this.iconEl = el} tabIndex={0} part='icon' icon={icon} />
+        {this.labelPlacement == 'end' && <slot />}
       </Host>
     );
   }

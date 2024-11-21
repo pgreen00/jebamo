@@ -29,15 +29,15 @@
 ### Depends on
 
 - [je-icon](../../je-icon)
-- [je-pill](../../je-pill)
 - [je-popover](../../je-popover)
+- [je-pill](../../je-pill)
 
 ### Graph
 ```mermaid
 graph TD;
   je-multiselect --> je-icon
-  je-multiselect --> je-pill
   je-multiselect --> je-popover
+  je-multiselect --> je-pill
   style je-multiselect fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

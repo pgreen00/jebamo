@@ -4,9 +4,11 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type                 | Default    |
-| -------- | --------- | ----------- | -------------------- | ---------- |
-| `state`  | `state`   |             | `"closed" \| "open"` | `'closed'` |
+| Property   | Attribute  | Description | Type                            | Default     |
+| ---------- | ---------- | ----------- | ------------------------------- | ----------- |
+| `side`     | `side`     |             | `"bottom" \| "left" \| "right"` | `'left'`    |
+| `state`    | `state`    |             | `"closed" \| "open"`            | `'closed'`  |
+| `template` | `template` |             | `string`                        | `undefined` |
 
 
 ## Shadow Parts
@@ -14,6 +16,7 @@
 | Part          | Description |
 | ------------- | ----------- |
 | `"container"` |             |
+| `"trigger"`   |             |
 
 
 ----------------------------------------------

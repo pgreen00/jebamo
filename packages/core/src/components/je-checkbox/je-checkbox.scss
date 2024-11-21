@@ -1,7 +1,10 @@
+@use '../../styles/colors';
+@use '../../styles/spacing';
+
 :host {
   display: flex;
   align-items: center;
-  gap: var(--je-spacing-2xs);
+  gap: spacing.get(2xs);
   width: fit-content;
   cursor: pointer;
   -webkit-user-select: none;
@@ -10,5 +13,20 @@
 
 je-icon {
   cursor: pointer;
-  color: var(--je-primary-500);
+  color: colors.get(primary, 500);
+}
+
+:host(.readonly) {
+  cursor: default;
+  je-icon {
+    cursor: default;
+  }
+}
+
+:host(.disabled) {
+  opacity: 0.6;
+  cursor: not-allowed;
+  je-icon {
+    cursor: not-allowed;
+  }
 }

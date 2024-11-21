@@ -55,6 +55,9 @@ div[part='main-container'] {
   text-wrap: nowrap;
   text-overflow: ellipsis;
   margin-right: auto;
+  &:focus {
+    outline: 0;
+  }
 }
 
 label {

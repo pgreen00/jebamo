@@ -6,17 +6,15 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { DialogButton, DialogControl } from "./components/je-alert/je-alert";
-import { Color } from "./utils/utils";
+import { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, ValidationFn } from "./utils/utils";
 import { Color as Color1 } from "./components";
 import { DrawerState } from "./components/je-drawer/je-drawer";
-import { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
 import { PanelState } from "./components/je-page/je-page";
 import { Placement } from "@floating-ui/dom";
 export { DialogButton, DialogControl } from "./components/je-alert/je-alert";
-export { Color } from "./utils/utils";
+export { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, ValidationFn } from "./utils/utils";
 export { Color as Color1 } from "./components";
 export { DrawerState } from "./components/je-drawer/je-drawer";
-export { AsyncFormatterFn, AsyncValidationFn, FormatterFn, ValidationFn } from "./components/je-input/je-input";
 export { PanelState } from "./components/je-page/je-page";
 export { Placement } from "@floating-ui/dom";
 export namespace Components {
@@ -116,10 +114,6 @@ export namespace Components {
          */
         "indeterminate": boolean;
         /**
-          * Will hide the checkbox and just display the label
-         */
-        "labelOnly": boolean;
-        /**
           * Whether or not the label should go before or after the checkbox
          */
         "labelPlacement": 'start' | 'end';
@@ -127,6 +121,10 @@ export namespace Components {
           * Shows the readonly state and prevents changes
          */
         "readonly": boolean;
+        /**
+          * Marks the control as required in the form. This will only affect indeterminate checkboxes.
+         */
+        "required": boolean;
         /**
           * Whether or not the checkbox is active
          */
@@ -220,6 +218,7 @@ export namespace Components {
     interface JeDrawer {
         "side": 'left' | 'right' | 'bottom';
         "state": DrawerState;
+        "template"?: string;
     }
     interface JeDropzone {
     }
@@ -269,19 +268,19 @@ export namespace Components {
         /**
           * Passed to native input
          */
-        "autoCapitalize": string;
+        "autocapitalize": string;
         /**
           * Passed to native input
          */
-        "autoComplete": string;
+        "autocomplete": string;
         /**
           * Passed to native input
          */
-        "autoCorrect": 'off' | 'on';
+        "autocorrect": 'off' | 'on';
         /**
           * Passed to native input
          */
-        "autoFocus"?: boolean;
+        "autofocus": boolean;
         /**
           * Optional debounce of the didInput event
          */
@@ -295,11 +294,11 @@ export namespace Components {
          */
         "expand"?: boolean;
         /**
-          * Formatter function that gets applied as the user types
+          * Formatter function that gets applied directly to the input as the user types. Good for input masking.  If you are using an input masking library, you can use the getInputElement() method to fetch the inner input.
          */
         "format"?: FormatterFn | AsyncFormatterFn;
+        "getErrors": () => Promise<{ requiredError: boolean; minLengthError: boolean; maxLengthError: boolean; patternError: boolean; customErrors: string[]; hasError: boolean; }>;
         "getInputElement": () => Promise<HTMLInputElement>;
-        "hasError": () => Promise<boolean>;
         /**
           * Helper text directly below the control
          */
@@ -307,7 +306,7 @@ export namespace Components {
         /**
           * Passed to native input
          */
-        "inputMode": string;
+        "inputmode": string;
         /**
           * Text above the control
          */
@@ -320,7 +319,7 @@ export namespace Components {
         /**
           * Passed to native input
          */
-        "maxLength"?: number;
+        "maxlength"?: number;
         /**
           * Passed to native input
          */
@@ -328,15 +327,11 @@ export namespace Components {
         /**
           * Passed to native input
          */
-        "minLength"?: number;
+        "minlength"?: number;
         /**
           * Passed to native input
          */
         "multiple": boolean;
-        /**
-          * Will prevent changes, does not change the input's state in any way
-         */
-        "noTyping": boolean;
         /**
           * Passed to native input
          */
@@ -348,7 +343,7 @@ export namespace Components {
         /**
           * Renders input as read only and prevents changes
          */
-        "readOnly": boolean;
+        "readonly": boolean;
         /**
           * Marks as required in form and adds asterisk to the end of the label
          */
@@ -1324,10 +1319,6 @@ declare namespace LocalJSX {
          */
         "indeterminate"?: boolean;
         /**
-          * Will hide the checkbox and just display the label
-         */
-        "labelOnly"?: boolean;
-        /**
           * Whether or not the label should go before or after the checkbox
          */
         "labelPlacement"?: 'start' | 'end';
@@ -1339,6 +1330,10 @@ declare namespace LocalJSX {
           * Shows the readonly state and prevents changes
          */
         "readonly"?: boolean;
+        /**
+          * Marks the control as required in the form. This will only affect indeterminate checkboxes.
+         */
+        "required"?: boolean;
         /**
           * Whether or not the checkbox is active
          */
@@ -1445,6 +1440,7 @@ declare namespace LocalJSX {
     interface JeDrawer {
         "side"?: 'left' | 'right' | 'bottom';
         "state"?: DrawerState;
+        "template"?: string;
     }
     interface JeDropzone {
         "onDataDrop"?: (event: JeDropzoneCustomEvent<DataTransfer>) => void;
@@ -1500,19 +1496,19 @@ declare namespace LocalJSX {
         /**
           * Passed to native input
          */
-        "autoCapitalize"?: string;
+        "autocapitalize"?: string;
         /**
           * Passed to native input
          */
-        "autoComplete"?: string;
+        "autocomplete"?: string;
         /**
           * Passed to native input
          */
-        "autoCorrect"?: 'off' | 'on';
+        "autocorrect"?: 'off' | 'on';
         /**
           * Passed to native input
          */
-        "autoFocus"?: boolean;
+        "autofocus"?: boolean;
         /**
           * Optional debounce of the didInput event
          */
@@ -1526,7 +1522,7 @@ declare namespace LocalJSX {
          */
         "expand"?: boolean;
         /**
-          * Formatter function that gets applied as the user types
+          * Formatter function that gets applied directly to the input as the user types. Good for input masking.  If you are using an input masking library, you can use the getInputElement() method to fetch the inner input.
          */
         "format"?: FormatterFn | AsyncFormatterFn;
         /**
@@ -1536,7 +1532,7 @@ declare namespace LocalJSX {
         /**
           * Passed to native input
          */
-        "inputMode"?: string;
+        "inputmode"?: string;
         /**
           * Text above the control
          */
@@ -1548,7 +1544,7 @@ declare namespace LocalJSX {
         /**
           * Passed to native input
          */
-        "maxLength"?: number;
+        "maxlength"?: number;
         /**
           * Passed to native input
          */
@@ -1556,15 +1552,11 @@ declare namespace LocalJSX {
         /**
           * Passed to native input
          */
-        "minLength"?: number;
+        "minlength"?: number;
         /**
           * Passed to native input
          */
         "multiple"?: boolean;
-        /**
-          * Will prevent changes, does not change the input's state in any way
-         */
-        "noTyping"?: boolean;
         /**
           * Emits as the user types
          */
@@ -1580,7 +1572,7 @@ declare namespace LocalJSX {
         /**
           * Renders input as read only and prevents changes
          */
-        "readOnly"?: boolean;
+        "readonly"?: boolean;
         /**
           * Marks as required in form and adds asterisk to the end of the label
          */
