@@ -13,14 +13,11 @@ export class JeDrawer {
   private backdropEl!: HTMLElement;
   private containerEl!: HTMLElement;
   private templateEl: HTMLTemplateElement;
-  @Prop() template?: string;
   @Prop({ mutable: true }) state: DrawerState = 'closed';
   @Prop({ reflect: true }) side: 'left' | 'right' | 'bottom' = 'left';
 
   componentDidLoad() {
-    if (this.template) {
-      this.templateEl = document.getElementById(this.template) as HTMLTemplateElement;
-    }
+    this.templateEl = this.el.querySelector('template');
   }
 
   @Watch('state')

@@ -32,37 +32,27 @@ export class JePage {
     if (this.footer === 'sticky') {
       return (
         <Host>
-          <div part='page-container'>
-            <slot name='header' />
-            <div part='body-container'>
-              <slot name='left-panel' />
-              <div part='inner-body-container'>
-                <slot name='body' />
-                <slot name='footer' />
-              </div>
-              <slot name='right-panel' />
+          <slot name='header' />
+          <div part='body-container'>
+            <slot name='left-panel' />
+            <div part='sticky-container'>
+              <slot name='body' />
+              <slot name='footer' />
             </div>
-          </div>
-          <div part='overlay-container'>
-            <slot name='overlay' />
+            <slot name='right-panel' />
           </div>
         </Host>
       );
     } else {
       return (
         <Host>
-          <div part='page-container'>
-            <slot name='header' />
-            <div part='body-container'>
-              <slot name='left-panel' />
-              <slot name='body' />
-              <slot name='right-panel' />
-            </div>
-            <slot name='footer' />
+          <slot name='header' />
+          <div part='body-container'>
+            <slot name='left-panel' />
+            <slot name='body' />
+            <slot name='right-panel' />
           </div>
-          <div part='overlay-container'>
-            <slot name='overlay' />
-          </div>
+          <slot name='footer' />
         </Host>
       );
     }

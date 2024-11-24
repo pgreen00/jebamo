@@ -10,6 +10,7 @@ export class JeTree {
   @Element() element: HTMLJeTreeElement;
   @Prop({ mutable: true }) value?: string | string[];
   @Prop() selection: 'single' | 'multiple' | 'leaf' = 'leaf';
+  @Prop() indentation = false;
   @Event() valueChange: EventEmitter<string>;
 
   @Listen('branchSelect')
@@ -21,34 +22,30 @@ export class JeTree {
       Array.from(this.element.querySelectorAll('je-branch'))
         .filter(t => !t.isSameNode(event.target))
         .forEach(branch => branch.selected = false);
-    } else if (this.selection == 'multiple' && isLeaf) {
+    } else if (this.selection == 'leaf') {
+      event.target.open = !event.target.open;
+    } else if (this.selection == 'multiple') {
+      if (!Array.isArray(this.value)) {
+        this.value = [];
+      }
       event.target.selected = !event.target.selected;
-      if (Array.isArray(this.value)) {
-        if (event.target.selected) {
-          this.value = [...this.value, event.detail]
-        } else {
-          this.value = this.value.filter(v => v != event.detail)
-        }
-      } else if (event.target.selected) {
-        this.value = [event.detail];
-      }
-      const parentBranch = await event.target.getParentBranch();
-      if (parentBranch) {
-        const children = Array.from(parentBranch.querySelectorAll('je-branch'));
-        parentBranch.selected = children.every(child => child.selected) ? true : children.some(child => child.selected) ? null : false;
-      }
-    } else if (this.selection == 'multiple' && !isLeaf) {
-      event.target.selected = event.target.selected !== true;
-      if (event.target.selected) {
-        event.target.querySelectorAll('je-branch').forEach(branch => branch.selected = true);
+      if (isLeaf && event.target.selected) {
+        this.value = [...this.value, event.detail]
+      } else if (isLeaf) {
+        this.value = this.value.filter(v => v != event.detail)
       } else {
-        event.target.querySelectorAll('je-branch').forEach(branch => branch.selected = false);
+        event.target.querySelectorAll('je-branch').forEach(branch => branch.selected = event.target.selected);
       }
-      const parentBranch = await event.target.getParentBranch();
-      if (parentBranch) {
-        const children = Array.from(parentBranch.querySelectorAll('je-branch'));
-        parentBranch.selected = children.every(child => child.selected) ? true : children.some(child => child.selected) ? null : false;
-      }
+      this.setParents(event.target);
+    }
+  }
+
+  private async setParents(branch: HTMLJeBranchElement) {
+    const parentBranch = await branch.getParentBranch();
+    if (parentBranch) {
+      const children = Array.from(parentBranch.querySelectorAll('je-branch'));
+      parentBranch.selected = children.every(child => child.selected) ? true : children.some(child => child.selected) ? null : false;
+      this.setParents(parentBranch);
     }
   }
 

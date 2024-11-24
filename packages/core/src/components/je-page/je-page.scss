@@ -3,9 +3,11 @@
 @use '../../styles/global' as global;
 
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   overflow: hidden;
+  box-sizing: border-box;
   font-size: var(--je-font-size);
   font-family: var(--je-font-family);
   color: var(--je-text-color);
@@ -41,21 +43,13 @@
   }
 }
 
-[part='page-container'] {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
 [part='body-container'] {
   display: flex;
   flex: 1;
   overflow: hidden;
 }
 
-[part='inner-body-container'] {
+[part='sticky-container'] {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -77,15 +71,12 @@
 
 ::slotted([slot='header']) {
   box-sizing: border-box;
-  z-index: 10;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 ::slotted([slot='footer']) {
   box-sizing: border-box;
   box-shadow: #00000069 0px -5px 20px -10px;
-  //border-top: solid 1px lightgray;
-  z-index: 10;
 }
 
 @supports (-webkit-touch-callout: none) {
@@ -101,7 +92,7 @@
     padding-right: env(safe-area-inset-right);
   }
 
-  .body-container {
+  [part='body-container'] {
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     margin-left: env(safe-area-inset-left);

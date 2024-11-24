@@ -218,7 +218,6 @@ export namespace Components {
     interface JeDrawer {
         "side": 'left' | 'right' | 'bottom';
         "state": DrawerState;
-        "template"?: string;
     }
     interface JeDropzone {
     }
@@ -582,6 +581,7 @@ export namespace Components {
     interface JeToolbar {
     }
     interface JeTree {
+        "indentation": boolean;
         "selection": 'single' | 'multiple' | 'leaf';
         "value"?: string | string[];
     }
@@ -1440,7 +1440,6 @@ declare namespace LocalJSX {
     interface JeDrawer {
         "side"?: 'left' | 'right' | 'bottom';
         "state"?: DrawerState;
-        "template"?: string;
     }
     interface JeDropzone {
         "onDataDrop"?: (event: JeDropzoneCustomEvent<DataTransfer>) => void;
@@ -1843,6 +1842,7 @@ declare namespace LocalJSX {
     interface JeToolbar {
     }
     interface JeTree {
+        "indentation"?: boolean;
         "onValueChange"?: (event: JeTreeCustomEvent<string>) => void;
         "selection"?: 'single' | 'multiple' | 'leaf';
         "value"?: string | string[];

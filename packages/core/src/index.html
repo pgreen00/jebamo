@@ -54,14 +54,14 @@
 
       <div slot="body">
         <h2>Tree</h2>
-        <je-tree selection="multiple">
+        <je-tree selection="multiple" indentation="true">
           <je-branch label="Item 1">
-            <je-branch label="Item A">
+            <je-branch label="Item A"></je-branch>
+            <je-branch label="Item B">
               <je-branch label="Item Z"></je-branch>
               <je-branch label="Item Y"></je-branch>
               <je-branch label="Item X"></je-branch>
             </je-branch>
-            <je-branch label="Item B"></je-branch>
             <je-branch label="Item C"></je-branch>
           </je-branch>
           <je-branch label="Item 2"></je-branch>
@@ -226,15 +226,15 @@
         </div>
 
         <h2>Tabs</h2>
-        <je-tabs mode="pill">
-          <je-tab> <je-icon icon="home"></je-icon> Home </je-tab>
-          <je-tab> <je-icon icon="calendar_month"></je-icon> Appointments </je-tab>
-          <je-tab> <je-icon icon="chat"></je-icon> Messages </je-tab>
+        <je-tabs value="1" mode="pill">
+          <je-tab value="1"> <je-icon icon="home"></je-icon> Home </je-tab>
+          <je-tab value="2"> <je-icon icon="calendar_month"></je-icon> Appointments </je-tab>
+          <je-tab value="3"> <je-icon icon="chat"></je-icon> Messages </je-tab>
         </je-tabs>
-        <je-tabs mode="segment">
-          <je-tab> <je-icon icon="home"></je-icon> Home </je-tab>
-          <je-tab> <je-icon icon="calendar_month"></je-icon> Appointments </je-tab>
-          <je-tab> <je-icon icon="chat"></je-icon> Messages </je-tab>
+        <je-tabs value="1" mode="segment">
+          <je-tab value="1"> <je-icon icon="home"></je-icon> Home </je-tab>
+          <je-tab value="2"> <je-icon icon="calendar_month"></je-icon> Appointments </je-tab>
+          <je-tab value="3"> <je-icon icon="chat"></je-icon> Messages </je-tab>
         </je-tabs>
 
         <h2>Toggle</h2>
@@ -291,10 +291,10 @@
       </div>
 
       <div slot="footer">
-        <je-tabs mode="mobile">
-          <je-tab> <je-icon icon="home"></je-icon> Home </je-tab>
-          <je-tab> <je-icon icon="calendar_month"></je-icon> Appointments </je-tab>
-          <je-tab> <je-icon icon="chat"></je-icon> Messages </je-tab>
+        <je-tabs value="1" mode="mobile">
+          <je-tab value="1"> <je-icon icon="home"></je-icon> Home </je-tab>
+          <je-tab value="2"> <je-icon icon="calendar_month"></je-icon> Appointments </je-tab>
+          <je-tab value="3"> <je-icon icon="chat"></je-icon> Messages </je-tab>
         </je-tabs>
       </div>
     </je-page>

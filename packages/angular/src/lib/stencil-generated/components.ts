@@ -340,14 +340,14 @@ export declare interface JeDivider extends Components.JeDivider {}
 
 
 @ProxyCmp({
-  inputs: ['side', 'state', 'template']
+  inputs: ['side', 'state']
 })
 @Component({
   selector: 'je-drawer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['side', 'state', 'template'],
+  inputs: ['side', 'state'],
 })
 export class JeDrawer {
   protected el: HTMLElement;
@@ -1016,14 +1016,14 @@ export declare interface JeToolbar extends Components.JeToolbar {}
 
 
 @ProxyCmp({
-  inputs: ['selection', 'value']
+  inputs: ['indentation', 'selection', 'value']
 })
 @Component({
   selector: 'je-tree',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['selection', 'value'],
+  inputs: ['indentation', 'selection', 'value'],
 })
 export class JeTree {
   protected el: HTMLElement;
