@@ -424,15 +424,15 @@ export namespace Components {
          */
         "backdropClose": boolean;
         "dismiss": (role?: string, data?: any) => Promise<void>;
+        /**
+          * Opens and closes modal
+         */
+        "open": boolean;
         "present": () => Promise<void>;
         /**
           * Whether or not the backdrop will be visible to the user
          */
         "showBackdrop": boolean;
-        /**
-          * The id of the element that will present the modal on click. If not provided, you will have to manually present the modal using openModal().
-         */
-        "trigger"?: string;
     }
     interface JeMultiselect {
         "expand"?: boolean;
@@ -949,8 +949,8 @@ declare global {
         new (): HTMLJeMenuOptionElement;
     };
     interface HTMLJeModalElementEventMap {
-        "didPresent": any;
-        "didDismiss": { role: string, data: any };
+        "modalPresent": any;
+        "modalDismiss": { role: string, data: any };
     }
     interface HTMLJeModalElement extends Components.JeModal, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeModalElementEventMap>(type: K, listener: (this: HTMLJeModalElement, ev: JeModalCustomEvent<HTMLJeModalElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1656,19 +1656,19 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the modal has finished closing. Emits the role and optional data object passed to the closeModal() method.
          */
-        "onDidDismiss"?: (event: JeModalCustomEvent<{ role: string, data: any }>) => void;
+        "onModalDismiss"?: (event: JeModalCustomEvent<{ role: string, data: any }>) => void;
         /**
           * Emits whenever the modal has opened. Does not emit any data
          */
-        "onDidPresent"?: (event: JeModalCustomEvent<any>) => void;
+        "onModalPresent"?: (event: JeModalCustomEvent<any>) => void;
+        /**
+          * Opens and closes modal
+         */
+        "open"?: boolean;
         /**
           * Whether or not the backdrop will be visible to the user
          */
         "showBackdrop"?: boolean;
-        /**
-          * The id of the element that will present the modal on click. If not provided, you will have to manually present the modal using openModal().
-         */
-        "trigger"?: string;
     }
     interface JeMultiselect {
         "expand"?: boolean;

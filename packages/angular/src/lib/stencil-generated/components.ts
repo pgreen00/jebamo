@@ -587,7 +587,7 @@ export declare interface JeMenuOption extends Components.JeMenuOption {
 
 
 @ProxyCmp({
-  inputs: ['backdropClose', 'showBackdrop', 'trigger'],
+  inputs: ['backdropClose', 'open', 'showBackdrop'],
   methods: ['present', 'dismiss']
 })
 @Component({
@@ -595,14 +595,14 @@ export declare interface JeMenuOption extends Components.JeMenuOption {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['backdropClose', 'showBackdrop', 'trigger'],
+  inputs: ['backdropClose', 'open', 'showBackdrop'],
 })
 export class JeModal {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['didPresent', 'didDismiss']);
+    proxyOutputs(this, this.el, ['modalPresent', 'modalDismiss']);
   }
 }
 
@@ -611,11 +611,11 @@ export declare interface JeModal extends Components.JeModal {
   /**
    * Emits whenever the modal has opened. Does not emit any data
    */
-  didPresent: EventEmitter<CustomEvent<any>>;
+  modalPresent: EventEmitter<CustomEvent<any>>;
   /**
    * Emits whenever the modal has finished closing. Emits the role and optional data object passed to the closeModal() method.
    */
-  didDismiss: EventEmitter<CustomEvent<{ role: string, data: any }>>;
+  modalDismiss: EventEmitter<CustomEvent<{ role: string, data: any }>>;
 }
 
 
