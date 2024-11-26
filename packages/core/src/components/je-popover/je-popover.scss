@@ -18,6 +18,10 @@
   --border: solid 1px rgb(86, 87, 90);
 }
 
+[part=trigger-container] {
+  display: contents;
+}
+
 [part=content] {
   width: var(--content-width, max-content);
   max-height: var(--content-height, var(--available-height));

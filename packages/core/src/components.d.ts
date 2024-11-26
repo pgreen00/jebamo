@@ -5,13 +5,13 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { DialogButton, DialogControl } from "./components/je-alert/je-alert";
+import { AlertButton, AlertControl } from "./components/je-alert/je-alert";
 import { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, ValidationFn } from "./utils/utils";
 import { Color as Color1 } from "./components";
 import { DrawerState } from "./components/je-drawer/je-drawer";
 import { PanelState } from "./components/je-page/je-page";
 import { Placement } from "@floating-ui/dom";
-export { DialogButton, DialogControl } from "./components/je-alert/je-alert";
+export { AlertButton, AlertControl } from "./components/je-alert/je-alert";
 export { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, ValidationFn } from "./utils/utils";
 export { Color as Color1 } from "./components";
 export { DrawerState } from "./components/je-drawer/je-drawer";
@@ -20,18 +20,19 @@ export { Placement } from "@floating-ui/dom";
 export namespace Components {
     interface JeAlert {
         /**
-          * Whether or not the user can close the dialog by clicking the backdrop
+          * Whether or not the user can close the alert by clicking the backdrop
          */
-        "backdropClose": boolean;
+        "backdropDismiss": boolean;
         /**
           * Buttons for user interaction
          */
-        "buttons"?: DialogButton[];
+        "buttons"?: AlertButton[];
         /**
           * Controls that are wrapped in a form
          */
-        "controls"?: DialogControl[];
+        "controls"?: AlertControl[];
         "dismiss": (role?: string, data?: any) => Promise<void>;
+        "getModalElement": () => Promise<HTMLJeModalElement>;
         /**
           * Title of the dialog
          */
@@ -49,10 +50,6 @@ export namespace Components {
           * Whether or not to render the backdrop
          */
         "showBackdrop": boolean;
-        /**
-          * Trigger element id
-         */
-        "trigger"?: string;
     }
     interface JeBranch {
         "getParentBranch": () => Promise<HTMLJeBranchElement | null>;
@@ -422,7 +419,7 @@ export namespace Components {
         /**
           * Backdrop will close the modal on click when enabled
          */
-        "backdropClose": boolean;
+        "backdropDismiss": boolean;
         "dismiss": (role?: string, data?: any) => Promise<void>;
         /**
           * Opens and closes modal
@@ -567,6 +564,12 @@ export namespace Components {
         "value"?: string;
     }
     interface JeToast {
+        "closable": boolean;
+        "color": Color;
+        "countdown": boolean;
+        "duration": number;
+        "icon"?: string;
+        "message"?: string;
     }
     interface JeToggle {
         /**
@@ -585,10 +588,6 @@ export namespace Components {
         "selection": 'single' | 'multiple' | 'leaf';
         "value"?: string | string[];
     }
-}
-export interface JeAlertCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJeAlertElement;
 }
 export interface JeBranchCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -675,20 +674,7 @@ export interface JeTreeCustomEvent<T> extends CustomEvent<T> {
     target: HTMLJeTreeElement;
 }
 declare global {
-    interface HTMLJeAlertElementEventMap {
-        "didPresent": any;
-        "didDismiss": { role: string, data: any };
-        "didSubmit": SubmitEvent;
-    }
     interface HTMLJeAlertElement extends Components.JeAlert, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeAlertElementEventMap>(type: K, listener: (this: HTMLJeAlertElement, ev: JeAlertCustomEvent<HTMLJeAlertElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeAlertElementEventMap>(type: K, listener: (this: HTMLJeAlertElement, ev: JeAlertCustomEvent<HTMLJeAlertElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeAlertElement: {
         prototype: HTMLJeAlertElement;
@@ -1216,17 +1202,17 @@ declare global {
 declare namespace LocalJSX {
     interface JeAlert {
         /**
-          * Whether or not the user can close the dialog by clicking the backdrop
+          * Whether or not the user can close the alert by clicking the backdrop
          */
-        "backdropClose"?: boolean;
+        "backdropDismiss"?: boolean;
         /**
           * Buttons for user interaction
          */
-        "buttons"?: DialogButton[];
+        "buttons"?: AlertButton[];
         /**
           * Controls that are wrapped in a form
          */
-        "controls"?: DialogControl[];
+        "controls"?: AlertControl[];
         /**
           * Title of the dialog
          */
@@ -1240,25 +1226,9 @@ declare namespace LocalJSX {
          */
         "message"?: string;
         /**
-          * Emitted when the dialog is dismissed
-         */
-        "onDidDismiss"?: (event: JeAlertCustomEvent<{ role: string, data: any }>) => void;
-        /**
-          * Emitted when the dialog is presented
-         */
-        "onDidPresent"?: (event: JeAlertCustomEvent<any>) => void;
-        /**
-          * Emitted when the inner form submission is triggered
-         */
-        "onDidSubmit"?: (event: JeAlertCustomEvent<SubmitEvent>) => void;
-        /**
           * Whether or not to render the backdrop
          */
         "showBackdrop"?: boolean;
-        /**
-          * Trigger element id
-         */
-        "trigger"?: string;
     }
     interface JeBranch {
         "label"?: string;
@@ -1652,7 +1622,7 @@ declare namespace LocalJSX {
         /**
           * Backdrop will close the modal on click when enabled
          */
-        "backdropClose"?: boolean;
+        "backdropDismiss"?: boolean;
         /**
           * Emits whenever the modal has finished closing. Emits the role and optional data object passed to the closeModal() method.
          */
@@ -1824,6 +1794,12 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface JeToast {
+        "closable"?: boolean;
+        "color"?: Color;
+        "countdown"?: boolean;
+        "duration"?: number;
+        "icon"?: string;
+        "message"?: string;
     }
     interface JeToggle {
         /**

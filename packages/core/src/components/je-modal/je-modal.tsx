@@ -1,4 +1,4 @@
-import { Component, Host, h, Element, Event, EventEmitter, Method, Prop, Watch } from '@stencil/core';
+import { Component, Host, h, Element, Event, EventEmitter, Method, Prop, Watch, Listen } from '@stencil/core';
 import { animationUpdate } from '../../utils/utils';
 
 @Component({
@@ -13,7 +13,7 @@ export class JeModal {
   @Prop() showBackdrop = true;
 
   /** Backdrop will close the modal on click when enabled */
-  @Prop() backdropClose = true;
+  @Prop() backdropDismiss = true;
 
   /** Opens and closes modal */
   @Prop({ mutable: true }) open = false;
@@ -30,6 +30,11 @@ export class JeModal {
 
   componentDidLoad() {
     this.templateEl = this.el.querySelector('template');
+  }
+
+  @Listen('themeChange', { target: 'window' })
+  handleThemeChange(e: CustomEvent<'light' | 'dark'>) {
+    this.el.toggleAttribute('darkmode', e.detail == 'dark')
   }
 
   @Watch('open')
@@ -67,7 +72,7 @@ export class JeModal {
   }
 
   private handleBackdropClick = () => {
-    if (this.open && this.backdropClose) {
+    if (this.open && this.backdropDismiss) {
       this.dismiss('backdropClose');
     }
   }
@@ -98,7 +103,7 @@ export class JeModal {
           <slot/>
         </div>
 
-        <div part="backdrop" ref={el => this.backdropEl = el} onClick={this.handleBackdropClick} onTransitionEnd={this.handleBackdropTransitionEnd} class={{ pointer: this.backdropClose, clear: !this.showBackdrop }}></div>
+        <div part="backdrop" ref={el => this.backdropEl = el} onClick={this.handleBackdropClick} onTransitionEnd={this.handleBackdropTransitionEnd} class={{ pointer: this.backdropDismiss, clear: !this.showBackdrop }}></div>
       </Host>
     );
   }

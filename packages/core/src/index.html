@@ -53,8 +53,18 @@
       </div>
 
       <div slot="body">
+        <h2>Toast</h2>
+        <je-toast icon="info" closable>
+          <div>
+            <p>Hello there!</p>
+            <je-color color="auto" light-mode-color="dark" dark-mode-color="medium">This is a toast...</je-color>
+          </div>
+          <je-button slot="end" fill="clear" color="auto" icon-only>Ok</je-button>
+          <je-button slot="end" fill="clear" color="auto" icon-only>Cancel</je-button>
+        </je-toast>
+
         <h2>Tree</h2>
-        <je-tree selection="multiple" indentation="true">
+        <je-tree selection="leaf" indentation="true">
           <je-branch label="Item 1">
             <je-branch label="Item A"></je-branch>
             <je-branch label="Item B">

@@ -92,7 +92,6 @@ export class JePopover {
     this.el.toggleAttribute('darkmode', e.detail == 'dark')
   }
 
-
   @Listen('click', { capture: true, target: 'window' })
   handleWindowClick(ev: MouseEvent) {
     if (this.triggerAction == 'click')

@@ -8,40 +8,26 @@ import { Components } from 'jebamo';
 
 
 @ProxyCmp({
-  inputs: ['backdropClose', 'buttons', 'controls', 'header', 'icon', 'message', 'showBackdrop', 'trigger'],
-  methods: ['present', 'dismiss']
+  inputs: ['backdropDismiss', 'buttons', 'controls', 'header', 'icon', 'message', 'showBackdrop'],
+  methods: ['getModalElement', 'present', 'dismiss']
 })
 @Component({
   selector: 'je-alert',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['backdropClose', 'buttons', 'controls', 'header', 'icon', 'message', 'showBackdrop', 'trigger'],
+  inputs: ['backdropDismiss', 'buttons', 'controls', 'header', 'icon', 'message', 'showBackdrop'],
 })
 export class JeAlert {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['didPresent', 'didDismiss', 'didSubmit']);
   }
 }
 
 
-export declare interface JeAlert extends Components.JeAlert {
-  /**
-   * Emitted when the dialog is presented
-   */
-  didPresent: EventEmitter<CustomEvent<any>>;
-  /**
-   * Emitted when the dialog is dismissed
-   */
-  didDismiss: EventEmitter<CustomEvent<{ role: string, data: any }>>;
-  /**
-   * Emitted when the inner form submission is triggered
-   */
-  didSubmit: EventEmitter<CustomEvent<SubmitEvent>>;
-}
+export declare interface JeAlert extends Components.JeAlert {}
 
 
 @ProxyCmp({
@@ -587,7 +573,7 @@ export declare interface JeMenuOption extends Components.JeMenuOption {
 
 
 @ProxyCmp({
-  inputs: ['backdropClose', 'open', 'showBackdrop'],
+  inputs: ['backdropDismiss', 'open', 'showBackdrop'],
   methods: ['present', 'dismiss']
 })
 @Component({
@@ -595,7 +581,7 @@ export declare interface JeMenuOption extends Components.JeMenuOption {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['backdropClose', 'open', 'showBackdrop'],
+  inputs: ['backdropDismiss', 'open', 'showBackdrop'],
 })
 export class JeModal {
   protected el: HTMLElement;
@@ -946,13 +932,14 @@ export declare interface JeTextarea extends Components.JeTextarea {}
 
 
 @ProxyCmp({
+  inputs: ['closable', 'color', 'countdown', 'duration', 'icon', 'message']
 })
 @Component({
   selector: 'je-toast',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['closable', 'color', 'countdown', 'duration', 'icon', 'message'],
 })
 export class JeToast {
   protected el: HTMLElement;

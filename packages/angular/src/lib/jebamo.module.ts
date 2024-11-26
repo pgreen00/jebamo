@@ -1,7 +1,7 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { DIRECTIVES } from './stencil-generated';
 import { defineCustomElements } from 'jebamo/loader';
-import { JeModelDirective } from './je-model.directive';
+import { JeModelDirective } from './directives/je-model.directive';
 
 @NgModule({
   imports: [],
