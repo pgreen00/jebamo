@@ -566,10 +566,12 @@ export namespace Components {
     interface JeToast {
         "closable": boolean;
         "color": Color;
-        "countdown": boolean;
         "duration": number;
+        "header"?: string;
         "icon"?: string;
         "message"?: string;
+        "progress": boolean;
+        "type": 'bar' | 'card';
     }
     interface JeToggle {
         /**
@@ -1796,10 +1798,12 @@ declare namespace LocalJSX {
     interface JeToast {
         "closable"?: boolean;
         "color"?: Color;
-        "countdown"?: boolean;
         "duration"?: number;
+        "header"?: string;
         "icon"?: string;
         "message"?: string;
+        "progress"?: boolean;
+        "type"?: 'bar' | 'card';
     }
     interface JeToggle {
         /**

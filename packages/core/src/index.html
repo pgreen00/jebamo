@@ -54,13 +54,9 @@
 
       <div slot="body">
         <h2>Toast</h2>
-        <je-toast icon="info" closable>
-          <div>
-            <p>Hello there!</p>
-            <je-color color="auto" light-mode-color="dark" dark-mode-color="medium">This is a toast...</je-color>
-          </div>
-          <je-button slot="end" fill="clear" color="auto" icon-only>Ok</je-button>
-          <je-button slot="end" fill="clear" color="auto" icon-only>Cancel</je-button>
+        <je-toast type="card" icon="info" closable progress header="Hello there!" message="This is a toast...">
+          <je-button slot="end" fill="outline" color="auto">Ok</je-button>
+          <je-button slot="end" fill="outline" color="auto">Cancel</je-button>
         </je-toast>
 
         <h2>Tree</h2>

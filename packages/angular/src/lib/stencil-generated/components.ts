@@ -932,14 +932,14 @@ export declare interface JeTextarea extends Components.JeTextarea {}
 
 
 @ProxyCmp({
-  inputs: ['closable', 'color', 'countdown', 'duration', 'icon', 'message']
+  inputs: ['closable', 'color', 'duration', 'header', 'icon', 'message', 'progress', 'type']
 })
 @Component({
   selector: 'je-toast',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['closable', 'color', 'countdown', 'duration', 'icon', 'message'],
+  inputs: ['closable', 'color', 'duration', 'header', 'icon', 'message', 'progress', 'type'],
 })
 export class JeToast {
   protected el: HTMLElement;
