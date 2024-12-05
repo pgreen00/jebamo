@@ -3,16 +3,13 @@
 @use '../../styles/spacing' as spacing;
 
 :host {
-  display: block;
+  display: none;
   overflow: hidden;
   position: relative;
   //box-shadow: var(--box-shadow);
   border: var(--border);
   border-radius: global.border-radius();
   box-sizing: border-box;
-  transform: scale(0%);
-  opacity: 0;
-  transition: opacity 300ms ease-in-out, transform 600ms ease-in-out;
 
   --background: rgb(233, 236, 236);
   --color: #{colors.get(medium, 800)};
@@ -20,13 +17,38 @@
   --border: solid 1px rgb(197, 200, 204);
 }
 
-:host(.open) {
-  transform: scale(100%);
-  opacity: 1;
+:host(.visible) {
+  display: block;
 }
 
-:host(.hidden) {
-  display: none;
+:host(.open) {
+  animation: fadeIn 600ms forwards;
+}
+
+:host(:not(.open)) {
+  animation: fadeOut 600ms forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0%);
+  }
+  to {
+    opacity: 1;
+    transform: scale(100%);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(100%);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0%);
+  }
 }
 
 :host([darkmode]) {

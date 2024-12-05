@@ -1,5 +1,5 @@
 import { Component, Listen, Prop, h, Element, Watch, Host } from '@stencil/core';
-import { animationUpdate, Color } from '../../utils/utils';
+import { Color } from '../../utils/utils';
 
 @Component({
   tag: 'je-toast',
@@ -18,8 +18,14 @@ export class JeToast {
   @Prop({ reflect: true }) type: 'bar' | 'card' = 'bar';
   @Prop({ mutable: true }) open = false;
 
-  componentWillLoad() {
-    this.el.classList.toggle('hidden', !this.open);
+  componentDidLoad() {
+    this.onOpenChange();
+  }
+
+  componentWillRender() {
+    if (this.open) {
+      this.el.classList.add('visible');
+    }
   }
 
   @Listen('themeChange', { target: 'window' })
@@ -28,32 +34,23 @@ export class JeToast {
   }
 
   @Watch('open')
-  async onOpenChange(open: boolean) {
-    if (open) {
-      this.el.classList.remove('hidden')
-      await animationUpdate();
-      this.el.classList.add('open');
-      if (this.duration > 0) {
-        setTimeout(() => (this.open = false), this.duration);
-      }
-    } else {
-      this.el.classList.remove('open');
+  onOpenChange() {
+    if (this.open && this.duration > 0) {
+      setTimeout(() => (this.open = false), this.duration);
     }
   }
 
-  @Listen('transitionend')
-  onTransitionEnd(e: TransitionEvent) {
-    if (e.target == this.el) {
-      if (!this.open) {
-        this.el.classList.add('hidden')
-      }
+  @Listen('animationend')
+  onAnimationEnd(e: AnimationEvent) {
+    if (e.animationName == 'fadeOut' && e.target == this.el) {
+      this.el.classList.remove('visible');
     }
   }
 
   render() {
     if (this.type == 'card') {
       return (
-        <Host>
+        <Host class={{ open: this.open }}>
           <div class="border"></div>
           <je-toolbar>
             {this.icon && <je-icon slot="start" class={this.color} icon={this.icon} />}
@@ -77,7 +74,7 @@ export class JeToast {
       );
     } else {
       return (
-        <Host>
+        <Host class={{ open: this.open }}>
           <div class="border"></div>
           <je-toolbar class="bar">
             <slot slot="start" name="start">
