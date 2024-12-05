@@ -1,5 +1,7 @@
 //main script for index.html
 
+setTimeout(() => document.getElementById('toast').open = true, 2000)
+
 const customInputEl = document.getElementById('customInput');
 customInputEl.validators = [
   val => {

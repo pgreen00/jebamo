@@ -570,6 +570,7 @@ export namespace Components {
         "header"?: string;
         "icon"?: string;
         "message"?: string;
+        "open": boolean;
         "progress": boolean;
         "type": 'bar' | 'card';
     }
@@ -1802,6 +1803,7 @@ declare namespace LocalJSX {
         "header"?: string;
         "icon"?: string;
         "message"?: string;
+        "open"?: boolean;
         "progress"?: boolean;
         "type"?: 'bar' | 'card';
     }
