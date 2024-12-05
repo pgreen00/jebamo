@@ -2,20 +2,20 @@ import { Component, h, Element, Prop, Method } from '@stencil/core';
 import { AsyncValidationFn, Color, ValidationFn } from '../../utils/utils';
 
 export type AlertButton = {
-  text: string,
-  color?: Color,
-  fill: 'solid' | 'outline' | 'clear',
-  handler: (dialog: HTMLJeAlertElement) => void | Promise<void>,
-  type?: string
-}
+  text: string;
+  color?: Color;
+  fill: 'solid' | 'outline' | 'clear';
+  handler: (dialog: HTMLJeAlertElement) => void | Promise<void>;
+  type?: string;
+};
 
 export type AlertControl = {
-  label?: string,
-  placeholder?: string,
-  validators?: (ValidationFn | AsyncValidationFn)[],
-  required?: boolean,
-  type?: string
-}
+  label?: string;
+  placeholder?: string;
+  validators?: (ValidationFn | AsyncValidationFn)[];
+  required?: boolean;
+  type?: string;
+};
 
 @Component({
   tag: 'je-alert',
@@ -80,27 +80,39 @@ export class JeAlert {
     const content = (
       <je-form>
         <div class="content-container">
-          {this.header && <div class="header">
-            {this.icon && <je-icon icon={this.icon} />}
-            <h1>{this.header}</h1>
-            <je-button fill='clear' iconOnly={true} class="close" onClick={() => this.modalEl.open = false}>
-              <je-icon icon="close" />
-            </je-button>
-          </div>}
+          {this.header && (
+            <div class="header">
+              {this.icon && <je-icon icon={this.icon} />}
+              <h1>{this.header}</h1>
+              <je-button fill="clear" iconOnly={true} class="close" onClick={() => (this.modalEl.open = false)}>
+                <je-icon icon="close" />
+              </je-button>
+            </div>
+          )}
           {this.message && <div class="message">{this.message}</div>}
-          {this.controls && <div class="controls">{this.controls.map(control => (
-            <je-input type={control.type} required={control.required} label={control.label} placeholder={control.placeholder} validators={control.validators}></je-input>
-          ))}</div>}
-          {this.buttons && <div class="buttons">{this.buttons.map(button => (
-            <je-button fill={button.fill} type={button.type} color={button.color} onClick={() => button.handler(this.el)}>{button.text}</je-button>
-          ))}</div>}
+          {this.controls && (
+            <div class="controls">
+              {this.controls.map(control => (
+                <je-input type={control.type} required={control.required} label={control.label} placeholder={control.placeholder} validators={control.validators}></je-input>
+              ))}
+            </div>
+          )}
+          {this.buttons && (
+            <div class="buttons">
+              {this.buttons.map(button => (
+                <je-button fill={button.fill} type={button.type} color={button.color} onClick={() => button.handler(this.el)}>
+                  {button.text}
+                </je-button>
+              ))}
+            </div>
+          )}
         </div>
       </je-form>
-    )
+    );
 
     return (
-      <je-modal ref={el => this.modalEl = el} backdropDismiss={this.backdropDismiss} showBackdrop={this.showBackdrop}>
-        <slot name='trigger' slot='trigger' />
+      <je-modal ref={el => (this.modalEl = el)} backdropDismiss={this.backdropDismiss} showBackdrop={this.showBackdrop}>
+        <slot name="trigger" slot="trigger" />
         <slot>{content}</slot>
       </je-modal>
     );

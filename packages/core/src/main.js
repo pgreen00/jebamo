@@ -1,6 +1,8 @@
 //main script for index.html
 
-setTimeout(() => document.getElementById('toast').open = true, 2000)
+document.getElementById('toastButton').addEventListener('click', () => {
+  document.getElementById('toast').open = true;
+});
 
 const customInputEl = document.getElementById('customInput');
 customInputEl.validators = [

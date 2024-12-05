@@ -567,6 +567,7 @@ export namespace Components {
         "closable": boolean;
         "color": Color;
         "duration": number;
+        "fixed": boolean;
         "header"?: string;
         "icon"?: string;
         "message"?: string;
@@ -1800,6 +1801,7 @@ declare namespace LocalJSX {
         "closable"?: boolean;
         "color"?: Color;
         "duration"?: number;
+        "fixed"?: boolean;
         "header"?: string;
         "icon"?: string;
         "message"?: string;

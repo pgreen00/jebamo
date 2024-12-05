@@ -1,4 +1,4 @@
-import { Component, Listen, Prop, h, Element, Watch, Host } from '@stencil/core';
+import { Component, Listen, Prop, h, Element, Host, State } from '@stencil/core';
 import { Color } from '../../utils/utils';
 
 @Component({
@@ -17,10 +17,9 @@ export class JeToast {
   @Prop() progress = false;
   @Prop({ reflect: true }) type: 'bar' | 'card' = 'bar';
   @Prop({ mutable: true }) open = false;
-
-  componentDidLoad() {
-    this.onOpenChange();
-  }
+  @Prop({ reflect: true }) fixed = false;
+  //@Prop({ reflect: true }) position: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
+  @State() paused = true;
 
   componentWillRender() {
     if (this.open) {
@@ -33,18 +32,27 @@ export class JeToast {
     this.el.toggleAttribute('darkmode', e.detail == 'dark');
   }
 
-  @Watch('open')
-  onOpenChange() {
-    if (this.open && this.duration > 0) {
-      setTimeout(() => (this.open = false), this.duration);
-    }
-  }
-
   @Listen('animationend')
   onAnimationEnd(e: AnimationEvent) {
     if (e.animationName == 'fadeOut' && e.target == this.el) {
       this.el.classList.remove('visible');
+      this.paused = true;
     }
+    if (e.animationName == 'fadeIn' && e.target == this.el) {
+      this.paused = false;
+    }
+  }
+
+  @Listen('mouseenter')
+  onMouseEnter() {
+    if (this.open)
+      this.paused = true;
+  }
+
+  @Listen('mouseleave')
+  onMouseLeave() {
+    if (this.open)
+      this.paused = false;
   }
 
   render() {
@@ -56,7 +64,7 @@ export class JeToast {
             {this.icon && <je-icon slot="start" class={this.color} icon={this.icon} />}
             {this.header && <span part="header">{this.header}</span>}
             {this.closable && (
-              <je-button slot="end" fill="clear" iconOnly={true} color="auto">
+              <je-button onClick={() => (this.open = false)} slot="end" fill="clear" iconOnly={true} color="auto">
                 <je-icon icon="close" />
               </je-button>
             )}
@@ -69,7 +77,9 @@ export class JeToast {
             <slot slot="start" name="start"></slot>
             <slot slot="end" name="end"></slot>
           </je-toolbar>
-          {this.progress && <div class={{ progress: true, running: this.open }} style={{ animationDuration: `${this.duration}ms` }}></div>}
+          {this.progress && this.duration && (
+            <div onAnimationEnd={() => (this.open = false)} class={{ progress: true, running: this.open && !this.paused }} style={{ animationDuration: `${this.duration}ms` }}></div>
+          )}
         </Host>
       );
     } else {
@@ -88,13 +98,15 @@ export class JeToast {
             </slot>
             <slot slot="end" name="end">
               {this.closable && (
-                <je-button fill="clear" iconOnly={true} color="auto">
+                <je-button onClick={() => (this.open = false)} fill="clear" iconOnly={true} color="auto">
                   <je-icon icon="close" />
                 </je-button>
               )}
             </slot>
           </je-toolbar>
-          {this.progress && <div class={{ progress: true, running: this.open }} style={{ animationDuration: `${this.duration}ms` }}></div>}
+          {this.progress && this.duration && (
+            <div onAnimationEnd={() => (this.open = false)} class={{ progress: true, running: this.open && !this.paused }} style={{ animationDuration: `${this.duration}ms` }}></div>
+          )}
         </Host>
       );
     }
