@@ -18,7 +18,7 @@ export class JeToast {
   @Prop({ reflect: true }) type: 'bar' | 'card' = 'bar';
   @Prop({ mutable: true }) open = false;
   @Prop({ reflect: true }) fixed = false;
-  @Prop({ reflect: true }) position: 'top' | 'bottom' | 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end' = 'bottom-start';
+  @Prop() position: 'top' | 'bottom' | 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end' = 'bottom-start';
   @State() paused = true;
 
   componentWillRender() {
@@ -58,7 +58,7 @@ export class JeToast {
   render() {
     if (this.type == 'card') {
       return (
-        <Host class={{ open: this.open }}>
+        <Host class={{ open: this.open, [this.position]: this.fixed }}>
           <div class="border"></div>
           <je-toolbar>
             {this.icon && <je-icon slot="start" class={this.color} icon={this.icon} />}
@@ -84,7 +84,7 @@ export class JeToast {
       );
     } else {
       return (
-        <Host class={{ open: this.open }}>
+        <Host class={{ open: this.open, [this.position]: this.fixed }}>
           <div class="border"></div>
           <je-toolbar class="bar">
             <slot slot="start" name="start">

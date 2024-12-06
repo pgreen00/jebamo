@@ -36,33 +36,33 @@
   max-width: 500px;
 }
 
-:host([fixed][position=top-end]) {
+:host([fixed].top-end) {
   top: spacing.get(lg);
   right: spacing.get(lg);
 }
 
-:host([fixed][position=bottom-start]) {
+:host([fixed].bottom-start) {
   bottom: spacing.get(lg);
   left: spacing.get(lg);
 }
 
-:host([fixed][position=top-start]) {
+:host([fixed].top-start) {
   top: spacing.get(lg);
   left: spacing.get(lg);
 }
 
-:host([fixed][position=bottom-end]) {
+:host([fixed].bottom-end) {
   bottom: spacing.get(lg);
   right: spacing.get(lg);
 }
 
-:host([fixed][position=top]) {
+:host([fixed].top) {
   left: spacing.get(lg);
   top: spacing.get(lg);
   max-width: calc(100% - calc(spacing.get(lg) * 2));
 }
 
-:host([fixed][position=bottom]) {
+:host([fixed].bottom) {
   left: spacing.get(lg);
   bottom: spacing.get(lg);
   max-width: calc(100% - calc(spacing.get(lg) * 2));

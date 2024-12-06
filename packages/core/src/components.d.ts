@@ -443,6 +443,7 @@ export namespace Components {
         "value": string;
     }
     interface JePage {
+        "createToast": (options: { header?: string; message?: string; icon?: string; closable?: boolean; duration?: number; progress?: boolean; type?: "card" | "bar"; position?: "top-start" | "top-end" | "bottom-start" | "bottom-end"; }) => Promise<HTMLJeToastElement>;
         "footer": 'sticky' | 'fixed';
         "leftPanel": PanelState;
         "rightPanel": PanelState;

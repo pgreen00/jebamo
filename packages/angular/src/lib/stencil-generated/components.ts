@@ -656,7 +656,8 @@ export declare interface JeMultiselectOption extends Components.JeMultiselectOpt
 
 
 @ProxyCmp({
-  inputs: ['footer', 'leftPanel', 'rightPanel', 'theme']
+  inputs: ['footer', 'leftPanel', 'rightPanel', 'theme'],
+  methods: ['createToast']
 })
 @Component({
   selector: 'je-page',

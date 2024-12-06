@@ -4,6 +4,20 @@ document.getElementById('toastButton').addEventListener('click', () => {
   document.getElementById('toast').open = true;
 });
 
+document.getElementById('toastButton2').addEventListener('click', async () => {
+  const toast = await document.getElementById('main-page').createToast({
+    message: 'This is a toast',
+    duration: 3000,
+    progress: true,
+    position: 'top-end',
+    type: 'card',
+    closable: true,
+    icon: 'info',
+    header: 'Hello there'
+  })
+  toast.open = true;
+});
+
 const customInputEl = document.getElementById('customInput');
 customInputEl.validators = [
   val => {

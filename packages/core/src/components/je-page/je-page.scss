@@ -152,3 +152,18 @@
   transition: all 250ms ease-in-out;
   margin: 0 !important;
 }
+
+.toast-container {
+  position: fixed;
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+  gap: spacing.get(lg);
+  width: 100%;
+  z-index: 800;
+  max-width: 500px;
+  &.top-end {
+    right: spacing.get(lg);
+    top: spacing.get(lg);
+  }
+}
