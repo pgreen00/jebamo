@@ -31,13 +31,41 @@
 
 :host([fixed]) {
   position: fixed;
-  bottom: 0;
-  left: 0;
   width: 100%;
   z-index: 800;
   max-width: 500px;
-  margin-left: spacing.get(lg);
-  margin-bottom: spacing.get(lg);
+}
+
+:host([fixed][position=top-end]) {
+  top: spacing.get(lg);
+  right: spacing.get(lg);
+}
+
+:host([fixed][position=bottom-start]) {
+  bottom: spacing.get(lg);
+  left: spacing.get(lg);
+}
+
+:host([fixed][position=top-start]) {
+  top: spacing.get(lg);
+  left: spacing.get(lg);
+}
+
+:host([fixed][position=bottom-end]) {
+  bottom: spacing.get(lg);
+  right: spacing.get(lg);
+}
+
+:host([fixed][position=top]) {
+  left: spacing.get(lg);
+  top: spacing.get(lg);
+  max-width: calc(100% - calc(spacing.get(lg) * 2));
+}
+
+:host([fixed][position=bottom]) {
+  left: spacing.get(lg);
+  bottom: spacing.get(lg);
+  max-width: calc(100% - calc(spacing.get(lg) * 2));
 }
 
 @keyframes fadeIn {

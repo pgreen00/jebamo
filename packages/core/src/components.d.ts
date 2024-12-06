@@ -572,6 +572,7 @@ export namespace Components {
         "icon"?: string;
         "message"?: string;
         "open": boolean;
+        "position": 'top' | 'bottom' | 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
         "progress": boolean;
         "type": 'bar' | 'card';
     }
@@ -1806,6 +1807,7 @@ declare namespace LocalJSX {
         "icon"?: string;
         "message"?: string;
         "open"?: boolean;
+        "position"?: 'top' | 'bottom' | 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
         "progress"?: boolean;
         "type"?: 'bar' | 'card';
     }

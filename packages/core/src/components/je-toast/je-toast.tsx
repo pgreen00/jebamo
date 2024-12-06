@@ -18,7 +18,7 @@ export class JeToast {
   @Prop({ reflect: true }) type: 'bar' | 'card' = 'bar';
   @Prop({ mutable: true }) open = false;
   @Prop({ reflect: true }) fixed = false;
-  //@Prop({ reflect: true }) position: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
+  @Prop({ reflect: true }) position: 'top' | 'bottom' | 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end' = 'bottom-start';
   @State() paused = true;
 
   componentWillRender() {

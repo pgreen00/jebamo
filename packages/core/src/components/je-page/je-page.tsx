@@ -14,6 +14,7 @@ export class JePage {
   @Prop({ reflect: true }) theme: 'light' | 'dark' | 'auto' = 'light';
   @Prop({ reflect: true }) footer: 'sticky' | 'fixed' = 'fixed';
   @Event() themeChange: EventEmitter<'light' | 'dark'>;
+  private toastContainer!: HTMLElement;
 
   componentDidLoad() {
     this.themeChangeHandler(this.theme);
@@ -53,6 +54,12 @@ export class JePage {
             <slot name='right-panel' />
           </div>
           <slot name='footer' />
+          <div ref={el => this.toastContainer = el} part='toast-container'>
+            <slot name='top-start' />
+            <slot name='top-end' />
+            <slot name='bottom-start' />
+            <slot name='bottom-end' />
+          </div>
         </Host>
       );
     }
