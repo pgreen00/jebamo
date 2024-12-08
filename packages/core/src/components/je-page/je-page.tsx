@@ -1,4 +1,5 @@
 import { Component, Element, Event, EventEmitter, Host, Method, Prop, Watch, h } from '@stencil/core';
+import { Color } from '../../utils/utils';
 
 export type PanelState = 'open' | 'closed' | 'minimized';
 
@@ -29,7 +30,15 @@ export class JePage {
   }
 
   @Method()
-  async createToast(options: {
+  async getCurrentTheme() {
+    if (this.theme !== 'auto')
+      return this.theme;
+    else
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  @Method()
+  async presentToast(options: {
     header?: string;
     message?: string;
     icon?: string;
@@ -38,6 +47,14 @@ export class JePage {
     progress?: boolean;
     type?: 'card' | 'bar';
     position?: 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end';
+    buttons?: {
+      text: string;
+      side?: 'start' | 'end';
+      fill?: 'solid' | 'outline' | 'clear';
+      color?: Color | 'auto';
+      size?: 'sm' | 'md' | 'lg';
+      handler: (toast: HTMLJeToastElement) => void | Promise<void>;
+    }[];
   }) {
     const toast = document.createElement('je-toast');
     toast.header = options.header;
@@ -48,7 +65,21 @@ export class JePage {
     toast.progress = options.progress;
     toast.type = options.type;
     toast.slot = options.position;
+    if (options.buttons) {
+      options.buttons.forEach(button => {
+        const buttonEl = document.createElement('je-button');
+        buttonEl.innerText = button.text;
+        buttonEl.slot = button.side ?? 'end';
+        buttonEl.fill = button.fill;
+        buttonEl.color = button.color;
+        buttonEl.size = button.size;
+        if (button.handler)
+          buttonEl.onclick = () => button.handler(toast);
+        toast.appendChild(buttonEl);
+      });
+    }
     this.el.appendChild(toast);
+    toast.open = true;
     return toast;
   }
 

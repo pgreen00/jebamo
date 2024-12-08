@@ -163,6 +163,9 @@ je-icon.primary {
   &.running {
     animation-play-state: running;
   }
+  &:not(.visible) {
+    opacity: 0;
+  }
 }
 
 @keyframes shorten {

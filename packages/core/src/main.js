@@ -5,17 +5,33 @@ document.getElementById('toastButton').addEventListener('click', () => {
 });
 
 document.getElementById('toastButton2').addEventListener('click', async () => {
-  const toast = await document.getElementById('main-page').createToast({
+  const toast = await document.getElementById('main-page').presentToast({
     message: 'This is a toast',
-    duration: 3000,
+    duration: 4000,
     progress: true,
-    position: 'top-end',
+    position: 'bottom-start',
     type: 'card',
     closable: true,
     icon: 'info',
-    header: 'Hello there'
+    header: 'Hello there',
+    buttons: [
+      {
+        text: 'Close',
+        fill: 'outline',
+        size: 'sm',
+        color: 'auto',
+        handler: t => t.dismiss('cancel')
+      },
+      {
+        text: 'OK',
+        fill: 'outline',
+        size: 'sm',
+        color: 'auto',
+        handler: t => t.dismiss('confirm')
+      },
+    ],
   })
-  toast.open = true;
+  console.log(await toast.didDismiss())
 });
 
 const customInputEl = document.getElementById('customInput');

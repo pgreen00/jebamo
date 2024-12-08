@@ -6,13 +6,13 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AlertButton, AlertControl } from "./components/je-alert/je-alert";
-import { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, ValidationFn } from "./utils/utils";
+import { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, OverlayData, ValidationFn } from "./utils/utils";
 import { Color as Color1 } from "./components";
 import { DrawerState } from "./components/je-drawer/je-drawer";
 import { PanelState } from "./components/je-page/je-page";
 import { Placement } from "@floating-ui/dom";
 export { AlertButton, AlertControl } from "./components/je-alert/je-alert";
-export { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, ValidationFn } from "./utils/utils";
+export { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, OverlayData, ValidationFn } from "./utils/utils";
 export { Color as Color1 } from "./components";
 export { DrawerState } from "./components/je-drawer/je-drawer";
 export { PanelState } from "./components/je-page/je-page";
@@ -443,9 +443,10 @@ export namespace Components {
         "value": string;
     }
     interface JePage {
-        "createToast": (options: { header?: string; message?: string; icon?: string; closable?: boolean; duration?: number; progress?: boolean; type?: "card" | "bar"; position?: "top-start" | "top-end" | "bottom-start" | "bottom-end"; }) => Promise<HTMLJeToastElement>;
         "footer": 'sticky' | 'fixed';
+        "getCurrentTheme": () => Promise<"light" | "dark">;
         "leftPanel": PanelState;
+        "presentToast": (options: { header?: string; message?: string; icon?: string; closable?: boolean; duration?: number; progress?: boolean; type?: "card" | "bar"; position?: "top-start" | "top-end" | "bottom-start" | "bottom-end"; buttons?: { text: string; side?: "start" | "end"; fill?: "solid" | "outline" | "clear"; color?: Color | "auto"; size?: "sm" | "md" | "lg"; handler: (toast: HTMLJeToastElement) => void | Promise<void>; }[]; }) => Promise<HTMLJeToastElement>;
         "rightPanel": PanelState;
         "theme": 'light' | 'dark' | 'auto';
     }
@@ -567,6 +568,8 @@ export namespace Components {
     interface JeToast {
         "closable": boolean;
         "color": Color;
+        "didDismiss": () => Promise<OverlayData>;
+        "dismiss": (role?: string, data?: any) => Promise<void>;
         "duration": number;
         "fixed": boolean;
         "header"?: string;
@@ -574,6 +577,7 @@ export namespace Components {
         "message"?: string;
         "open": boolean;
         "position": 'top' | 'bottom' | 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
+        "present": () => Promise<void>;
         "progress": boolean;
         "type": 'bar' | 'card';
     }
@@ -670,6 +674,10 @@ export interface JeSelectOptionCustomEvent<T> extends CustomEvent<T> {
 export interface JeTabCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeTabElement;
+}
+export interface JeToastCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeToastElement;
 }
 export interface JeToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1115,7 +1123,19 @@ declare global {
         prototype: HTMLJeTextareaElement;
         new (): HTMLJeTextareaElement;
     };
+    interface HTMLJeToastElementEventMap {
+        "toastPresent": any;
+        "toastDismiss": OverlayData;
+    }
     interface HTMLJeToastElement extends Components.JeToast, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeToastElementEventMap>(type: K, listener: (this: HTMLJeToastElement, ev: JeToastCustomEvent<HTMLJeToastElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeToastElementEventMap>(type: K, listener: (this: HTMLJeToastElement, ev: JeToastCustomEvent<HTMLJeToastElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeToastElement: {
         prototype: HTMLJeToastElement;
@@ -1807,6 +1827,8 @@ declare namespace LocalJSX {
         "header"?: string;
         "icon"?: string;
         "message"?: string;
+        "onToastDismiss"?: (event: JeToastCustomEvent<OverlayData>) => void;
+        "onToastPresent"?: (event: JeToastCustomEvent<any>) => void;
         "open"?: boolean;
         "position"?: 'top' | 'bottom' | 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
         "progress"?: boolean;

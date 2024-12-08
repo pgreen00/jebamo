@@ -48,6 +48,13 @@ export class JeButton {
         this.formEl.append(this.formButtonEl);
       }
     }
+    if (this.color == 'auto') {
+      this.el.closest('je-page')?.getCurrentTheme()
+        .then(t => {
+          this.el.toggleAttribute(this.lightModeColor, t == 'light')
+          this.el.toggleAttribute(this.darkModeColor, t == 'dark')
+        })
+    }
   }
 
   @Listen('themeChange', { target: 'body' })

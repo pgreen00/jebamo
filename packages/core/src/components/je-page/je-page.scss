@@ -166,4 +166,16 @@
     right: spacing.get(lg);
     top: spacing.get(lg);
   }
+  &.top-start {
+    left: spacing.get(lg);
+    top: spacing.get(lg);
+  }
+  &.bottom-end {
+    right: spacing.get(lg);
+    bottom: spacing.get(lg);
+  }
+  &.bottom-start {
+    left: spacing.get(lg);
+    bottom: spacing.get(lg);
+  }
 }

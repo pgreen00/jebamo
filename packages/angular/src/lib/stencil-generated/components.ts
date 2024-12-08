@@ -657,7 +657,7 @@ export declare interface JeMultiselectOption extends Components.JeMultiselectOpt
 
 @ProxyCmp({
   inputs: ['footer', 'leftPanel', 'rightPanel', 'theme'],
-  methods: ['createToast']
+  methods: ['getCurrentTheme', 'presentToast']
 })
 @Component({
   selector: 'je-page',
@@ -933,7 +933,8 @@ export declare interface JeTextarea extends Components.JeTextarea {}
 
 
 @ProxyCmp({
-  inputs: ['closable', 'color', 'duration', 'fixed', 'header', 'icon', 'message', 'open', 'position', 'progress', 'type']
+  inputs: ['closable', 'color', 'duration', 'fixed', 'header', 'icon', 'message', 'open', 'position', 'progress', 'type'],
+  methods: ['present', 'dismiss', 'didDismiss']
 })
 @Component({
   selector: 'je-toast',
@@ -947,11 +948,19 @@ export class JeToast {
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['toastPresent', 'toastDismiss']);
   }
 }
 
 
-export declare interface JeToast extends Components.JeToast {}
+import type { OverlayData as IJeToastOverlayData } from 'jebamo';
+
+export declare interface JeToast extends Components.JeToast {
+
+  toastPresent: EventEmitter<CustomEvent<any>>;
+
+  toastDismiss: EventEmitter<CustomEvent<IJeToastOverlayData>>;
+}
 
 
 @ProxyCmp({

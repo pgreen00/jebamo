@@ -56,3 +56,8 @@ export type AsyncFormatterFn = (newValue: string, oldValue?: string, ev?: InputE
 
 export type ValidationFn = (value: string) => string[];
 export type AsyncValidationFn = (value: string) => Promise<string[]>;
+
+export type OverlayData<T = any> = {
+  role?: string,
+  data?: T
+}
