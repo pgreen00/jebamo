@@ -1,9 +1,5 @@
 :host {
-  display: block;
-}
-
-:host(:not([gap=none])) form {
-  gap: var(--je-spacing, 16px);
+  display: contents;
 }
 
 form {

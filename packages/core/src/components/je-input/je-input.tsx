@@ -1,4 +1,4 @@
-import { Component, Host, Prop, h, Element, Event, AttachInternals, EventEmitter, Method, State, Watch, Listen } from '@stencil/core';
+import { Component, Host, Prop, h, Element, Event, AttachInternals, EventEmitter, Method, State, Watch, Listen, forceUpdate } from '@stencil/core';
 import { AsyncFormatterFn, AsyncValidationFn, debounceEvent, FormatterFn, setName, ValidationFn } from '../../utils/utils';
 
 @Component({
@@ -16,6 +16,7 @@ export class JeInput {
   @State() showPassword = false;
   private inputEl!: HTMLInputElement;
   private originalValue = '';
+  private errorEl?: HTMLElement;
 
   /**
    * Text above the control
@@ -164,7 +165,7 @@ export class JeInput {
     this.internals.setFormValue(this.value);
   }
 
-  async componentDidRender() {
+  async componentWillRender() {
     const {
       hasError,
       minLengthError,
@@ -186,12 +187,18 @@ export class JeInput {
         tooLong: maxLengthError,
         patternMismatch: patternError,
         customError: customErrors.length > 0
-      }, errorMessage, this.inputEl);
+      }, errorMessage);
       if (this.isTouched) {
         this.internals.reportValidity();
       }
     } else {
       this.internals.setValidity({});
+    }
+  }
+
+  componentDidRender() {
+    if (this.isTouched && !this.internals.checkValidity()) {
+      this.errorEl?.click();
     }
   }
 
@@ -211,7 +218,18 @@ export class JeInput {
 
   @Listen('focus')
   onFocus() {
-    this.isTouched = true;
+    if (this.isTouched)
+      forceUpdate(this.hostEl)
+    else
+      this.isTouched = true
+  }
+
+  @Listen('blur')
+  onBlur() {
+    const po = this.hostEl.shadowRoot.querySelector('je-popover')
+    if (po) {
+      po.open = false;
+    }
   }
 
   @Watch('value')
@@ -273,20 +291,12 @@ export class JeInput {
   }
 
   render() {
-    const passwordIcon = <je-icon icon={this.showPassword ? 'visibility_off' : 'visibility'} fill onClick={() => this.showPassword = !this.showPassword} />;
-    const requiredIcon = <je-icon style={{ fontSize: '10px', color: 'var(--je-error-500)' }} icon="asterisk" />;
-    const label = <label part='label' style={{ display: 'flex' }}>{this.label} {this.required && requiredIcon}</label>;
-    const containerClasses = {
-      disabled: this.disabled,
-      touched: this.isTouched
-    };
-
     return (
       <Host>
-        <div part='outer-container' class={containerClasses}>
+        <div part='outer-container' class={{ disabled: this.disabled, touched: this.isTouched }}>
           <div part='start-container'>
+            {this.label && <label class={{ required: this.required }} part='label'>{this.label}</label>}
             <slot name='start'/>
-            {this.label && label}
           </div>
 
           <input
@@ -316,12 +326,21 @@ export class JeInput {
             placeholder={this.placeholder} />
 
           <div part='end-container'>
+            {this.isTouched && !this.internals.checkValidity() && (
+              <je-popover renderBackdrop={false} placement='bottom-end'>
+                <je-color ref={el => this.errorEl = el} slot='trigger' color='error'>
+                  <je-icon size='sm' fill={true} icon='error' />
+                </je-color>
+                <div part='error-message'>{this.internals.validationMessage}</div>
+              </je-popover>
+            )}
             <slot name='end'/>
-            {this.type == 'password' && passwordIcon}
+            {this.type == 'password' && (
+              <je-icon icon={this.showPassword ? 'visibility_off' : 'visibility'} fill={true} size='sm' onClick={() => (this.showPassword = !this.showPassword)} />
+            )}
           </div>
         </div>
-
-        {this.helperText && <small class="helper">{this.helperText}</small>}
+        {this.helperText && <small part="helper">{this.helperText}</small>}
       </Host>
     );
   }

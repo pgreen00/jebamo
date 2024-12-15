@@ -106,11 +106,7 @@ function handleThemeToggle() {
 }
 
 const formEl = document.getElementById('form');
-formEl.addEventListener('formData', ev => {
-  for (let [key, value] of ev.detail.entries()) {
-    console.log(`${key}: ${value}`);
-  }
-});
+formEl.addEventListener('formData', ev => console.log(ev.detail));
 formEl.addEventListener('submit', ev => {
   var dialogElement = document.getElementById('formAlert');
   dialogElement.header = 'Form Submitted!';

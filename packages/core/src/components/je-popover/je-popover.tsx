@@ -1,9 +1,6 @@
 import { Component, Host, h, Element, EventEmitter, Listen, Prop, Event, Watch } from '@stencil/core';
-import { computePosition, flip, offset, Placement, shift, size } from '@floating-ui/dom';
+import { autoUpdate, computePosition, flip, offset, Placement, shift, size } from '@floating-ui/dom';
 import { animationUpdate } from '../../utils/utils';
-
-export type PositionStrategy = 'none' | 'click' | 'element';
-export type Target<T extends PositionStrategy> = T extends 'click' ? MouseEvent | undefined : T extends 'element' ? HTMLElement | undefined : never;
 
 @Component({
   tag: 'je-popover',
@@ -21,6 +18,12 @@ export class JePopover {
 
   private mouseEvent?: MouseEvent;
 
+  private cleanup?: () => void;
+
+  private referenceEl?: Element | {
+    getBoundingClientRect: () => DOMRect;
+  };
+
   /**
    * Opens/closes the popover
    */
@@ -30,6 +33,9 @@ export class JePopover {
    * Where the popover should be placed
    */
   @Prop() placement: Placement = 'bottom';
+
+  /** Whether or not the backdrop will be rendered */
+  @Prop() renderBackdrop = true;
 
   /** Whether or not the backdrop will be visible to the user */
   @Prop() showBackdrop = false;
@@ -60,7 +66,7 @@ export class JePopover {
    * @context-menu Popover will show on right click or press on mobile.
    * @hover Popover will show on hover or tap on mobile. No backdrop will be rendered.
    */
-  @Prop() triggerAction: 'click' | 'hover' | 'context-menu' = 'click';
+  @Prop() triggerAction: 'click' | 'hover' | 'context-menu' | 'manual' = 'click';
 
   /**
    * If the popover should match the width of the trigger element
@@ -89,46 +95,44 @@ export class JePopover {
 
   @Listen('themeChange', { target: 'window' })
   handleThemeChange(e: CustomEvent<'light' | 'dark'>) {
-    this.el.toggleAttribute('darkmode', e.detail == 'dark')
+    this.el.toggleAttribute('darkmode', e.detail == 'dark');
   }
 
   @Listen('click', { capture: true, target: 'window' })
   handleWindowClick(ev: MouseEvent) {
-    if (this.triggerAction == 'click')
-     this.mouseEvent = ev;
+    if (this.triggerAction == 'click') this.mouseEvent = ev;
   }
 
   @Listen('contextmenu', { capture: true, target: 'window' })
   handleWindowContextMenu(ev: MouseEvent) {
-    if (this.triggerAction == 'context-menu')
-      this.mouseEvent = ev;
+    if (this.triggerAction == 'context-menu') this.mouseEvent = ev;
   }
 
   @Watch('open')
   async handleOpenChange(open: boolean) {
     if (open) {
-      const referenceEl = this.positionStrategy === 'element' ? this.triggerElement : {
+      this.referenceEl = this.positionStrategy === 'element' ? this.triggerElement : {
         getBoundingClientRect: () => {
           return new DOMRect(this.mouseEvent!.clientX, this.mouseEvent!.clientY, 0, 0);
-        }
+        },
       };
-      const { x, y } = await computePosition(referenceEl, this.contentEl, {
+      const { x, y } = await computePosition(this.referenceEl, this.contentEl, {
         placement: this.placement,
         strategy: 'fixed',
         middleware: [
           offset({
             mainAxis: this.offsetY,
-            crossAxis: this.offsetX
+            crossAxis: this.offsetX,
           }),
           flip(),
           shift(),
           size({
             apply: ({ availableHeight }) => {
               this.contentEl.style.setProperty('--available-height', `${availableHeight - this.offsetY}px`);
-            }
-          })
-        ]
-      })
+            },
+          }),
+        ],
+      });
       this.contentEl.style.left = `${x}px`;
       this.contentEl.style.top = `${y}px`;
       this.contentEl.classList.add('open');
@@ -144,24 +148,57 @@ export class JePopover {
     }
   }
 
+  @Listen('popoverPresent')
+  handlePopoverPresent() {
+    this.cleanup = autoUpdate(this.referenceEl, this.contentEl, () => {
+      computePosition(this.referenceEl, this.contentEl, {
+        placement: this.placement,
+        strategy: 'fixed',
+        middleware: [
+          offset({
+            mainAxis: this.offsetY,
+            crossAxis: this.offsetX,
+          }),
+          flip(),
+          shift(),
+          size({
+            apply: ({ availableHeight }) => {
+              this.contentEl.style.setProperty('--available-height', `${availableHeight - this.offsetY}px`);
+            },
+          }),
+        ],
+      }).then(({ x, y }) => {
+        this.contentEl.style.left = `${x}px`;
+        this.contentEl.style.top = `${y}px`;
+      });
+    });
+  }
+
+  @Listen('popoverDismiss')
+  handlePopoverDismiss() {
+    if (this.cleanup) {
+      this.cleanup();
+    }
+  }
+
   private handleContentClick = () => {
     if (this.open && this.dismissOnClick) {
       this.open = false;
     }
-  }
+  };
 
   private handleBackdropClick = () => {
     if (this.open && this.backdropDismiss) {
       this.open = false;
     }
-  }
+  };
 
   private handleTriggerClick = (ev: MouseEvent) => {
     if (this.triggerAction === 'click') {
       this.mouseEvent = ev;
       this.open = true;
     }
-  }
+  };
 
   private handleContextMenu = (ev: MouseEvent) => {
     if (this.triggerAction === 'context-menu') {
@@ -169,47 +206,59 @@ export class JePopover {
       this.mouseEvent = ev;
       this.open = true;
     }
-  }
+  };
 
   private handleMouseEnter = (ev: MouseEvent) => {
     if (this.triggerAction === 'hover') {
       this.mouseEvent = ev;
       this.open = true;
     }
-  }
+  };
 
   private handleMouseLeave = (ev: MouseEvent) => {
     if (this.triggerAction === 'hover') {
       this.mouseEvent = ev;
       this.open = false;
     }
-  }
+  };
 
   private handleContentTransitionEnd = () => {
     if (!this.open) {
       this.contentEl.classList.remove('open');
       this.contentEl.removeAttribute('style');
     }
-  }
+  };
 
   private handleBackdropTransitionEnd = () => {
     if (!this.open) {
       this.backdropEl?.classList.remove('open');
     }
-  }
+  };
 
   render() {
     return (
       <Host>
-        <div part="trigger-container" onClick={this.handleTriggerClick} onContextMenu={this.handleContextMenu} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
-          <slot name="trigger"/>
+        <div
+          part="trigger-container"
+          onClick={this.handleTriggerClick}
+          onContextMenu={this.handleContextMenu}
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
+        >
+          <slot name="trigger" />
         </div>
-        <div part="content" ref={el => this.contentEl = el} onClick={this.handleContentClick} onTransitionEnd={this.handleContentTransitionEnd}>
-          <slot/>
+        <div part="content" ref={el => (this.contentEl = el)} onClick={this.handleContentClick} onTransitionEnd={this.handleContentTransitionEnd}>
+          <slot />
         </div>
-        {this.triggerAction !== 'hover' &&
-          <div part="backdrop" ref={el => this.backdropEl = el} onClick={this.handleBackdropClick} class={{ clear: !this.showBackdrop, pointer: this.backdropDismiss }} onTransitionEnd={this.handleBackdropTransitionEnd}></div>
-        }
+        {this.triggerAction !== 'hover' && this.renderBackdrop && (
+          <div
+            part="backdrop"
+            ref={el => (this.backdropEl = el)}
+            onClick={this.handleBackdropClick}
+            class={{ clear: !this.showBackdrop, pointer: this.backdropDismiss }}
+            onTransitionEnd={this.handleBackdropTransitionEnd}
+          ></div>
+        )}
       </Host>
     );
   }

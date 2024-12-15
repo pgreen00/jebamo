@@ -130,14 +130,15 @@ export declare interface JeCheckbox extends Components.JeCheckbox {
 
 
 @ProxyCmp({
-  inputs: ['label', 'value']
+  inputs: ['defaultValue', 'disabled', 'helperText', 'label', 'readonly', 'required', 'value'],
+  methods: ['markAsTouched', 'reset']
 })
 @Component({
   selector: 'je-checkbox-group',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['label', 'value'],
+  inputs: ['defaultValue', 'disabled', 'helperText', 'label', 'readonly', 'required', 'value'],
 })
 export class JeCheckboxGroup {
   protected el: HTMLElement;
@@ -172,21 +173,11 @@ export class JeCheckboxOption {
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['check', 'uncheck']);
   }
 }
 
 
-export declare interface JeCheckboxOption extends Components.JeCheckboxOption {
-  /**
-   * Emits the value whenever it is checked
-   */
-  check: EventEmitter<CustomEvent<any>>;
-  /**
-   * Emits the value whenever it is unchecked
-   */
-  uncheck: EventEmitter<CustomEvent<any>>;
-}
+export declare interface JeCheckboxOption extends Components.JeCheckboxOption {}
 
 
 @ProxyCmp({
@@ -373,14 +364,13 @@ export declare interface JeDropzone extends Components.JeDropzone {
 
 
 @ProxyCmp({
-  inputs: ['gap']
 })
 @Component({
   selector: 'je-form',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['gap'],
+  inputs: [],
 })
 export class JeForm {
   protected el: HTMLElement;
@@ -394,7 +384,7 @@ export class JeForm {
 
 export declare interface JeForm extends Components.JeForm {
 
-  formData: EventEmitter<CustomEvent<FormData>>;
+  formData: EventEmitter<CustomEvent<Record<string, FormDataEntryValue>>>;
 }
 
 
@@ -727,14 +717,14 @@ export declare interface JePlaceholder extends Components.JePlaceholder {}
 
 
 @ProxyCmp({
-  inputs: ['backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'showBackdrop', 'triggerAction']
+  inputs: ['backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'renderBackdrop', 'showBackdrop', 'triggerAction']
 })
 @Component({
   selector: 'je-popover',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'showBackdrop', 'triggerAction'],
+  inputs: ['backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'renderBackdrop', 'showBackdrop', 'triggerAction'],
 })
 export class JePopover {
   protected el: HTMLElement;

@@ -1,25 +1,33 @@
-import { Component, Event, EventEmitter, Listen, Prop, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Listen, h } from '@stencil/core';
+import { buffer, debounceTime, fromEvent, tap } from 'rxjs';
 
 @Component({
   tag: 'je-form',
-  styleUrl: 'je-form.scss',
-  scoped: true
+  styleUrl: 'je-form.scss'
 })
 export class JeForm {
   private el!: HTMLFormElement;
 
-  @Event() formData: EventEmitter<FormData>;
+  @Event() formData: EventEmitter<Record<string, FormDataEntryValue>>;
 
-  /**
-   * Removes the default gap between elements passed in
-   */
-  @Prop() gap: 'none' | 'default' = 'default';
+  componentDidLoad() {
+    fromEvent(this.el, 'invalid', { capture: true }).pipe(
+      tap(ev => ev.preventDefault()),
+      buffer(fromEvent(this.el, 'invalid', { capture: true }).pipe(debounceTime(100)))
+    ).subscribe(events => {
+      const firstInvalidElement = events[0].target as HTMLElement;
+      if (firstInvalidElement && !firstInvalidElement.matches(':focus')) {
+        firstInvalidElement.focus();
+      }
+    })
+  }
 
   @Listen('submit')
   async handleSubmit(event: SubmitEvent) {
     event.preventDefault();
     const formData = new FormData(this.el);
-    this.formData.emit(formData)
+    const json = Object.fromEntries(formData.entries());
+    this.formData.emit(json);
   }
 
   @Listen('keydown')

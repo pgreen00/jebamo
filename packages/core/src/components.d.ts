@@ -129,9 +129,31 @@ export namespace Components {
     }
     interface JeCheckboxGroup {
         /**
+          * Default value the control will reset to when used in a form. Will be set automatically when the component loads.
+         */
+        "defaultValue"?: string[];
+        /**
+          * Shows disabled state and prevents changes
+         */
+        "disabled": boolean;
+        /**
+          * Helper text that shows below the controls
+         */
+        "helperText"?: string;
+        /**
           * Label that shows above the controls
          */
         "label"?: string;
+        "markAsTouched": () => Promise<void>;
+        /**
+          * Shows readonly state and prevents changes
+         */
+        "readonly": boolean;
+        /**
+          * Requires at least one option to be selected when used in a form
+         */
+        "required": boolean;
+        "reset": () => Promise<void>;
         /**
           * Current selected values
          */
@@ -219,10 +241,6 @@ export namespace Components {
     interface JeDropzone {
     }
     interface JeForm {
-        /**
-          * Removes the default gap between elements passed in
-         */
-        "gap": 'none' | 'default';
     }
     interface JeIcon {
         /**
@@ -495,6 +513,10 @@ export namespace Components {
          */
         "positionStrategy": 'click' | 'element';
         /**
+          * Whether or not the backdrop will be rendered
+         */
+        "renderBackdrop": boolean;
+        /**
           * Whether or not the backdrop will be visible to the user
          */
         "showBackdrop": boolean;
@@ -503,7 +525,7 @@ export namespace Components {
           * @context-menu Popover will show on right click or press on mobile.
           * @hover Popover will show on hover or tap on mobile. No backdrop will be rendered.
          */
-        "triggerAction": 'click' | 'hover' | 'context-menu';
+        "triggerAction": 'click' | 'hover' | 'context-menu' | 'manual';
     }
     interface JeRadio {
         /**
@@ -610,10 +632,6 @@ export interface JeCheckboxCustomEvent<T> extends CustomEvent<T> {
 export interface JeCheckboxGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeCheckboxGroupElement;
-}
-export interface JeCheckboxOptionCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJeCheckboxOptionElement;
 }
 export interface JeDatepickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -757,19 +775,7 @@ declare global {
         prototype: HTMLJeCheckboxGroupElement;
         new (): HTMLJeCheckboxGroupElement;
     };
-    interface HTMLJeCheckboxOptionElementEventMap {
-        "check": any;
-        "uncheck": any;
-    }
     interface HTMLJeCheckboxOptionElement extends Components.JeCheckboxOption, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeCheckboxOptionElementEventMap>(type: K, listener: (this: HTMLJeCheckboxOptionElement, ev: JeCheckboxOptionCustomEvent<HTMLJeCheckboxOptionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeCheckboxOptionElementEventMap>(type: K, listener: (this: HTMLJeCheckboxOptionElement, ev: JeCheckboxOptionCustomEvent<HTMLJeCheckboxOptionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeCheckboxOptionElement: {
         prototype: HTMLJeCheckboxOptionElement;
@@ -846,7 +852,7 @@ declare global {
         new (): HTMLJeDropzoneElement;
     };
     interface HTMLJeFormElementEventMap {
-        "formData": FormData;
+        "formData": Record<string, FormDataEntryValue>;
     }
     interface HTMLJeFormElement extends Components.JeForm, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeFormElementEventMap>(type: K, listener: (this: HTMLJeFormElement, ev: JeFormCustomEvent<HTMLJeFormElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1337,6 +1343,18 @@ declare namespace LocalJSX {
     }
     interface JeCheckboxGroup {
         /**
+          * Default value the control will reset to when used in a form. Will be set automatically when the component loads.
+         */
+        "defaultValue"?: string[];
+        /**
+          * Shows disabled state and prevents changes
+         */
+        "disabled"?: boolean;
+        /**
+          * Helper text that shows below the controls
+         */
+        "helperText"?: string;
+        /**
           * Label that shows above the controls
          */
         "label"?: string;
@@ -1344,6 +1362,14 @@ declare namespace LocalJSX {
           * Emits the current selected values whenever they change
          */
         "onValueChange"?: (event: JeCheckboxGroupCustomEvent<string[]>) => void;
+        /**
+          * Shows readonly state and prevents changes
+         */
+        "readonly"?: boolean;
+        /**
+          * Requires at least one option to be selected when used in a form
+         */
+        "required"?: boolean;
         /**
           * Current selected values
          */
@@ -1358,14 +1384,6 @@ declare namespace LocalJSX {
           * Shows disabled state and prevents changes to this option
          */
         "disabled"?: boolean;
-        /**
-          * Emits the value whenever it is checked
-         */
-        "onCheck"?: (event: JeCheckboxOptionCustomEvent<any>) => void;
-        /**
-          * Emits the value whenever it is unchecked
-         */
-        "onUncheck"?: (event: JeCheckboxOptionCustomEvent<any>) => void;
         /**
           * Shows readonly state and prevents changes to this option
          */
@@ -1441,11 +1459,7 @@ declare namespace LocalJSX {
         "onDataDrop"?: (event: JeDropzoneCustomEvent<DataTransfer>) => void;
     }
     interface JeForm {
-        /**
-          * Removes the default gap between elements passed in
-         */
-        "gap"?: 'none' | 'default';
-        "onFormData"?: (event: JeFormCustomEvent<FormData>) => void;
+        "onFormData"?: (event: JeFormCustomEvent<Record<string, FormDataEntryValue>>) => void;
     }
     interface JeIcon {
         /**
@@ -1739,6 +1753,10 @@ declare namespace LocalJSX {
          */
         "positionStrategy"?: 'click' | 'element';
         /**
+          * Whether or not the backdrop will be rendered
+         */
+        "renderBackdrop"?: boolean;
+        /**
           * Whether or not the backdrop will be visible to the user
          */
         "showBackdrop"?: boolean;
@@ -1747,7 +1765,7 @@ declare namespace LocalJSX {
           * @context-menu Popover will show on right click or press on mobile.
           * @hover Popover will show on hover or tap on mobile. No backdrop will be rendered.
          */
-        "triggerAction"?: 'click' | 'hover' | 'context-menu';
+        "triggerAction"?: 'click' | 'hover' | 'context-menu' | 'manual';
     }
     interface JeRadio {
         /**

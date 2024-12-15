@@ -26,6 +26,10 @@ je-page {
   }
 }
 
+je-form form {
+  gap: var(--je-spacing-lg);
+}
+
 html,
 body {
   height: 100vh;

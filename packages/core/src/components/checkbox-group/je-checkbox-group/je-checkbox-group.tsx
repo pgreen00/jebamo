@@ -1,4 +1,5 @@
-import { Component, Host, h, Element, Event, EventEmitter, Listen, Prop, Watch } from '@stencil/core';
+import { Component, h, Element, Event, EventEmitter, Listen, Prop, Watch, AttachInternals, State, Method } from '@stencil/core';
+import { setName } from '../../../utils/utils';
 
 @Component({
   tag: 'je-checkbox-group',
@@ -8,12 +9,39 @@ import { Component, Host, h, Element, Event, EventEmitter, Listen, Prop, Watch }
 })
 export class JeCheckboxGroup {
   @Element() el!: HTMLJeCheckboxGroupElement;
-  private originalValue?: string[];
+  @AttachInternals() internals: ElementInternals;
+  @State() isTouched = false;
+  private focusEl: HTMLElement;
+
+  /**
+   * Default value the control will reset to when used in a form. Will be set automatically when the component loads.
+   */
+  @Prop({ mutable: true }) defaultValue?: string[];
 
   /**
    * Label that shows above the controls
    */
   @Prop() label?: string;
+
+  /**
+   * Helper text that shows below the controls
+   */
+  @Prop() helperText?: string;
+
+  /**
+   * Requires at least one option to be selected when used in a form
+   */
+  @Prop({ reflect: true }) required = false;
+
+  /**
+   * Shows disabled state and prevents changes
+   */
+  @Prop() disabled = false;
+
+  /**
+   * Shows readonly state and prevents changes
+   */
+  @Prop() readonly = false;
 
   /**
    * Current selected values
@@ -26,28 +54,47 @@ export class JeCheckboxGroup {
   @Event({ bubbles: false }) valueChange: EventEmitter<string[]>;
 
   componentWillLoad() {
-    if (!Array.isArray(this.value)) {
+    if (!Array.isArray(this.value))
       this.value = [];
-    }
 
-    this.originalValue = this.value;
+    if (!this.defaultValue)
+      this.defaultValue = this.value;
 
-    if (this.label) {
-      this.el.setAttribute('name', this.label);
-    }
+    setName(this.el, this.label);
+
+    if (!this.el.getAttribute('tabindex'))
+      this.el.setAttribute('tabindex', '0');
   }
 
   componentDidLoad() {
-    if (this.value) {
-      const checkboxes = this.getChecks();
-      for (let item of checkboxes) {
-        item.checked = this.value.includes(item.value);
-      }
+    const checkboxes = this.getChecks();
+    for (let item of checkboxes) {
+      item.checked = this.value.includes(item.value);
+      if (this.disabled)
+        item.disabled = true;
+      if (this.readonly)
+        item.readonly = true;
     }
   }
 
+  connectedCallback() {
+    this.internals.setFormValue(this.value.toString());
+  }
+
   formResetCallback() {
-    this.value = this.originalValue;
+    this.value = this.defaultValue;
+    this.isTouched = false;
+  }
+
+  componentDidRender() {
+    if (this.required && !this.getChecks().filter(t => t.checked).length) {
+      this.internals.setValidity({ valueMissing: true }, 'Please select at least one option');
+    } else {
+      this.internals.setValidity({});
+    }
+    if (this.isTouched) {
+      this.internals.reportValidity();
+    }
   }
 
   private getChecks() {
@@ -55,34 +102,57 @@ export class JeCheckboxGroup {
     return Array.from(elements);
   }
 
+  private isOption(target: EventTarget): target is HTMLJeCheckboxOptionElement {
+    return target instanceof HTMLElement && target.tagName.toLowerCase() === 'je-checkbox-option';
+  }
+
   @Watch('value')
   handleValueChange() {
     this.valueChange.emit(this.value);
+    this.internals.setFormValue(this.value.toString());
     const checkboxes = this.getChecks();
     for (let checkbox of checkboxes) {
-      const includes = this.value.includes(checkbox.value);
-      if (checkbox.checked != includes) {
-        checkbox.checked = includes;
+      checkbox.checked = this.value.includes(checkbox.value);
+    }
+  }
+
+  @Listen('click')
+  onClick(ev: PointerEvent) {
+    const { target } = ev;
+    if (this.isOption(target)) {
+      target.checked = !target.checked;
+      if (target.checked) {
+        this.value = [...this.value, target.value];
+      } else {
+        this.value = this.value.filter(t => t !== target.value);
       }
     }
   }
 
-  @Listen('check')
-  handleCheck(ev: CustomEvent<any>) {
-    this.value = [ev.detail, ...this.value];
+  @Method()
+  async markAsTouched() {
+    this.isTouched = true;
   }
 
-  @Listen('uncheck')
-  handleUncheck(ev: CustomEvent<any>) {
-    this.value = this.value.filter(t => t !== ev.detail);
+  @Method()
+  async reset() {
+    this.formResetCallback();
   }
 
   render() {
     return (
-      <Host>
-        {this.label && <label>{this.label}</label>}
-        <slot></slot>
-      </Host>
+      <je-popover placement='top-start'>
+        <div slot='trigger'>
+          <slot name='label'>
+            {this.label && <label part='label'>{this.label}</label>}
+          </slot>
+          <slot></slot>
+          <slot name='helper-text'>
+            {this.helperText && <small part='helper-text'>{this.helperText}</small>}
+          </slot>
+        </div>
+        {this.internals.validationMessage}
+      </je-popover>
     );
   }
 }

@@ -1,13 +1,33 @@
 @use '../../../styles/global';
 @use '../../../styles/spacing';
+@use '../../../styles/colors';
 
 :host {
   display: block;
   width: fit-content;
 }
 
+:host([required]:not([required=false])) {
+  ::slotted([slot=label]),
+  label {
+    &::after {
+      content: "*";
+      color: colors.get(error, 500);
+    }
+  }
+}
+
+::slotted([slot=label]),
 label {
   display: block;
   font-weight: global.font-weight(semi-bold);
   margin-bottom: spacing.get(2xs);
 }
+
+::slotted([slot=helper-text]),
+small {
+  display: block;
+  margin-top: spacing.get(2xs);
+  color: colors.get(medium, 600);
+}
+
