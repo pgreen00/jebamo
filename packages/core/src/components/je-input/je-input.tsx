@@ -327,7 +327,7 @@ export class JeInput {
 
           <div part='end-container'>
             {this.isTouched && !this.internals.checkValidity() && (
-              <je-popover renderBackdrop={false} placement='bottom-end'>
+              <je-popover renderBackdrop={false} placement='bottom-end' arrow={true}>
                 <je-color ref={el => this.errorEl = el} slot='trigger' color='error'>
                   <je-icon size='sm' fill={true} icon='error' />
                 </je-color>

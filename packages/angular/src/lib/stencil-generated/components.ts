@@ -717,14 +717,14 @@ export declare interface JePlaceholder extends Components.JePlaceholder {}
 
 
 @ProxyCmp({
-  inputs: ['backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'renderBackdrop', 'showBackdrop', 'triggerAction']
+  inputs: ['arrow', 'backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'renderBackdrop', 'showBackdrop', 'triggerAction']
 })
 @Component({
   selector: 'je-popover',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'renderBackdrop', 'showBackdrop', 'triggerAction'],
+  inputs: ['arrow', 'backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'renderBackdrop', 'showBackdrop', 'triggerAction'],
 })
 export class JePopover {
   protected el: HTMLElement;

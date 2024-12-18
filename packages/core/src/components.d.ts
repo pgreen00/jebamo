@@ -481,6 +481,10 @@ export namespace Components {
     }
     interface JePopover {
         /**
+          * Renders an arrow pointing to the trigger
+         */
+        "arrow": boolean;
+        /**
           * Backdrop will dismiss the popover on click when enabled
          */
         "backdropDismiss": boolean;
@@ -1712,6 +1716,10 @@ declare namespace LocalJSX {
         "animated"?: boolean;
     }
     interface JePopover {
+        /**
+          * Renders an arrow pointing to the trigger
+         */
+        "arrow"?: boolean;
         /**
           * Backdrop will dismiss the popover on click when enabled
          */

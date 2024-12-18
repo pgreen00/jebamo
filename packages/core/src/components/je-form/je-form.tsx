@@ -11,9 +11,10 @@ export class JeForm {
   @Event() formData: EventEmitter<Record<string, FormDataEntryValue>>;
 
   componentDidLoad() {
-    fromEvent(this.el, 'invalid', { capture: true }).pipe(
+    const ev$ = fromEvent(this.el, 'invalid', { capture: true })
+    ev$.pipe(
       tap(ev => ev.preventDefault()),
-      buffer(fromEvent(this.el, 'invalid', { capture: true }).pipe(debounceTime(100)))
+      buffer(ev$.pipe(debounceTime(100)))
     ).subscribe(events => {
       const firstInvalidElement = events[0].target as HTMLElement;
       if (firstInvalidElement && !firstInvalidElement.matches(':focus')) {

@@ -4,7 +4,9 @@ import { Color } from '../../utils/utils';
 @Component({
   tag: 'je-button',
   styleUrl: 'je-button.scss',
-  shadow: true,
+  shadow: {
+    delegatesFocus: true
+  },
 })
 export class JeButton {
   @Element() el: HTMLJeButtonElement;
@@ -74,7 +76,7 @@ export class JeButton {
 
   render() {
     return (
-      <button part='inner-button' disabled={this.disabled} type={this.type}>
+      <button part='inner-button' disabled={this.disabled} type={this.type} tabindex={0}>
         <slot></slot>
         <slot name='badge'></slot>
       </button>

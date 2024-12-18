@@ -1,5 +1,5 @@
 import { Component, Host, h, Element, EventEmitter, Listen, Prop, Event, Watch } from '@stencil/core';
-import { autoUpdate, computePosition, flip, offset, Placement, shift, size } from '@floating-ui/dom';
+import { arrow, autoUpdate, computePosition, flip, offset, Placement, shift, size } from '@floating-ui/dom';
 import { animationUpdate } from '../../utils/utils';
 
 @Component({
@@ -10,9 +10,11 @@ import { animationUpdate } from '../../utils/utils';
 export class JePopover {
   @Element() el!: HTMLJePopoverElement;
 
-  private contentEl!: HTMLElement;
+  private containerEl!: HTMLElement;
 
   private backdropEl?: HTMLElement;
+
+  private arrowEl?: HTMLElement;
 
   private triggerElement!: Element | null;
 
@@ -74,6 +76,11 @@ export class JePopover {
   @Prop() matchWidth = false;
 
   /**
+   * Renders an arrow pointing to the trigger
+   */
+  @Prop() arrow = false;
+
+  /**
    * Emits when the popover is opened
    */
   @Event() popoverPresent: EventEmitter;
@@ -116,7 +123,7 @@ export class JePopover {
           return new DOMRect(this.mouseEvent!.clientX, this.mouseEvent!.clientY, 0, 0);
         },
       };
-      const { x, y } = await computePosition(this.referenceEl, this.contentEl, {
+      const { x, y, middlewareData } = await computePosition(this.referenceEl, this.containerEl, {
         placement: this.placement,
         strategy: 'fixed',
         middleware: [
@@ -128,21 +135,33 @@ export class JePopover {
           shift(),
           size({
             apply: ({ availableHeight }) => {
-              this.contentEl.style.setProperty('--available-height', `${availableHeight - this.offsetY}px`);
+              this.containerEl.style.setProperty('--available-height', `${availableHeight - this.offsetY}px`);
             },
           }),
+          this.arrowEl ? arrow({
+            element: this.arrowEl
+          }) : false
         ],
       });
-      this.contentEl.style.left = `${x}px`;
-      this.contentEl.style.top = `${y}px`;
-      this.contentEl.classList.add('open');
+      if (middlewareData.arrow) {
+        this.arrowEl.removeAttribute('class')
+        this.arrowEl.classList.add(middlewareData.offset.placement)
+        if (middlewareData.arrow.x) {
+          this.arrowEl.style.left = `${middlewareData.arrow.x}px`
+        } else if (middlewareData.arrow.y) {
+          this.arrowEl.style.top = `${middlewareData.arrow.y}px`
+        }
+      }
+      this.containerEl.style.left = `${x}px`;
+      this.containerEl.style.top = `${y}px`;
+      this.containerEl.classList.add('open');
       this.backdropEl?.classList.add('open');
       await animationUpdate();
-      this.contentEl.style.opacity = '1';
+      this.containerEl.style.opacity = '1';
       this.backdropEl?.style.setProperty('opacity', '1');
       this.popoverPresent.emit();
     } else {
-      this.contentEl.style.removeProperty('opacity');
+      this.containerEl.style.removeProperty('opacity');
       this.backdropEl?.removeAttribute('style');
       this.popoverDismiss.emit();
     }
@@ -150,8 +169,8 @@ export class JePopover {
 
   @Listen('popoverPresent')
   handlePopoverPresent() {
-    this.cleanup = autoUpdate(this.referenceEl, this.contentEl, () => {
-      computePosition(this.referenceEl, this.contentEl, {
+    this.cleanup = autoUpdate(this.referenceEl, this.containerEl, () => {
+      computePosition(this.referenceEl, this.containerEl, {
         placement: this.placement,
         strategy: 'fixed',
         middleware: [
@@ -163,13 +182,25 @@ export class JePopover {
           shift(),
           size({
             apply: ({ availableHeight }) => {
-              this.contentEl.style.setProperty('--available-height', `${availableHeight - this.offsetY}px`);
+              this.containerEl.style.setProperty('--available-height', `${availableHeight - this.offsetY}px`);
             },
           }),
+          this.arrowEl ? arrow({
+            element: this.arrowEl
+          }) : false
         ],
-      }).then(({ x, y }) => {
-        this.contentEl.style.left = `${x}px`;
-        this.contentEl.style.top = `${y}px`;
+      }).then(({ x, y, middlewareData }) => {
+        this.containerEl.style.left = `${x}px`;
+        this.containerEl.style.top = `${y}px`;
+        if (middlewareData.arrow) {
+          this.arrowEl.removeAttribute('class')
+          this.arrowEl.classList.add(middlewareData.offset.placement)
+          if (middlewareData.arrow.x) {
+            this.arrowEl.style.left = `${middlewareData.arrow.x}px`
+          } else if (middlewareData.arrow.y) {
+            this.arrowEl.style.top = `${middlewareData.arrow.y}px`
+          }
+        }
       });
     });
   }
@@ -224,8 +255,8 @@ export class JePopover {
 
   private handleContentTransitionEnd = () => {
     if (!this.open) {
-      this.contentEl.classList.remove('open');
-      this.contentEl.removeAttribute('style');
+      this.containerEl.classList.remove('open');
+      this.containerEl.removeAttribute('style');
     }
   };
 
@@ -247,8 +278,13 @@ export class JePopover {
         >
           <slot name="trigger" />
         </div>
-        <div part="content" ref={el => (this.contentEl = el)} onClick={this.handleContentClick} onTransitionEnd={this.handleContentTransitionEnd}>
-          <slot />
+        <div part='content-container' ref={el => (this.containerEl = el)} onClick={this.handleContentClick} onTransitionEnd={this.handleContentTransitionEnd}>
+          <div part="content">
+            <slot />
+          </div>
+          {this.arrow && this.positionStrategy == 'element' && (
+            <div ref={el => this.arrowEl = el} part='arrow'></div>
+          )}
         </div>
         {this.triggerAction !== 'hover' && this.renderBackdrop && (
           <div
