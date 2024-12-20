@@ -1,5 +1,6 @@
 import { Component, Host, Prop, h, Element, Event, AttachInternals, EventEmitter, Method, State, Watch, Listen, forceUpdate } from '@stencil/core';
 import { AsyncFormatterFn, AsyncValidationFn, debounceEvent, FormatterFn, setName, ValidationFn } from '../../utils/utils';
+import { format, parseISO } from 'date-fns';
 
 @Component({
   tag: 'je-input',
@@ -131,6 +132,16 @@ export class JeInput {
   @Prop() format?: FormatterFn | AsyncFormatterFn;
 
   /**
+   * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).
+   *
+   * There are built-in transformers for 'number', 'date', and 'datetime'.
+   */
+  @Prop() transform?: {
+    to?: (value: string) => any;
+    from?: (value: any) => string;
+  } | 'number' | 'date' | 'datetime';
+
+  /**
    * Custom validator functions for form participation
    */
   @Prop() validators?: (ValidationFn | AsyncValidationFn)[];
@@ -155,9 +166,6 @@ export class JeInput {
     this.originalValue = this.value;
     if (this.debounce) {
       this.valueChange = debounceEvent(this.valueChange, this.debounce);
-    }
-    if (this.format) {
-      this.value = await this.format(this.value);
     }
   }
 
@@ -286,11 +294,34 @@ export class JeInput {
   private handleInput = (ev: InputEvent) => {
     const input = ev.target as HTMLInputElement | null;
     if (input) {
-      this.value = input.value;
+      const transformer = this.getTransformer();
+      this.value = transformer?.to ? transformer.to(input.value) : input.value;
+    }
+  }
+
+  private getTransformer = () => {
+    if (this.transform === 'number') {
+      return {
+        to: (value: string) => parseFloat(value),
+        from: (value: any) => value.toString()
+      }
+    } else if (this.transform === 'date') {
+      return {
+        to: (value: string) => parseISO(value).toISOString(),
+        from: (value: any) => format(value, "yyyy-MM-dd")
+      }
+    } else if (this.transform === 'datetime') {
+      return {
+        to: (value: string) => parseISO(value).toISOString(),
+        from: (value: any) => format(value, "yyyy-MM-dd'T'HH:mm:ss")
+      }
+    } else {
+      return this.transform;
     }
   }
 
   render() {
+    const transformer = this.getTransformer();
     return (
       <Host>
         <div part='outer-container' class={{ disabled: this.disabled, touched: this.isTouched }}>
@@ -322,7 +353,7 @@ export class JeInput {
             spellcheck={this.spellcheck}
             step={this.step}
             type={this.type == 'password' && this.showPassword ? 'text' : this.type}
-            value={this.value}
+            value={transformer?.from ? transformer.from(this.value) : this.value}
             placeholder={this.placeholder} />
 
           <div part='end-container'>

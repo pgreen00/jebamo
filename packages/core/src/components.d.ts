@@ -372,6 +372,13 @@ export namespace Components {
          */
         "step"?: string;
         /**
+          * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).  There are built-in transformers for 'number', 'date', and 'datetime'.
+         */
+        "transform"?: {
+    to?: (value: string) => any;
+    from?: (value: any) => string;
+  } | 'number' | 'date' | 'datetime';
+        /**
           * Passed to native input
          */
         "type": string;
@@ -1598,6 +1605,13 @@ declare namespace LocalJSX {
           * Passed to native input
          */
         "step"?: string;
+        /**
+          * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).  There are built-in transformers for 'number', 'date', and 'datetime'.
+         */
+        "transform"?: {
+    to?: (value: string) => any;
+    from?: (value: any) => string;
+  } | 'number' | 'date' | 'datetime';
         /**
           * Passed to native input
          */

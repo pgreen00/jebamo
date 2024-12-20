@@ -439,7 +439,7 @@ export declare interface JeInfinite extends Components.JeInfinite {
 
 
 @ProxyCmp({
-  inputs: ['autocapitalize', 'autocomplete', 'autocorrect', 'autofocus', 'debounce', 'disabled', 'expand', 'format', 'helperText', 'inputmode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'pattern', 'placeholder', 'readonly', 'required', 'spellcheck', 'step', 'type', 'validators', 'value'],
+  inputs: ['autocapitalize', 'autocomplete', 'autocorrect', 'autofocus', 'debounce', 'disabled', 'expand', 'format', 'helperText', 'inputmode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'pattern', 'placeholder', 'readonly', 'required', 'spellcheck', 'step', 'transform', 'type', 'validators', 'value'],
   methods: ['getInputElement', 'markAsTouched', 'getErrors', 'reset']
 })
 @Component({
@@ -447,7 +447,7 @@ export declare interface JeInfinite extends Components.JeInfinite {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['autocapitalize', 'autocomplete', 'autocorrect', 'autofocus', 'debounce', 'disabled', 'expand', 'format', 'helperText', 'inputmode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'pattern', 'placeholder', 'readonly', 'required', 'spellcheck', 'step', 'type', 'validators', 'value'],
+  inputs: ['autocapitalize', 'autocomplete', 'autocorrect', 'autofocus', 'debounce', 'disabled', 'expand', 'format', 'helperText', 'inputmode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'pattern', 'placeholder', 'readonly', 'required', 'spellcheck', 'step', 'transform', 'type', 'validators', 'value'],
 })
 export class JeInput {
   protected el: HTMLElement;

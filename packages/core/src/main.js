@@ -117,3 +117,16 @@ formEl.addEventListener('submit', ev => {
   ];
   dialogElement.present();
 });
+
+document.getElementById('dateInput').value = '12/31/2021';
+document.getElementById('dateInput').transform = 'date';
+
+document.getElementById('timeInput').value = '12:00:00';
+document.getElementById('timeInput').transform = {
+  from: value => new Date(value).toLocaleTimeString(),
+  to: value => new Date(value).toISOString(),
+}
+
+document.getElementById('dateInput').addEventListener('valueChange', ev => console.log(ev.detail));
+document.getElementById('timeInput').addEventListener('valueChange', ev => console.log(ev.detail));
+document.getElementById('dateTimeInput').addEventListener('valueChange', ev => console.log(ev.detail));

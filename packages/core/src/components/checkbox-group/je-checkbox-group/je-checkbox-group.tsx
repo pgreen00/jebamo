@@ -1,17 +1,19 @@
-import { Component, h, Element, Event, EventEmitter, Listen, Prop, Watch, AttachInternals, State, Method } from '@stencil/core';
+import { Component, h, Element, Event, EventEmitter, Listen, Prop, Watch, AttachInternals, State, Method, forceUpdate } from '@stencil/core';
 import { setName } from '../../../utils/utils';
 
 @Component({
   tag: 'je-checkbox-group',
   styleUrl: 'je-checkbox-group.scss',
-  shadow: true,
+  shadow: {
+    delegatesFocus: true
+  },
   formAssociated: true
 })
 export class JeCheckboxGroup {
   @Element() el!: HTMLJeCheckboxGroupElement;
   @AttachInternals() internals: ElementInternals;
   @State() isTouched = false;
-  private focusEl: HTMLElement;
+  private errorEl?: HTMLElement;
 
   /**
    * Default value the control will reset to when used in a form. Will be set automatically when the component loads.
@@ -86,7 +88,7 @@ export class JeCheckboxGroup {
     this.isTouched = false;
   }
 
-  componentDidRender() {
+  componentWillRender() {
     if (this.required && !this.getChecks().filter(t => t.checked).length) {
       this.internals.setValidity({ valueMissing: true }, 'Please select at least one option');
     } else {
@@ -94,6 +96,12 @@ export class JeCheckboxGroup {
     }
     if (this.isTouched) {
       this.internals.reportValidity();
+    }
+  }
+
+  componentDidRender() {
+    if (this.isTouched && !this.internals.checkValidity()) {
+      this.errorEl?.click();
     }
   }
 
@@ -129,6 +137,22 @@ export class JeCheckboxGroup {
     }
   }
 
+    @Listen('focus')
+    onFocus() {
+      if (this.isTouched)
+        forceUpdate(this.el)
+      else
+        this.isTouched = true
+    }
+
+    @Listen('blur')
+    onBlur() {
+      const po = this.el.shadowRoot.querySelector('je-popover')
+      if (po) {
+        po.open = false;
+      }
+    }
+
   @Method()
   async markAsTouched() {
     this.isTouched = true;
@@ -141,18 +165,26 @@ export class JeCheckboxGroup {
 
   render() {
     return (
-      <je-popover placement='top-start'>
-        <div slot='trigger'>
-          <slot name='label'>
-            {this.label && <label part='label'>{this.label}</label>}
-          </slot>
-          <slot></slot>
-          <slot name='helper-text'>
-            {this.helperText && <small part='helper-text'>{this.helperText}</small>}
-          </slot>
+      <div part='base' tabindex={0}>
+        <slot name='label'>
+          {this.label && <label part='label'>{this.label}</label>}
+        </slot>
+        <slot></slot>
+        <slot name='helper-text'>
+          {this.helperText && <small part='helper-text'>{this.helperText}</small>}
+        </slot>
+        <div part='fixed-container'>
+          {this.isTouched && !this.internals.checkValidity() && (
+            <je-popover renderBackdrop={false} placement='bottom' arrow={true}>
+              <je-color ref={el => this.errorEl = el} slot='trigger' color='error'>
+                <je-icon size='sm' fill={true} icon='error' />
+              </je-color>
+              <div part='error-message'>{this.internals.validationMessage}</div>
+            </je-popover>
+          )}
+          <slot name='fixed' />
         </div>
-        {this.internals.validationMessage}
-      </je-popover>
+      </div>
     );
   }
 }

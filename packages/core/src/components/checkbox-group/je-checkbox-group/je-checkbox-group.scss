@@ -3,8 +3,12 @@
 @use '../../../styles/colors';
 
 :host {
-  display: block;
+  display: contents;
+}
+
+[part=base] {
   width: fit-content;
+  position: relative;
 }
 
 :host([required]:not([required=false])) {
@@ -31,3 +35,11 @@ small {
   color: colors.get(medium, 600);
 }
 
+[part=fixed-container] {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  gap: spacing.get(2xs);
+  transform: translateX(100%);
+}

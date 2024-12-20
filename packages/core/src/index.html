@@ -252,9 +252,9 @@
       <div slot="right-panel">
         <h2>Example Form</h2>
         <je-form id="form">
-          <je-input expand label="Date" type="date"></je-input>
-          <je-input expand label="Time" step="300" type="time"></je-input>
-          <je-input expand label="Date & Time" type="datetime-local"></je-input>
+          <je-input id="dateInput" expand label="Date" type="date"></je-input>
+          <je-input id="timeInput" expand label="Time" step="300" type="time"></je-input>
+          <je-input id="dateTimeInput" transform="datetime" value="2021-12-31T12:00" expand label="Date & Time" type="datetime-local"></je-input>
           <je-input value="Peter Green" label="Name" placeholder="What's your name?" expand="true"></je-input>
           <je-select expand label="Day" placeholder="Select a day of the week">
             <je-select-option value="1">Monday</je-select-option>

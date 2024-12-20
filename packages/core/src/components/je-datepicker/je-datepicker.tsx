@@ -12,7 +12,6 @@ export class JeDatepicker {
   @Prop({ mutable: true }) value?: Date | string;
   @Event() valueChange: EventEmitter<Date | undefined>;
   @State() isDark = false;
-  @State() monthYearPicker = false;
 
   @Listen('themeChange', { target: 'body' })
   handleThemeChange(e: CustomEvent<'light' | 'dark'>) {
@@ -42,16 +41,17 @@ export class JeDatepicker {
     const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
     const firstDayOfMonth = startOfMonth(this.currentDate);
     const lastDayOfMonth = endOfMonth(this.currentDate);
-    const firstDayOfWeek = getDay(firstDayOfMonth);
-    const lastDayOfWeek = getDay(lastDayOfMonth);
     const daysInMonth = eachDayOfInterval({ start: firstDayOfMonth, end: lastDayOfMonth });
 
     const prevMonth = subMonths(this.currentDate, 1);
     const prevMonthEnd = endOfMonth(prevMonth);
 
+    const firstDayOfWeek = getDay(firstDayOfMonth);
     const daysBefore = Array.from({ length: firstDayOfWeek }).map((_, i) =>
       subMonths(this.currentDate, 1).setDate(prevMonthEnd.getDate() - (firstDayOfWeek - i - 1))
     );
+
+    const lastDayOfWeek = getDay(lastDayOfMonth);
     const daysAfter = Array.from({ length: 6 - lastDayOfWeek }).map((_, i) =>
       addMonths(this.currentDate, 1).setDate(i + 1)
     );
@@ -59,12 +59,33 @@ export class JeDatepicker {
     return (
       <Host>
         <div class="header">
-          <div onClick={() => this.monthYearPicker = !this.monthYearPicker}>
-            <span>{format(this.currentDate, 'MMMM yyyy')}</span>
-            <je-button fill='clear' iconOnly={true}>
-              <je-icon class={{ open: this.monthYearPicker }} icon='expand_more' />
-            </je-button>
-          </div>
+          <je-popover placement='bottom' arrow={true} showBackdrop={true}>
+            <div slot='trigger'>
+              <span>{format(this.currentDate, 'MMMM yyyy')}</span>
+              <je-button fill='clear' iconOnly={true}>
+                <je-icon icon='expand_more' />
+              </je-button>
+            </div>
+            <div class='month-year-picker'>
+              <je-button iconOnly={true} fill='clear' style={{ marginLeft: 'auto' }}>
+                <je-icon icon='close' />
+              </je-button>
+              <div style={{ maxHeight: '150px', overflow: 'auto' }}>
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <je-details summary={format(new Date(0, i), 'MMMM')}>
+                    <je-button fill='clear' expand={true} onClick={() => this.currentDate.setMonth(i)}>
+                      {format(new Date(0, i), 'MMMM')}
+                    </je-button>
+                    {Array.from({ length: 31 }).map((_, j) => (
+                      <je-button fill='clear' expand={true} onClick={() => this.currentDate.setDate(j + 1)}>
+                        {j + 1}
+                      </je-button>
+                    ))}
+                  </je-details>
+                ))}
+              </div>
+            </div>
+          </je-popover>
           <je-button iconOnly={true} fill='clear' onClick={this.prevMonth}>
             <je-icon fill={true} icon='arrow_left' />
           </je-button>
