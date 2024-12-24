@@ -8,18 +8,18 @@ import { JeMenuOptionCustomEvent } from '../../../components';
 })
 export class JeMenu {
   @Element() el: HTMLElement;
-  @Prop() type?: 'select' | 'radio';
-  @Prop() value?: string;
+  @Prop() type?: 'select' | 'multiselect';
+  @Prop({ mutable: true }) value?: string;
   @Event() valueChange: EventEmitter<string>;
 
   @Listen('menuOptionSelect')
   onMenuOptionSelect(event: JeMenuOptionCustomEvent<string>) {
     this.value = event.detail;
     this.valueChange.emit(this.value);
-    if (this.type == 'radio') {
+    if (this.type == 'select') {
       const menuOptions = Array.from(this.el.querySelectorAll('je-menu-option'));
       menuOptions.forEach(option => option.checked = option.value == this.value);
-    } else if (this.type == 'select') {
+    } else if (this.type == 'multiselect') {
       event.target.checked = !event.target.checked;
     }
   }

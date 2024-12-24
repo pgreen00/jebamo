@@ -1,12 +1,17 @@
 :host {
-  display: block;
+  display: flex;
   padding: var(--je-spacing-xs);
   box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--je-spacing-xs);
 }
 
 je-button.day {
-  --je-button-min-width: 20px;
-  --je-button-height: 20px;
+  --je-button-min-width: 25px;
+  --je-button-width: 25px;
+  --je-button-height: 25px;
   --je-button-inline-padding: 0px;
   &::part(inner-button) {
     font-weight: 400;
@@ -14,17 +19,15 @@ je-button.day {
 }
 
 .header {
+  width: 100%;
+  min-width: 200px;
+  max-width: 300px;
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
-  je-popover {
+  justify-content: space-between;
+  span {
     flex: 1;
-  }
-  div[slot=trigger] {
-    user-select: none;
-    display: flex;
-    cursor: pointer;
-    align-items: center;
+    text-align: center;
   }
 }
 
@@ -32,9 +35,10 @@ je-button.day {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 5px;
-  margin-bottom: 8px;
+
   div {
-    height: 20px;
+    height: 25px;
+    width: 25px;
     font-size: 1em;
     font-weight: 400;
     color: var(--je-medium-600);
@@ -47,12 +51,4 @@ je-button.day {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 5px;
-}
-
-je-icon {
-  transition: transform 250ms ease;
-}
-
-je-icon.open {
-  transform: rotate(180deg);
 }

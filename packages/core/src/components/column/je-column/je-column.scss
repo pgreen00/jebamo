@@ -1,10 +1,9 @@
+@use '../../../styles/global';
+
 :host {
-  margin: 0px;
+  display: block;
+  font-family: global.font-family();
   box-sizing: border-box;
-  flex-basis: 0px;
   flex-grow: 1;
-  width: 100%;
-  max-width: 100%;
   min-height: 1px;
-  font-family: var(--je-font-family, inherit);
 }

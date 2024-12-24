@@ -61,3 +61,8 @@ export type OverlayData<T = any> = {
   role?: string,
   data?: T
 }
+
+export type InputTransformer<T = any> = {
+  to?: (value: string) => T;
+  from?: (value: T) => string;
+}

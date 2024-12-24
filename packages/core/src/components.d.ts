@@ -6,13 +6,13 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AlertButton, AlertControl } from "./components/je-alert/je-alert";
-import { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, OverlayData, ValidationFn } from "./utils/utils";
+import { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, InputTransformer, OverlayData, ValidationFn } from "./utils/utils";
 import { Color as Color1 } from "./components";
 import { DrawerState } from "./components/je-drawer/je-drawer";
 import { PanelState } from "./components/je-page/je-page";
 import { Placement } from "@floating-ui/dom";
 export { AlertButton, AlertControl } from "./components/je-alert/je-alert";
-export { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, OverlayData, ValidationFn } from "./utils/utils";
+export { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, InputTransformer, OverlayData, ValidationFn } from "./utils/utils";
 export { Color as Color1 } from "./components";
 export { DrawerState } from "./components/je-drawer/je-drawer";
 export { PanelState } from "./components/je-page/je-page";
@@ -219,12 +219,28 @@ export namespace Components {
     }
     interface JeColumnGroup {
         /**
+          * Alignment of the columns.
+         */
+        "align"?: 'start' | 'center' | 'end' | 'stretch' | 'baseline';
+        /**
           * The number of columns the flex grid has.
          */
         "columns"?: number;
+        /**
+          * The gap between the columns.
+         */
+        "gap"?: '3xs' | '2xs' |'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+        /**
+          * Justification of the columns.
+         */
+        "justify"?: 'start' | 'center' | 'end' | 'space-between' | 'space-around';
+        /**
+          * If the columns should wrap.
+         */
+        "wrap"?: boolean;
     }
     interface JeDatepicker {
-        "value"?: Date | string;
+        "value"?: number;
     }
     interface JeDetails {
         "state": 'open' | 'closed';
@@ -374,10 +390,7 @@ export namespace Components {
         /**
           * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).  There are built-in transformers for 'number', 'date', and 'datetime'.
          */
-        "transform"?: {
-    to?: (value: string) => any;
-    from?: (value: any) => string;
-  } | 'number' | 'date' | 'datetime';
+        "transform"?: InputTransformer | 'number' | 'date' | 'datetime';
         /**
           * Passed to native input
          */
@@ -432,7 +445,7 @@ export namespace Components {
     interface JeLoading {
     }
     interface JeMenu {
-        "type"?: 'select' | 'radio';
+        "type"?: 'select' | 'multiselect';
         "value"?: string;
     }
     interface JeMenuOption {
@@ -811,7 +824,7 @@ declare global {
         new (): HTMLJeColumnGroupElement;
     };
     interface HTMLJeDatepickerElementEventMap {
-        "valueChange": Date | undefined;
+        "valueChange": number | undefined;
     }
     interface HTMLJeDatepickerElement extends Components.JeDatepicker, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeDatepickerElementEventMap>(type: K, listener: (this: HTMLJeDatepickerElement, ev: JeDatepickerCustomEvent<HTMLJeDatepickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1446,13 +1459,29 @@ declare namespace LocalJSX {
     }
     interface JeColumnGroup {
         /**
+          * Alignment of the columns.
+         */
+        "align"?: 'start' | 'center' | 'end' | 'stretch' | 'baseline';
+        /**
           * The number of columns the flex grid has.
          */
         "columns"?: number;
+        /**
+          * The gap between the columns.
+         */
+        "gap"?: '3xs' | '2xs' |'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+        /**
+          * Justification of the columns.
+         */
+        "justify"?: 'start' | 'center' | 'end' | 'space-between' | 'space-around';
+        /**
+          * If the columns should wrap.
+         */
+        "wrap"?: boolean;
     }
     interface JeDatepicker {
-        "onValueChange"?: (event: JeDatepickerCustomEvent<Date | undefined>) => void;
-        "value"?: Date | string;
+        "onValueChange"?: (event: JeDatepickerCustomEvent<number | undefined>) => void;
+        "value"?: number;
     }
     interface JeDetails {
         "state"?: 'open' | 'closed';
@@ -1608,10 +1637,7 @@ declare namespace LocalJSX {
         /**
           * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).  There are built-in transformers for 'number', 'date', and 'datetime'.
          */
-        "transform"?: {
-    to?: (value: string) => any;
-    from?: (value: any) => string;
-  } | 'number' | 'date' | 'datetime';
+        "transform"?: InputTransformer | 'number' | 'date' | 'datetime';
         /**
           * Passed to native input
          */
@@ -1667,7 +1693,7 @@ declare namespace LocalJSX {
     }
     interface JeMenu {
         "onValueChange"?: (event: JeMenuCustomEvent<string>) => void;
-        "type"?: 'select' | 'radio';
+        "type"?: 'select' | 'multiselect';
         "value"?: string;
     }
     interface JeMenuOption {

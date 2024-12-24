@@ -63,9 +63,6 @@ export class JeCheckboxGroup {
       this.defaultValue = this.value;
 
     setName(this.el, this.label);
-
-    if (!this.el.getAttribute('tabindex'))
-      this.el.setAttribute('tabindex', '0');
   }
 
   componentDidLoad() {

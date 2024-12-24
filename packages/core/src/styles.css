@@ -30,6 +30,14 @@ je-form form {
   gap: var(--je-spacing-lg);
 }
 
+je-column {
+  border: solid 3px var(--je-background-color);
+  background-color: var(--je-primary-100);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 html,
 body {
   height: 100vh;

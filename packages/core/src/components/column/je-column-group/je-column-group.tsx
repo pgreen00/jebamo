@@ -13,9 +13,29 @@ export class JeColumnGroup {
    */
   @Prop() columns?: number;
 
+  /**
+   * If the columns should wrap.
+   */
+  @Prop({ reflect: true }) wrap?: boolean;
+
+  /**
+   * Alignment of the columns.
+   */
+  @Prop({ reflect: true }) align?: 'start' | 'center' | 'end' | 'stretch' | 'baseline';
+
+  /**
+   * Justification of the columns.
+   */
+  @Prop({ reflect: true }) justify?: 'start' | 'center' | 'end' | 'space-between' | 'space-around';
+
+  /**
+   * The gap between the columns.
+   */
+  @Prop({ reflect: true }) gap?: '3xs' | '2xs' |'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+
   componentDidLoad() {
     if (this.columns) {
-      this.el.style.setProperty('--je-columns', this.columns.toString());
+      this.el.style.setProperty('--columns', this.columns.toString());
     }
   }
 

@@ -9,9 +9,15 @@ import { startOfMonth, endOfMonth, eachDayOfInterval, addMonths, subMonths, isSa
 export class JeDatepicker {
   @Element() el!: HTMLJeDatepickerElement;
   @State() currentDate = new Date();
-  @Prop({ mutable: true }) value?: Date | string;
-  @Event() valueChange: EventEmitter<Date | undefined>;
+  @Prop({ mutable: true }) value?: number;
+  @Event() valueChange: EventEmitter<number | undefined>;
   @State() isDark = false;
+
+  componentWillLoad() {
+    if (this.value) {
+      this.currentDate = new Date(this.value);
+    }
+  }
 
   @Listen('themeChange', { target: 'body' })
   handleThemeChange(e: CustomEvent<'light' | 'dark'>) {
@@ -20,7 +26,10 @@ export class JeDatepicker {
 
   @Watch('value')
   valueChangeHandler() {
-    this.valueChange.emit(this.value ? new Date(this.value) : undefined);
+    if (this.value) {
+      this.currentDate = new Date(this.value);
+    }
+    this.valueChange.emit(this.value ? new Date(this.value).getTime() : undefined);
   }
 
   getDaysInMonth() {
@@ -35,6 +44,14 @@ export class JeDatepicker {
 
   prevMonth = () => {
     this.currentDate = subMonths(this.currentDate, 1);
+  }
+
+  nextYear = () => {
+    this.currentDate = addMonths(this.currentDate, 12);
+  }
+
+  prevYear = () => {
+    this.currentDate = subMonths(this.currentDate, 12);
   }
 
   render() {
@@ -59,38 +76,18 @@ export class JeDatepicker {
     return (
       <Host>
         <div class="header">
-          <je-popover placement='bottom' arrow={true} showBackdrop={true}>
-            <div slot='trigger'>
-              <span>{format(this.currentDate, 'MMMM yyyy')}</span>
-              <je-button fill='clear' iconOnly={true}>
-                <je-icon icon='expand_more' />
-              </je-button>
-            </div>
-            <div class='month-year-picker'>
-              <je-button iconOnly={true} fill='clear' style={{ marginLeft: 'auto' }}>
-                <je-icon icon='close' />
-              </je-button>
-              <div style={{ maxHeight: '150px', overflow: 'auto' }}>
-                {Array.from({ length: 12 }).map((_, i) => (
-                  <je-details summary={format(new Date(0, i), 'MMMM')}>
-                    <je-button fill='clear' expand={true} onClick={() => this.currentDate.setMonth(i)}>
-                      {format(new Date(0, i), 'MMMM')}
-                    </je-button>
-                    {Array.from({ length: 31 }).map((_, j) => (
-                      <je-button fill='clear' expand={true} onClick={() => this.currentDate.setDate(j + 1)}>
-                        {j + 1}
-                      </je-button>
-                    ))}
-                  </je-details>
-                ))}
-              </div>
-            </div>
-          </je-popover>
-          <je-button iconOnly={true} fill='clear' onClick={this.prevMonth}>
-            <je-icon fill={true} icon='arrow_left' />
+          <je-button iconOnly={true} fill='clear' onClick={this.prevYear}>
+            <je-icon size='sm' fill={true} icon='keyboard_double_arrow_left' />
           </je-button>
+          <je-button iconOnly={true} fill='clear' onClick={this.prevMonth}>
+            <je-icon size='sm' fill={true} icon='keyboard_arrow_left' />
+          </je-button>
+          <span>{format(this.currentDate, 'MMMM yyyy')}</span>
           <je-button iconOnly={true} fill='clear' onClick={this.nextMonth}>
-            <je-icon icon='arrow_right' fill={true} />
+            <je-icon size='sm' icon='keyboard_arrow_right' fill={true} />
+          </je-button>
+          <je-button iconOnly={true} fill='clear' onClick={this.nextYear}>
+            <je-icon size='sm' icon='keyboard_double_arrow_right' fill={true} />
           </je-button>
         </div>
 
@@ -114,7 +111,7 @@ export class JeDatepicker {
                 color={selected || today ? 'primary' : this.isDark ? 'light' : 'dark'}
                 fill={selected ? 'solid' : 'clear'}
                 class='day'
-                onClick={() => this.value = day}
+                onClick={() => this.value = day.getTime()}
               >
                 {format(day, 'd')}
               </je-button>

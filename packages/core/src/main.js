@@ -130,3 +130,23 @@ document.getElementById('timeInput').transform = {
 document.getElementById('dateInput').addEventListener('valueChange', ev => console.log(ev.detail));
 document.getElementById('timeInput').addEventListener('valueChange', ev => console.log(ev.detail));
 document.getElementById('dateTimeInput').addEventListener('valueChange', ev => console.log(ev.detail));
+
+customElements.whenDefined('je-input').then(() => {
+  const input = document.getElementById('datepicker')
+  const picker = document.getElementById('inner-picker');
+  picker.value = new Date(input.value).getTime();
+  input.getInputElement().then(input => {
+    input.addEventListener('click', ev => ev.preventDefault());
+  })
+  input.addEventListener('valueChange', ev => {
+    if (ev.detail) {
+      picker.value = new Date(ev.detail).getTime();
+    }
+  });
+  picker.addEventListener('valueChange', ev => {
+    if (ev.detail) {
+      input.value = new Date(ev.detail).toISOString();
+    }
+  });
+})
+

@@ -53,6 +53,12 @@
       </div>
 
       <div slot="body">
+        <h2>Columns</h2>
+        <je-column-group wrap gap="xs" justify="space-between">
+          <je-column size="12" size-md="3">1</je-column>
+          <je-column size="12" size-md="5.5">2</je-column>
+        </je-column-group>
+
         <h2>Toast</h2>
         <je-button id="toastButton">Show toast</je-button>
         <je-toast id="toast" type="card" icon="info" duration="6000" closable progress header="Hello there!" message="This is a toast...">
@@ -173,11 +179,11 @@
         </div>
 
         <h2>Date Picker</h2>
-        <je-popover match-width placement="bottom-start">
-          <je-input slot="trigger" no-typing="true" placeholder="00/00/0000">
+        <je-popover placement="bottom-start" id="datepickerPopover">
+          <je-input style="width: 210px;" id="datepicker" slot="trigger" type="date" transform="date" value="12/31/2021">
             <je-icon icon="today" fill slot="start"></je-icon>
           </je-input>
-          <je-datepicker></je-datepicker>
+          <je-datepicker id="inner-picker"></je-datepicker>
         </je-popover>
 
         <h2>Popover</h2>

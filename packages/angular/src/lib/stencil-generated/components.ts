@@ -225,14 +225,14 @@ export declare interface JeColumn extends Components.JeColumn {}
 
 
 @ProxyCmp({
-  inputs: ['columns']
+  inputs: ['align', 'columns', 'gap', 'justify', 'wrap']
 })
 @Component({
   selector: 'je-column-group',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['columns'],
+  inputs: ['align', 'columns', 'gap', 'justify', 'wrap'],
 })
 export class JeColumnGroup {
   protected el: HTMLElement;
@@ -268,7 +268,7 @@ export class JeDatepicker {
 
 export declare interface JeDatepicker extends Components.JeDatepicker {
 
-  valueChange: EventEmitter<CustomEvent<Date | undefined>>;
+  valueChange: EventEmitter<CustomEvent<number | undefined>>;
 }
 
 

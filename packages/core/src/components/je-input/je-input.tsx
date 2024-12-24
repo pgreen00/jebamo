@@ -1,5 +1,5 @@
 import { Component, Host, Prop, h, Element, Event, AttachInternals, EventEmitter, Method, State, Watch, Listen, forceUpdate } from '@stencil/core';
-import { AsyncFormatterFn, AsyncValidationFn, debounceEvent, FormatterFn, setName, ValidationFn } from '../../utils/utils';
+import { AsyncFormatterFn, AsyncValidationFn, debounceEvent, FormatterFn, InputTransformer, setName, ValidationFn } from '../../utils/utils';
 import { format, parseISO } from 'date-fns';
 
 @Component({
@@ -136,10 +136,7 @@ export class JeInput {
    *
    * There are built-in transformers for 'number', 'date', and 'datetime'.
    */
-  @Prop() transform?: {
-    to?: (value: string) => any;
-    from?: (value: any) => string;
-  } | 'number' | 'date' | 'datetime';
+  @Prop() transform?: InputTransformer | 'number' | 'date' | 'datetime';
 
   /**
    * Custom validator functions for form participation
@@ -303,7 +300,7 @@ export class JeInput {
     if (this.transform === 'number') {
       return {
         to: (value: string) => parseFloat(value),
-        from: (value: any) => value.toString()
+        from: (value: number) => value.toString()
       }
     } else if (this.transform === 'date') {
       return {
