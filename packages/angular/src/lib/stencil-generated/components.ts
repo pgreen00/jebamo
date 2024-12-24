@@ -247,14 +247,14 @@ export declare interface JeColumnGroup extends Components.JeColumnGroup {}
 
 
 @ProxyCmp({
-  inputs: ['value']
+  inputs: ['days', 'hours', 'minutes', 'months', 'seconds', 'type', 'value', 'years']
 })
 @Component({
   selector: 'je-datepicker',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['value'],
+  inputs: ['days', 'hours', 'minutes', 'months', 'seconds', 'type', 'value', 'years'],
 })
 export class JeDatepicker {
   protected el: HTMLElement;

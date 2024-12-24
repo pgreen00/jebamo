@@ -142,6 +142,7 @@ customElements.whenDefined('je-input').then(() => {
     if (ev.detail) {
       picker.value = new Date(ev.detail).getTime();
     }
+    console.log(ev.detail);
   });
   picker.addEventListener('valueChange', ev => {
     if (ev.detail) {

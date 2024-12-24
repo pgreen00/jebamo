@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--je-spacing-xs);
+  gap: var(--je-spacing-sm);
 }
 
 je-button.day {
@@ -34,7 +34,7 @@ je-button.day {
 .weekdays-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
+  gap: var(--je-spacing-2xs);
 
   div {
     height: 25px;
@@ -50,5 +50,28 @@ je-button.day {
 .days-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
+  gap: var(--je-spacing-2xs);
+}
+
+.timepicker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.timepicker-content {
+  display: flex;
+}
+
+.timepicker-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--je-spacing-2xs);
+  height: 200px;
+  overflow: auto;
+  align-items: center;
+  padding: var(--je-spacing-xs);
 }
