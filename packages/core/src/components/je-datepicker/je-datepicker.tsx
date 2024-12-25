@@ -11,12 +11,10 @@ export class JeDatepicker {
   @State() currentDate = new Date();
   @State() isDark = false;
   @Prop() type: 'date' | 'datetime' | 'time' = 'datetime';
-  @Prop() years = true;
-  @Prop() months = true;
-  @Prop() days = true;
-  @Prop() hours = true;
-  @Prop() minutes = true;
-  @Prop() seconds = false;
+  @Prop() includeSeconds = false;
+  @Prop() min?: number;
+  @Prop() max?: number;
+  @Prop() isDateDisabled?: (date: Date) => boolean;
   @Prop({ mutable: true }) value?: number;
   @Event() valueChange: EventEmitter<number | undefined>;
 
@@ -37,12 +35,6 @@ export class JeDatepicker {
       this.currentDate = new Date(this.value);
     }
     this.valueChange.emit(this.value ? new Date(this.value).getTime() : undefined);
-  }
-
-  getDaysInMonth() {
-    const start = startOfMonth(this.currentDate);
-    const end = endOfMonth(this.currentDate);
-    return eachDayOfInterval({ start, end });
   }
 
   nextMonth = () => {
@@ -81,6 +73,12 @@ export class JeDatepicker {
     this.value = setSeconds(this.value, second).getTime();
   }
 
+  scrollTimeIntoView = () => {
+    this.el.shadowRoot.querySelectorAll('.timepicker-column').forEach(column => {
+      column.querySelector('je-button[color="primary"][fill="solid"]')?.scrollIntoView({ block: 'center', behavior: 'smooth'});
+    });
+  }
+
   render() {
     const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
     const firstDayOfMonth = startOfMonth(this.currentDate);
@@ -105,27 +103,19 @@ export class JeDatepicker {
         {(this.type == 'date' || this.type == 'datetime') && (
           <Fragment>
             <div class="header">
-              {this.years && (
-                <je-button iconOnly={true} fill='clear' onClick={this.prevYear}>
-                  <je-icon size='sm' fill={true} icon='keyboard_double_arrow_left' />
-                </je-button>
-              )}
-              {this.months && (
-                <je-button iconOnly={true} fill='clear' onClick={this.prevMonth}>
-                  <je-icon size='sm' fill={true} icon='keyboard_arrow_left' />
-                </je-button>
-              )}
+              <je-button iconOnly={true} fill='clear' onClick={this.prevYear}>
+                <je-icon size='sm' fill={true} icon='keyboard_double_arrow_left' />
+              </je-button>
+              <je-button iconOnly={true} fill='clear' onClick={this.prevMonth}>
+                <je-icon size='sm' fill={true} icon='keyboard_arrow_left' />
+              </je-button>
               <span>{format(this.currentDate, 'MMMM yyyy')}</span>
-              {this.months && (
-                <je-button iconOnly={true} fill='clear' onClick={this.nextMonth}>
-                  <je-icon size='sm' fill={true} icon='keyboard_arrow_right' />
-                </je-button>
-              )}
-              {this.years && (
-                <je-button iconOnly={true} fill='clear' onClick={this.nextYear}>
-                  <je-icon size='sm' fill={true} icon='keyboard_double_arrow_right' />
-                </je-button>
-              )}
+              <je-button iconOnly={true} fill='clear' onClick={this.nextMonth}>
+                <je-icon size='sm' fill={true} icon='keyboard_arrow_right' />
+              </je-button>
+              <je-button iconOnly={true} fill='clear' onClick={this.nextYear}>
+                <je-icon size='sm' fill={true} icon='keyboard_double_arrow_right' />
+              </je-button>
             </div>
 
             <div class="weekdays-grid">
@@ -142,10 +132,12 @@ export class JeDatepicker {
               {daysInMonth.map(day => {
                 const selected = this.value && isSameDay(day, this.value);
                 const today = isToday(day);
+                const isDisabled = (this.isDateDisabled && this.isDateDisabled(day)) || (this.min && day < new Date(this.min)) || (this.max && day > new Date(this.max));
                 return (
                   <je-button
                     expand={true}
-                    color={selected || today ? 'primary' : this.isDark ? 'light' : 'dark'}
+                    disabled={isDisabled}
+                    color={selected || today ? 'primary' : isDisabled ? 'medium' : this.isDark ? 'light' : 'dark'}
                     fill={selected ? 'solid' : 'clear'}
                     class='day'
                     onClick={() => this.setDay(day)}
@@ -166,42 +158,38 @@ export class JeDatepicker {
         {(this.type == 'time' || this.type == 'datetime') && (
           <div class='timepicker'>
             <span>Time</span>
-            <je-popover showBackdrop={true} arrow={true}>
-              <je-pill slot='trigger'>{this.value ? (
-                this.hours && this.minutes && this.seconds ? format(this.value, 'hh:mm:ss a') :
-                this.hours && this.minutes ? format(this.value, 'hh:mm a') :
-                this.hours ? format(this.value, 'hh a') : '-'
-              ) : '-'}</je-pill>
+            <je-popover showBackdrop={true} arrow={true} placement='auto' onPopoverPresent={this.scrollTimeIntoView}>
+              <je-pill slot='trigger'>
+                {this.value ? (
+                  this.includeSeconds ? format(this.value, 'hh:mm:ss a') : format(this.value, 'hh:mm a')
+                ) : '-'}
+              </je-pill>
               <div class='timepicker-content'>
-                {this.hours && (
-                  <div class='timepicker-column'>
-                    {Array.from({ length: 24 }).map((_, hour) => (
-                      <je-button
-                        size='sm'
-                        color={this.currentDate.getHours() === hour ? 'primary' : this.isDark ? 'light' : 'dark'}
-                        fill={this.currentDate.getHours() === hour ? 'solid' : 'clear'}
-                        onClick={() => this.setHour(hour)}
-                      >
-                        {format(new Date().setHours(hour), 'hh a')}
-                      </je-button>
-                    ))}
-                  </div>
-                )}
-                {this.minutes && (
-                  <div class='timepicker-column'>
-                    {Array.from({ length: 60 }).map((_, minute) => (
-                      <je-button
-                        size='sm'
-                        color={this.currentDate.getMinutes() === minute ? 'primary' : this.isDark ? 'light' : 'dark'}
-                        fill={this.currentDate.getMinutes() === minute ? 'solid' : 'clear'}
-                        onClick={() => this.setMinute(minute)}
-                      >
-                        {format(new Date().setMinutes(minute), 'mm')}
-                      </je-button>
-                    ))}
-                  </div>
-                )}
-                {this.seconds && (
+                <div class='timepicker-column'>
+                  {Array.from({ length: 24 }).map((_, hour) => (
+                    <je-button
+                      size='sm'
+                      color={this.currentDate.getHours() === hour ? 'primary' : this.isDark ? 'light' : 'dark'}
+                      fill={this.currentDate.getHours() === hour ? 'solid' : 'clear'}
+                      onClick={() => this.setHour(hour)}
+                    >
+                      {format(new Date().setHours(hour), 'hh a')}
+                    </je-button>
+                  ))}
+                </div>
+                <div class='timepicker-column'>
+                  {Array.from({ length: 60 }).map((_, minute) => (
+                    <je-button
+                      size='sm'
+                      color={this.currentDate.getMinutes() === minute ? 'primary' : this.isDark ? 'light' : 'dark'}
+                      fill={this.currentDate.getMinutes() === minute ? 'solid' : 'clear'}
+                      onClick={() => this.setMinute(minute)}
+                    >
+                      {format(new Date().setMinutes(minute), 'mm')}
+                    </je-button>
+                  ))}
+                </div>
+                {this.includeSeconds && (
                   <div class='timepicker-column'>
                     {Array.from({ length: 60 }).map((_, second) => (
                       <je-button

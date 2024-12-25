@@ -240,14 +240,12 @@ export namespace Components {
         "wrap"?: boolean;
     }
     interface JeDatepicker {
-        "days": boolean;
-        "hours": boolean;
-        "minutes": boolean;
-        "months": boolean;
-        "seconds": boolean;
+        "includeSeconds": boolean;
+        "isDateDisabled"?: (date: Date) => boolean;
+        "max"?: number;
+        "min"?: number;
         "type": 'date' | 'datetime' | 'time';
         "value"?: number;
-        "years": boolean;
     }
     interface JeDetails {
         "state": 'open' | 'closed';
@@ -538,7 +536,7 @@ export namespace Components {
         /**
           * Where the popover should be placed
          */
-        "placement": Placement;
+        "placement": Placement | 'auto';
         /**
           * If the popover should position itself using the mouse event or the triggerElement.
          */
@@ -1487,15 +1485,13 @@ declare namespace LocalJSX {
         "wrap"?: boolean;
     }
     interface JeDatepicker {
-        "days"?: boolean;
-        "hours"?: boolean;
-        "minutes"?: boolean;
-        "months"?: boolean;
+        "includeSeconds"?: boolean;
+        "isDateDisabled"?: (date: Date) => boolean;
+        "max"?: number;
+        "min"?: number;
         "onValueChange"?: (event: JeDatepickerCustomEvent<number | undefined>) => void;
-        "seconds"?: boolean;
         "type"?: 'date' | 'datetime' | 'time';
         "value"?: number;
-        "years"?: boolean;
     }
     interface JeDetails {
         "state"?: 'open' | 'closed';
@@ -1809,7 +1805,7 @@ declare namespace LocalJSX {
         /**
           * Where the popover should be placed
          */
-        "placement"?: Placement;
+        "placement"?: Placement | 'auto';
         /**
           * If the popover should position itself using the mouse event or the triggerElement.
          */

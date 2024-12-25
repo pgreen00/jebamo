@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--je-spacing-sm);
+  --content-height: 200px;
 }
 
 je-button.day {
@@ -74,4 +75,5 @@ je-button.day {
   overflow: auto;
   align-items: center;
   padding: var(--je-spacing-xs);
+  box-sizing: border-box;
 }
