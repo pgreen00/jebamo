@@ -43,10 +43,7 @@ export class JeInfinite {
   private handleEntry: IntersectionObserverCallback = (entries) => {
     const intersecting = entries[0].isIntersecting;
     if (intersecting) {
-      console.log('intersecting')
       this.intersect.emit();
-    } else {
-      console.log('not intersecting')
     }
   }
 

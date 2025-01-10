@@ -20,12 +20,12 @@ export class JeSelect {
   @Prop() expand?: boolean;
   @Prop() required?: boolean;
 
-  componentDidLoad() {
-    this.originalValue = this.value;
-  }
-
   componentWillLoad() {
     setName(this.el, this.label);
+  }
+
+  componentDidLoad() {
+    this.originalValue = this.value;
   }
 
   formResetCallback() {

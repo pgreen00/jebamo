@@ -190,7 +190,6 @@ export class JePopover {
           }) : false
         ],
       }).then(({ x, y, middlewareData, placement }) => {
-        console.log(placement)
         this.containerEl.style.left = `${x}px`;
         this.containerEl.style.top = `${y}px`;
         if (middlewareData.arrow) {

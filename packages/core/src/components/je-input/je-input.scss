@@ -28,10 +28,6 @@
   color: colors.get(error, 500);
 }
 
-je-popover {
-  width: 100%;
-}
-
 :host(:focus) {
   --je-border-color: var(--je-primary-500, accentcolor);
 }

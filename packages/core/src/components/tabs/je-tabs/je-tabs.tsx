@@ -1,12 +1,8 @@
-import { Component, Element, Host, Listen, Prop, State, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Listen, Prop, Watch, forceUpdate, h } from '@stencil/core';
 
 @Component({
   tag: 'je-tabs',
-  styleUrls: {
-    mobile: 'je-tabs.mobile.scss',
-    pill: 'je-tabs.pill.scss',
-    segment: 'je-tabs.segment.scss',
-  },
+  styleUrl: 'je-tabs.scss',
   shadow: true,
 })
 export class JeTabs {
@@ -14,30 +10,40 @@ export class JeTabs {
 
   @Prop({ reflect: true }) mode: 'mobile' | 'pill' | 'segment' = 'segment';
 
-  @State() activeTabRect: DOMRect | null = null;
+  @Prop({ mutable: true }) value?: string;
 
-  @Listen('tabClick')
-  onTabClick(ev: CustomEvent<string>) {
+  @Event() valueChange: EventEmitter<string | undefined>;
+
+  componentWillRender() {
     const tabs = this.el.querySelectorAll('je-tab');
-    tabs.forEach(tab => {
-      tab.active = (tab.value ?? tab.textContent) === ev.detail;
-      if (tab.active) {
-        this.activeTabRect = tab.getBoundingClientRect();
+    for (let t of tabs) t.active = (t.value ?? t.textContent) === this.value
+  }
+
+  @Listen('click')
+  onClick(ev: Event) {
+    if (ev.target instanceof HTMLElement) {
+      const tab = ev.target.closest('je-tab');
+      if (tab) {
+        this.value = tab.value ?? tab.textContent;
       }
-    });
+    }
+  }
+
+  @Watch('value')
+  handleValueChange() {
+    this.valueChange.emit(this.value);
   }
 
   getBackgroundStyle() {
-    if (!this.activeTabRect) return {};
-
-    const { width, left, height } = this.activeTabRect;
+    const activeTab = Array.from(this.el.querySelectorAll('je-tab')).find(t => t.active);
+    if (!activeTab) return {};
+    const { width, left, height } = activeTab.getBoundingClientRect();
     const hostRect = this.el.getBoundingClientRect();
     const xOffset = left - hostRect.left;
 
     return {
       width: `${width}px`,
       transform: `translateX(${xOffset}px)`,
-      transition: 'transform 250ms ease',
       height: `${this.mode == 'pill' ? height : '1'}px`
     };
   }
@@ -46,7 +52,7 @@ export class JeTabs {
     return (
       <Host>
         <div part='indicator' style={this.getBackgroundStyle()}></div>
-        <slot></slot>
+        <slot onSlotchange={() => forceUpdate(this.el)}></slot>
       </Host>
     );
   }

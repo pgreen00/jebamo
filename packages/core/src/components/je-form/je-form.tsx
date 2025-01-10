@@ -1,49 +1,69 @@
 import { Component, Event, EventEmitter, Listen, h } from '@stencil/core';
-import { buffer, debounceTime, fromEvent, tap } from 'rxjs';
+import { AsyncSubject, buffer, debounceTime, fromEvent, Subscription, tap } from 'rxjs';
 
 @Component({
   tag: 'je-form',
-  styleUrl: 'je-form.scss'
+  styleUrl: 'je-form.scss',
+  scoped: true,
 })
 export class JeForm {
-  private el!: HTMLFormElement;
+  private el$ = new AsyncSubject<HTMLFormElement>();
+  private sub?: Subscription;
 
   @Event() formData: EventEmitter<Record<string, FormDataEntryValue>>;
 
-  componentDidLoad() {
-    const ev$ = fromEvent(this.el, 'invalid', { capture: true })
-    ev$.pipe(
-      tap(ev => ev.preventDefault()),
-      buffer(ev$.pipe(debounceTime(100)))
-    ).subscribe(events => {
-      const firstInvalidElement = events[0].target as HTMLElement;
-      if (firstInvalidElement && !firstInvalidElement.matches(':focus')) {
-        firstInvalidElement.focus();
-      }
-    })
+  connectedCallback() {
+    this.el$.subscribe(this.setupEventListener);
+  }
+
+  disconnectedCallback() {
+    this.sub?.unsubscribe();
   }
 
   @Listen('submit')
   async handleSubmit(event: SubmitEvent) {
     event.preventDefault();
-    const formData = new FormData(this.el);
-    const json = Object.fromEntries(formData.entries());
-    this.formData.emit(json);
+    this.el$.subscribe(el => {
+      const formData = new FormData(el);
+      const json = Object.fromEntries(formData.entries());
+      this.formData.emit(json);
+    })
   }
 
   @Listen('keydown')
   handleKeyup(event: KeyboardEvent) {
     if (event.key === 'Enter') {
-      const submitButton = this.el.querySelector('button[type=submit]') as HTMLButtonElement | null;
-      if (submitButton) {
-        submitButton.click();
-      }
+      this.el$.subscribe(el => {
+        const submitButton = el.querySelector('button[type=submit]') as HTMLButtonElement | null;
+        if (submitButton) {
+          submitButton.click();
+        }
+      })
     }
+  }
+
+  private setupEventListener = (el: HTMLFormElement) => {
+    const ev$ = fromEvent(el, 'invalid', { capture: true })
+    this.sub = ev$.pipe(
+      tap(ev => ev.preventDefault()),
+      buffer(ev$.pipe(debounceTime(100)))
+    ).subscribe(events => {
+      const firstInvalidElement = events[0].target as HTMLElement;
+      if (firstInvalidElement && 'reportValidity' in firstInvalidElement && typeof firstInvalidElement['reportValidity'] === 'function')
+        firstInvalidElement.reportValidity();
+      else if (firstInvalidElement && !firstInvalidElement.matches(':focus'))
+        firstInvalidElement.focus();
+    })
+  }
+
+  private formElementInit = (el: HTMLFormElement) => {
+    this.el$.next(el);
+    this.el$.complete();
   }
 
   render() {
     return (
-      <form ref={el => this.el = el}>
+      <form ref={this.formElementInit}>
         <slot />
       </form>
     );

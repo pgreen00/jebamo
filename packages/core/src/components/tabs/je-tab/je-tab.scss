@@ -10,12 +10,13 @@
   -webkit-user-select: none;
   border-radius: var(--je-border-radius);
   transition: color 250ms ease;
-}
-
-* {
   cursor: pointer;
 }
 
-:host(.active) {
+::slotted(*) {
+  cursor: pointer;
+}
+
+:host(:state(--active)) {
   color: var(--je-medium-500);
 }

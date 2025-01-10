@@ -131,7 +131,7 @@ export declare interface JeCheckbox extends Components.JeCheckbox {
 
 @ProxyCmp({
   inputs: ['defaultValue', 'disabled', 'helperText', 'label', 'readonly', 'required', 'value'],
-  methods: ['markAsTouched', 'reset']
+  methods: ['reset', 'setCustomValidity', 'checkValidity', 'reportValidity']
 })
 @Component({
   selector: 'je-checkbox-group',
@@ -867,37 +867,37 @@ export class JeTab {
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['tabClick']);
   }
 }
 
 
-export declare interface JeTab extends Components.JeTab {
-
-  tabClick: EventEmitter<CustomEvent<string>>;
-}
+export declare interface JeTab extends Components.JeTab {}
 
 
 @ProxyCmp({
-  inputs: ['mode']
+  inputs: ['mode', 'value']
 })
 @Component({
   selector: 'je-tabs',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['mode'],
+  inputs: ['mode', 'value'],
 })
 export class JeTabs {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['valueChange']);
   }
 }
 
 
-export declare interface JeTabs extends Components.JeTabs {}
+export declare interface JeTabs extends Components.JeTabs {
+
+  valueChange: EventEmitter<CustomEvent<string | undefined>>;
+}
 
 
 @ProxyCmp({

@@ -10,7 +10,8 @@ je-page {
     padding-inline: var(--je-spacing-lg);
   }
 
-  [slot='left-panel'] {
+  [slot='left-panel'],
+  [slot='right-panel'] {
     padding: var(--je-spacing-lg);
     display: flex;
     flex-direction: column;
@@ -20,14 +21,6 @@ je-page {
   [slot='body'] {
     padding: var(--je-spacing-3xl);
   }
-
-  [slot='right-panel'] {
-    padding: var(--je-spacing-lg);
-  }
-}
-
-je-form form {
-  gap: var(--je-spacing-lg);
 }
 
 je-column {

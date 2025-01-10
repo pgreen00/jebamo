@@ -18,6 +18,7 @@ export class JeInput {
   private inputEl!: HTMLInputElement;
   private originalValue = '';
   private errorEl?: HTMLElement;
+  private invalid = false;
 
   /**
    * Text above the control
@@ -158,16 +159,16 @@ export class JeInput {
    */
   @Event({ bubbles: false }) valueChange: EventEmitter<string>;
 
-  async componentDidLoad() {
+  connectedCallback() {
+    this.internals.setFormValue(this.value);
+  }
+
+  componentDidLoad() {
     setName(this.hostEl, this.label);
     this.originalValue = this.value;
     if (this.debounce) {
       this.valueChange = debounceEvent(this.valueChange, this.debounce);
     }
-  }
-
-  connectedCallback() {
-    this.internals.setFormValue(this.value);
   }
 
   async componentWillRender() {
@@ -179,7 +180,7 @@ export class JeInput {
       patternError,
       customErrors
     } = await this.getErrors();
-
+    this.invalid = hasError;
     if (hasError) {
       const errorMessage = requiredError ? 'This field is required' :
         minLengthError ? `This field must be at least ${this.minlength} characters long` :
@@ -202,18 +203,27 @@ export class JeInput {
   }
 
   componentDidRender() {
-    if (this.isTouched && !this.internals.checkValidity()) {
+    if (this.isTouched && this.invalid) {
       this.errorEl?.click();
+    }
+    this.internals.states.clear();
+    if (this.required) {
+      this.internals.states.add('--je-required')
+    } else {
+      this.internals.states.add('--je-optional')
+    }
+    if (this.invalid) {
+      this.internals.states.add('--je-invalid');
+      if (this.isTouched) this.internals.states.add('--je-user-invalid')
+    } else {
+      this.internals.states.add('--je-valid');
+      if (this.isTouched) this.internals.states.add('--je-user-valid')
     }
   }
 
-  async formResetCallback() {
+  formResetCallback() {
     this.isTouched = false;
-    if (this.format) {
-      this.value = await this.format(this.originalValue);
-    } else {
-      this.value = this.originalValue;
-    }
+    this.value = this.originalValue;
   }
 
   @Listen('themeChange', { target: 'body' })
@@ -277,8 +287,8 @@ export class JeInput {
   }
 
   @Method()
-  reset() {
-    return this.formResetCallback();
+  async reset() {
+    this.formResetCallback();
   }
 
   private formatInput = async (ev: InputEvent) => {
@@ -354,8 +364,8 @@ export class JeInput {
             placeholder={this.placeholder} />
 
           <div part='end-container'>
-            {this.isTouched && !this.internals.checkValidity() && (
-              <je-popover renderBackdrop={false} placement='bottom-end' arrow={true}>
+            {this.isTouched && this.invalid && (
+              <je-popover renderBackdrop={false} placement='top-end' arrow={true}>
                 <je-color ref={el => this.errorEl = el} slot='trigger' color='error'>
                   <je-icon size='sm' fill={true} icon='error' />
                 </je-color>

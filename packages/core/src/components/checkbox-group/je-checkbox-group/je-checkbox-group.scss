@@ -3,15 +3,13 @@
 @use '../../../styles/colors';
 
 :host {
-  display: contents;
-}
-
-[part=base] {
+  display: flex;
+  flex-direction: column;
   width: fit-content;
-  position: relative;
+  gap: spacing.get(2xs);
 }
 
-:host([required]:not([required=false])) {
+:host(:state(--required)) {
   ::slotted([slot=label]),
   label {
     &::after {
@@ -23,23 +21,15 @@
 
 ::slotted([slot=label]),
 label {
-  display: block;
   font-weight: global.font-weight(semi-bold);
-  margin-bottom: spacing.get(2xs);
 }
 
 ::slotted([slot=helper-text]),
 small {
-  display: block;
-  margin-top: spacing.get(2xs);
   color: colors.get(medium, 600);
 }
 
-[part=fixed-container] {
-  position: absolute;
-  right: 0;
-  top: 0;
-  display: flex;
-  gap: spacing.get(2xs);
-  transform: translateX(100%);
+[part=error-message] {
+  padding: var(--je-spacing-xs, 10px);
+  color: colors.get(error, 500);
 }

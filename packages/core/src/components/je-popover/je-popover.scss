@@ -2,8 +2,7 @@
 @use '../../styles/colors' as colors;
 
 :host {
-  display: block;
-  width: fit-content;
+  display: contents;
 
   --background: rgb(233, 236, 236);
   --color: colors.get(medium, 900);

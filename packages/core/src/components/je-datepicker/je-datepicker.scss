@@ -14,6 +14,7 @@ je-button.day {
   --je-button-width: 25px;
   --je-button-height: 25px;
   --je-button-inline-padding: 0px;
+
   &::part(inner-button) {
     font-weight: 400;
   }
@@ -26,6 +27,7 @@ je-button.day {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   span {
     flex: 1;
     text-align: center;

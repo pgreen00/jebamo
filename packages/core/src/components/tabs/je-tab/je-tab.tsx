@@ -1,24 +1,27 @@
-import { Component, Element, Event, EventEmitter, Host, Listen, Prop, h } from '@stencil/core';
+import { AttachInternals, Component, Element, Host, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-tab',
   styleUrl: 'je-tab.scss',
   shadow: true,
+  formAssociated: true
 })
 export class JeTab {
+  @AttachInternals() internals: ElementInternals;
   @Element() el: HTMLJeTabElement;
   @Prop() value?: string;
   @Prop() active = false;
-  @Event() tabClick: EventEmitter<string>;
 
-  @Listen('click')
-  onClick() {
-    this.tabClick.emit(this.value ?? this.el.textContent);
+  componentDidRender() {
+    this.internals.states.clear()
+    if (this.active) {
+      this.internals.states.add('--active')
+    }
   }
 
   render() {
     return (
-      <Host class={{ active: this.active == true }}>
+      <Host>
         <slot></slot>
       </Host>
     );
