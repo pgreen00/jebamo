@@ -5,8 +5,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'Jebamo',
+  tagline: 'Web Component Library',
   favicon: 'img/favicon.ico',
   url: 'https://jebamo.com',
   baseUrl: '/',
@@ -32,11 +32,10 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
-
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'My Site',
+      title: 'Jebamo',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
@@ -49,6 +48,30 @@ const config: Config = {
           label: 'Components',
         },
         {
+          label: 'Installation',
+          position: 'left',
+          type: 'doc',
+          docId: 'installation',
+        },
+        {
+          label: 'Style Tokens',
+          position: 'left',
+          type: 'docSidebar',
+          sidebarId: 'stylesSidebar',
+        },
+        {
+          label: 'Tutorials',
+          position: 'left',
+          type: 'docSidebar',
+          sidebarId: 'tutorialsSidebar',
+        },
+        {
+          type: 'doc',
+          docId: 'changelog',
+          label: 'Changelog',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/pgreen00/jebamo',
           label: 'GitHub',
           position: 'right',
@@ -57,43 +80,6 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
-      links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Components',
-              to: '/docs/components',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'GitHub',
-              href: 'https://github.com/pgreen00/jebamo',
-            },
-          ],
-        },
-      ],
       copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
     },
     prism: {
