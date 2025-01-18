@@ -10,11 +10,12 @@
   "unpkg": "dist/jebamo/jebamo.esm.js",
   "files": [
     "dist/",
-    "loader/"
+    "loader/",
+    "components/"
   ],
   "scripts": {
     "build": "stencil build",
-    "start": "stencil build --dev --watch --serve",
+    "start": "stencil build --watch",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate"

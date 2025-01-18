@@ -7,36 +7,31 @@ export const config: Config = {
     sass()
   ],
   namespace: 'jebamo',
+  enableCache: false,
   outputTargets: [
     {
       type: 'dist',
       esmLoaderPath: '../loader',
     },
     {
-      type: 'docs-readme',
-      dir: 'documentation'
-    },
-    {
-      type: 'docs-vscode',
-      file: 'vscode-data.json',
+      type: 'dist-custom-elements',
+      customElementsExportBehavior: 'auto-define-custom-elements',
+      externalRuntime: false,
+      dir: 'components'
     },
     angularOutputTarget({
       componentCorePackage: 'jebamo',
       outputType: 'component',
-      directivesProxyFile: '../angular/src/lib/stencil-generated/components.ts',
-      directivesArrayFile: '../angular/src/lib/stencil-generated/index.ts'
+      directivesProxyFile: '../angular/src/lib/stencil-generated/components.ts'
     }),
     {
-      type: 'www',
-      copy: [
-        {
-          src: 'styles.css'
-        },
-        {
-          src: 'main.js'
-        }
-      ],
-      serviceWorker: null, // disable service workers
+      type: 'docs-readme',
+      dir: '../docs/docs',
+      strict: true
+    },
+    {
+      type: 'docs-vscode',
+      file: 'dist/vscode-data.json'
     },
   ],
   testing: {

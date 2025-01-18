@@ -1,0 +1,35 @@
+@use '../../styles/global';
+@use '../../styles/spacing';
+@use '../../styles/colors';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  gap: spacing.get(2xs);
+}
+
+:host(:state(--required)) {
+  ::slotted([slot=label]),
+  label {
+    &::after {
+      content: "*";
+      color: colors.get(error, 500);
+    }
+  }
+}
+
+::slotted([slot=label]),
+label {
+  font-weight: global.font-weight(semi-bold);
+}
+
+::slotted([slot=helper-text]),
+small {
+  color: colors.get(medium, 600);
+}
+
+[part=error-message] {
+  padding: var(--je-spacing-xs, 10px);
+  color: colors.get(error, 500);
+}

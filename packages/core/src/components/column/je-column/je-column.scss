@@ -1,9 +1,0 @@
-@use '../../../styles/global';
-
-:host {
-  display: block;
-  font-family: global.font-family();
-  box-sizing: border-box;
-  flex-grow: 1;
-  min-height: 1px;
-}

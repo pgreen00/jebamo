@@ -1,0 +1,86 @@
+@use '../../styles/spacing';
+
+:host {
+  display: flex;
+  --columns: 12;
+}
+
+:host([wrap]:not([wrap=false])) {
+  flex-wrap: wrap;
+}
+
+:host([align=start]) {
+  align-items: flex-start;
+}
+
+:host([align=center]) {
+  align-items: center;
+}
+
+:host([align=end]) {
+  align-items: flex-end;
+}
+
+:host([align=stretch]) {
+  align-items: stretch;
+}
+
+:host([align=baseline]) {
+  align-items: baseline;
+}
+
+:host([justify=start]) {
+  justify-content: flex-start;
+}
+
+:host([justify=center]) {
+  justify-content: center;
+}
+
+:host([justify=end]) {
+  justify-content: flex-end;
+}
+
+:host([justify=space-between]) {
+  justify-content: space-between;
+}
+
+:host([justify=space-around]) {
+  justify-content: space-around;
+}
+
+:host([gap="3xs"]) {
+  gap: spacing.get(3xs);
+}
+
+:host([gap="2xs"]) {
+  gap: spacing.get(2xs);
+}
+
+:host([gap=xs]) {
+  gap: spacing.get(xs);
+}
+
+:host([gap=sm]) {
+  gap: spacing.get(sm);
+}
+
+:host([gap=md]) {
+  gap: spacing.get(default);
+}
+
+:host([gap=lg]) {
+  gap: spacing.get(lg);
+}
+
+:host([gap=xl]) {
+  gap: spacing.get(xl);
+}
+
+:host([gap="2xl"]) {
+  gap: spacing.get(2xl);
+}
+
+:host([gap="3xl"]) {
+  gap: spacing.get(3xl);
+}
