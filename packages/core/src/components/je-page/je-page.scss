@@ -1,12 +1,9 @@
-@use '../../styles/colors' as colors;
-@use '../../styles/spacing' as spacing;
-@use '../../styles/global' as global;
+@use '../../styles/colors';
+@use '../../styles/spacing';
+@use '../../styles/global';
 
 :host {
-  display: flex;
-  flex-direction: column;
   height: 100%;
-  overflow: hidden;
   box-sizing: border-box;
   font-size: var(--je-font-size);
   font-family: var(--je-font-family);
@@ -24,6 +21,7 @@
   --right-sidepanel-open-width: 500px;
   --right-sidepanel-minimized-width: 100px;
   --right-sidepanel-border: solid 1px var(--je-text-color);
+  --header-height: 65px;
 }
 
 @mixin dark-theme-styles {
@@ -31,68 +29,88 @@
   --je-background-color: var(--je-medium-900);
 }
 
-:host([theme='dark']) {
+:host([theme=dark]) {
   color-scheme: dark;
   @include dark-theme-styles;
 }
 
-:host([theme='auto']) {
+:host([theme=auto]) {
   color-scheme: light dark;
+
   @media (prefers-color-scheme: dark) {
     @include dark-theme-styles;
   }
 }
 
-[part='body-container'] {
+[part=body-container] {
   display: flex;
-  flex: 1;
-  overflow: hidden;
 }
 
-[part='sticky-container'] {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-::slotted([slot='body']) {
+::slotted([slot=body]) {
   flex: 1;
   box-sizing: border-box;
 }
 
-:host([footer=fixed]) {
-  ::slotted([slot=body]) {
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-}
-
-::slotted([slot='header']) {
+::slotted([slot=header]) {
+  height: var(--header-height);
+  z-index: 200;
   box-sizing: border-box;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
-::slotted([slot='footer']) {
+::slotted([slot=footer]) {
   box-sizing: border-box;
   box-shadow: #00000069 0px -5px 20px -10px;
 }
 
+:host(:not(.sticky)) {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  ::slotted([slot=body]) {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  [part=body-container] {
+    overflow: hidden;
+    flex: 1;
+  }
+}
+
+:host(.sticky) {
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  ::slotted([slot=header]) {
+    position: sticky;
+    top: 0;
+  }
+
+  ::slotted([slot=left-panel]),
+  ::slotted([slot=right-panel]) {
+    position: sticky;
+    top: var(--header-height);
+    height: calc(100vh - var(--header-height));
+  }
+}
+
 @supports (-webkit-touch-callout: none) {
-  ::slotted([slot='header']) {
+  ::slotted([slot=header]) {
     padding-top: env(safe-area-inset-top);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
   }
 
-  ::slotted([slot='footer']) {
+  ::slotted([slot=footer]) {
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
   }
 
-  [part='body-container'] {
+  [part=body-container] {
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     margin-left: env(safe-area-inset-left);
@@ -100,48 +118,48 @@
   }
 }
 
-:host([left-panel='open']) {
-  ::slotted([slot='left-panel']) {
+:host([left-panel=open]) {
+  ::slotted([slot=left-panel]) {
     width: var(--left-sidepanel-open-width);
     border-right: var(--left-sidepanel-border);
   }
 }
 
-:host([left-panel='minimized']) {
-  ::slotted([slot='left-panel']) {
+:host([left-panel=minimized]) {
+  ::slotted([slot=left-panel]) {
     width: var(--left-sidepanel-minimized-width);
     border-right: var(--left-sidepanel-border);
   }
 }
 
-:host([right-panel='open']) {
-  ::slotted([slot='right-panel']) {
+:host([right-panel=open]) {
+  ::slotted([slot=right-panel]) {
     width: var(--right-sidepanel-open-width);
     border-left: var(--right-sidepanel-border);
   }
 }
 
-:host([right-panel='minimized']) {
-  ::slotted([slot='right-panel']) {
+:host([right-panel=minimized]) {
+  ::slotted([slot=right-panel]) {
     width: var(--right-sidepanel-minimized-width);
     border-left: var(--right-sidepanel-border);
   }
 }
 
-:host([left-panel='closed']) {
+:host([left-panel=closed]) {
   ::slotted([slot='left-panel']) {
     padding: 0 !important;
   }
 }
 
-:host([right-panel='closed']) {
+:host([right-panel=closed]) {
   ::slotted([slot='right-panel']) {
     padding: 0 !important;
   }
 }
 
-::slotted([slot='left-panel']),
-::slotted([slot='right-panel']) {
+::slotted([slot=left-panel]),
+::slotted([slot=right-panel]) {
   display: block;
   box-sizing: border-box;
   overflow-y: auto;
@@ -162,18 +180,22 @@
   width: 100%;
   z-index: 800;
   max-width: 500px;
+
   &.top-end {
     right: spacing.get(lg);
     top: spacing.get(lg);
   }
+
   &.top-start {
     left: spacing.get(lg);
     top: spacing.get(lg);
   }
+
   &.bottom-end {
     right: spacing.get(lg);
     bottom: spacing.get(lg);
   }
+
   &.bottom-start {
     left: spacing.get(lg);
     bottom: spacing.get(lg);

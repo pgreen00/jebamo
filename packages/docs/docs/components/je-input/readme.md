@@ -104,7 +104,7 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [je-alert](../je-alert)
+ - [je-dialog](../je-dialog)
  - [je-select](../je-select)
 
 ### Depends on
@@ -119,7 +119,7 @@ graph TD;
   je-input --> je-popover
   je-input --> je-color
   je-input --> je-icon
-  je-alert --> je-input
+  je-dialog --> je-input
   je-select --> je-input
   style je-input fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -8,29 +8,6 @@ import { Components } from 'jebamo';
 
 
 @ProxyCmp({
-  inputs: ['backdropDismiss', 'buttons', 'controls', 'header', 'icon', 'message', 'showBackdrop'],
-  methods: ['getModalElement', 'present', 'dismiss']
-})
-@Component({
-  selector: 'je-alert',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['backdropDismiss', 'buttons', 'controls', 'header', 'icon', 'message', 'showBackdrop'],
-})
-export class JeAlert {
-  protected el: HTMLElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-  }
-}
-
-
-export declare interface JeAlert extends Components.JeAlert {}
-
-
-@ProxyCmp({
   inputs: ['label', 'open', 'selected', 'value'],
   methods: ['isLeaf', 'getParentBranch']
 })
@@ -292,6 +269,29 @@ export class JeDetails {
 
 
 export declare interface JeDetails extends Components.JeDetails {}
+
+
+@ProxyCmp({
+  inputs: ['backdropDismiss', 'buttons', 'controls', 'header', 'icon', 'message', 'showBackdrop'],
+  methods: ['getModalElement', 'present', 'dismiss']
+})
+@Component({
+  selector: 'je-dialog',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['backdropDismiss', 'buttons', 'controls', 'header', 'icon', 'message', 'showBackdrop'],
+})
+export class JeDialog {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeDialog extends Components.JeDialog {}
 
 
 @ProxyCmp({
@@ -646,7 +646,7 @@ export declare interface JeMultiselectOption extends Components.JeMultiselectOpt
 
 
 @ProxyCmp({
-  inputs: ['footer', 'leftPanel', 'rightPanel', 'theme'],
+  inputs: ['leftPanel', 'rightPanel', 'sticky', 'theme'],
   methods: ['getCurrentTheme', 'presentToast']
 })
 @Component({
@@ -654,7 +654,7 @@ export declare interface JeMultiselectOption extends Components.JeMultiselectOpt
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['footer', 'leftPanel', 'rightPanel', 'theme'],
+  inputs: ['leftPanel', 'rightPanel', 'sticky', 'theme'],
 })
 export class JePage {
   protected el: HTMLElement;

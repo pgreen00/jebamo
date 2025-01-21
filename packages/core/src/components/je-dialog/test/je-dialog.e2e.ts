@@ -1,11 +1,11 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('je-alert', () => {
+describe('je-dialog', () => {
   it('renders', async () => {
     const page = await newE2EPage();
-    await page.setContent('<je-alert></je-alert>');
+    await page.setContent('<je-dialog></je-dialog>');
 
-    const element = await page.find('je-alert');
+    const element = await page.find('je-dialog');
     expect(element).toHaveClass('hydrated');
   });
 });

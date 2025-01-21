@@ -65,12 +65,12 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [je-alert](../je-alert)
+ - [je-dialog](../je-dialog)
 
 ### Graph
 ```mermaid
 graph TD;
-  je-alert --> je-modal
+  je-dialog --> je-modal
   style je-modal fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

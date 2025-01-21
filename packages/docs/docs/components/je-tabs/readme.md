@@ -1,6 +1,6 @@
 ---
 title: 'JeTabs | <je-tabs>'
-sidebar_label: 'Tab'
+sidebar_label: 'Tabs'
 ---
 <!-- Auto Generated Below -->
 

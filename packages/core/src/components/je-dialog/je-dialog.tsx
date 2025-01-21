@@ -1,15 +1,15 @@
 import { Component, h, Element, Prop, Method } from '@stencil/core';
 import { AsyncValidationFn, Color, ValidationFn } from '../../utils/utils';
 
-export type AlertButton = {
+export type DialogButton = {
   text: string;
   color?: Color;
   fill: 'solid' | 'outline' | 'clear';
-  handler: (dialog: HTMLJeAlertElement) => void | Promise<void>;
+  handler: (dialog: HTMLJeDialogElement) => void | Promise<void>;
   type?: string;
 };
 
-export type AlertControl = {
+export type DialogControl = {
   label?: string;
   placeholder?: string;
   validators?: (ValidationFn | AsyncValidationFn)[];
@@ -18,12 +18,12 @@ export type AlertControl = {
 };
 
 @Component({
-  tag: 'je-alert',
-  styleUrl: 'je-alert.scss',
+  tag: 'je-dialog',
+  styleUrl: 'je-dialog.scss',
   shadow: true,
 })
-export class JeAlert {
-  @Element() el!: HTMLJeAlertElement;
+export class JeDialog {
+  @Element() el!: HTMLJeDialogElement;
   private modalEl!: HTMLJeModalElement;
 
   /**
@@ -44,12 +44,12 @@ export class JeAlert {
   /**
    * Buttons for user interaction
    */
-  @Prop() buttons?: AlertButton[];
+  @Prop() buttons?: DialogButton[];
 
   /**
    * Controls that are wrapped in a form
    */
-  @Prop() controls?: AlertControl[];
+  @Prop() controls?: DialogControl[];
 
   /**
    * Whether or not to render the backdrop

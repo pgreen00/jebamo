@@ -9,9 +9,9 @@ sidebar_label: 'Page'
 
 | Property     | Attribute     | Description | Type                                | Default    |
 | ------------ | ------------- | ----------- | ----------------------------------- | ---------- |
-| `footer`     | `footer`      |             | `"fixed" \| "sticky"`               | `'fixed'`  |
 | `leftPanel`  | `left-panel`  |             | `"closed" \| "minimized" \| "open"` | `'closed'` |
 | `rightPanel` | `right-panel` |             | `"closed" \| "minimized" \| "open"` | `'closed'` |
+| `sticky`     | `sticky`      |             | `boolean`                           | `false`    |
 | `theme`      | `theme`       |             | `"auto" \| "dark" \| "light"`       | `'light'`  |
 
 
@@ -53,10 +53,9 @@ Type: `Promise<HTMLJeToastElement>`
 
 ## Shadow Parts
 
-| Part                 | Description |
-| -------------------- | ----------- |
-| `"body-container"`   |             |
-| `"sticky-container"` |             |
+| Part               | Description |
+| ------------------ | ----------- |
+| `"body-container"` |             |
 
 
 ## Dependencies

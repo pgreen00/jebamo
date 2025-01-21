@@ -5,52 +5,19 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { AlertButton, AlertControl } from "./components/je-alert/je-alert";
 import { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, InputTransformer, OverlayData, ValidationFn } from "./utils/utils";
 import { Color as Color1 } from "./components";
+import { DialogButton, DialogControl } from "./components/je-dialog/je-dialog";
 import { DrawerState } from "./components/je-drawer/je-drawer";
 import { PanelState } from "./components/je-page/je-page";
 import { Placement } from "@floating-ui/dom";
-export { AlertButton, AlertControl } from "./components/je-alert/je-alert";
 export { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, InputTransformer, OverlayData, ValidationFn } from "./utils/utils";
 export { Color as Color1 } from "./components";
+export { DialogButton, DialogControl } from "./components/je-dialog/je-dialog";
 export { DrawerState } from "./components/je-drawer/je-drawer";
 export { PanelState } from "./components/je-page/je-page";
 export { Placement } from "@floating-ui/dom";
 export namespace Components {
-    interface JeAlert {
-        /**
-          * Whether or not the user can close the alert by clicking the backdrop
-         */
-        "backdropDismiss": boolean;
-        /**
-          * Buttons for user interaction
-         */
-        "buttons"?: AlertButton[];
-        /**
-          * Controls that are wrapped in a form
-         */
-        "controls"?: AlertControl[];
-        "dismiss": (role?: string, data?: any) => Promise<void>;
-        "getModalElement": () => Promise<HTMLJeModalElement>;
-        /**
-          * Title of the dialog
-         */
-        "header"?: string;
-        /**
-          * Icon that goes to the left of the header
-         */
-        "icon"?: string;
-        /**
-          * Message text below the title
-         */
-        "message"?: string;
-        "present": () => Promise<void>;
-        /**
-          * Whether or not to render the backdrop
-         */
-        "showBackdrop": boolean;
-    }
     interface JeBranch {
         "getParentBranch": () => Promise<HTMLJeBranchElement | null>;
         "isLeaf": () => Promise<boolean>;
@@ -252,6 +219,39 @@ export namespace Components {
     interface JeDetails {
         "state": 'open' | 'closed';
         "summary"?: string;
+    }
+    interface JeDialog {
+        /**
+          * Whether or not the user can close the alert by clicking the backdrop
+         */
+        "backdropDismiss": boolean;
+        /**
+          * Buttons for user interaction
+         */
+        "buttons"?: DialogButton[];
+        /**
+          * Controls that are wrapped in a form
+         */
+        "controls"?: DialogControl[];
+        "dismiss": (role?: string, data?: any) => Promise<void>;
+        "getModalElement": () => Promise<HTMLJeModalElement>;
+        /**
+          * Title of the dialog
+         */
+        "header"?: string;
+        /**
+          * Icon that goes to the left of the header
+         */
+        "icon"?: string;
+        /**
+          * Message text below the title
+         */
+        "message"?: string;
+        "present": () => Promise<void>;
+        /**
+          * Whether or not to render the backdrop
+         */
+        "showBackdrop": boolean;
     }
     interface JeDivider {
         "spacing": 'sm' | 'md' | 'lg' | 'none';
@@ -488,11 +488,11 @@ export namespace Components {
         "value": string;
     }
     interface JePage {
-        "footer": 'sticky' | 'fixed';
         "getCurrentTheme": () => Promise<"light" | "dark">;
         "leftPanel": PanelState;
         "presentToast": (options: { header?: string; message?: string; icon?: string; closable?: boolean; duration?: number; progress?: boolean; type?: "card" | "bar"; position?: "top-start" | "top-end" | "bottom-start" | "bottom-end"; buttons?: { text: string; side?: "start" | "end"; fill?: "solid" | "outline" | "clear"; color?: Color | "auto"; size?: "sm" | "md" | "lg"; handler: (toast: HTMLJeToastElement) => void | Promise<void>; }[]; }) => Promise<HTMLJeToastElement>;
         "rightPanel": PanelState;
+        "sticky": boolean;
         "theme": 'light' | 'dark' | 'auto';
     }
     interface JePill {
@@ -738,12 +738,6 @@ export interface JeTreeCustomEvent<T> extends CustomEvent<T> {
     target: HTMLJeTreeElement;
 }
 declare global {
-    interface HTMLJeAlertElement extends Components.JeAlert, HTMLStencilElement {
-    }
-    var HTMLJeAlertElement: {
-        prototype: HTMLJeAlertElement;
-        new (): HTMLJeAlertElement;
-    };
     interface HTMLJeBranchElementEventMap {
         "branchSelect": string;
     }
@@ -853,6 +847,12 @@ declare global {
     var HTMLJeDetailsElement: {
         prototype: HTMLJeDetailsElement;
         new (): HTMLJeDetailsElement;
+    };
+    interface HTMLJeDialogElement extends Components.JeDialog, HTMLStencilElement {
+    }
+    var HTMLJeDialogElement: {
+        prototype: HTMLJeDialogElement;
+        new (): HTMLJeDialogElement;
     };
     interface HTMLJeDividerElement extends Components.JeDivider, HTMLStencilElement {
     }
@@ -1220,7 +1220,6 @@ declare global {
         new (): HTMLJeTreeElement;
     };
     interface HTMLElementTagNameMap {
-        "je-alert": HTMLJeAlertElement;
         "je-branch": HTMLJeBranchElement;
         "je-button": HTMLJeButtonElement;
         "je-card": HTMLJeCardElement;
@@ -1232,6 +1231,7 @@ declare global {
         "je-column-group": HTMLJeColumnGroupElement;
         "je-datepicker": HTMLJeDatepickerElement;
         "je-details": HTMLJeDetailsElement;
+        "je-dialog": HTMLJeDialogElement;
         "je-divider": HTMLJeDividerElement;
         "je-drawer": HTMLJeDrawerElement;
         "je-dropzone": HTMLJeDropzoneElement;
@@ -1264,36 +1264,6 @@ declare global {
     }
 }
 declare namespace LocalJSX {
-    interface JeAlert {
-        /**
-          * Whether or not the user can close the alert by clicking the backdrop
-         */
-        "backdropDismiss"?: boolean;
-        /**
-          * Buttons for user interaction
-         */
-        "buttons"?: AlertButton[];
-        /**
-          * Controls that are wrapped in a form
-         */
-        "controls"?: AlertControl[];
-        /**
-          * Title of the dialog
-         */
-        "header"?: string;
-        /**
-          * Icon that goes to the left of the header
-         */
-        "icon"?: string;
-        /**
-          * Message text below the title
-         */
-        "message"?: string;
-        /**
-          * Whether or not to render the backdrop
-         */
-        "showBackdrop"?: boolean;
-    }
     interface JeBranch {
         "label"?: string;
         "onBranchSelect"?: (event: JeBranchCustomEvent<string>) => void;
@@ -1499,6 +1469,36 @@ declare namespace LocalJSX {
     interface JeDetails {
         "state"?: 'open' | 'closed';
         "summary"?: string;
+    }
+    interface JeDialog {
+        /**
+          * Whether or not the user can close the alert by clicking the backdrop
+         */
+        "backdropDismiss"?: boolean;
+        /**
+          * Buttons for user interaction
+         */
+        "buttons"?: DialogButton[];
+        /**
+          * Controls that are wrapped in a form
+         */
+        "controls"?: DialogControl[];
+        /**
+          * Title of the dialog
+         */
+        "header"?: string;
+        /**
+          * Icon that goes to the left of the header
+         */
+        "icon"?: string;
+        /**
+          * Message text below the title
+         */
+        "message"?: string;
+        /**
+          * Whether or not to render the backdrop
+         */
+        "showBackdrop"?: boolean;
     }
     interface JeDivider {
         "spacing"?: 'sm' | 'md' | 'lg' | 'none';
@@ -1751,10 +1751,10 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface JePage {
-        "footer"?: 'sticky' | 'fixed';
         "leftPanel"?: PanelState;
         "onThemeChange"?: (event: JePageCustomEvent<'light' | 'dark'>) => void;
         "rightPanel"?: PanelState;
+        "sticky"?: boolean;
         "theme"?: 'light' | 'dark' | 'auto';
     }
     interface JePill {
@@ -1937,7 +1937,6 @@ declare namespace LocalJSX {
         "value"?: string | string[];
     }
     interface IntrinsicElements {
-        "je-alert": JeAlert;
         "je-branch": JeBranch;
         "je-button": JeButton;
         "je-card": JeCard;
@@ -1949,6 +1948,7 @@ declare namespace LocalJSX {
         "je-column-group": JeColumnGroup;
         "je-datepicker": JeDatepicker;
         "je-details": JeDetails;
+        "je-dialog": JeDialog;
         "je-divider": JeDivider;
         "je-drawer": JeDrawer;
         "je-dropzone": JeDropzone;
@@ -1984,7 +1984,6 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "je-alert": LocalJSX.JeAlert & JSXBase.HTMLAttributes<HTMLJeAlertElement>;
             "je-branch": LocalJSX.JeBranch & JSXBase.HTMLAttributes<HTMLJeBranchElement>;
             "je-button": LocalJSX.JeButton & JSXBase.HTMLAttributes<HTMLJeButtonElement>;
             "je-card": LocalJSX.JeCard & JSXBase.HTMLAttributes<HTMLJeCardElement>;
@@ -1996,6 +1995,7 @@ declare module "@stencil/core" {
             "je-column-group": LocalJSX.JeColumnGroup & JSXBase.HTMLAttributes<HTMLJeColumnGroupElement>;
             "je-datepicker": LocalJSX.JeDatepicker & JSXBase.HTMLAttributes<HTMLJeDatepickerElement>;
             "je-details": LocalJSX.JeDetails & JSXBase.HTMLAttributes<HTMLJeDetailsElement>;
+            "je-dialog": LocalJSX.JeDialog & JSXBase.HTMLAttributes<HTMLJeDialogElement>;
             "je-divider": LocalJSX.JeDivider & JSXBase.HTMLAttributes<HTMLJeDividerElement>;
             "je-drawer": LocalJSX.JeDrawer & JSXBase.HTMLAttributes<HTMLJeDrawerElement>;
             "je-dropzone": LocalJSX.JeDropzone & JSXBase.HTMLAttributes<HTMLJeDropzoneElement>;

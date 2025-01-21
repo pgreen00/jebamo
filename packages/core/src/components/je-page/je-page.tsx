@@ -13,7 +13,7 @@ export class JePage {
   @Prop({ reflect: true }) leftPanel: PanelState = 'closed';
   @Prop({ reflect: true }) rightPanel: PanelState = 'closed';
   @Prop({ reflect: true }) theme: 'light' | 'dark' | 'auto' = 'light';
-  @Prop({ reflect: true }) footer: 'sticky' | 'fixed' = 'fixed';
+  @Prop() sticky = false;
   @Event() themeChange: EventEmitter<'light' | 'dark'>;
 
   componentDidLoad() {
@@ -84,44 +84,28 @@ export class JePage {
   }
 
   render() {
-    if (this.footer === 'sticky') {
-      return (
-        <Host>
-          <slot name='header' />
-          <div part='body-container'>
-            <slot name='left-panel' />
-            <div part='sticky-container'>
-              <slot name='body' />
-              <slot name='footer' />
-            </div>
-            <slot name='right-panel' />
-          </div>
-        </Host>
-      );
-    } else {
-      return (
-        <Host>
-          <slot name='header' />
-          <div part='body-container'>
-            <slot name='left-panel' />
-            <slot name='body' />
-            <slot name='right-panel' />
-          </div>
-          <slot name='footer' />
-          <div class="toast-container top-start">
-            <slot name='top-start' />
-          </div>
-          <div class="toast-container top-end">
-            <slot name='top-end' />
-          </div>
-          <div class="toast-container bottom-start">
-            <slot name='bottom-start' />
-          </div>
-          <div class="toast-container bottom-end">
-            <slot name='bottom-end' />
-          </div>
-        </Host>
-      );
-    }
+    return (
+      <Host class={{ sticky: this.sticky }}>
+        <slot name='header' />
+        <div part='body-container'>
+          <slot name='left-panel' />
+          <slot name='body' />
+          <slot name='right-panel' />
+        </div>
+        <slot name='footer' />
+        <div class="toast-container top-start">
+          <slot name='top-start' />
+        </div>
+        <div class="toast-container top-end">
+          <slot name='top-end' />
+        </div>
+        <div class="toast-container bottom-start">
+          <slot name='bottom-start' />
+        </div>
+        <div class="toast-container bottom-end">
+          <slot name='bottom-end' />
+        </div>
+      </Host>
+    )
   }
 }

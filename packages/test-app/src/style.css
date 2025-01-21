@@ -4,24 +4,23 @@
 je-page {
   --je-font-family: 'Work Sans';
   --je-border-radius: 5px;
+}
 
-  .header {
-    --je-background-color: var(--je-primary-800);
-    --je-text-color: var(--je-primary-100);
-    padding-inline: var(--je-spacing-lg);
-  }
+header je-toolbar {
+  --je-background-color: var(--je-primary-800);
+  --je-text-color: var(--je-primary-100);
+  padding-inline: var(--je-spacing-lg);
+}
 
-  [slot='left-panel'],
-  [slot='right-panel'] {
-    padding: var(--je-spacing-lg);
-    display: flex;
-    flex-direction: column;
-    gap: var(--je-spacing-lg);
-  }
+aside {
+  padding: var(--je-spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--je-spacing-lg);
+}
 
-  [slot='body'] {
-    padding: var(--je-spacing-3xl);
-  }
+main {
+  padding: var(--je-spacing-3xl);
 }
 
 je-column {

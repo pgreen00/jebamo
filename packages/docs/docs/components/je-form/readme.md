@@ -16,12 +16,12 @@ sidebar_label: 'Form'
 
 ### Used by
 
- - [je-alert](../je-alert)
+ - [je-dialog](../je-dialog)
 
 ### Graph
 ```mermaid
 graph TD;
-  je-alert --> je-form
+  je-dialog --> je-form
   style je-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

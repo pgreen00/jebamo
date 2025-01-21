@@ -16,25 +16,15 @@ sidebar_label: 'Icon'
 | `weight` | `weight`  | Icon weight                              | `number`                       | `undefined` |
 
 
-## CSS Custom Properties
-
-| Name           | Description           |
-| -------------- | --------------------- |
-| `--je-fill`    | 1 or 0, true or false |
-| `--je-grade`   | Emphasis?             |
-| `--je-optical` | Stroke weight         |
-| `--je-weight`  | icon weight           |
-
-
 ## Dependencies
 
 ### Used by
 
- - [je-alert](../je-alert)
  - [je-branch](../je-branch)
  - [je-checkbox](../je-checkbox)
  - [je-checkbox-option](../je-checkbox-option)
  - [je-datepicker](../je-datepicker)
+ - [je-dialog](../je-dialog)
  - [je-input](../je-input)
  - [je-menu-option](../je-menu-option)
  - [je-multiselect](../je-multiselect)
@@ -47,11 +37,11 @@ sidebar_label: 'Icon'
 ### Graph
 ```mermaid
 graph TD;
-  je-alert --> je-icon
   je-branch --> je-icon
   je-checkbox --> je-icon
   je-checkbox-option --> je-icon
   je-datepicker --> je-icon
+  je-dialog --> je-icon
   je-input --> je-icon
   je-menu-option --> je-icon
   je-multiselect --> je-icon

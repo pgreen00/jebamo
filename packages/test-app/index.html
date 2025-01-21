@@ -7,30 +7,32 @@
     <title>Vite + TS</title>
   </head>
   <body>
-    <je-page id="main-page" left-panel="minimized" right-panel="open">
-      <je-toolbar class="header" slot="header">
-        <je-drawer slot="start">
-          <je-button slot="trigger" fill="clear" icon-only="true" color="light">
-            <je-icon icon="menu"></je-icon>
-          </je-button>
-          <h1>Hey</h1>
-          <je-select label="Day" placeholder="Select a day of the week">
-            <je-select-option value="1">Monday</je-select-option>
-            <je-select-option value="2">Tuesday</je-select-option>
-            <je-select-option value="3">Wednesday</je-select-option>
-            <je-select-option value="4">Thursday</je-select-option>
-            <je-select-option value="5">Friday</je-select-option>
-            <je-select-option value="6">Saturday</je-select-option>
-            <je-select-option value="7">Sunday</je-select-option>
-          </je-select>
-        </je-drawer>
-        <h1>Jebamo</h1>
-        <je-button size="sm" onclick="handleThemeToggle()" color="light" slot="end">Toggle theme</je-button>
-        <je-button size="sm" onclick="handlePanelToggle('left')" color="light" slot="end">Toggle left panel</je-button>
-        <je-button size="sm" onclick="handlePanelToggle('right')" color="light" slot="end">Toggle right panel</je-button>
-      </je-toolbar>
+    <je-page id="main-page" left-panel="minimized" right-panel="open" sticky="true">
+      <header slot="header">
+        <je-toolbar>
+          <je-drawer slot="start">
+            <je-button slot="trigger" fill="clear" icon-only="true" color="light">
+              <je-icon icon="menu"></je-icon>
+            </je-button>
+            <h1>Hey</h1>
+            <je-select label="Day" placeholder="Select a day of the week">
+              <je-select-option value="1">Monday</je-select-option>
+              <je-select-option value="2">Tuesday</je-select-option>
+              <je-select-option value="3">Wednesday</je-select-option>
+              <je-select-option value="4">Thursday</je-select-option>
+              <je-select-option value="5">Friday</je-select-option>
+              <je-select-option value="6">Saturday</je-select-option>
+              <je-select-option value="7">Sunday</je-select-option>
+            </je-select>
+          </je-drawer>
+          <h1>Jebamo</h1>
+          <je-button size="sm" onclick="handleThemeToggle()" color="light" slot="end">Toggle theme</je-button>
+          <je-button size="sm" onclick="handlePanelToggle('left')" color="light" slot="end">Toggle left panel</je-button>
+          <je-button size="sm" onclick="handlePanelToggle('right')" color="light" slot="end">Toggle right panel</je-button>
+        </je-toolbar>
+      </header>
 
-      <div slot="left-panel">
+      <aside slot="left-panel">
         <je-button icon-only expand>
           <je-icon fill icon="home"></je-icon>
         </je-button>
@@ -43,9 +45,9 @@
         <je-button icon-only expand>
           <je-icon fill icon="favorite"></je-icon>
         </je-button>
-      </div>
+      </aside>
 
-      <div slot="body">
+      <main slot="body">
         <h2>Columns</h2>
         <je-column-group wrap gap="xs" justify="space-between">
           <je-column size="12" size-md="3">1</je-column>
@@ -249,9 +251,9 @@
 
         <h2>Toggle</h2>
         <je-toggle>Hey</je-toggle>
-      </div>
+      </main>
 
-      <div slot="right-panel">
+      <aside slot="right-panel">
         <h2>Example Form</h2>
         <je-form id="form">
           <je-input id="dateInput" expand label="Date" type="date"></je-input>
@@ -297,16 +299,16 @@
           <je-button type="submit">Submit</je-button>
           <je-button type="reset">Reset</je-button>
         </je-form>
-        <je-alert id="formAlert"></je-alert>
-      </div>
+        <je-dialog id="formAlert"></je-dialog>
+      </aside>
 
-      <div slot="footer">
+      <footer slot="footer">
         <je-tabs value="1" mode="mobile">
           <je-tab value="1"> <je-icon icon="home"></je-icon> Home </je-tab>
           <je-tab value="2"> <je-icon icon="calendar_month"></je-icon> Appointments </je-tab>
           <je-tab value="3"> <je-icon icon="chat"></je-icon> Messages </je-tab>
         </je-tabs>
-      </div>
+      </footer>
     </je-page>
     <script type="module" src="/src/main.ts"></script>
   </body>
