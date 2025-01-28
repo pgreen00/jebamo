@@ -1,18 +1,22 @@
+@use '../../styles/colors';
+@use '../../styles/global';
+@use '../../styles/spacing';
+
 :host {
   display: block;
-  border: solid 1px var(--je-card-border-color);
-  border-radius: var(--je-border-radius, 2px);
+  border: solid 1px var(--border-color);
+  border-radius: global.border-radius();
   overflow: hidden;
   box-sizing: border-box;
   position: relative;
-  color: var(--je-card-color);
-  background-color: var(--je-card-background);
+  color: var(--color);
+  background-color: var(--background);
 
-  --je-card-color: inherit;
-  --je-card-background: inherit;
-  --je-card-hover-background: #9f9e9e0e;
-  --je-card-active-background: #9f9e9e19;
-  --je-card-border-color: var(--je-medium-300);
+  --color: inherit;
+  --background: inherit;
+  --hover-background: #9f9e9e0e;
+  --active-background: #9f9e9e19;
+  --border-color: #{colors.medium(300)};
 }
 
 :host([button]) {
@@ -23,72 +27,72 @@
 }
 
 :host([button]:hover) {
-  background-color: var(--je-card-hover-background);
+  background-color: var(--hover-background);
 }
 
 :host([button]:active) {
-  background-color: var(--je-card-active-background);
+  background-color: var(--active-background);
 }
 
 :host([color=error]) {
-  --je-card-color: var(--je-error-100);
-  --je-card-background: var(--je-error-500);
-  --je-card-hover-background: var(--je-error-600);
-  --je-card-active-background: var(--je-error-700);
-  --je-card-border-color: var(--je-error-300);
+  --color: var(--je-error-100);
+  --background: var(--je-error-500);
+  --hover-background: var(--je-error-600);
+  --active-background: var(--je-error-700);
+  --border-color: var(--je-error-300);
 }
 
 :host([color=secondary]) {
-  --je-card-color: var(--je-secondary-100);
-  --je-card-background: var(--je-secondary-500);
-  --je-card-hover-background: var(--je-secondary-600);
-  --je-card-active-background: var(--je-secondary-700);
-  --je-card-border-color: var(--je-secondary-300);
+  --color: var(--je-secondary-100);
+  --background: var(--je-secondary-500);
+  --hover-background: var(--je-secondary-600);
+  --active-background: var(--je-secondary-700);
+  --border-color: var(--je-secondary-300);
 }
 
 :host([color=tertiary]) {
-  --je-card-color: var(--je-tertiary-100);
-  --je-card-background: var(--je-tertiary-500);
-  --je-card-hover-background: var(--je-tertiary-600);
-  --je-card-active-background: var(--je-tertiary-700);
-  --je-card-border-color: var(--je-tertiary-300);
+  --color: var(--je-tertiary-100);
+  --background: var(--je-tertiary-500);
+  --hover-background: var(--je-tertiary-600);
+  --active-background: var(--je-tertiary-700);
+  --border-color: var(--je-tertiary-300);
 }
 
 :host([color=warning]) {
-  --je-card-color: var(--je-warning-100);
-  --je-card-background: var(--je-warning-500);
-  --je-card-hover-background: var(--je-warning-600);
-  --je-card-active-background: var(--je-warning-700);
-  --je-card-border-color: var(--je-warning-300);
+  --color: var(--je-warning-100);
+  --background: var(--je-warning-500);
+  --hover-background: var(--je-warning-600);
+  --active-background: var(--je-warning-700);
+  --border-color: var(--je-warning-300);
 }
 
 :host([color=success]) {
-  --je-card-color: var(--je-success-100);
-  --je-card-background: var(--je-success-500);
-  --je-card-hover-background: var(--je-success-600);
-  --je-card-active-background: var(--je-success-700);
-  --je-card-border-color: var(--je-success-300);
+  --color: var(--je-success-100);
+  --background: var(--je-success-500);
+  --hover-background: var(--je-success-600);
+  --active-background: var(--je-success-700);
+  --border-color: var(--je-success-300);
 }
 
 :host([color=medium]) {
-  --je-card-color: var(--je-medium-50);
-  --je-card-background: var(--je-medium-500);
-  --je-card-hover-background: var(--je-medium-600);
-  --je-card-active-background: var(--je-medium-700);
+  --color: var(--je-medium-50);
+  --background: var(--je-medium-500);
+  --hover-background: var(--je-medium-600);
+  --active-background: var(--je-medium-700);
 }
 
 :host([color=light]) {
-  --je-card-color: var(--je-medium-900);
-  --je-card-background: var(--je-medium-100);
-  --je-card-hover-background: var(--je-medium-400);
-  --je-card-active-background: var(--je-medium-500);
+  --color: var(--je-medium-900);
+  --background: var(--je-medium-100);
+  --hover-background: var(--je-medium-400);
+  --active-background: var(--je-medium-500);
 }
 
 :host([color=dark]) {
-  --je-card-color: var(--je-medium-50);
-  --je-card-background: var(--je-medium-850);
-  --je-card-hover-background: var(--je-medium-850);
-  --je-card-active-background: var(--je-medium-900);
+  --color: var(--je-medium-50);
+  --background: var(--je-medium-850);
+  --hover-background: var(--je-medium-850);
+  --active-background: var(--je-medium-900);
 }
 
 ::slotted([slot="media"]) {
@@ -97,18 +101,18 @@
 
 ::slotted([slot="header"]) {
   box-sizing: border-box;
-  padding-inline: var(--je-spacing-xs, 10px);
-  border-bottom: solid 1px var(--je-card-border-color);
+  padding-inline: spacing.get(xs);
+  border-bottom: solid 1px var(--border-color);
 }
 
 ::slotted([slot="footer"]) {
   box-sizing: border-box;
   display: flex;
-  padding-block: var(--je-spacing-xs, 10px);
-  gap: var(--je-spacing-2xs, 8px);
+  padding-block: spacing.get(xs);
+  gap: spacing.get(2xs);
 }
 
 .container {
   box-sizing: border-box;
-  padding: var(--je-spacing-xs, 10px);
+  padding: spacing.get(xs);
 }
