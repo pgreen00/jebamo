@@ -5,41 +5,27 @@
 :host {
   height: 100%;
   box-sizing: border-box;
-  font-size: var(--je-font-size);
-  font-family: var(--je-font-family);
-  color: var(--je-text-color);
-  background-color: var(--je-background-color);
+  font-size: global.font-size();
+  font-family: global.font-family();
+  color: global.text-color();
+  background-color: global.background-color();
   color-scheme: light;
-
-  @include global.global-variables;
-  @include spacing.spacing-variables;
-  @include colors.color-variables;
 
   --left-sidepanel-open-width: 500px;
   --left-sidepanel-minimized-width: 100px;
-  --left-sidepanel-border: solid 1px var(--je-text-color);
+  --left-sidepanel-border: solid 1px global.text-color();
   --right-sidepanel-open-width: 500px;
   --right-sidepanel-minimized-width: 100px;
-  --right-sidepanel-border: solid 1px var(--je-text-color);
+  --right-sidepanel-border: solid 1px global.text-color();
   --header-height: 65px;
-}
-
-@mixin dark-theme-styles {
-  --je-text-color: var(--je-medium-50);
-  --je-background-color: var(--je-medium-900);
 }
 
 :host([theme=dark]) {
   color-scheme: dark;
-  @include dark-theme-styles;
 }
 
 :host([theme=auto]) {
   color-scheme: light dark;
-
-  @media (prefers-color-scheme: dark) {
-    @include dark-theme-styles;
-  }
 }
 
 [part=body-container] {

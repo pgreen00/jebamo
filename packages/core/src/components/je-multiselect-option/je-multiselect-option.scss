@@ -5,7 +5,7 @@
 }
 
 :host([darkmode]) {
-  --je-option-hover-color: var(--je-medium-850);
+  --je-option-hover-color: var(--je-medium-800);
 }
 
 :host(:hover) span[part='container'] {

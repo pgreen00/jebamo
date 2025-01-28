@@ -76,9 +76,9 @@ graph TD;
   je-dialog --> je-button
   je-dialog --> je-input
   je-dialog --> je-modal
+  je-input --> je-icon
   je-input --> je-popover
   je-input --> je-color
-  je-input --> je-icon
   style je-dialog fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

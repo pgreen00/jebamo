@@ -16,6 +16,16 @@ sidebar_label: 'Icon'
 | `weight` | `weight`  | Icon weight                              | `number`                       | `undefined` |
 
 
+## CSS Custom Properties
+
+| Name           | Description           |
+| -------------- | --------------------- |
+| `--je-fill`    | 1 or 0, true or false |
+| `--je-grade`   | Emphasis?             |
+| `--je-optical` | Stroke weight         |
+| `--je-weight`  | icon weight           |
+
+
 ## Dependencies
 
 ### Used by

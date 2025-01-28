@@ -10,7 +10,6 @@ import { Color } from '../../utils/utils';
 })
 export class JeButton {
   @Element() el: HTMLJeButtonElement;
-  private formEl?: HTMLFormElement;
   private formButtonEl?: HTMLButtonElement;
 
   /** Disables button */
@@ -42,12 +41,12 @@ export class JeButton {
 
   componentDidLoad() {
     if (this.type == 'submit' || this.type == 'reset') {
-      this.formEl = this.el.closest('form');
-      if (this.formEl) {
+      const formEl = this.el.closest('form');
+      if (formEl) {
         this.formButtonEl = document.createElement('button');
         this.formButtonEl.type = this.type;
         this.formButtonEl.style.display = 'none';
-        this.formEl.append(this.formButtonEl);
+        formEl.append(this.formButtonEl);
       }
     }
     if (this.color == 'auto') {
@@ -69,14 +68,12 @@ export class JeButton {
 
   @Listen('click')
   handleClick() {
-    if (this.formButtonEl) {
-      this.formButtonEl.click();
-    }
+    this.formButtonEl?.click();
   }
 
   render() {
     return (
-      <button part='inner-button' disabled={this.disabled} type={this.type} tabindex={0}>
+      <button part='inner-button' disabled={this.disabled} type='button' tabindex={0}>
         <slot></slot>
         <slot name='badge'></slot>
       </button>

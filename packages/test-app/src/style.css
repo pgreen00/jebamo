@@ -1,34 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
-je-page {
+:root {
   --je-font-family: 'Work Sans';
   --je-border-radius: 5px;
-}
 
-header je-toolbar {
-  --je-background-color: var(--je-primary-800);
-  --je-text-color: var(--je-primary-100);
-  padding-inline: var(--je-spacing-lg);
-}
+  --je-spacing-3xs: 2px;
+  --je-spacing-2xs: 4px;
+  --je-spacing-xs: 8px;
+  --je-spacing-sm: 12px;
+  --je-spacing-md: 16px;
+  --je-spacing-lg: 20px;
+  --je-spacing-xl: 24px;
+  --je-spacing-2xl: 32px;
+  --je-spacing-3xl: 40px;
 
-aside {
-  padding: var(--je-spacing-lg);
-  display: flex;
-  flex-direction: column;
-  gap: var(--je-spacing-lg);
-}
-
-main {
-  padding: var(--je-spacing-3xl);
-}
-
-je-column {
-  border: solid 3px var(--je-background-color);
-  background-color: var(--je-primary-100);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  --je-primary: #4141e8;
+  --je-medium: #a0aec0;
 }
 
 html,
@@ -67,4 +55,29 @@ h5,
 h6,
 p {
   line-height: 2;
+}
+
+header je-toolbar {
+  --je-background-color: color-mix(in srgb, var(--je-primary) 40%, black 60%);
+  --je-text-color: color-mix(in srgb, var(--je-primary)20%, white 80%);
+  padding-inline: var(--je-spacing-lg);
+}
+
+aside {
+  padding: var(--je-spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--je-spacing-lg);
+}
+
+main {
+  padding: var(--je-spacing-3xl);
+}
+
+je-column {
+  border: solid 3px light-dark(color-mix(in srgb, var(--je-medium) 10%, white 90%), color-mix(in srgb, var(--je-medium) 20%, black 80%));
+  background-color: color-mix(in srgb, var(--je-primary) 20%, white 80%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

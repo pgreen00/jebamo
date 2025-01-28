@@ -8,21 +8,8 @@ $font-semi-bold: 600;
 $font-bold: 700;
 $border-radius: 2px;
 $backdrop-color: rgba(0, 0, 0, 0.5);
-$text-color: colors.get-value(medium, 900);
-$background-color: colors.get-value(medium, 50);
-
-@mixin global-variables {
-  --je-font-size: #{$font-size};
-  --je-font-family: #{$font-family};
-  --je-font-light: #{$font-light};
-  --je-font-regular: #{$font-regular};
-  --je-font-semi-bold: #{$font-semi-bold};
-  --je-font-bold: #{$font-bold};
-  --je-border-radius: #{$border-radius};
-  --je-text-color: var(--je-medium-900, #{$text-color});
-  --je-background-color: var(--je-medium-50, #{$background-color});
-  --je-backdrop-color: #{$backdrop-color};
-}
+$text-color: light-dark(#{colors.medium(900)}, #{colors.medium(50)});
+$background-color: light-dark(#{colors.medium(50)}, #{colors.medium(900)});
 
 @function font-size() {
   @return var(--je-font-size, #{$font-size});

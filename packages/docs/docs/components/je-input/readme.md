@@ -89,15 +89,13 @@ Type: `Promise<void>`
 
 ## Shadow Parts
 
-| Part                | Description |
-| ------------------- | ----------- |
-| `"end-container"`   |             |
-| `"error-message"`   |             |
-| `"helper"`          |             |
-| `"label"`           |             |
-| `"native-input"`    |             |
-| `"outer-container"` |             |
-| `"start-container"` |             |
+| Part              | Description |
+| ----------------- | ----------- |
+| `"container"`     |             |
+| `"error-message"` |             |
+| `"helper"`        |             |
+| `"label"`         |             |
+| `"native-input"`  |             |
 
 
 ## Dependencies
@@ -109,16 +107,16 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [je-icon](../je-icon)
 - [je-popover](../je-popover)
 - [je-color](../je-color)
-- [je-icon](../je-icon)
 
 ### Graph
 ```mermaid
 graph TD;
+  je-input --> je-icon
   je-input --> je-popover
   je-input --> je-color
-  je-input --> je-icon
   je-dialog --> je-input
   je-select --> je-input
   style je-input fill:#f9f,stroke:#333,stroke-width:4px

@@ -11,25 +11,20 @@
 }
 
 je-icon {
-  cursor: pointer;
-  color: colors.get(primary, 500);
+  color: colors.primary();
   &:focus {
-    outline-color: var(--je-primary-300);
+    outline-color: colors.primary(300);
   }
 }
 
 :host(:state(--readonly)) {
   cursor: default;
   je-icon {
-    cursor: default;
-    color: colors.get(primary, 800);
+    color: colors.primary(800);
   }
 }
 
 :host(:state(--disabled)) {
   cursor: not-allowed;
   opacity: 0.5;
-  je-icon {
-    cursor: not-allowed;
-  }
 }

@@ -14,7 +14,7 @@
   label {
     &::after {
       content: "*";
-      color: colors.get(error, 500);
+      color: colors.error();
     }
   }
 }
@@ -26,10 +26,10 @@ label {
 
 ::slotted([slot=helper-text]),
 small {
-  color: colors.get(medium, 600);
+  color: colors.medium(600);
 }
 
 [part=error-message] {
   padding: var(--je-spacing-xs, 10px);
-  color: colors.get(error, 500);
+  color: colors.error()
 }

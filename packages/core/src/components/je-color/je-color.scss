@@ -1,39 +1,41 @@
+@use '../../styles/colors';
+
 :host {
   display: inline-block;
 }
 
 :host([color=primary]), :host([color=auto][primary]) {
-  color: var(--je-primary-500);
+  color: var(--je-primary);
 }
 
 :host([color=error]), :host([color=auto][error]) {
-  color: var(--je-error-500);
+  color: var(--je-error);
 }
 
 :host([color=secondary]), :host([color=auto][secondary]) {
-  color: var(--je-secondary-500);
+  color: var(--je-secondary);
 }
 
 :host([color=tertiary]), :host([color=auto][tertiary]) {
-  color: var(--je-tertiary-500);
+  color: var(--je-tertiary);
 }
 
 :host([color=warning]), :host([color=auto][warning]) {
-  color: var(--je-warning-500);
+  color: var(--je-warning);
 }
 
 :host([color=success]), :host([color=auto][success]) {
-  color: var(--je-success-500);
+  color: var(--je-success);
 }
 
 :host([color=medium]), :host([color=auto][medium]) {
-  color: var(--je-medium-500);
+  color: var(--je-medium);
 }
 
 :host([color=light]), :host([color=auto][light]) {
-  color: var(--je-medium-100);
+  color: colors.medium(100);
 }
 
 :host([color=dark]), :host([color=auto][dark]) {
-  color: var(--je-medium-850);
+  color: colors.medium(850);
 }

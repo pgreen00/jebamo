@@ -100,11 +100,6 @@ export class JePopover {
     }
   }
 
-  @Listen('themeChange', { target: 'window' })
-  handleThemeChange(e: CustomEvent<'light' | 'dark'>) {
-    this.el.toggleAttribute('darkmode', e.detail == 'dark');
-  }
-
   @Listen('click', { capture: true, target: 'window' })
   handleWindowClick(ev: MouseEvent) {
     if (this.triggerAction == 'click') this.mouseEvent = ev;

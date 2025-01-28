@@ -13,20 +13,14 @@
 
 je-icon {
   cursor: pointer;
-  color: colors.get(primary, 500);
+  color: colors.primary();
 }
 
 :host(.readonly) {
   cursor: default;
-  je-icon {
-    cursor: default;
-  }
 }
 
 :host(.disabled) {
   opacity: 0.6;
   cursor: not-allowed;
-  je-icon {
-    cursor: not-allowed;
-  }
 }

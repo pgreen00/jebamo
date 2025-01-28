@@ -7,7 +7,7 @@
     <title>Vite + TS</title>
   </head>
   <body>
-    <je-page id="main-page" left-panel="minimized" right-panel="open" sticky="true">
+    <je-page id="main-page" left-panel="minimized" right-panel="open">
       <header slot="header">
         <je-toolbar>
           <je-drawer slot="start">
@@ -83,14 +83,14 @@
         </je-dropzone>
 
         <h2>Divider</h2>
-        <div style="max-width: 300px; margin-bottom: var(--je-spacing)">
+        <div style="max-width: 300px; margin-bottom: var(--je-spacing-md)">
           <div>Helloo</div>
           <je-divider></je-divider>
           <div>Theree</div>
           <je-divider></je-divider>
           <div>Biatch</div>
         </div>
-        <div style="margin-bottom: var(--je-spacing); display: flex; height: 40px; align-items: center">
+        <div style="margin-bottom: var(--je-spacing-md); display: flex; height: 40px; align-items: center">
           <div>Helloo</div>
           <je-divider type="vertical"></je-divider>
           <div>Theree</div>
@@ -112,48 +112,48 @@
         <div>This <je-link underline="false" bold="true" color="auto" href="#">link</je-link> is quiet but bold</div>
 
         <h2>Buttons</h2>
-        <div style="display: flex; flex-direction: column; gap: var(--je-spacing); margin-bottom: var(--je-spacing-sm)">
-          <div style="display: flex; gap: var(--je-spacing)">
+        <div style="display: flex; flex-direction: column; gap: var(--je-spacing-md); margin-bottom: var(--je-spacing-sm)">
+          <div style="display: flex; gap: var(--je-spacing-md)">
             <je-button>solid</je-button>
             <je-button fill="outline">outline</je-button>
             <je-button fill="clear">clear</je-button>
           </div>
-          <div style="display: flex; gap: var(--je-spacing)">
+          <div style="display: flex; gap: var(--je-spacing-md)">
             <je-button color="secondary">solid</je-button>
             <je-button fill="outline" color="secondary">outline</je-button>
             <je-button fill="clear" color="secondary">clear</je-button>
           </div>
-          <div style="display: flex; gap: var(--je-spacing)">
+          <div style="display: flex; gap: var(--je-spacing-md)">
             <je-button color="tertiary">solid</je-button>
             <je-button fill="outline" color="tertiary">outline</je-button>
             <je-button fill="clear" color="tertiary">clear</je-button>
           </div>
-          <div style="display: flex; gap: var(--je-spacing)">
+          <div style="display: flex; gap: var(--je-spacing-md)">
             <je-button color="error">solid</je-button>
             <je-button fill="outline" color="error">outline</je-button>
             <je-button fill="clear" color="error">clear</je-button>
           </div>
-          <div style="display: flex; gap: var(--je-spacing)">
+          <div style="display: flex; gap: var(--je-spacing-md)">
             <je-button color="warning">solid</je-button>
             <je-button fill="outline" color="warning">outline</je-button>
             <je-button fill="clear" color="warning">clear</je-button>
           </div>
-          <div style="display: flex; gap: var(--je-spacing)">
+          <div style="display: flex; gap: var(--je-spacing-md)">
             <je-button color="success">solid</je-button>
             <je-button fill="outline" color="success">outline</je-button>
             <je-button fill="clear" color="success">clear</je-button>
           </div>
-          <div style="display: flex; gap: var(--je-spacing)">
+          <div style="display: flex; gap: var(--je-spacing-md)">
             <je-button color="medium">solid</je-button>
             <je-button fill="outline" color="medium">outline</je-button>
             <je-button fill="clear" color="medium">clear</je-button>
           </div>
-          <div style="display: flex; gap: var(--je-spacing)">
+          <div style="display: flex; gap: var(--je-spacing-md)">
             <je-button color="light">solid</je-button>
             <je-button fill="outline" color="light">outline</je-button>
             <je-button fill="clear" color="light">clear</je-button>
           </div>
-          <div style="display: flex; gap: var(--je-spacing)">
+          <div style="display: flex; gap: var(--je-spacing-md)">
             <je-button color="dark">solid</je-button>
             <je-button fill="outline" color="dark">outline</je-button>
             <je-button fill="clear" color="dark">clear</je-button>
@@ -167,7 +167,7 @@
         </div>
 
         <h2>Input as searchbar</h2>
-        <div style="gap: var(--je-spacing); display: flex; flex-direction: column">
+        <div style="gap: var(--je-spacing-md); display: flex; flex-direction: column">
           <je-input type="search" placeholder="Search for a client...">
             <je-icon icon="search" fill slot="start"></je-icon>
           </je-input>
@@ -225,13 +225,13 @@
           <h3>Hello</h3>
           <p>wyd</p>
         </je-card>
-        <je-details style="margin-top: var(--je-spacing); max-width: 300px" summary="Toggle me">
+        <je-details style="margin-top: var(--je-spacing-md); max-width: 300px" summary="Toggle me">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
           exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </je-details>
 
         <h2>Pills</h2>
-        <div style="display: flex; gap: var(--je-spacing)">
+        <div style="display: flex; gap: var(--je-spacing-md)">
           <je-pill>Hey</je-pill>
           <je-pill outline> <je-icon size="sm" icon="person"></je-icon> Hey <je-icon size="sm" icon="close"></je-icon> </je-pill>
           <je-pill disabled>Wall</je-pill>

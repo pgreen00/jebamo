@@ -27,6 +27,19 @@ sidebar_label: 'Button'
 | `"inner-button"` |             |
 
 
+## CSS Custom Properties
+
+| Name                  | Description              |
+| --------------------- | ------------------------ |
+| `--active-background` | Pressed background color |
+| `--background`        | Default background color |
+| `--color`             | Text color               |
+| `--font-size`         | Font size                |
+| `--height`            | Fixed height             |
+| `--hover-background`  | Hovered background color |
+| `--inline-padding`    | Inner inline padding     |
+
+
 ## Dependencies
 
 ### Used by

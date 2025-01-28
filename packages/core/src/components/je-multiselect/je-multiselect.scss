@@ -2,15 +2,15 @@
   display: block;
   width: 207px;
 
-  --je-height: 42px;
-  --je-border-color: transparent;
-  --je-input-background: var(--je-medium-100);
-  --je-input-color: var(--je-medium-900);
+  --height: 42px;
+  --border-color: transparent;
+  --background: var(--je-medium-100);
+  --color: var(--je-medium-900);
 }
 
 :host([darkmode]) {
-  --je-input-background: var(--je-medium-850);
-  --je-input-color: var(--je-medium-50);
+  --background: var(--je-medium-800);
+  --color: var(--je-medium-50);
 }
 
 :host([expand]) {
@@ -18,7 +18,7 @@
 }
 
 :host(:invalid) div[part=outer-container].touched {
-  --je-border-color: var(--je-error-500, red);
+  --border-color: var(--je-error-500, red);
 }
 
 div[part='outer-container'] {
@@ -26,16 +26,16 @@ div[part='outer-container'] {
   align-items: center;
   justify-content: space-between;
   gap: var(--je-spacing-2xs, 8px);
-  height: var(--je-height);
-  background-color: var(--je-input-background, field);
-  color: var(--je-input-color, fieldtext);
+  height: var(--height);
+  background-color: var(--background, field);
+  color: var(--color, fieldtext);
   padding-inline: var(--je-spacing-xs, 10px);
   border-radius: var(--je-border-radius, 2px);
   overflow: hidden;
-  border: solid 1px var(--je-border-color);
+  border: solid 1px var(--border-color);
   transition: border 125ms ease-in-out;
   &.focus {
-    --je-border-color: var(--je-primary-500, accentcolor);
+    --border-color: var(--je-primary-500, accentcolor);
   }
   &.disabled {
     opacity: 0.6;

@@ -30,9 +30,9 @@ graph TD;
   je-select --> je-popover
   je-select --> je-input
   je-select --> je-icon
+  je-input --> je-icon
   je-input --> je-popover
   je-input --> je-color
-  je-input --> je-icon
   style je-select fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

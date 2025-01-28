@@ -1,71 +1,67 @@
 @use '../../styles/colors';
 
 :host {
-  display: block;
-  width: fit-content;
+  display: contents;
 
-  --je-height: 42px;
-  --je-border-color: transparent;
-  --je-input-background: var(--je-medium-100);
-  --je-input-color: var(--je-medium-900);
-}
-
-:host([darkmode]) {
-  --je-input-background: var(--je-medium-850);
-  --je-input-color: var(--je-medium-50);
+  --height: 42px;
+  --outline-color: #{colors.primary(200)};
+  --background: light-dark(#{colors.medium(100)}, #{colors.medium(800)});
+  --color: light-dark(#{colors.medium(900)}, #{colors.medium(50)});
 }
 
 :host([expand]) {
-  width: 100%;
+  [part=container] {
+    width: 100%;
+  }
 }
 
-:host(:invalid) div[part=outer-container].touched {
-  --je-border-color: var(--je-error-500, red);
+:host(:state(--user-invalid)) {
+  --outline-color: var(--je-error-500, red);
+}
+
+:host(:state(--disabled)) {
+  [part=container] {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+:host(:state(--required)) {
+  [part=label]::after {
+    content: "*";
+    color: colors.error();
+  }
 }
 
 [part=error-message] {
   padding: var(--je-spacing-xs, 10px);
-  color: colors.get(error, 500);
+  color: colors.error();
 }
 
 :host(:focus) {
-  --je-border-color: var(--je-primary-500, accentcolor);
-}
-
-div[part='outer-container'] {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--je-spacing-2xs, 8px);
-  height: var(--je-height);
-  background-color: var(--je-input-background, field);
-  color: var(--je-input-color, fieldtext);
-  padding-inline: var(--je-spacing-xs, 10px);
-  border-radius: var(--je-border-radius, 2px);
-  overflow: hidden;
-  border: solid 1px var(--je-border-color);
-  transition: border 125ms ease-in-out;
-
-  &.disabled {
-    opacity: 0.6;
-    cursor: default;
+  [part=container] {
+    outline: solid 1px var(--outline-color);
+    outline-offset: 3px;
   }
 }
 
-div[part='start-container'],
-div[part='end-container'] {
+div[part=container] {
   display: flex;
-  gap: var(--je-spacing-xs);
   align-items: center;
+  gap: var(--je-spacing-2xs, 8px);
+  min-height: var(--height);
+  max-height: var(--height);
+  width: fit-content;
+  background-color: var(--background, field);
+  color: var(--color, fieldtext);
+  padding-inline: var(--je-spacing-xs, 10px);
+  border-radius: var(--je-border-radius, 2px);
+  box-sizing: border-box;
+  transition: border 125ms ease-in-out;
 }
 
 [part=label] {
   font-weight: var(--je-font-semi-bold);
-
-  &.required::after {
-    content: "*";
-    color: colors.get(error, 500);
-  }
 }
 
 input {
@@ -94,6 +90,11 @@ input {
   &:focus {
     outline: 0;
   }
+
+  &[type=password]::-ms-reveal,
+  &[type=password]::-ms-clear {
+    display: none !important;
+  }
 }
 
 [part=helper] {
@@ -101,9 +102,4 @@ input {
   margin-top: var(--je-spacing-2xs, 8px);
   padding-left: var(--je-spacing-xs, 10px);
   color: var(--je-medium-600);
-}
-
-input[type="password"]::-ms-reveal,
-input[type="password"]::-ms-clear {
-  display: none !important;
 }

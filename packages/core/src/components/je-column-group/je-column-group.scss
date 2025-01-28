@@ -66,7 +66,7 @@
 }
 
 :host([gap=md]) {
-  gap: spacing.get(default);
+  gap: spacing.get(md);
 }
 
 :host([gap=lg]) {

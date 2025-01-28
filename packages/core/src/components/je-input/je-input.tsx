@@ -1,4 +1,4 @@
-import { Component, Host, Prop, h, Element, Event, AttachInternals, EventEmitter, Method, State, Watch, Listen, forceUpdate } from '@stencil/core';
+import { Component, Prop, h, Element, Event, AttachInternals, EventEmitter, Method, State, Watch, Listen, forceUpdate, Fragment } from '@stencil/core';
 import { AsyncFormatterFn, AsyncValidationFn, debounceEvent, FormatterFn, InputTransformer, setName, ValidationFn } from '../../utils/utils';
 import { format, parseISO } from 'date-fns';
 
@@ -6,9 +6,9 @@ import { format, parseISO } from 'date-fns';
   tag: 'je-input',
   styleUrl: 'je-input.scss',
   shadow: {
-    delegatesFocus: true
+    delegatesFocus: true,
   },
-  formAssociated: true
+  formAssociated: true,
 })
 export class JeInput {
   @Element() hostEl!: HTMLJeInputElement;
@@ -172,28 +172,28 @@ export class JeInput {
   }
 
   async componentWillRender() {
-    const {
-      hasError,
-      minLengthError,
-      maxLengthError,
-      requiredError,
-      patternError,
-      customErrors
-    } = await this.getErrors();
+    const { hasError, minLengthError, maxLengthError, requiredError, patternError, customErrors } = await this.getErrors();
     this.invalid = hasError;
     if (hasError) {
-      const errorMessage = requiredError ? 'This field is required' :
-        minLengthError ? `This field must be at least ${this.minlength} characters long` :
-        maxLengthError ? `This field must be less than ${this.maxlength} characters long` :
-        patternError ? `Invalid pattern` :
-        customErrors[0];
-      this.internals.setValidity({
-        valueMissing: requiredError,
-        tooShort: minLengthError,
-        tooLong: maxLengthError,
-        patternMismatch: patternError,
-        customError: customErrors.length > 0
-      }, errorMessage);
+      const errorMessage = requiredError
+        ? 'This field is required'
+        : minLengthError
+        ? `This field must be at least ${this.minlength} characters long`
+        : maxLengthError
+        ? `This field must be less than ${this.maxlength} characters long`
+        : patternError
+        ? `Invalid pattern`
+        : customErrors[0];
+      this.internals.setValidity(
+        {
+          valueMissing: requiredError,
+          tooShort: minLengthError,
+          tooLong: maxLengthError,
+          patternMismatch: patternError,
+          customError: customErrors.length > 0,
+        },
+        errorMessage,
+      );
       if (this.isTouched) {
         this.internals.reportValidity();
       }
@@ -207,17 +207,19 @@ export class JeInput {
       this.errorEl?.click();
     }
     this.internals.states.clear();
+    if (this.disabled) this.internals.states.add('--disabled');
+    if (this.readonly) this.internals.states.add('--readonly');
     if (this.required) {
-      this.internals.states.add('--je-required')
+      this.internals.states.add('--required');
     } else {
-      this.internals.states.add('--je-optional')
+      this.internals.states.add('--optional');
     }
     if (this.invalid) {
-      this.internals.states.add('--je-invalid');
-      if (this.isTouched) this.internals.states.add('--je-user-invalid')
+      this.internals.states.add('--invalid');
+      if (this.isTouched) this.internals.states.add('--user-invalid');
     } else {
-      this.internals.states.add('--je-valid');
-      if (this.isTouched) this.internals.states.add('--je-user-valid')
+      this.internals.states.add('--valid');
+      if (this.isTouched) this.internals.states.add('--user-valid');
     }
   }
 
@@ -226,22 +228,15 @@ export class JeInput {
     this.value = this.originalValue;
   }
 
-  @Listen('themeChange', { target: 'body' })
-  onThemeChange(e: CustomEvent<'light' | 'dark'>) {
-    this.hostEl.toggleAttribute('darkmode', e.detail == 'dark')
-  }
-
   @Listen('focus')
   onFocus() {
-    if (this.isTouched)
-      forceUpdate(this.hostEl)
-    else
-      this.isTouched = true
+    if (this.isTouched) forceUpdate(this.hostEl);
+    else this.isTouched = true;
   }
 
   @Listen('blur')
   onBlur() {
-    const po = this.hostEl.shadowRoot.querySelector('je-popover')
+    const po = this.hostEl.shadowRoot.querySelector('je-popover');
     if (po) {
       po.open = false;
     }
@@ -265,9 +260,9 @@ export class JeInput {
 
   @Method()
   async getErrors() {
-    const requiredError = this.required && ((this.value ?? '') === '');
-    const minLengthError = this.minlength && ((this.value ?? '').length < this.minlength);
-    const maxLengthError = this.maxlength && ((this.value ?? '').length > this.maxlength);
+    const requiredError = this.required && (this.value ?? '') === '';
+    const minLengthError = this.minlength && (this.value ?? '').length < this.minlength;
+    const maxLengthError = this.maxlength && (this.value ?? '').length > this.maxlength;
     const patternError = this.pattern && !new RegExp(this.pattern).test(this.value ?? '');
     let customErrors: string[] = [];
     if (this.validators) {
@@ -282,8 +277,8 @@ export class JeInput {
       maxLengthError,
       patternError,
       customErrors,
-      hasError: requiredError || minLengthError || maxLengthError || patternError || customErrors.length > 0
-    }
+      hasError: requiredError || minLengthError || maxLengthError || patternError || customErrors.length > 0,
+    };
   }
 
   @Method()
@@ -296,7 +291,7 @@ export class JeInput {
     if (input && this.format) {
       input.value = await this.format(input.value, this.value, ev);
     }
-  }
+  };
 
   private handleInput = (ev: InputEvent) => {
     const input = ev.target as HTMLInputElement | null;
@@ -304,43 +299,46 @@ export class JeInput {
       const transformer = this.getTransformer();
       this.value = transformer?.to ? transformer.to(input.value) : input.value;
     }
-  }
+  };
 
   private getTransformer = () => {
     if (this.transform === 'number') {
       return {
         to: (value: string) => parseFloat(value),
-        from: (value: number) => value.toString()
-      }
+        from: (value: number) => value.toString(),
+      };
     } else if (this.transform === 'date') {
       return {
         to: (value: string) => parseISO(value).toISOString(),
-        from: (value: any) => format(value, "yyyy-MM-dd")
-      }
+        from: (value: any) => format(value, 'yyyy-MM-dd'),
+      };
     } else if (this.transform === 'datetime') {
       return {
         to: (value: string) => parseISO(value).toISOString(),
-        from: (value: any) => format(value, "yyyy-MM-dd'T'HH:mm:ss")
-      }
+        from: (value: any) => format(value, "yyyy-MM-dd'T'HH:mm:ss"),
+      };
     } else {
       return this.transform;
     }
-  }
+  };
 
   render() {
     const transformer = this.getTransformer();
     return (
-      <Host>
-        <div part='outer-container' class={{ disabled: this.disabled, touched: this.isTouched }}>
-          <div part='start-container'>
-            {this.label && <label class={{ required: this.required }} part='label'>{this.label}</label>}
-            <slot name='start'/>
-          </div>
+      <Fragment>
+        <div part="container">
+          <slot name="start" />
+
+          {this.label && (
+            <label part="label">
+              {this.label}
+            </label>
+          )}
 
           <input
             tabindex={0}
             part="native-input"
-            ref={el => this.inputEl = el}
+            ref={el => (this.inputEl = el)}
             onInputCapture={this.formatInput}
             onInput={this.handleInput}
             disabled={this.disabled}
@@ -361,25 +359,29 @@ export class JeInput {
             step={this.step}
             type={this.type == 'password' && this.showPassword ? 'text' : this.type}
             value={transformer?.from ? transformer.from(this.value) : this.value}
-            placeholder={this.placeholder} />
+            placeholder={this.placeholder}
+          />
 
-          <div part='end-container'>
-            {this.isTouched && this.invalid && (
-              <je-popover renderBackdrop={false} placement='top-end' arrow={true}>
-                <je-color ref={el => this.errorEl = el} slot='trigger' color='error'>
-                  <je-icon size='sm' fill={true} icon='error' />
-                </je-color>
-                <div part='error-message'>{this.internals.validationMessage}</div>
-              </je-popover>
-            )}
-            <slot name='end'/>
-            {this.type == 'password' && (
-              <je-icon icon={this.showPassword ? 'visibility_off' : 'visibility'} fill={true} size='sm' onClick={() => (this.showPassword = !this.showPassword)} />
-            )}
-          </div>
+          {this.type == 'password' && (
+            <je-icon icon={this.showPassword ? 'visibility_off' : 'visibility'} fill={true} size="sm" onClick={() => (this.showPassword = !this.showPassword)} />
+          )}
+
+          {this.isTouched && this.invalid && (
+            <je-popover renderBackdrop={false} placement="top-end" arrow={true}>
+              <je-color ref={el => (this.errorEl = el)} slot="trigger" color="error">
+                <je-icon size="sm" fill={true} icon="error" />
+              </je-color>
+              <div part="error-message">{this.internals.validationMessage}</div>
+            </je-popover>
+          )}
+
+          <slot name="end" />
         </div>
-        {this.helperText && <small part="helper">{this.helperText}</small>}
-      </Host>
+
+        {this.helperText && (
+          <small part="helper">{this.helperText}</small>
+        )}
+      </Fragment>
     );
   }
 }
