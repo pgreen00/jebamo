@@ -2,21 +2,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
 :root {
-  --je-font-family: 'Work Sans';
-  --je-border-radius: 5px;
+  font-family: "Work Sans";
+  font-size: 13px;
+  line-height: 1.75;
+}
 
-  --je-spacing-3xs: 2px;
-  --je-spacing-2xs: 4px;
-  --je-spacing-xs: 8px;
-  --je-spacing-sm: 12px;
-  --je-spacing-md: 16px;
-  --je-spacing-lg: 20px;
-  --je-spacing-xl: 24px;
-  --je-spacing-2xl: 32px;
-  --je-spacing-3xl: 40px;
+body.light {
+  color-scheme: light;
+}
 
-  --je-primary: #4141e8;
-  --je-medium: #a0aec0;
+body.dark {
+  color-scheme: dark;
+}
+
+body.system {
+  color-scheme: light dark;
 }
 
 html,
@@ -42,42 +42,33 @@ p {
 }
 
 h1 {
-  line-height: 2.5;
+  font-size: 2.5rem;
 }
 
-h2,
-h3,
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
 h4 {
-  line-height: 2.25;
+  font-size: 1.5rem;
 }
 
-h5,
-h6,
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
 p {
-  line-height: 2;
+  font-size: 1rem;
 }
 
-header je-toolbar {
-  --je-background-color: color-mix(in srgb, var(--je-primary) 40%, black 60%);
-  --je-text-color: color-mix(in srgb, var(--je-primary)20%, white 80%);
-  padding-inline: var(--je-spacing-lg);
-}
-
-aside {
-  padding: var(--je-spacing-lg);
-  display: flex;
-  flex-direction: column;
-  gap: var(--je-spacing-lg);
-}
-
-main {
-  padding: var(--je-spacing-3xl);
-}
-
-je-column {
-  border: solid 3px light-dark(color-mix(in srgb, var(--je-medium) 10%, white 90%), color-mix(in srgb, var(--je-medium) 20%, black 80%));
-  background-color: color-mix(in srgb, var(--je-primary) 20%, white 80%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+small {
+  font-size: 0.875rem;
 }

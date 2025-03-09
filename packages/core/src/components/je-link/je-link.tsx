@@ -1,21 +1,13 @@
-import { Component, Host, Prop, h } from '@stencil/core';
-import { Color } from '../../components';
+import { Component, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-link',
   styleUrl: 'je-link.scss',
-  shadow: true,
+  shadow: {
+    delegatesFocus: true
+  },
 })
 export class JeLink {
-  /** Predefined colors. Auto will switch between light and dark based on the closest je-page's theme. */
-  @Prop() color?: Color | 'auto';
-
-  /** Overrides what the light mode color will be when color is "auto". */
-  @Prop() lightModeColor?: Color;
-
-  /** Overrides what the dark mode color will be when color is "auto". */
-  @Prop() darkModeColor?: Color;
-
   /** Underlines the text */
   @Prop() underline = true;
 
@@ -36,13 +28,9 @@ export class JeLink {
 
   render() {
     return (
-      <Host>
-        <a href={this.href} target={this.target} rel={this.rel} download={this.download}>
-          <je-color class={{underline: this.underline, bold: this.bold}} color={this.color} light-mode-color={this.lightModeColor} dark-mode-color={this.darkModeColor}>
-            <slot></slot>
-          </je-color>
-        </a>
-      </Host>
+      <a tabindex={0} href={this.href} target={this.target} rel={this.rel} download={this.download}>
+        <slot></slot>
+      </a>
     );
   }
 }

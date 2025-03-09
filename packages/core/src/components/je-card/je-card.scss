@@ -1,11 +1,9 @@
-@use '../../styles/colors';
-@use '../../styles/global';
-@use '../../styles/spacing';
+@use '../../styles/styles' as *;
 
 :host {
   display: block;
   border: solid 1px var(--border-color);
-  border-radius: global.border-radius();
+  border-radius: radius-get(sm);
   overflow: hidden;
   box-sizing: border-box;
   position: relative;
@@ -16,7 +14,7 @@
   --background: inherit;
   --hover-background: #9f9e9e0e;
   --active-background: #9f9e9e19;
-  --border-color: #{colors.medium(300)};
+  --border-color: #{medium(300)};
 }
 
 :host([button]) {
@@ -34,12 +32,12 @@
   background-color: var(--active-background);
 }
 
-:host([color=error]) {
-  --color: var(--je-error-100);
-  --background: var(--je-error-500);
-  --hover-background: var(--je-error-600);
-  --active-background: var(--je-error-700);
-  --border-color: var(--je-error-300);
+:host([color=danger]) {
+  --color: var(--je-danger-100);
+  --background: var(--je-danger-500);
+  --hover-background: var(--je-danger-600);
+  --active-background: var(--je-danger-700);
+  --border-color: var(--je-danger-300);
 }
 
 :host([color=secondary]) {
@@ -101,18 +99,18 @@
 
 ::slotted([slot="header"]) {
   box-sizing: border-box;
-  padding-inline: spacing.get(xs);
+  padding-inline: spacing-get(xs);
   border-bottom: solid 1px var(--border-color);
 }
 
 ::slotted([slot="footer"]) {
   box-sizing: border-box;
   display: flex;
-  padding-block: spacing.get(xs);
-  gap: spacing.get(2xs);
+  padding-block: spacing-get(xs);
+  gap: spacing-get(2xs);
 }
 
 .container {
   box-sizing: border-box;
-  padding: spacing.get(xs);
+  padding: spacing-get(xs);
 }

@@ -1,9 +1,11 @@
 :host {
-  display: inline-block;
+  display: contents;
+  color: inherit;
+  font-family: inherit;
 }
 
 a {
-  display: inline-block;
+  display: inline-flex;
 }
 
 .underline {

@@ -4,13 +4,13 @@ import { AsyncSubject, buffer, debounceTime, fromEvent, Subscription, tap } from
 @Component({
   tag: 'je-form',
   styleUrl: 'je-form.scss',
-  scoped: true,
+  scoped: true
 })
 export class JeForm {
   private el$ = new AsyncSubject<HTMLFormElement>();
   private sub?: Subscription;
 
-  @Event() formData: EventEmitter<Record<string, FormDataEntryValue>>;
+  @Event() formData: EventEmitter<Record<string, any>>;
 
   connectedCallback() {
     this.el$.subscribe(this.setupEventListener);
@@ -25,7 +25,16 @@ export class JeForm {
     event.preventDefault();
     this.el$.subscribe(el => {
       const formData = new FormData(el);
-      const json = Object.fromEntries(formData.entries());
+      let json: Record<string, any> = {};
+      for (let [key, value] of formData.entries()) {
+        if (Array.isArray(json[key])) {
+          json[key].push(value);
+        } else if (json[key]) {
+          json[key] = [json[key], value];
+        } else {
+          json[key] = value;
+        }
+      }
       this.formData.emit(json);
     })
   }
@@ -33,12 +42,7 @@ export class JeForm {
   @Listen('keydown')
   handleKeyup(event: KeyboardEvent) {
     if (event.key === 'Enter') {
-      this.el$.subscribe(el => {
-        const submitButton = el.querySelector('button[type=submit]') as HTMLButtonElement | null;
-        if (submitButton) {
-          submitButton.click();
-        }
-      })
+      this.el$.subscribe(el => el.querySelector<HTMLButtonElement>('button[type=submit]')?.click())
     }
   }
 
@@ -64,7 +68,7 @@ export class JeForm {
   render() {
     return (
       <form ref={this.formElementInit}>
-        <slot />
+        <slot/>
       </form>
     );
   }

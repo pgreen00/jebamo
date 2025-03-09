@@ -1,8 +1,8 @@
-@use '../../styles/global';
+@use '../../styles/styles' as *;
 
 :host {
   display: block;
-  font-family: global.font-family();
+  font-family: inherit;
   box-sizing: border-box;
   flex-grow: 1;
   min-height: 1px;

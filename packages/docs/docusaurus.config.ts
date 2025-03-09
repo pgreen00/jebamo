@@ -9,6 +9,7 @@ const config: Config = {
   tagline: 'Web Component Library',
   favicon: 'img/favicon.ico',
   url: 'https://jebamo.com',
+  staticDirectories: ['public'],
   baseUrl: '/',
   plugins: [
     require.resolve('./plugins/jebamo-plugin/index.ts')
@@ -27,18 +28,18 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: './src/styles.css',
         },
       } satisfies Preset.Options,
     ],
   ],
   themeConfig: {
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'docusaurus-social-card.jpg',
     navbar: {
       title: 'Jebamo',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        src: 'logo.svg',
       },
       items: [
         {

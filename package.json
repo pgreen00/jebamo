@@ -22,6 +22,8 @@
   "license": "ISC",
   "description": "",
   "workspaces": [
-    "packages/*"
+    "packages/core",
+    "packages/angular",
+    "packages/test-app"
   ]
 }

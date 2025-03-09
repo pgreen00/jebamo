@@ -103,19 +103,11 @@ export class JeDatepicker {
         {(this.type == 'date' || this.type == 'datetime') && (
           <Fragment>
             <div class="header">
-              <je-button iconOnly={true} fill='clear' onClick={this.prevYear}>
-                <je-icon size='sm' fill={true} icon='keyboard_double_arrow_left' />
-              </je-button>
-              <je-button iconOnly={true} fill='clear' onClick={this.prevMonth}>
-                <je-icon size='sm' fill={true} icon='keyboard_arrow_left' />
-              </je-button>
+              <je-icon size='sm' fill button onClick={this.prevYear}>keyboard_double_arrow_left</je-icon>
+              <je-icon size='sm' fill button onClick={this.prevMonth}>keyboard_arrow_left</je-icon>
               <span>{format(this.currentDate, 'MMMM yyyy')}</span>
-              <je-button iconOnly={true} fill='clear' onClick={this.nextMonth}>
-                <je-icon size='sm' fill={true} icon='keyboard_arrow_right' />
-              </je-button>
-              <je-button iconOnly={true} fill='clear' onClick={this.nextYear}>
-                <je-icon size='sm' fill={true} icon='keyboard_double_arrow_right' />
-              </je-button>
+              <je-icon size='sm' fill button onClick={this.nextMonth}>keyboard_arrow_right</je-icon>
+              <je-icon size='sm' fill button onClick={this.nextYear}>keyboard_double_arrow_right</je-icon>
             </div>
 
             <div class="weekdays-grid">
@@ -124,7 +116,7 @@ export class JeDatepicker {
 
             <div class="days-grid">
               {daysBefore.map(day => (
-                <je-button expand={true} disabled={true} color='medium' fill='clear' class='day'>
+                <je-button expand={true} disabled={true} color='secondary' fill='clear' class='day'>
                   {format(day, 'd')}
                 </je-button>
               ))}
@@ -137,7 +129,7 @@ export class JeDatepicker {
                   <je-button
                     expand={true}
                     disabled={isDisabled}
-                    color={selected || today ? 'primary' : isDisabled ? 'medium' : this.isDark ? 'light' : 'dark'}
+                    color={selected || today ? 'primary' : isDisabled ? 'secondary' : this.isDark ? 'light' : 'dark'}
                     fill={selected ? 'solid' : 'clear'}
                     class='day'
                     onClick={() => this.setDay(day)}
@@ -148,7 +140,7 @@ export class JeDatepicker {
               })}
 
               {daysAfter.map(day => (
-                <je-button expand={true} disabled={true} color='medium' fill='clear' class='day'>
+                <je-button expand={true} disabled={true} color='secondary' fill='clear' class='day'>
                   {format(day, 'd')}
                 </je-button>
               ))}
@@ -158,7 +150,7 @@ export class JeDatepicker {
         {(this.type == 'time' || this.type == 'datetime') && (
           <div class='timepicker'>
             <span>Time</span>
-            <je-popover showBackdrop={true} arrow={true} placement='auto' onPopoverPresent={this.scrollTimeIntoView}>
+            <je-popover arrow={true} onPopoverPresent={this.scrollTimeIntoView}>
               <je-pill slot='trigger'>
                 {this.value ? (
                   this.includeSeconds ? format(this.value, 'hh:mm:ss a') : format(this.value, 'hh:mm a')

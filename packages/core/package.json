@@ -11,14 +11,16 @@
   "files": [
     "dist/",
     "loader/",
-    "components/"
+    "components/",
+    "styles/"
   ],
   "scripts": {
-    "build": "stencil build",
+    "build": "npm run build:sass && stencil build",
     "start": "stencil build --watch",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "build:sass": "sass src/styles/classes.scss:styles/classes.css src/styles/variables.scss:styles/variables.css"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.6.12",

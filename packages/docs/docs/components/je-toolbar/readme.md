@@ -7,23 +7,22 @@ sidebar_label: 'Toolbar'
 
 ## Shadow Parts
 
-| Part                 | Description |
-| -------------------- | ----------- |
-| `"center-container"` |             |
+| Part               | Description |
+| ------------------ | ----------- |
+| `"end-container"`  |             |
+| `"main-container"` |             |
 
 
 ## Dependencies
 
 ### Used by
 
- - [je-menu-option](../je-menu-option)
- - [je-toast](../je-toast)
+ - [je-alert](../je-alert)
 
 ### Graph
 ```mermaid
 graph TD;
-  je-menu-option --> je-toolbar
-  je-toast --> je-toolbar
+  je-alert --> je-toolbar
   style je-toolbar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

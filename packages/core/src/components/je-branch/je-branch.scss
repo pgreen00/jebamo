@@ -1,16 +1,13 @@
+@use '../../styles/styles' as *;
+
 :host {
   display: block;
   user-select: none;
   -webkit-user-select: none;
 
-  --highlight-color: var(--je-primary-100);
-  --highlight-border-color: var(--je-text-color);
-  --indentation-color: var(--je-medium-400);
-}
-
-:host([darkmode]) {
-  --highlight-color: var(--je-medium-850);
-  --indentation-color: var(--je-medium-800);
+  --highlight-color: light-dark(#{primary(100)}, #{medium(850)});
+  --highlight-border-color: light-dark(#{medium(900)}, #{medium(50)});
+  --indentation-color: light-dark(#{medium(400)}, #{medium(800)});
 }
 
 [part=main-container] {

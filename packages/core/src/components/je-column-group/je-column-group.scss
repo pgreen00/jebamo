@@ -1,4 +1,4 @@
-@use '../../styles/spacing';
+@use '../../styles/styles' as *;
 
 :host {
   display: flex;
@@ -50,37 +50,37 @@
 }
 
 :host([gap="3xs"]) {
-  gap: spacing.get(3xs);
+  gap: spacing-get(3xs);
 }
 
 :host([gap="2xs"]) {
-  gap: spacing.get(2xs);
+  gap: spacing-get(2xs);
 }
 
 :host([gap=xs]) {
-  gap: spacing.get(xs);
+  gap: spacing-get(xs);
 }
 
 :host([gap=sm]) {
-  gap: spacing.get(sm);
+  gap: spacing-get(sm);
 }
 
 :host([gap=md]) {
-  gap: spacing.get(md);
+  gap: spacing-get(md);
 }
 
 :host([gap=lg]) {
-  gap: spacing.get(lg);
+  gap: spacing-get(lg);
 }
 
 :host([gap=xl]) {
-  gap: spacing.get(xl);
+  gap: spacing-get(xl);
 }
 
 :host([gap="2xl"]) {
-  gap: spacing.get(2xl);
+  gap: spacing-get(2xl);
 }
 
 :host([gap="3xl"]) {
-  gap: spacing.get(3xl);
+  gap: spacing-get(3xl);
 }

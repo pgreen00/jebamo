@@ -9,9 +9,13 @@ export class JeToolbar {
   render() {
     return (
       <Host>
-        <slot name='start'/>
-        <div part='center-container'><slot/></div>
-        <slot name='end'/>
+        <div part='main-container'>
+          <slot name='start'/>
+          <slot/>
+        </div>
+        <div part='end-container'>
+          <slot name='end'/>
+        </div>
       </Host>
     );
   }

@@ -7,18 +7,18 @@ sidebar_label: 'Radio'
 
 ## Properties
 
-| Property         | Attribute         | Description                                                       | Type               | Default     |
-| ---------------- | ----------------- | ----------------------------------------------------------------- | ------------------ | ----------- |
-| `labelPlacement` | `label-placement` | Whether or not the label will appear before or after the control  | `"end" \| "start"` | `'end'`     |
-| `selected`       | `selected`        | If the option is currently selected                               | `boolean`          | `undefined` |
-| `value`          | `value`           | The value of this option and the radio group will compare against | `any`              | `undefined` |
+| Property   | Attribute  | Description                                                       | Type      | Default     |
+| ---------- | ---------- | ----------------------------------------------------------------- | --------- | ----------- |
+| `disabled` | `disabled` | Disables option and shows state                                   | `boolean` | `false`     |
+| `selected` | `selected` | If the option is currently selected                               | `boolean` | `undefined` |
+| `value`    | `value`    | The value of this option and the radio group will compare against | `any`     | `undefined` |
 
 
-## Events
+## Shadow Parts
 
-| Event         | Description                             | Type               |
-| ------------- | --------------------------------------- | ------------------ |
-| `radioSelect` | Emits the value whenever it is selected | `CustomEvent<any>` |
+| Part     | Description |
+| -------- | ----------- |
+| `"main"` |             |
 
 
 ## Dependencies

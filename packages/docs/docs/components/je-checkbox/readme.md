@@ -9,6 +9,7 @@ sidebar_label: 'Checkbox'
 
 | Property         | Attribute         | Description                                                                                | Type               | Default     |
 | ---------------- | ----------------- | ------------------------------------------------------------------------------------------ | ------------------ | ----------- |
+| `data`           | `data`            | Data to submit to the form                                                                 | `string`           | `undefined` |
 | `disabled`       | `disabled`        | Shows the disabled state and prevents changes                                              | `boolean`          | `false`     |
 | `indeterminate`  | `indeterminate`   | If the checkbox should contain a 3rd indeterminate state                                   | `boolean`          | `false`     |
 | `labelPlacement` | `label-placement` | Whether or not the label should go before or after the checkbox                            | `"end" \| "start"` | `'end'`     |

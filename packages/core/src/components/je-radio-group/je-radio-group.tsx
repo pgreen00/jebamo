@@ -1,14 +1,26 @@
-import { Component, Host, h, Element, EventEmitter, Prop, Event, Watch, Listen } from '@stencil/core';
+import { Component, Host, h, Element, EventEmitter, Prop, Event, Watch, Listen, AttachInternals } from '@stencil/core';
 
 @Component({
   tag: 'je-radio-group',
   styleUrl: 'je-radio-group.scss',
-  shadow: true,
+  shadow: {
+    delegatesFocus: true
+  },
   formAssociated: true
 })
 export class JeRadioGroup {
+  @AttachInternals() internals!: ElementInternals;
   @Element() el!: HTMLJeRadioGroupElement;
-  private originalValue?: any;
+
+  /**
+   * Requires a value before the form can be submitted
+   */
+  @Prop() required?: boolean;
+
+  /**
+   * Value the form will reset to. Defaults to initial value if not specified
+   */
+  @Prop({ mutable: true }) originalValue?: any;
 
   /**
    * Label that shows above the controls
@@ -21,34 +33,28 @@ export class JeRadioGroup {
   @Prop({ mutable: true }) value?: any;
 
   /**
-   * Shows readonly state for all the controls and prevents changes
-   */
-  @Prop() readonly = false;
-
-  /**
-   * Shows disabled state for all the controls and prevents changes
-   */
-  @Prop() disabled = false;
-
-  /**
    * Emits the selected value whenever it changes
    */
-  @Event({ bubbles: false }) valueChange: EventEmitter<any>;
-
-  componentWillLoad() {
-    if (this.label) {
-      this.el.setAttribute('name', this.label)
-    }
-  }
+  @Event({ bubbles: false }) valueChange!: EventEmitter<any>;
 
   componentDidLoad() {
-    this.originalValue = this.value;
-    if (this.value) {
-      const radios = this.getRadios();
-      for (let item of radios) {
-        if (item.value === this.value) {
-          item.selected = true;
-        }
+    this.internals.setFormValue(this.value);
+    if (!this.originalValue) this.originalValue = this.value;
+  }
+
+  componentWillRender() {
+    this.getRadios().forEach(radio => radio.selected = radio.value === this.value);
+  }
+
+  componentDidRender() {
+    this.internals.states.clear()
+    if (this.required) {
+      this.internals.states.add('--required');
+      if (this.getRadios().every(t => t.selected)) {
+        this.internals.states.add('--valid');
+      } else {
+        this.internals.setValidity({ customError: true }, 'Please select an option.')
+        this.internals.states.add('--invalid');
       }
     }
   }
@@ -60,31 +66,33 @@ export class JeRadioGroup {
   }
 
   private getRadios() {
-    const elements = this.el.querySelectorAll('je-radio');
-    return Array.from(elements);
+    return Array.from(this.el.querySelectorAll('je-radio'));
+  }
+
+  private isRadio(target: EventTarget | null): target is HTMLJeRadioElement {
+    return target instanceof HTMLElement && target.tagName == 'JE-RADIO'
   }
 
   @Watch('value')
   handleValueChange() {
     this.valueChange.emit(this.value);
-    const radios = this.getRadios();
-    for (let radio of radios) {
-      if (radio.value !== this.value && radio.selected !== false)
-        radio.selected = false;
-      else if (radio.value === this.value && radio.selected !== true)
-        radio.selected = true;
-    }
+    this.internals.setFormValue(this.value);
   }
 
-  @Listen('radioSelect')
-  handleNewValue(ev: CustomEvent<any>) {
-    this.value = ev.detail;
+  @Listen('click')
+  handleNewValue(ev: Event) {
+    const { target } = ev;
+    if (this.isRadio(target)) {
+      this.value = target.value;
+    }
   }
 
   render() {
     return (
       <Host>
-        {this.label && <label>{this.label}</label>}
+        <slot name='label'>
+          {this.label && <label tabindex={0}>{this.label}</label>}
+        </slot>
         <slot></slot>
       </Host>
     );

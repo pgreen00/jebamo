@@ -1,10 +1,18 @@
+@use '../../styles/styles' as *;
+
 :host {
   display: block;
   width: fit-content;
 }
 
-label {
-  display: block;
-  font-weight: var(--je-font-semi-bold);
-  margin-bottom: var(--je-spacing-2xs);
+slot[name=label] {
+  display: inline-flex;
+  font-weight: font-weight(semi-bold);
+  margin-bottom: spacing-get(2xs);
+  gap: spacing-get(2xs);
+}
+
+:host(:state(--required)) slot[name=label]::after {
+  content: "*";
+  color: danger();
 }

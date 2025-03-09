@@ -1,22 +1,19 @@
-:host {
-  /**
-   * @prop --je-fill: 1 or 0, true or false
-   * @prop --je-weight: icon weight
-   * @prop --je-grade: Emphasis?
-   * @prop --je-optical: Stroke weight
-   */
-  --je-fill: 0;
-  --je-weight: 400;
-  --je-grade: 0;
-  --je-optical: 24;
+@use '../../styles/styles' as *;
 
-  display: block;
+/**
+ * @prop --fill: 1 or 0, true or false
+ * @prop --weight: icon weight
+ * @prop --grade: Emphasis?
+ * @prop --optical: Stroke weight
+ */
+
+:host {
+  display: inline;
   cursor: inherit;
   font-family: 'Material Symbols Rounded';
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;
-  line-height: unset;
+  line-height: normal;
   letter-spacing: normal;
   text-transform: none;
   user-select: none;
@@ -25,37 +22,52 @@
   word-wrap: normal;
   direction: ltr;
   -webkit-font-smoothing: antialiased;
-  font-variation-settings: 'FILL' var(--je-fill), 'wght' var(--je-weight), 'GRAD' var(--je-grade), 'opsz' var(--je-optical);
+  font-variation-settings: 'FILL' var(--fill), 'wght' var(--weight), 'GRAD' var(--grade), 'opsz' var(--optical);
 }
 
-:host([fill]) {
-  --je-fill: 1;
+:host(.__button) {
+  display: contents;
 }
 
-:host([size=sm]) {
-  --je-optical: 20;
-  font-size: 20px;
-}
+button {
+  margin: 0;
+  padding: spacing-get(3xs);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: 'Material Symbols Rounded';
+  font-weight: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  width: fit-content;
+  height: fit-content;
+  text-transform: none;
+  font-size: inherit;
+  background-color: transparent;
+  color: inherit;
+  user-select: none;
+  -webkit-user-select: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' var(--fill), 'wght' var(--weight), 'GRAD' var(--grade), 'opsz' var(--optical);
+  transition: opacity 75ms ease-in-out;
 
-:host([size=md]) {
-  --je-optical: 24;
-  font-size: 24px;
-}
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
 
-:host([size=lg]) {
-  --je-optical: 40;
-  font-size: 40px;
-}
+  &:hover {
+    opacity: 0.8;
+  }
 
-:host([size=xl]) {
-  --je-optical: 48;
-  font-size: 48px;
-}
-
-:host([grade=low]) {
-  --je-grade: -25;
-}
-
-:host([grade=high]) {
-  --je-grade: 200;
+  &:active {
+    opacity: 0.6;
+  }
 }

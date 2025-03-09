@@ -6,6 +6,10 @@ export const config: Config = {
   plugins: [
     sass()
   ],
+  extras: {
+    experimentalSlotFixes: true,
+    experimentalScopedSlotChanges: true
+  },
   namespace: 'jebamo',
   enableCache: false,
   outputTargets: [
@@ -35,6 +39,6 @@ export const config: Config = {
     },
   ],
   testing: {
-    browserHeadless: "new",
+    browserHeadless: 'shell',
   },
 };

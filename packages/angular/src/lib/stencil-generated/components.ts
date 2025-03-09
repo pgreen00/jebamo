@@ -8,6 +8,58 @@ import { Components } from 'jebamo';
 
 
 @ProxyCmp({
+})
+@Component({
+  selector: 'je-action-sheet',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeActionSheet {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeActionSheet extends Components.JeActionSheet {}
+
+
+@ProxyCmp({
+  inputs: ['closable', 'color', 'duration', 'fixed', 'header', 'icon', 'message', 'open', 'position', 'progress', 'type'],
+  methods: ['present', 'dismiss', 'didDismiss']
+})
+@Component({
+  selector: 'je-alert',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['closable', 'color', 'duration', 'fixed', 'header', 'icon', 'message', 'open', 'position', 'progress', 'type'],
+})
+export class JeAlert {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['alertPresent', 'alertDismiss']);
+  }
+}
+
+
+import type { OverlayData as IJeAlertOverlayData } from 'jebamo';
+
+export declare interface JeAlert extends Components.JeAlert {
+
+  alertPresent: EventEmitter<CustomEvent<any>>;
+
+  alertDismiss: EventEmitter<CustomEvent<IJeAlertOverlayData>>;
+}
+
+
+@ProxyCmp({
   inputs: ['label', 'open', 'selected', 'value'],
   methods: ['isLeaf', 'getParentBranch']
 })
@@ -35,14 +87,14 @@ export declare interface JeBranch extends Components.JeBranch {
 
 
 @ProxyCmp({
-  inputs: ['color', 'darkModeColor', 'disabled', 'expand', 'fill', 'iconOnly', 'lightModeColor', 'size', 'type']
+  inputs: ['color', 'dark', 'disabled', 'expand', 'fill', 'light', 'size', 'type']
 })
 @Component({
   selector: 'je-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['color', 'darkModeColor', 'disabled', 'expand', 'fill', 'iconOnly', 'lightModeColor', 'size', 'type'],
+  inputs: ['color', 'dark', 'disabled', 'expand', 'fill', 'light', 'size', 'type'],
 })
 export class JeButton {
   protected el: HTMLElement;
@@ -54,6 +106,27 @@ export class JeButton {
 
 
 export declare interface JeButton extends Components.JeButton {}
+
+
+@ProxyCmp({
+})
+@Component({
+  selector: 'je-button-group',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeButtonGroup {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeButtonGroup extends Components.JeButtonGroup {}
 
 
 @ProxyCmp({
@@ -79,14 +152,14 @@ export declare interface JeCard extends Components.JeCard {}
 
 
 @ProxyCmp({
-  inputs: ['disabled', 'indeterminate', 'labelPlacement', 'readonly', 'required', 'value']
+  inputs: ['data', 'disabled', 'indeterminate', 'labelPlacement', 'readonly', 'required', 'value']
 })
 @Component({
   selector: 'je-checkbox',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['disabled', 'indeterminate', 'labelPlacement', 'readonly', 'required', 'value'],
+  inputs: ['data', 'disabled', 'indeterminate', 'labelPlacement', 'readonly', 'required', 'value'],
 })
 export class JeCheckbox {
   protected el: HTMLElement;
@@ -107,65 +180,14 @@ export declare interface JeCheckbox extends Components.JeCheckbox {
 
 
 @ProxyCmp({
-  inputs: ['defaultValue', 'disabled', 'helperText', 'label', 'readonly', 'required', 'value'],
-  methods: ['reset', 'setCustomValidity', 'checkValidity', 'reportValidity']
-})
-@Component({
-  selector: 'je-checkbox-group',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['defaultValue', 'disabled', 'helperText', 'label', 'readonly', 'required', 'value'],
-})
-export class JeCheckboxGroup {
-  protected el: HTMLElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['valueChange']);
-  }
-}
-
-
-export declare interface JeCheckboxGroup extends Components.JeCheckboxGroup {
-  /**
-   * Emits the current selected values whenever they change
-   */
-  valueChange: EventEmitter<CustomEvent<string[]>>;
-}
-
-
-@ProxyCmp({
-  inputs: ['checked', 'disabled', 'readonly', 'value']
-})
-@Component({
-  selector: 'je-checkbox-option',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['checked', 'disabled', 'readonly', 'value'],
-})
-export class JeCheckboxOption {
-  protected el: HTMLElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-  }
-}
-
-
-export declare interface JeCheckboxOption extends Components.JeCheckboxOption {}
-
-
-@ProxyCmp({
-  inputs: ['color', 'darkModeColor', 'lightModeColor']
+  inputs: ['color', 'dark', 'light']
 })
 @Component({
   selector: 'je-color',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['color', 'darkModeColor', 'lightModeColor'],
+  inputs: ['color', 'dark', 'light'],
 })
 export class JeColor {
   protected el: HTMLElement;
@@ -384,19 +406,19 @@ export class JeForm {
 
 export declare interface JeForm extends Components.JeForm {
 
-  formData: EventEmitter<CustomEvent<Record<string, FormDataEntryValue>>>;
+  formData: EventEmitter<CustomEvent<Record<string, any>>>;
 }
 
 
 @ProxyCmp({
-  inputs: ['fill', 'grade', 'icon', 'size', 'weight']
+  inputs: ['button', 'disabled', 'fill', 'grade', 'size', 'weight']
 })
 @Component({
   selector: 'je-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['fill', 'grade', 'icon', 'size', 'weight'],
+  inputs: ['button', 'disabled', 'fill', 'grade', 'size', 'weight'],
 })
 export class JeIcon {
   protected el: HTMLElement;
@@ -468,14 +490,56 @@ export declare interface JeInput extends Components.JeInput {
 
 
 @ProxyCmp({
-  inputs: ['bold', 'color', 'darkModeColor', 'download', 'href', 'lightModeColor', 'rel', 'target', 'underline']
+})
+@Component({
+  selector: 'je-item',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeItem {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeItem extends Components.JeItem {}
+
+
+@ProxyCmp({
+})
+@Component({
+  selector: 'je-label',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeLabel {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeLabel extends Components.JeLabel {}
+
+
+@ProxyCmp({
+  inputs: ['bold', 'download', 'href', 'rel', 'target', 'underline']
 })
 @Component({
   selector: 'je-link',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['bold', 'color', 'darkModeColor', 'download', 'href', 'lightModeColor', 'rel', 'target', 'underline'],
+  inputs: ['bold', 'download', 'href', 'rel', 'target', 'underline'],
 })
 export class JeLink {
   protected el: HTMLElement;
@@ -487,6 +551,27 @@ export class JeLink {
 
 
 export declare interface JeLink extends Components.JeLink {}
+
+
+@ProxyCmp({
+})
+@Component({
+  selector: 'je-list',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeList {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeList extends Components.JeList {}
 
 
 @ProxyCmp({
@@ -508,58 +593,6 @@ export class JeLoading {
 
 
 export declare interface JeLoading extends Components.JeLoading {}
-
-
-@ProxyCmp({
-  inputs: ['type', 'value']
-})
-@Component({
-  selector: 'je-menu',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['type', 'value'],
-})
-export class JeMenu {
-  protected el: HTMLElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['valueChange']);
-  }
-}
-
-
-export declare interface JeMenu extends Components.JeMenu {
-
-  valueChange: EventEmitter<CustomEvent<string>>;
-}
-
-
-@ProxyCmp({
-  inputs: ['checked', 'disabled', 'value']
-})
-@Component({
-  selector: 'je-menu-option',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['checked', 'disabled', 'value'],
-})
-export class JeMenuOption {
-  protected el: HTMLElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['menuOptionSelect']);
-  }
-}
-
-
-export declare interface JeMenuOption extends Components.JeMenuOption {
-
-  menuOptionSelect: EventEmitter<CustomEvent<string>>;
-}
 
 
 @ProxyCmp({
@@ -596,16 +629,15 @@ export declare interface JeModal extends Components.JeModal {
 
 
 @ProxyCmp({
-  inputs: ['expand', 'label', 'placeholder', 'required', 'value']
 })
 @Component({
-  selector: 'je-multiselect',
+  selector: 'je-note',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['expand', 'label', 'placeholder', 'required', 'value'],
+  inputs: [],
 })
-export class JeMultiselect {
+export class JeNote {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
@@ -614,62 +646,50 @@ export class JeMultiselect {
 }
 
 
-export declare interface JeMultiselect extends Components.JeMultiselect {}
+export declare interface JeNote extends Components.JeNote {}
 
 
 @ProxyCmp({
-  inputs: ['checked', 'value']
 })
 @Component({
-  selector: 'je-multiselect-option',
+  selector: 'je-option',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['checked', 'value'],
+  inputs: [],
 })
-export class JeMultiselectOption {
+export class JeOption {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['optionChecked', 'optionUnchecked']);
   }
 }
 
 
-export declare interface JeMultiselectOption extends Components.JeMultiselectOption {
-
-  optionChecked: EventEmitter<CustomEvent<string>>;
-
-  optionUnchecked: EventEmitter<CustomEvent<string>>;
-}
+export declare interface JeOption extends Components.JeOption {}
 
 
 @ProxyCmp({
-  inputs: ['leftPanel', 'rightPanel', 'sticky', 'theme'],
-  methods: ['getCurrentTheme', 'presentToast']
+  inputs: ['layout']
 })
 @Component({
   selector: 'je-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['leftPanel', 'rightPanel', 'sticky', 'theme'],
+  inputs: ['layout'],
 })
 export class JePage {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['themeChange']);
   }
 }
 
 
-export declare interface JePage extends Components.JePage {
-
-  themeChange: EventEmitter<CustomEvent<'light' | 'dark'>>;
-}
+export declare interface JePage extends Components.JePage {}
 
 
 @ProxyCmp({
@@ -717,14 +737,14 @@ export declare interface JePlaceholder extends Components.JePlaceholder {}
 
 
 @ProxyCmp({
-  inputs: ['arrow', 'backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'renderBackdrop', 'showBackdrop', 'triggerAction']
+  inputs: ['arrow', 'backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'triggerAction']
 })
 @Component({
   selector: 'je-popover',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['arrow', 'backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'renderBackdrop', 'showBackdrop', 'triggerAction'],
+  inputs: ['arrow', 'backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'triggerAction'],
 })
 export class JePopover {
   protected el: HTMLElement;
@@ -749,42 +769,57 @@ export declare interface JePopover extends Components.JePopover {
 
 
 @ProxyCmp({
-  inputs: ['labelPlacement', 'selected', 'value']
+  inputs: ['disabled', 'selected', 'value']
 })
 @Component({
   selector: 'je-radio',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['labelPlacement', 'selected', 'value'],
+  inputs: ['disabled', 'selected', 'value'],
 })
 export class JeRadio {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['radioSelect']);
   }
 }
 
 
-export declare interface JeRadio extends Components.JeRadio {
-  /**
-   * Emits the value whenever it is selected
-   */
-  radioSelect: EventEmitter<CustomEvent<any>>;
-}
+export declare interface JeRadio extends Components.JeRadio {}
 
 
 @ProxyCmp({
-  inputs: ['disabled', 'label', 'readonly', 'value']
+})
+@Component({
+  selector: 'je-radio-button',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeRadioButton {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeRadioButton extends Components.JeRadioButton {}
+
+
+@ProxyCmp({
+  inputs: ['label', 'originalValue', 'required', 'value']
 })
 @Component({
   selector: 'je-radio-group',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['disabled', 'label', 'readonly', 'value'],
+  inputs: ['label', 'originalValue', 'required', 'value'],
 })
 export class JeRadioGroup {
   protected el: HTMLElement;
@@ -805,14 +840,34 @@ export declare interface JeRadioGroup extends Components.JeRadioGroup {
 
 
 @ProxyCmp({
-  inputs: ['expand', 'label', 'placeholder', 'required', 'value']
+})
+@Component({
+  selector: 'je-section',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeSection {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeSection extends Components.JeSection {}
+
+
+@ProxyCmp({
 })
 @Component({
   selector: 'je-select',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['expand', 'label', 'placeholder', 'required', 'value'],
+  inputs: [],
 })
 export class JeSelect {
   protected el: HTMLElement;
@@ -824,32 +879,6 @@ export class JeSelect {
 
 
 export declare interface JeSelect extends Components.JeSelect {}
-
-
-@ProxyCmp({
-  inputs: ['selected', 'value']
-})
-@Component({
-  selector: 'je-select-option',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['selected', 'value'],
-})
-export class JeSelectOption {
-  protected el: HTMLElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['optionSelected']);
-  }
-}
-
-
-export declare interface JeSelectOption extends Components.JeSelectOption {
-
-  optionSelected: EventEmitter<CustomEvent<string>>;
-}
 
 
 @ProxyCmp({
@@ -901,16 +930,15 @@ export declare interface JeTabs extends Components.JeTabs {
 
 
 @ProxyCmp({
-  inputs: ['debounce', 'disabled', 'label', 'maxLength', 'placeholder', 'readonly', 'required', 'value']
 })
 @Component({
-  selector: 'je-textarea',
+  selector: 'je-textfield',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['debounce', 'disabled', 'label', 'maxLength', 'placeholder', 'readonly', 'required', 'value'],
+  inputs: [],
 })
-export class JeTextarea {
+export class JeTextfield {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
@@ -919,38 +947,28 @@ export class JeTextarea {
 }
 
 
-export declare interface JeTextarea extends Components.JeTextarea {}
+export declare interface JeTextfield extends Components.JeTextfield {}
 
 
 @ProxyCmp({
-  inputs: ['closable', 'color', 'duration', 'fixed', 'header', 'icon', 'message', 'open', 'position', 'progress', 'type'],
-  methods: ['present', 'dismiss', 'didDismiss']
 })
 @Component({
-  selector: 'je-toast',
+  selector: 'je-toast-container',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['closable', 'color', 'duration', 'fixed', 'header', 'icon', 'message', 'open', 'position', 'progress', 'type'],
+  inputs: [],
 })
-export class JeToast {
+export class JeToastContainer {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['toastPresent', 'toastDismiss']);
   }
 }
 
 
-import type { OverlayData as IJeToastOverlayData } from 'jebamo';
-
-export declare interface JeToast extends Components.JeToast {
-
-  toastPresent: EventEmitter<CustomEvent<any>>;
-
-  toastDismiss: EventEmitter<CustomEvent<IJeToastOverlayData>>;
-}
+export declare interface JeToastContainer extends Components.JeToastContainer {}
 
 
 @ProxyCmp({
@@ -1000,6 +1018,27 @@ export class JeToolbar {
 
 
 export declare interface JeToolbar extends Components.JeToolbar {}
+
+
+@ProxyCmp({
+})
+@Component({
+  selector: 'je-tooltip',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeTooltip {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeTooltip extends Components.JeTooltip {}
 
 
 @ProxyCmp({

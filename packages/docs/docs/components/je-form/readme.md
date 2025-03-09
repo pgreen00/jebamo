@@ -7,9 +7,9 @@ sidebar_label: 'Form'
 
 ## Events
 
-| Event      | Description | Type                                                |
-| ---------- | ----------- | --------------------------------------------------- |
-| `formData` |             | `CustomEvent<{ [x: string]: FormDataEntryValue; }>` |
+| Event      | Description | Type                                 |
+| ---------- | ----------- | ------------------------------------ |
+| `formData` |             | `CustomEvent<{ [x: string]: any; }>` |
 
 
 ## Dependencies

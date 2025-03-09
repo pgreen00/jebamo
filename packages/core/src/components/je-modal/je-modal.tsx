@@ -1,4 +1,4 @@
-import { Component, Host, h, Element, Event, EventEmitter, Method, Prop, Watch, Listen } from '@stencil/core';
+import { Component, Host, h, Element, Event, EventEmitter, Method, Prop, Watch } from '@stencil/core';
 import { animationUpdate } from '../../utils/utils';
 
 @Component({
@@ -30,11 +30,6 @@ export class JeModal {
 
   componentDidLoad() {
     this.templateEl = this.el.querySelector('template');
-  }
-
-  @Listen('themeChange', { target: 'window' })
-  handleThemeChange(e: CustomEvent<'light' | 'dark'>) {
-    this.el.toggleAttribute('darkmode', e.detail == 'dark')
   }
 
   @Watch('open')

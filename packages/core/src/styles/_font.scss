@@ -1,0 +1,40 @@
+$font-light: 400;
+$font-regular: 500;
+$font-semi-bold: 600;
+$font-bold: 700;
+
+@function font-weight($var) {
+  @if $var == light {
+    @return var(--je-font-light, #{$font-light});
+  } @else if $var == semi-bold {
+    @return var(--je-font-semi-bold, #{$font-semi-bold});
+  } @else if $var == bold {
+    @return var(--je-font-bold, #{$font-bold});
+  } @else if $var == regular {
+    @return var(--je-font-regular, #{$font-regular});
+  } @else {
+    @error 'Invalid font weight value';
+  }
+}
+
+$font-xs: 0.75rem;
+$font-sm: 0.875rem;
+$font-md: 1rem;
+$font-lg: 1.25rem;
+$font-xl: 1.5rem;
+
+@function font-size($var) {
+  @if $var == xs {
+    @return var(--je-font-size-xs, #{$font-xs});
+  } @else if $var == sm {
+    @return var(--je-font-size-sm, #{$font-sm});
+  } @else if $var == md {
+    @return var(--je-font-size-md, #{$font-md});
+  } @else if $var == lg {
+    @return var(--je-font-size-lg, #{$font-lg});
+  } @else if $var == xl {
+    @return var(--je-font-size-xl, #{$font-xl});
+  } @else {
+    @error 'Invalid font size value';
+  }
+}

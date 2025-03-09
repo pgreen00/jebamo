@@ -7,10 +7,10 @@ sidebar_label: 'Card'
 
 ## Properties
 
-| Property | Attribute | Description | Type                                                                                                           | Default     |
-| -------- | --------- | ----------- | -------------------------------------------------------------------------------------------------------------- | ----------- |
-| `button` | `button`  |             | `boolean`                                                                                                      | `undefined` |
-| `color`  | `color`   |             | `"dark" \| "error" \| "light" \| "medium" \| "primary" \| "secondary" \| "success" \| "tertiary" \| "warning"` | `undefined` |
+| Property | Attribute | Description | Type                                                                                  | Default     |
+| -------- | --------- | ----------- | ------------------------------------------------------------------------------------- | ----------- |
+| `button` | `button`  |             | `boolean`                                                                             | `undefined` |
+| `color`  | `color`   |             | `"danger" \| "dark" \| "light" \| "primary" \| "secondary" \| "success" \| "warning"` | `undefined` |
 
 
 ## Dependencies

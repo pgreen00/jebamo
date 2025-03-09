@@ -1,34 +1,37 @@
-import { Component, Host, Listen, Prop, h, Element } from '@stencil/core';
+import { Component, Host, Prop, h } from '@stencil/core';
 import { Color } from '../../components';
+import { shade } from '../../utils/utils';
 
 @Component({
   tag: 'je-color',
-  styleUrl: 'je-color.scss',
   shadow: true,
 })
 export class JeColor {
-  @Element() el: HTMLJeColorElement;
+  /** Fixed color */
+  @Prop({ reflect: true }) color?: Color;
 
-  /** Predefined colors. Auto will switch between light and dark based on the closest je-page's theme. */
-  @Prop({ reflect: true }) color: Color | 'auto' = 'primary';
+  /** Color in light mode */
+  @Prop() light: Color = 'dark';
 
-  /** Overrides what the light mode color will be when color is "auto". */
-  @Prop() lightModeColor: Color = 'dark';
+  /** Color in dark mode */
+  @Prop() dark: Color = 'light';
 
-  /** Overrides what the dark mode color will be when color is "auto". */
-  @Prop() darkModeColor: Color = 'light';
-
-  @Listen('themeChange', { target: 'body' })
-  handleThemeChange(e: CustomEvent<'light' | 'dark'>) {
-    if (this.color == 'auto') {
-      this.el.toggleAttribute(this.lightModeColor, e.detail == 'light')
-      this.el.toggleAttribute(this.darkModeColor, e.detail == 'dark')
+  private get cssValue() {
+    if (this.color) {
+      return this.getShade(this.color)
+    } else {
+      return `light-dark(${this.getShade(this.light)}, ${this.getShade(this.dark)})`
     }
+  }
+
+  private getShade(color: Color) {
+    return shade(color, color == 'light' ? 900 : color == 'dark' ? 50 : 500)
   }
 
   render() {
     return (
       <Host>
+        <style>{`:host{display:contents;color:${this.cssValue};}`}</style>
         <slot></slot>
       </Host>
     );

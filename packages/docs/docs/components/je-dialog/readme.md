@@ -64,8 +64,8 @@ Type: `Promise<void>`
 
 - [je-form](../je-form)
 - [je-icon](../je-icon)
-- [je-button](../je-button)
 - [je-input](../je-input)
+- [je-button](../je-button)
 - [je-modal](../je-modal)
 
 ### Graph
@@ -73,8 +73,8 @@ Type: `Promise<void>`
 graph TD;
   je-dialog --> je-form
   je-dialog --> je-icon
-  je-dialog --> je-button
   je-dialog --> je-input
+  je-dialog --> je-button
   je-dialog --> je-modal
   je-input --> je-icon
   je-input --> je-popover

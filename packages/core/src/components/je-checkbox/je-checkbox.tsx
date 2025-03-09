@@ -1,5 +1,4 @@
 import { AttachInternals, Component, EventEmitter, Host, Prop, h, Element, Event, Listen, Watch } from '@stencil/core';
-import { setName } from '../../utils/utils';
 
 @Component({
   tag: 'je-checkbox',
@@ -46,6 +45,11 @@ export class JeCheckbox {
   @Prop() required = false;
 
   /**
+   * Data to submit to the form
+   */
+  @Prop() data?: string;
+
+  /**
    * Emits the current value whenever it's state changes
    */
   @Event({ bubbles: false }) valueChange: EventEmitter<boolean | undefined>;
@@ -55,11 +59,10 @@ export class JeCheckbox {
       this.value = false;
     }
     this.originalValue = this.value;
-    setName(this.el);
   }
 
   componentDidLoad() {
-    this.handleValueChange();
+    //this.handleValueChange();
   }
 
   formResetCallback() {
@@ -79,7 +82,7 @@ export class JeCheckbox {
 
   @Watch('value')
   handleValueChange() {
-    this.internals.setFormValue(`${this.value}`);
+    this.internals.setFormValue(this.value ? this.data || 'true' : null);
     if (this.value === undefined && this.required) {
       this.internals.setValidity({ valueMissing: true }, 'This field is required', this.iconEl);
     } else {
@@ -92,7 +95,7 @@ export class JeCheckbox {
     return (
       <Host class={{ disabled: this.disabled, readonly: this.readonly }}>
         {this.labelPlacement == 'start' && <slot />}
-        <je-icon ref={el => this.iconEl = el} tabIndex={0} part='icon' icon={icon} />
+        <je-icon ref={el => this.iconEl = el} tabIndex={0} part='icon'>{icon}</je-icon>
         {this.labelPlacement == 'end' && <slot />}
       </Host>
     );

@@ -1,0 +1,62 @@
+@use 'colors';
+@use 'elevation';
+@use 'font';
+@use 'radius';
+@use 'spacing';
+@use 'transition';
+
+$shades: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950;
+
+@mixin generate-shades($color) {
+  @each $shade in $shades {
+    --je-#{$color}-#{$shade}: #{colors.shade(var(--je-#{$color}), $shade)};
+  }
+}
+
+:root {
+  //colors
+  --je-primary: #{colors.$primary};
+  --je-secondary: #{colors.$secondary};
+  --je-success: #{colors.$success};
+  --je-warning: #{colors.$warning};
+  --je-danger: #{colors.$danger};
+  --je-medium: #{colors.$medium};
+
+  @include generate-shades(primary);
+  @include generate-shades(secondary);
+  @include generate-shades(success);
+  @include generate-shades(warning);
+  @include generate-shades(danger);
+  @include generate-shades(medium);
+
+  //elevation
+  @each $name, $value in elevation.$elevation {
+    --je-shadow-#{$name}: #{$value};
+  }
+
+  //font
+  --je-font-light: #{font.$font-light};
+  --je-font-regular: #{font.$font-regular};
+  --je-font-semi-bold: #{font.$font-semi-bold};
+  --je-font-bold: #{font.$font-bold};
+  --je-font-xs: #{font.$font-xs};
+  --je-font-sm: #{font.$font-sm};
+  --je-font-md: #{font.$font-md};
+  --je-font-lg: #{font.$font-lg};
+  --je-font-xl: #{font.$font-xl};
+
+  //radius
+  @each $name, $value in radius.$radius {
+    --je-radius-#{$name}: #{$value};
+  }
+
+  //spacing
+  @each $name, $value in spacing.$spacing {
+    --je-spacing-#{$name}: #{$value};
+  }
+
+  //transition
+  @each $name, $value in transition.$transition {
+    --je-transition-#{$name}: #{$value};
+  }
+}

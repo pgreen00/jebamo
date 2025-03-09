@@ -1,8 +1,0 @@
-:host {
-  display: block;
-  min-width: 140px;
-}
-
-::slotted(je-divider) {
-  --spacing: var(--je-spacing-3xs);
-}

@@ -1,0 +1,43 @@
+@use 'elevation';
+@use 'radius';
+@use 'spacing';
+
+@each $name, $value in elevation.$elevation {
+  .je-elevation-#{$name} { box-shadow: elevation.get($name); }
+}
+
+@each $name, $value in radius.$radius {
+  .je-radius-#{$name} { border-radius: radius.get($name); }
+}
+
+@mixin spacing-classes($property) {
+  @each $name, $value in spacing.$spacing {
+    @if $name == md {
+      .je-#{$property} { #{$property}: spacing.get($name); }
+      .je-#{$property}-top { #{$property}-top: spacing.get($name); }
+      .je-#{$property}-right { #{$property}-right: spacing.get($name); }
+      .je-#{$property}-bottom { #{$property}-bottom: spacing.get($name); }
+      .je-#{$property}-left { #{$property}-left: spacing.get($name); }
+      .je-#{$property}-horizontal { #{$property}-inline: spacing.get($name); }
+      .je-#{$property}-vertical { #{$property}-block: spacing.get($name); }
+    } @else {
+      .je-#{$property}-#{$name} { #{$property}: spacing.get($name); }
+      .je-#{$property}-top-#{$name} { #{$property}-top: spacing.get($name); }
+      .je-#{$property}-right-#{$name} { #{$property}-right: spacing.get($name); }
+      .je-#{$property}-bottom-#{$name} { #{$property}-bottom: spacing.get($name); }
+      .je-#{$property}-left-#{$name} { #{$property}-left: spacing.get($name); }
+      .je-#{$property}-horizontal-#{$name} { #{$property}-inline: spacing.get($name); }
+      .je-#{$property}-vertical-#{$name} { #{$property}-block: spacing.get($name); }
+    }
+  }
+  .je-no-#{$property} { #{$property}: 0 !important; }
+  .je-no-#{$property}-top { #{$property}-top: 0 !important; }
+  .je-no-#{$property}-right { #{$property}-right: 0 !important; }
+  .je-no-#{$property}-bottom { #{$property}-bottom: 0 !important; }
+  .je-no-#{$property}-left { #{$property}-left: 0 !important; }
+  .je-no-#{$property}-horizontal { #{$property}-inline: 0 !important; }
+  .je-no-#{$property}-vertical { #{$property}-block: 0 !important; }
+}
+
+@include spacing-classes(padding);
+@include spacing-classes(margin);

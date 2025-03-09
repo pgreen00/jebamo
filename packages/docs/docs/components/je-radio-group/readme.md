@@ -7,12 +7,12 @@ sidebar_label: 'Radio Group'
 
 ## Properties
 
-| Property   | Attribute  | Description                                                    | Type      | Default     |
-| ---------- | ---------- | -------------------------------------------------------------- | --------- | ----------- |
-| `disabled` | `disabled` | Shows disabled state for all the controls and prevents changes | `boolean` | `false`     |
-| `label`    | `label`    | Label that shows above the controls                            | `string`  | `undefined` |
-| `readonly` | `readonly` | Shows readonly state for all the controls and prevents changes | `boolean` | `false`     |
-| `value`    | `value`    | The currently selected value                                   | `any`     | `undefined` |
+| Property        | Attribute        | Description                                                              | Type      | Default     |
+| --------------- | ---------------- | ------------------------------------------------------------------------ | --------- | ----------- |
+| `label`         | `label`          | Label that shows above the controls                                      | `string`  | `undefined` |
+| `originalValue` | `original-value` | Value the form will reset to. Defaults to initial value if not specified | `any`     | `undefined` |
+| `required`      | `required`       | Requires a value before the form can be submitted                        | `boolean` | `undefined` |
+| `value`         | `value`          | The currently selected value                                             | `any`     | `undefined` |
 
 
 ## Events

@@ -26,11 +26,6 @@ export class JeBranch {
     this.indentation = tree?.indentation ?? false;
   }
 
-  @Listen('themeChange', { target: 'body' })
-  onThemeChange(e: CustomEvent<'light' | 'dark'>) {
-    this.element.toggleAttribute('darkmode', e.detail == 'dark')
-  }
-
   @Listen('keydown')
   onKeyDown(ev: KeyboardEvent) {
     if (ev.key === 'ArrowRight' && this.hasChildren && !this.open) {
@@ -140,9 +135,9 @@ export class JeBranch {
       <Host>
         <div ref={el => this.mainContainerEl = el} tabindex={0} part="main-container" class={{ highlight: this.selected && (this.selection == 'single' || this.selection == 'leaf') }}>
           <div part="level"></div>
-          <je-icon class={{ open: this.open }} onClickCapture={this.handleIconClick} icon="chevron_right" style={{ opacity: this.hasChildren ? '1' : '0' }} />
+          <je-icon class={{ open: this.open }} onClickCapture={this.handleIconClick} style={{ opacity: this.hasChildren ? '1' : '0' }}>chevron_right</je-icon>
           {this.selection === 'multiple' && (
-            <je-icon icon={this.selected === true ? 'check_box' : this.selected === false ? 'check_box_outline_blank' : 'indeterminate_check_box'} />
+            <je-icon>{this.selected === true ? 'check_box' : this.selected === false ? 'check_box_outline_blank' : 'indeterminate_check_box'}</je-icon>
           )}
           <span part="label">
             <slot name="label">{this.label && <span>{this.label}</span>}</slot>

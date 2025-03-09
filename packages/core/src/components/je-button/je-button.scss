@@ -1,115 +1,14 @@
-@use '../../styles/colors';
-@use '../../styles/global';
+@use '../../styles/styles' as *;
 
-:host {
-  display: contents;
-
-  /**
-   * @prop --height: Fixed height
-   * @prop --font-size: Font size
-   * @prop --inline-padding: Inner inline padding
-   * @prop --color: Text color
-   * @prop --background: Default background color
-   * @prop --hover-background: Hovered background color
-   * @prop --active-background: Pressed background color
-   */
-  --height: 40px;
-  --width: fit-content;
-  --min-width: 80px;
-  --font-size: 1.1em;
-  --inline-padding: 10px;
-  --color: #{colors.primary(100)};
-  --background: #{colors.primary()};
-  --hover-background: #{colors.primary(600)};
-  --active-background: #{colors.primary(700)};
-}
-
-:host([color=error]),
-:host([color=auto][error]) {
-  --color: #{colors.error(100)};
-  --background: #{colors.error()};
-  --hover-background: #{colors.error(600)};
-  --active-background: #{colors.error(700)};
-}
-
-:host([color=secondary]),
-:host([color=auto][secondary]) {
-  --color: #{colors.secondary(100)};
-  --background: #{colors.secondary()};
-  --hover-background: #{colors.secondary(600)};
-  --active-background: #{colors.secondary(700)};
-}
-
-:host([color=tertiary]),
-:host([color=auto][tertiary]) {
-  --color: #{colors.tertiary(100)};
-  --background: #{colors.tertiary()};
-  --hover-background: #{colors.tertiary(600)};
-  --active-background: #{colors.tertiary(700)};
-}
-
-:host([color=warning]),
-:host([color=auto][warning]) {
-  --color: #{colors.warning(100)};
-  --background: #{colors.warning()};
-  --hover-background: #{colors.warning(600)};
-  --active-background: #{colors.warning(700)};
-}
-
-:host([color=success]),
-:host([color=auto][success]) {
-  --color: #{colors.success(100)};
-  --background: #{colors.success()};
-  --hover-background: #{colors.success(600)};
-  --active-background: #{colors.success(700)};
-}
-
-:host([color=medium]),
-:host([color=auto][medium]) {
-  --color: #{colors.medium(100)};
-  --background: #{colors.medium()};
-  --hover-background: #{colors.medium(600)};
-  --active-background: #{colors.medium(700)};
-}
-
-:host([color=light]),
-:host([color=auto][light]) {
-  --color: #{colors.medium(800)};
-  --background: #{colors.medium(100)};
-  --hover-background: #{colors.medium(200)};
-  --active-background: #{colors.medium(300)};
-}
-
-:host([color=dark]),
-:host([color=auto][dark]) {
-  --color: #{colors.medium(100)};
-  --background: #{colors.medium(800)};
-  --hover-background: #{colors.medium(900)};
-  --active-background: #{colors.medium(950)};
-}
-
-:host([expand]) {
-  --width: 100%;
-}
-
-:host([icon-only]) {
-  --min-width: 2px;
-  --inline-padding: 0;
-}
-
-:host([size=sm]) {
-  --min-width: 60px;
-  --height: 30px;
-  --font-size: 0.9em;
-  --inline-padding: 5px;
-}
-
-:host([size=lg]) {
-  --min-width: 100px;
-  --height: 50px;
-  --font-size: 1.3em;
-  --inline-padding: 20px;
-}
+/**
+ * @prop --height: Fixed height
+ * @prop --font-size: Font size
+ * @prop --inline-padding: Inner inline padding
+ * @prop --color: Text color
+ * @prop --background: Default background color
+ * @prop --hover-background: Hovered background color
+ * @prop --active-background: Pressed background color
+ */
 
 button {
   display: flex;
@@ -118,28 +17,29 @@ button {
   gap: 4px;
   position: relative;
   box-sizing: border-box;
-  border: none;
-  border-radius: global.border-radius();
+  border-radius: radius-get(sm);
   margin: 0;
   padding-block: 0;
   padding-inline: var(--inline-padding);
   cursor: pointer;
+  flex-shrink: 0;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
   text-transform: uppercase;
   text-wrap: wrap;
-  font-family: global.font-family();
+  font-family: inherit;
   font-size: var(--font-size);
-  font-weight: global.font-weight(semi-bold);
+  font-weight: font-weight(semi-bold);
   width: var(--width);
   height: var(--height);
   min-width: var(--min-width);
   color: var(--color);
   background-color: var(--background);
   transition: all 125ms ease-in-out;
-  outline-color: colors.primary(300);
+  outline-color: primary(300);
   outline-offset: 3px;
+  border: solid 1px transparent;
 
   @media (hover: hover) {
     &:hover {
@@ -152,25 +52,25 @@ button {
   }
 
   &:disabled {
-    opacity: 0.8;
-    cursor: default;
+    opacity: 0.6;
+    cursor: not-allowed;
   }
-}
 
-:host([fill=outline]) button {
-  color: var(--background);
-  background-color: transparent;
-  border: solid 1px var(--background);
-}
+  &.outline {
+    color: var(--background);
+    background-color: transparent;
+    border-color: var(--background);
+  }
 
-:host([fill=clear]) button {
-  color: var(--background);
-  background-color: transparent;
-  font-weight: global.font-weight(bold);
+  &.clear {
+    color: var(--background);
+    background-color: transparent;
+    font-weight: font-weight(bold);
 
-  @media (hover: hover) {
-    &:hover {
-      opacity: 0.8;
+    @media (hover: hover) {
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 }

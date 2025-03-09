@@ -1,18 +1,18 @@
 import { Component, h, Element, Prop, Method } from '@stencil/core';
-import { AsyncValidationFn, Color, ValidationFn } from '../../utils/utils';
+import { Color } from '../../utils/utils';
 
 export type DialogButton = {
   text: string;
   color?: Color;
   fill: 'solid' | 'outline' | 'clear';
   handler: (dialog: HTMLJeDialogElement) => void | Promise<void>;
-  type?: string;
+  type?: 'reset' | 'submit';
 };
 
 export type DialogControl = {
   label?: string;
   placeholder?: string;
-  validators?: (ValidationFn | AsyncValidationFn)[];
+  validators?: HTMLJeInputElement['validators']
   required?: boolean;
   type?: string;
 };
@@ -82,11 +82,9 @@ export class JeDialog {
         <div class="content-container">
           {this.header && (
             <div class="header">
-              {this.icon && <je-icon icon={this.icon} />}
+              {this.icon && <je-icon>{this.icon}</je-icon>}
               <h1>{this.header}</h1>
-              <je-button fill="clear" iconOnly={true} class="close" onClick={() => (this.modalEl.open = false)}>
-                <je-icon icon="close" />
-              </je-button>
+              <je-icon button class="close" onClick={() => (this.modalEl.open = false)}>close</je-icon>
             </div>
           )}
           {this.message && <div class="message">{this.message}</div>}

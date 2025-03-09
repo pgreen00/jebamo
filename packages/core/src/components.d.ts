@@ -5,19 +5,35 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, InputTransformer, OverlayData, ValidationFn } from "./utils/utils";
+import { Color, OverlayData } from "./utils/utils";
 import { Color as Color1 } from "./components";
 import { DialogButton, DialogControl } from "./components/je-dialog/je-dialog";
 import { DrawerState } from "./components/je-drawer/je-drawer";
-import { PanelState } from "./components/je-page/je-page";
 import { Placement } from "@floating-ui/dom";
-export { AsyncFormatterFn, AsyncValidationFn, Color, FormatterFn, InputTransformer, OverlayData, ValidationFn } from "./utils/utils";
+export { Color, OverlayData } from "./utils/utils";
 export { Color as Color1 } from "./components";
 export { DialogButton, DialogControl } from "./components/je-dialog/je-dialog";
 export { DrawerState } from "./components/je-drawer/je-drawer";
-export { PanelState } from "./components/je-page/je-page";
 export { Placement } from "@floating-ui/dom";
 export namespace Components {
+    interface JeActionSheet {
+    }
+    interface JeAlert {
+        "closable": boolean;
+        "color": Color;
+        "didDismiss": () => Promise<OverlayData>;
+        "dismiss": (role?: string, data?: any) => Promise<void>;
+        "duration": number;
+        "fixed": boolean;
+        "header"?: string;
+        "icon"?: string;
+        "message"?: string;
+        "open": boolean;
+        "position": 'top' | 'bottom' | 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
+        "present": () => Promise<void>;
+        "progress": boolean;
+        "type": 'bar' | 'card';
+    }
     interface JeBranch {
         "getParentBranch": () => Promise<HTMLJeBranchElement | null>;
         "isLeaf": () => Promise<boolean>;
@@ -26,15 +42,19 @@ export namespace Components {
         "selected": boolean | null;
         "value"?: string;
     }
+    interface JeBreadcrumb {
+    }
+    interface JeBreadcrumbs {
+    }
     interface JeButton {
         /**
-          * Predefined colors. Auto will switch between light and dark based on the closest je-page's theme.
+          * Predefined colors. Auto will switch between light and dark based on the current color scheme
          */
         "color": Color | 'auto';
         /**
           * Overrides what the dark mode color will be when color is "auto".
          */
-        "darkModeColor": Color;
+        "dark": Color;
         /**
           * Disables button
          */
@@ -48,13 +68,9 @@ export namespace Components {
          */
         "fill": 'solid' | 'outline' | 'clear';
         /**
-          * Removes the padding, ideal for turning an icon or image into a button
-         */
-        "iconOnly": boolean;
-        /**
           * Overrides what the light mode color will be when color is "auto".
          */
-        "lightModeColor": Color;
+        "light": Color;
         /**
           * Button size
          */
@@ -62,13 +78,19 @@ export namespace Components {
         /**
           * Can set to submit or reset to participate in forms
          */
-        "type": string;
+        "type"?: 'submit' | 'reset';
+    }
+    interface JeButtonGroup {
     }
     interface JeCard {
         "button"?: boolean;
         "color"?: Color;
     }
     interface JeCheckbox {
+        /**
+          * Data to submit to the form
+         */
+        "data"?: string;
         /**
           * Shows the disabled state and prevents changes
          */
@@ -94,71 +116,19 @@ export namespace Components {
          */
         "value"?: boolean;
     }
-    interface JeCheckboxGroup {
-        "checkValidity": () => Promise<boolean>;
-        /**
-          * Default value the control will reset to when used in a form. Will be set automatically when the component loads.
-         */
-        "defaultValue"?: string[];
-        /**
-          * Shows disabled state and prevents changes
-         */
-        "disabled": boolean;
-        /**
-          * Helper text that shows below the controls
-         */
-        "helperText"?: string;
-        /**
-          * Label that shows above the controls
-         */
-        "label"?: string;
-        /**
-          * Shows readonly state and prevents changes
-         */
-        "readonly": boolean;
-        "reportValidity": () => Promise<boolean>;
-        /**
-          * Requires at least one option to be selected when used in a form
-         */
-        "required": boolean;
-        "reset": () => Promise<void>;
-        "setCustomValidity": (message?: string) => Promise<void>;
-        /**
-          * Current selected values
-         */
-        "value": string[];
-    }
-    interface JeCheckboxOption {
-        /**
-          * Whether or not this option is currently checked
-         */
-        "checked": boolean;
-        /**
-          * Shows disabled state and prevents changes to this option
-         */
-        "disabled": boolean;
-        /**
-          * Shows readonly state and prevents changes to this option
-         */
-        "readonly": boolean;
-        /**
-          * Value of this option that the checkbox group will compare against
-         */
-        "value": any;
-    }
     interface JeColor {
         /**
-          * Predefined colors. Auto will switch between light and dark based on the closest je-page's theme.
+          * Fixed color
          */
-        "color": Color1 | 'auto';
+        "color"?: Color1;
         /**
-          * Overrides what the dark mode color will be when color is "auto".
+          * Color in dark mode
          */
-        "darkModeColor": Color1;
+        "dark": Color1;
         /**
-          * Overrides what the light mode color will be when color is "auto".
+          * Color in light mode
          */
-        "lightModeColor": Color1;
+        "light": Color1;
     }
     interface JeColumn {
         /**
@@ -267,25 +237,31 @@ export namespace Components {
     }
     interface JeIcon {
         /**
+          * Makes the icon a button
+         */
+        "button": boolean;
+        /**
+          * Disables button. Does nothing if button is not true
+         */
+        "disabled": boolean;
+        /**
           * Whether or not the icon should be filled
          */
-        "fill"?: boolean;
+        "fill": boolean;
         /**
           * Icon grade
          */
         "grade"?: 'high' | 'low';
         /**
-          * Google material icon name
-         */
-        "icon": string;
-        /**
           * Size of the icon
          */
-        "size": 'sm' | 'md' | 'lg' | 'xl';
+        "size": 'xs' | 'sm' | 'md' | 'lg' | 'xl';
         /**
           * Icon weight
          */
-        "weight"?: number;
+        "weight": number;
+    }
+    interface JeIconButton {
     }
     interface JeInfinite {
         /**
@@ -301,129 +277,15 @@ export namespace Components {
          */
         "threshold": number;
     }
-    interface JeInput {
-        /**
-          * Passed to native input
-         */
-        "autocapitalize": string;
-        /**
-          * Passed to native input
-         */
-        "autocomplete": string;
-        /**
-          * Passed to native input
-         */
-        "autocorrect": 'off' | 'on';
-        /**
-          * Passed to native input
-         */
-        "autofocus": boolean;
-        /**
-          * Optional debounce of the didInput event
-         */
-        "debounce": number;
-        /**
-          * Renders input as disabled and prevents changes
-         */
-        "disabled": boolean;
-        /**
-          * Whether or not the input should expand to the full width of it's container
-         */
-        "expand"?: boolean;
-        /**
-          * Formatter function that gets applied directly to the input as the user types. Good for input masking.  If you are using an input masking library, you can use the getInputElement() method to fetch the inner input.
-         */
-        "format"?: FormatterFn | AsyncFormatterFn;
-        "getErrors": () => Promise<{ requiredError: boolean; minLengthError: boolean; maxLengthError: boolean; patternError: boolean; customErrors: string[]; hasError: boolean; }>;
-        "getInputElement": () => Promise<HTMLInputElement>;
-        /**
-          * Helper text directly below the control
-         */
-        "helperText"?: string;
-        /**
-          * Passed to native input
-         */
-        "inputmode": string;
-        /**
-          * Text above the control
-         */
-        "label": string;
-        "markAsTouched": () => Promise<void>;
-        /**
-          * Passed to native input
-         */
-        "max"?: number | string;
-        /**
-          * Passed to native input
-         */
-        "maxlength"?: number;
-        /**
-          * Passed to native input
-         */
-        "min"?: number | string;
-        /**
-          * Passed to native input
-         */
-        "minlength"?: number;
-        /**
-          * Passed to native input
-         */
-        "multiple": boolean;
-        /**
-          * Passed to native input
-         */
-        "pattern"?: string;
-        /**
-          * Input placeholder text
-         */
-        "placeholder": string;
-        /**
-          * Renders input as read only and prevents changes
-         */
-        "readonly": boolean;
-        /**
-          * Marks as required in form and adds asterisk to the end of the label
-         */
-        "required": boolean;
-        "reset": () => Promise<void>;
-        /**
-          * Passed to native input
-         */
-        "spellcheck": boolean;
-        /**
-          * Passed to native input
-         */
-        "step"?: string;
-        /**
-          * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).  There are built-in transformers for 'number', 'date', and 'datetime'.
-         */
-        "transform"?: InputTransformer | 'number' | 'date' | 'datetime';
-        /**
-          * Passed to native input
-         */
-        "type": string;
-        /**
-          * Custom validator functions for form participation
-         */
-        "validators"?: (ValidationFn | AsyncValidationFn)[];
-        /**
-          * Current value of the input
-         */
-        "value": string;
+    interface JeItem {
+    }
+    interface JeLabel {
     }
     interface JeLink {
         /**
           * Makes text bold
          */
         "bold": boolean;
-        /**
-          * Predefined colors. Auto will switch between light and dark based on the closest je-page's theme.
-         */
-        "color"?: Color1 | 'auto';
-        /**
-          * Overrides what the dark mode color will be when color is "auto".
-         */
-        "darkModeColor"?: Color1;
         /**
           * Passed to anchor
          */
@@ -432,10 +294,6 @@ export namespace Components {
           * Passed to anchor
          */
         "href"?: string;
-        /**
-          * Overrides what the light mode color will be when color is "auto".
-         */
-        "lightModeColor"?: Color1;
         /**
           * Passed to anchor
          */
@@ -449,16 +307,9 @@ export namespace Components {
          */
         "underline": boolean;
     }
+    interface JeList {
+    }
     interface JeLoading {
-    }
-    interface JeMenu {
-        "type"?: 'select' | 'multiselect';
-        "value"?: string;
-    }
-    interface JeMenuOption {
-        "checked": boolean;
-        "disabled"?: boolean;
-        "value"?: string;
     }
     interface JeModal {
         /**
@@ -476,24 +327,14 @@ export namespace Components {
          */
         "showBackdrop": boolean;
     }
-    interface JeMultiselect {
-        "expand"?: boolean;
-        "label"?: string;
-        "placeholder"?: string;
-        "required"?: boolean;
-        "value": string[];
+    interface JeNav {
     }
-    interface JeMultiselectOption {
-        "checked": boolean;
-        "value": string;
+    interface JeNote {
+    }
+    interface JeOption {
     }
     interface JePage {
-        "getCurrentTheme": () => Promise<"light" | "dark">;
-        "leftPanel": PanelState;
-        "presentToast": (options: { header?: string; message?: string; icon?: string; closable?: boolean; duration?: number; progress?: boolean; type?: "card" | "bar"; position?: "top-start" | "top-end" | "bottom-start" | "bottom-end"; buttons?: { text: string; side?: "start" | "end"; fill?: "solid" | "outline" | "clear"; color?: Color | "auto"; size?: "sm" | "md" | "lg"; handler: (toast: HTMLJeToastElement) => void | Promise<void>; }[]; }) => Promise<HTMLJeToastElement>;
-        "rightPanel": PanelState;
-        "sticky": boolean;
-        "theme": 'light' | 'dark' | 'auto';
+        "layout": 'sticky' | 'grid';
     }
     interface JePill {
         "button": boolean;
@@ -538,68 +379,55 @@ export namespace Components {
         /**
           * Where the popover should be placed
          */
-        "placement": Placement | 'auto';
+        "placement"?: Placement;
         /**
           * If the popover should position itself using the mouse event or the triggerElement.
          */
         "positionStrategy": 'click' | 'element';
         /**
-          * Whether or not the backdrop will be rendered
-         */
-        "renderBackdrop": boolean;
-        /**
-          * Whether or not the backdrop will be visible to the user
-         */
-        "showBackdrop": boolean;
-        /**
           * @click Popover will show on left click or tap on mobile.
           * @context-menu Popover will show on right click or press on mobile.
           * @hover Popover will show on hover or tap on mobile. No backdrop will be rendered.
          */
-        "triggerAction": 'click' | 'hover' | 'context-menu' | 'manual';
+        "triggerAction": 'click' | 'hover' | 'context-menu' | 'content-hover';
     }
     interface JeRadio {
         /**
-          * Whether or not the label will appear before or after the control
+          * Disables option and shows state
          */
-        "labelPlacement": 'start' | 'end';
+        "disabled": boolean;
         /**
           * If the option is currently selected
          */
-        "selected": boolean;
+        "selected"?: boolean;
         /**
           * The value of this option and the radio group will compare against
          */
         "value": any;
     }
+    interface JeRadioButton {
+    }
     interface JeRadioGroup {
-        /**
-          * Shows disabled state for all the controls and prevents changes
-         */
-        "disabled": boolean;
         /**
           * Label that shows above the controls
          */
         "label"?: string;
         /**
-          * Shows readonly state for all the controls and prevents changes
+          * Value the form will reset to. Defaults to initial value if not specified
          */
-        "readonly": boolean;
+        "originalValue"?: any;
+        /**
+          * Requires a value before the form can be submitted
+         */
+        "required"?: boolean;
         /**
           * The currently selected value
          */
         "value"?: any;
     }
-    interface JeSelect {
-        "expand"?: boolean;
-        "label"?: string;
-        "placeholder"?: string;
-        "required"?: boolean;
-        "value"?: string;
+    interface JeSection {
     }
-    interface JeSelectOption {
-        "selected": boolean;
-        "value": string;
+    interface JeSelect {
     }
     interface JeTab {
         "active": boolean;
@@ -609,31 +437,9 @@ export namespace Components {
         "mode": 'mobile' | 'pill' | 'segment';
         "value"?: string;
     }
-    interface JeTextarea {
-        "debounce": number;
-        "disabled"?: boolean;
-        "label"?: string;
-        "maxLength"?: number;
-        "placeholder"?: string;
-        "readonly"?: boolean;
-        "required"?: boolean;
-        "value"?: string;
+    interface JeTextfield {
     }
-    interface JeToast {
-        "closable": boolean;
-        "color": Color;
-        "didDismiss": () => Promise<OverlayData>;
-        "dismiss": (role?: string, data?: any) => Promise<void>;
-        "duration": number;
-        "fixed": boolean;
-        "header"?: string;
-        "icon"?: string;
-        "message"?: string;
-        "open": boolean;
-        "position": 'top' | 'bottom' | 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
-        "present": () => Promise<void>;
-        "progress": boolean;
-        "type": 'bar' | 'card';
+    interface JeToastContainer {
     }
     interface JeToggle {
         /**
@@ -647,11 +453,19 @@ export namespace Components {
     }
     interface JeToolbar {
     }
+    interface JeTooltip {
+    }
     interface JeTree {
         "indentation": boolean;
         "selection": 'single' | 'multiple' | 'leaf';
         "value"?: string | string[];
     }
+    interface JeWizard {
+    }
+}
+export interface JeAlertCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeAlertElement;
 }
 export interface JeBranchCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -660,10 +474,6 @@ export interface JeBranchCustomEvent<T> extends CustomEvent<T> {
 export interface JeCheckboxCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeCheckboxElement;
-}
-export interface JeCheckboxGroupCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJeCheckboxGroupElement;
 }
 export interface JeDatepickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -681,53 +491,21 @@ export interface JeInfiniteCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeInfiniteElement;
 }
-export interface JeInputCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJeInputElement;
-}
-export interface JeMenuCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJeMenuElement;
-}
-export interface JeMenuOptionCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJeMenuOptionElement;
-}
 export interface JeModalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeModalElement;
-}
-export interface JeMultiselectOptionCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJeMultiselectOptionElement;
-}
-export interface JePageCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJePageElement;
 }
 export interface JePopoverCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJePopoverElement;
 }
-export interface JeRadioCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJeRadioElement;
-}
 export interface JeRadioGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeRadioGroupElement;
 }
-export interface JeSelectOptionCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJeSelectOptionElement;
-}
 export interface JeTabsCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeTabsElement;
-}
-export interface JeToastCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJeToastElement;
 }
 export interface JeToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -738,6 +516,30 @@ export interface JeTreeCustomEvent<T> extends CustomEvent<T> {
     target: HTMLJeTreeElement;
 }
 declare global {
+    interface HTMLJeActionSheetElement extends Components.JeActionSheet, HTMLStencilElement {
+    }
+    var HTMLJeActionSheetElement: {
+        prototype: HTMLJeActionSheetElement;
+        new (): HTMLJeActionSheetElement;
+    };
+    interface HTMLJeAlertElementEventMap {
+        "alertPresent": any;
+        "alertDismiss": OverlayData;
+    }
+    interface HTMLJeAlertElement extends Components.JeAlert, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeAlertElementEventMap>(type: K, listener: (this: HTMLJeAlertElement, ev: JeAlertCustomEvent<HTMLJeAlertElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeAlertElementEventMap>(type: K, listener: (this: HTMLJeAlertElement, ev: JeAlertCustomEvent<HTMLJeAlertElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLJeAlertElement: {
+        prototype: HTMLJeAlertElement;
+        new (): HTMLJeAlertElement;
+    };
     interface HTMLJeBranchElementEventMap {
         "branchSelect": string;
     }
@@ -755,11 +557,29 @@ declare global {
         prototype: HTMLJeBranchElement;
         new (): HTMLJeBranchElement;
     };
+    interface HTMLJeBreadcrumbElement extends Components.JeBreadcrumb, HTMLStencilElement {
+    }
+    var HTMLJeBreadcrumbElement: {
+        prototype: HTMLJeBreadcrumbElement;
+        new (): HTMLJeBreadcrumbElement;
+    };
+    interface HTMLJeBreadcrumbsElement extends Components.JeBreadcrumbs, HTMLStencilElement {
+    }
+    var HTMLJeBreadcrumbsElement: {
+        prototype: HTMLJeBreadcrumbsElement;
+        new (): HTMLJeBreadcrumbsElement;
+    };
     interface HTMLJeButtonElement extends Components.JeButton, HTMLStencilElement {
     }
     var HTMLJeButtonElement: {
         prototype: HTMLJeButtonElement;
         new (): HTMLJeButtonElement;
+    };
+    interface HTMLJeButtonGroupElement extends Components.JeButtonGroup, HTMLStencilElement {
+    }
+    var HTMLJeButtonGroupElement: {
+        prototype: HTMLJeButtonGroupElement;
+        new (): HTMLJeButtonGroupElement;
     };
     interface HTMLJeCardElement extends Components.JeCard, HTMLStencilElement {
     }
@@ -783,29 +603,6 @@ declare global {
     var HTMLJeCheckboxElement: {
         prototype: HTMLJeCheckboxElement;
         new (): HTMLJeCheckboxElement;
-    };
-    interface HTMLJeCheckboxGroupElementEventMap {
-        "valueChange": string[];
-    }
-    interface HTMLJeCheckboxGroupElement extends Components.JeCheckboxGroup, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeCheckboxGroupElementEventMap>(type: K, listener: (this: HTMLJeCheckboxGroupElement, ev: JeCheckboxGroupCustomEvent<HTMLJeCheckboxGroupElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeCheckboxGroupElementEventMap>(type: K, listener: (this: HTMLJeCheckboxGroupElement, ev: JeCheckboxGroupCustomEvent<HTMLJeCheckboxGroupElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLJeCheckboxGroupElement: {
-        prototype: HTMLJeCheckboxGroupElement;
-        new (): HTMLJeCheckboxGroupElement;
-    };
-    interface HTMLJeCheckboxOptionElement extends Components.JeCheckboxOption, HTMLStencilElement {
-    }
-    var HTMLJeCheckboxOptionElement: {
-        prototype: HTMLJeCheckboxOptionElement;
-        new (): HTMLJeCheckboxOptionElement;
     };
     interface HTMLJeColorElement extends Components.JeColor, HTMLStencilElement {
     }
@@ -884,7 +681,7 @@ declare global {
         new (): HTMLJeDropzoneElement;
     };
     interface HTMLJeFormElementEventMap {
-        "formData": Record<string, FormDataEntryValue>;
+        "formData": Record<string, any>;
     }
     interface HTMLJeFormElement extends Components.JeForm, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeFormElementEventMap>(type: K, listener: (this: HTMLJeFormElement, ev: JeFormCustomEvent<HTMLJeFormElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -906,6 +703,12 @@ declare global {
         prototype: HTMLJeIconElement;
         new (): HTMLJeIconElement;
     };
+    interface HTMLJeIconButtonElement extends Components.JeIconButton, HTMLStencilElement {
+    }
+    var HTMLJeIconButtonElement: {
+        prototype: HTMLJeIconButtonElement;
+        new (): HTMLJeIconButtonElement;
+    };
     interface HTMLJeInfiniteElementEventMap {
         "intersect": void;
     }
@@ -923,22 +726,17 @@ declare global {
         prototype: HTMLJeInfiniteElement;
         new (): HTMLJeInfiniteElement;
     };
-    interface HTMLJeInputElementEventMap {
-        "valueChange": string;
+    interface HTMLJeItemElement extends Components.JeItem, HTMLStencilElement {
     }
-    interface HTMLJeInputElement extends Components.JeInput, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeInputElementEventMap>(type: K, listener: (this: HTMLJeInputElement, ev: JeInputCustomEvent<HTMLJeInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeInputElementEventMap>(type: K, listener: (this: HTMLJeInputElement, ev: JeInputCustomEvent<HTMLJeInputElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    var HTMLJeItemElement: {
+        prototype: HTMLJeItemElement;
+        new (): HTMLJeItemElement;
+    };
+    interface HTMLJeLabelElement extends Components.JeLabel, HTMLStencilElement {
     }
-    var HTMLJeInputElement: {
-        prototype: HTMLJeInputElement;
-        new (): HTMLJeInputElement;
+    var HTMLJeLabelElement: {
+        prototype: HTMLJeLabelElement;
+        new (): HTMLJeLabelElement;
     };
     interface HTMLJeLinkElement extends Components.JeLink, HTMLStencilElement {
     }
@@ -946,45 +744,17 @@ declare global {
         prototype: HTMLJeLinkElement;
         new (): HTMLJeLinkElement;
     };
+    interface HTMLJeListElement extends Components.JeList, HTMLStencilElement {
+    }
+    var HTMLJeListElement: {
+        prototype: HTMLJeListElement;
+        new (): HTMLJeListElement;
+    };
     interface HTMLJeLoadingElement extends Components.JeLoading, HTMLStencilElement {
     }
     var HTMLJeLoadingElement: {
         prototype: HTMLJeLoadingElement;
         new (): HTMLJeLoadingElement;
-    };
-    interface HTMLJeMenuElementEventMap {
-        "valueChange": string;
-    }
-    interface HTMLJeMenuElement extends Components.JeMenu, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeMenuElementEventMap>(type: K, listener: (this: HTMLJeMenuElement, ev: JeMenuCustomEvent<HTMLJeMenuElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeMenuElementEventMap>(type: K, listener: (this: HTMLJeMenuElement, ev: JeMenuCustomEvent<HTMLJeMenuElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLJeMenuElement: {
-        prototype: HTMLJeMenuElement;
-        new (): HTMLJeMenuElement;
-    };
-    interface HTMLJeMenuOptionElementEventMap {
-        "menuOptionSelect": string;
-    }
-    interface HTMLJeMenuOptionElement extends Components.JeMenuOption, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeMenuOptionElementEventMap>(type: K, listener: (this: HTMLJeMenuOptionElement, ev: JeMenuOptionCustomEvent<HTMLJeMenuOptionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeMenuOptionElementEventMap>(type: K, listener: (this: HTMLJeMenuOptionElement, ev: JeMenuOptionCustomEvent<HTMLJeMenuOptionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLJeMenuOptionElement: {
-        prototype: HTMLJeMenuOptionElement;
-        new (): HTMLJeMenuOptionElement;
     };
     interface HTMLJeModalElementEventMap {
         "modalPresent": any;
@@ -1004,42 +774,25 @@ declare global {
         prototype: HTMLJeModalElement;
         new (): HTMLJeModalElement;
     };
-    interface HTMLJeMultiselectElement extends Components.JeMultiselect, HTMLStencilElement {
+    interface HTMLJeNavElement extends Components.JeNav, HTMLStencilElement {
     }
-    var HTMLJeMultiselectElement: {
-        prototype: HTMLJeMultiselectElement;
-        new (): HTMLJeMultiselectElement;
+    var HTMLJeNavElement: {
+        prototype: HTMLJeNavElement;
+        new (): HTMLJeNavElement;
     };
-    interface HTMLJeMultiselectOptionElementEventMap {
-        "optionChecked": string;
-        "optionUnchecked": string;
+    interface HTMLJeNoteElement extends Components.JeNote, HTMLStencilElement {
     }
-    interface HTMLJeMultiselectOptionElement extends Components.JeMultiselectOption, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeMultiselectOptionElementEventMap>(type: K, listener: (this: HTMLJeMultiselectOptionElement, ev: JeMultiselectOptionCustomEvent<HTMLJeMultiselectOptionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeMultiselectOptionElementEventMap>(type: K, listener: (this: HTMLJeMultiselectOptionElement, ev: JeMultiselectOptionCustomEvent<HTMLJeMultiselectOptionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLJeMultiselectOptionElement: {
-        prototype: HTMLJeMultiselectOptionElement;
-        new (): HTMLJeMultiselectOptionElement;
+    var HTMLJeNoteElement: {
+        prototype: HTMLJeNoteElement;
+        new (): HTMLJeNoteElement;
     };
-    interface HTMLJePageElementEventMap {
-        "themeChange": 'light' | 'dark';
+    interface HTMLJeOptionElement extends Components.JeOption, HTMLStencilElement {
     }
+    var HTMLJeOptionElement: {
+        prototype: HTMLJeOptionElement;
+        new (): HTMLJeOptionElement;
+    };
     interface HTMLJePageElement extends Components.JePage, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJePageElementEventMap>(type: K, listener: (this: HTMLJePageElement, ev: JePageCustomEvent<HTMLJePageElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJePageElementEventMap>(type: K, listener: (this: HTMLJePageElement, ev: JePageCustomEvent<HTMLJePageElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJePageElement: {
         prototype: HTMLJePageElement;
@@ -1075,22 +828,17 @@ declare global {
         prototype: HTMLJePopoverElement;
         new (): HTMLJePopoverElement;
     };
-    interface HTMLJeRadioElementEventMap {
-        "radioSelect": any;
-    }
     interface HTMLJeRadioElement extends Components.JeRadio, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeRadioElementEventMap>(type: K, listener: (this: HTMLJeRadioElement, ev: JeRadioCustomEvent<HTMLJeRadioElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeRadioElementEventMap>(type: K, listener: (this: HTMLJeRadioElement, ev: JeRadioCustomEvent<HTMLJeRadioElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeRadioElement: {
         prototype: HTMLJeRadioElement;
         new (): HTMLJeRadioElement;
+    };
+    interface HTMLJeRadioButtonElement extends Components.JeRadioButton, HTMLStencilElement {
+    }
+    var HTMLJeRadioButtonElement: {
+        prototype: HTMLJeRadioButtonElement;
+        new (): HTMLJeRadioButtonElement;
     };
     interface HTMLJeRadioGroupElementEventMap {
         "valueChange": any;
@@ -1109,28 +857,17 @@ declare global {
         prototype: HTMLJeRadioGroupElement;
         new (): HTMLJeRadioGroupElement;
     };
+    interface HTMLJeSectionElement extends Components.JeSection, HTMLStencilElement {
+    }
+    var HTMLJeSectionElement: {
+        prototype: HTMLJeSectionElement;
+        new (): HTMLJeSectionElement;
+    };
     interface HTMLJeSelectElement extends Components.JeSelect, HTMLStencilElement {
     }
     var HTMLJeSelectElement: {
         prototype: HTMLJeSelectElement;
         new (): HTMLJeSelectElement;
-    };
-    interface HTMLJeSelectOptionElementEventMap {
-        "optionSelected": string;
-    }
-    interface HTMLJeSelectOptionElement extends Components.JeSelectOption, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeSelectOptionElementEventMap>(type: K, listener: (this: HTMLJeSelectOptionElement, ev: JeSelectOptionCustomEvent<HTMLJeSelectOptionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeSelectOptionElementEventMap>(type: K, listener: (this: HTMLJeSelectOptionElement, ev: JeSelectOptionCustomEvent<HTMLJeSelectOptionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLJeSelectOptionElement: {
-        prototype: HTMLJeSelectOptionElement;
-        new (): HTMLJeSelectOptionElement;
     };
     interface HTMLJeTabElement extends Components.JeTab, HTMLStencilElement {
     }
@@ -1155,29 +892,17 @@ declare global {
         prototype: HTMLJeTabsElement;
         new (): HTMLJeTabsElement;
     };
-    interface HTMLJeTextareaElement extends Components.JeTextarea, HTMLStencilElement {
+    interface HTMLJeTextfieldElement extends Components.JeTextfield, HTMLStencilElement {
     }
-    var HTMLJeTextareaElement: {
-        prototype: HTMLJeTextareaElement;
-        new (): HTMLJeTextareaElement;
+    var HTMLJeTextfieldElement: {
+        prototype: HTMLJeTextfieldElement;
+        new (): HTMLJeTextfieldElement;
     };
-    interface HTMLJeToastElementEventMap {
-        "toastPresent": any;
-        "toastDismiss": OverlayData;
+    interface HTMLJeToastContainerElement extends Components.JeToastContainer, HTMLStencilElement {
     }
-    interface HTMLJeToastElement extends Components.JeToast, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeToastElementEventMap>(type: K, listener: (this: HTMLJeToastElement, ev: JeToastCustomEvent<HTMLJeToastElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeToastElementEventMap>(type: K, listener: (this: HTMLJeToastElement, ev: JeToastCustomEvent<HTMLJeToastElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLJeToastElement: {
-        prototype: HTMLJeToastElement;
-        new (): HTMLJeToastElement;
+    var HTMLJeToastContainerElement: {
+        prototype: HTMLJeToastContainerElement;
+        new (): HTMLJeToastContainerElement;
     };
     interface HTMLJeToggleElementEventMap {
         "toggled": boolean;
@@ -1202,6 +927,12 @@ declare global {
         prototype: HTMLJeToolbarElement;
         new (): HTMLJeToolbarElement;
     };
+    interface HTMLJeTooltipElement extends Components.JeTooltip, HTMLStencilElement {
+    }
+    var HTMLJeTooltipElement: {
+        prototype: HTMLJeTooltipElement;
+        new (): HTMLJeTooltipElement;
+    };
     interface HTMLJeTreeElementEventMap {
         "valueChange": string;
     }
@@ -1219,13 +950,22 @@ declare global {
         prototype: HTMLJeTreeElement;
         new (): HTMLJeTreeElement;
     };
+    interface HTMLJeWizardElement extends Components.JeWizard, HTMLStencilElement {
+    }
+    var HTMLJeWizardElement: {
+        prototype: HTMLJeWizardElement;
+        new (): HTMLJeWizardElement;
+    };
     interface HTMLElementTagNameMap {
+        "je-action-sheet": HTMLJeActionSheetElement;
+        "je-alert": HTMLJeAlertElement;
         "je-branch": HTMLJeBranchElement;
+        "je-breadcrumb": HTMLJeBreadcrumbElement;
+        "je-breadcrumbs": HTMLJeBreadcrumbsElement;
         "je-button": HTMLJeButtonElement;
+        "je-button-group": HTMLJeButtonGroupElement;
         "je-card": HTMLJeCardElement;
         "je-checkbox": HTMLJeCheckboxElement;
-        "je-checkbox-group": HTMLJeCheckboxGroupElement;
-        "je-checkbox-option": HTMLJeCheckboxOptionElement;
         "je-color": HTMLJeColorElement;
         "je-column": HTMLJeColumnElement;
         "je-column-group": HTMLJeColumnGroupElement;
@@ -1237,33 +977,55 @@ declare global {
         "je-dropzone": HTMLJeDropzoneElement;
         "je-form": HTMLJeFormElement;
         "je-icon": HTMLJeIconElement;
+        "je-icon-button": HTMLJeIconButtonElement;
         "je-infinite": HTMLJeInfiniteElement;
-        "je-input": HTMLJeInputElement;
+        "je-item": HTMLJeItemElement;
+        "je-label": HTMLJeLabelElement;
         "je-link": HTMLJeLinkElement;
+        "je-list": HTMLJeListElement;
         "je-loading": HTMLJeLoadingElement;
-        "je-menu": HTMLJeMenuElement;
-        "je-menu-option": HTMLJeMenuOptionElement;
         "je-modal": HTMLJeModalElement;
-        "je-multiselect": HTMLJeMultiselectElement;
-        "je-multiselect-option": HTMLJeMultiselectOptionElement;
+        "je-nav": HTMLJeNavElement;
+        "je-note": HTMLJeNoteElement;
+        "je-option": HTMLJeOptionElement;
         "je-page": HTMLJePageElement;
         "je-pill": HTMLJePillElement;
         "je-placeholder": HTMLJePlaceholderElement;
         "je-popover": HTMLJePopoverElement;
         "je-radio": HTMLJeRadioElement;
+        "je-radio-button": HTMLJeRadioButtonElement;
         "je-radio-group": HTMLJeRadioGroupElement;
+        "je-section": HTMLJeSectionElement;
         "je-select": HTMLJeSelectElement;
-        "je-select-option": HTMLJeSelectOptionElement;
         "je-tab": HTMLJeTabElement;
         "je-tabs": HTMLJeTabsElement;
-        "je-textarea": HTMLJeTextareaElement;
-        "je-toast": HTMLJeToastElement;
+        "je-textfield": HTMLJeTextfieldElement;
+        "je-toast-container": HTMLJeToastContainerElement;
         "je-toggle": HTMLJeToggleElement;
         "je-toolbar": HTMLJeToolbarElement;
+        "je-tooltip": HTMLJeTooltipElement;
         "je-tree": HTMLJeTreeElement;
+        "je-wizard": HTMLJeWizardElement;
     }
 }
 declare namespace LocalJSX {
+    interface JeActionSheet {
+    }
+    interface JeAlert {
+        "closable"?: boolean;
+        "color"?: Color;
+        "duration"?: number;
+        "fixed"?: boolean;
+        "header"?: string;
+        "icon"?: string;
+        "message"?: string;
+        "onAlertDismiss"?: (event: JeAlertCustomEvent<OverlayData>) => void;
+        "onAlertPresent"?: (event: JeAlertCustomEvent<any>) => void;
+        "open"?: boolean;
+        "position"?: 'top' | 'bottom' | 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
+        "progress"?: boolean;
+        "type"?: 'bar' | 'card';
+    }
     interface JeBranch {
         "label"?: string;
         "onBranchSelect"?: (event: JeBranchCustomEvent<string>) => void;
@@ -1271,15 +1033,19 @@ declare namespace LocalJSX {
         "selected"?: boolean | null;
         "value"?: string;
     }
+    interface JeBreadcrumb {
+    }
+    interface JeBreadcrumbs {
+    }
     interface JeButton {
         /**
-          * Predefined colors. Auto will switch between light and dark based on the closest je-page's theme.
+          * Predefined colors. Auto will switch between light and dark based on the current color scheme
          */
         "color"?: Color | 'auto';
         /**
           * Overrides what the dark mode color will be when color is "auto".
          */
-        "darkModeColor"?: Color;
+        "dark"?: Color;
         /**
           * Disables button
          */
@@ -1293,13 +1059,9 @@ declare namespace LocalJSX {
          */
         "fill"?: 'solid' | 'outline' | 'clear';
         /**
-          * Removes the padding, ideal for turning an icon or image into a button
-         */
-        "iconOnly"?: boolean;
-        /**
           * Overrides what the light mode color will be when color is "auto".
          */
-        "lightModeColor"?: Color;
+        "light"?: Color;
         /**
           * Button size
          */
@@ -1307,13 +1069,19 @@ declare namespace LocalJSX {
         /**
           * Can set to submit or reset to participate in forms
          */
-        "type"?: string;
+        "type"?: 'submit' | 'reset';
+    }
+    interface JeButtonGroup {
     }
     interface JeCard {
         "button"?: boolean;
         "color"?: Color;
     }
     interface JeCheckbox {
+        /**
+          * Data to submit to the form
+         */
+        "data"?: string;
         /**
           * Shows the disabled state and prevents changes
          */
@@ -1343,71 +1111,19 @@ declare namespace LocalJSX {
          */
         "value"?: boolean;
     }
-    interface JeCheckboxGroup {
-        /**
-          * Default value the control will reset to when used in a form. Will be set automatically when the component loads.
-         */
-        "defaultValue"?: string[];
-        /**
-          * Shows disabled state and prevents changes
-         */
-        "disabled"?: boolean;
-        /**
-          * Helper text that shows below the controls
-         */
-        "helperText"?: string;
-        /**
-          * Label that shows above the controls
-         */
-        "label"?: string;
-        /**
-          * Emits the current selected values whenever they change
-         */
-        "onValueChange"?: (event: JeCheckboxGroupCustomEvent<string[]>) => void;
-        /**
-          * Shows readonly state and prevents changes
-         */
-        "readonly"?: boolean;
-        /**
-          * Requires at least one option to be selected when used in a form
-         */
-        "required"?: boolean;
-        /**
-          * Current selected values
-         */
-        "value"?: string[];
-    }
-    interface JeCheckboxOption {
-        /**
-          * Whether or not this option is currently checked
-         */
-        "checked"?: boolean;
-        /**
-          * Shows disabled state and prevents changes to this option
-         */
-        "disabled"?: boolean;
-        /**
-          * Shows readonly state and prevents changes to this option
-         */
-        "readonly"?: boolean;
-        /**
-          * Value of this option that the checkbox group will compare against
-         */
-        "value"?: any;
-    }
     interface JeColor {
         /**
-          * Predefined colors. Auto will switch between light and dark based on the closest je-page's theme.
+          * Fixed color
          */
-        "color"?: Color1 | 'auto';
+        "color"?: Color1;
         /**
-          * Overrides what the dark mode color will be when color is "auto".
+          * Color in dark mode
          */
-        "darkModeColor"?: Color1;
+        "dark"?: Color1;
         /**
-          * Overrides what the light mode color will be when color is "auto".
+          * Color in light mode
          */
-        "lightModeColor"?: Color1;
+        "light"?: Color1;
     }
     interface JeColumn {
         /**
@@ -1512,9 +1228,17 @@ declare namespace LocalJSX {
         "onDataDrop"?: (event: JeDropzoneCustomEvent<DataTransfer>) => void;
     }
     interface JeForm {
-        "onFormData"?: (event: JeFormCustomEvent<Record<string, FormDataEntryValue>>) => void;
+        "onFormData"?: (event: JeFormCustomEvent<Record<string, any>>) => void;
     }
     interface JeIcon {
+        /**
+          * Makes the icon a button
+         */
+        "button"?: boolean;
+        /**
+          * Disables button. Does nothing if button is not true
+         */
+        "disabled"?: boolean;
         /**
           * Whether or not the icon should be filled
          */
@@ -1524,17 +1248,15 @@ declare namespace LocalJSX {
          */
         "grade"?: 'high' | 'low';
         /**
-          * Google material icon name
-         */
-        "icon"?: string;
-        /**
           * Size of the icon
          */
-        "size"?: 'sm' | 'md' | 'lg' | 'xl';
+        "size"?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
         /**
           * Icon weight
          */
         "weight"?: number;
+    }
+    interface JeIconButton {
     }
     interface JeInfinite {
         /**
@@ -1554,129 +1276,15 @@ declare namespace LocalJSX {
          */
         "threshold"?: number;
     }
-    interface JeInput {
-        /**
-          * Passed to native input
-         */
-        "autocapitalize"?: string;
-        /**
-          * Passed to native input
-         */
-        "autocomplete"?: string;
-        /**
-          * Passed to native input
-         */
-        "autocorrect"?: 'off' | 'on';
-        /**
-          * Passed to native input
-         */
-        "autofocus"?: boolean;
-        /**
-          * Optional debounce of the didInput event
-         */
-        "debounce"?: number;
-        /**
-          * Renders input as disabled and prevents changes
-         */
-        "disabled"?: boolean;
-        /**
-          * Whether or not the input should expand to the full width of it's container
-         */
-        "expand"?: boolean;
-        /**
-          * Formatter function that gets applied directly to the input as the user types. Good for input masking.  If you are using an input masking library, you can use the getInputElement() method to fetch the inner input.
-         */
-        "format"?: FormatterFn | AsyncFormatterFn;
-        /**
-          * Helper text directly below the control
-         */
-        "helperText"?: string;
-        /**
-          * Passed to native input
-         */
-        "inputmode"?: string;
-        /**
-          * Text above the control
-         */
-        "label"?: string;
-        /**
-          * Passed to native input
-         */
-        "max"?: number | string;
-        /**
-          * Passed to native input
-         */
-        "maxlength"?: number;
-        /**
-          * Passed to native input
-         */
-        "min"?: number | string;
-        /**
-          * Passed to native input
-         */
-        "minlength"?: number;
-        /**
-          * Passed to native input
-         */
-        "multiple"?: boolean;
-        /**
-          * Emits as the user types
-         */
-        "onValueChange"?: (event: JeInputCustomEvent<string>) => void;
-        /**
-          * Passed to native input
-         */
-        "pattern"?: string;
-        /**
-          * Input placeholder text
-         */
-        "placeholder"?: string;
-        /**
-          * Renders input as read only and prevents changes
-         */
-        "readonly"?: boolean;
-        /**
-          * Marks as required in form and adds asterisk to the end of the label
-         */
-        "required"?: boolean;
-        /**
-          * Passed to native input
-         */
-        "spellcheck"?: boolean;
-        /**
-          * Passed to native input
-         */
-        "step"?: string;
-        /**
-          * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).  There are built-in transformers for 'number', 'date', and 'datetime'.
-         */
-        "transform"?: InputTransformer | 'number' | 'date' | 'datetime';
-        /**
-          * Passed to native input
-         */
-        "type"?: string;
-        /**
-          * Custom validator functions for form participation
-         */
-        "validators"?: (ValidationFn | AsyncValidationFn)[];
-        /**
-          * Current value of the input
-         */
-        "value"?: string;
+    interface JeItem {
+    }
+    interface JeLabel {
     }
     interface JeLink {
         /**
           * Makes text bold
          */
         "bold"?: boolean;
-        /**
-          * Predefined colors. Auto will switch between light and dark based on the closest je-page's theme.
-         */
-        "color"?: Color1 | 'auto';
-        /**
-          * Overrides what the dark mode color will be when color is "auto".
-         */
-        "darkModeColor"?: Color1;
         /**
           * Passed to anchor
          */
@@ -1685,10 +1293,6 @@ declare namespace LocalJSX {
           * Passed to anchor
          */
         "href"?: string;
-        /**
-          * Overrides what the light mode color will be when color is "auto".
-         */
-        "lightModeColor"?: Color1;
         /**
           * Passed to anchor
          */
@@ -1702,18 +1306,9 @@ declare namespace LocalJSX {
          */
         "underline"?: boolean;
     }
+    interface JeList {
+    }
     interface JeLoading {
-    }
-    interface JeMenu {
-        "onValueChange"?: (event: JeMenuCustomEvent<string>) => void;
-        "type"?: 'select' | 'multiselect';
-        "value"?: string;
-    }
-    interface JeMenuOption {
-        "checked"?: boolean;
-        "disabled"?: boolean;
-        "onMenuOptionSelect"?: (event: JeMenuOptionCustomEvent<string>) => void;
-        "value"?: string;
     }
     interface JeModal {
         /**
@@ -1737,25 +1332,14 @@ declare namespace LocalJSX {
          */
         "showBackdrop"?: boolean;
     }
-    interface JeMultiselect {
-        "expand"?: boolean;
-        "label"?: string;
-        "placeholder"?: string;
-        "required"?: boolean;
-        "value"?: string[];
+    interface JeNav {
     }
-    interface JeMultiselectOption {
-        "checked"?: boolean;
-        "onOptionChecked"?: (event: JeMultiselectOptionCustomEvent<string>) => void;
-        "onOptionUnchecked"?: (event: JeMultiselectOptionCustomEvent<string>) => void;
-        "value"?: string;
+    interface JeNote {
+    }
+    interface JeOption {
     }
     interface JePage {
-        "leftPanel"?: PanelState;
-        "onThemeChange"?: (event: JePageCustomEvent<'light' | 'dark'>) => void;
-        "rightPanel"?: PanelState;
-        "sticky"?: boolean;
-        "theme"?: 'light' | 'dark' | 'auto';
+        "layout"?: 'sticky' | 'grid';
     }
     interface JePill {
         "button"?: boolean;
@@ -1808,35 +1392,23 @@ declare namespace LocalJSX {
         /**
           * Where the popover should be placed
          */
-        "placement"?: Placement | 'auto';
+        "placement"?: Placement;
         /**
           * If the popover should position itself using the mouse event or the triggerElement.
          */
         "positionStrategy"?: 'click' | 'element';
         /**
-          * Whether or not the backdrop will be rendered
-         */
-        "renderBackdrop"?: boolean;
-        /**
-          * Whether or not the backdrop will be visible to the user
-         */
-        "showBackdrop"?: boolean;
-        /**
           * @click Popover will show on left click or tap on mobile.
           * @context-menu Popover will show on right click or press on mobile.
           * @hover Popover will show on hover or tap on mobile. No backdrop will be rendered.
          */
-        "triggerAction"?: 'click' | 'hover' | 'context-menu' | 'manual';
+        "triggerAction"?: 'click' | 'hover' | 'context-menu' | 'content-hover';
     }
     interface JeRadio {
         /**
-          * Whether or not the label will appear before or after the control
+          * Disables option and shows state
          */
-        "labelPlacement"?: 'start' | 'end';
-        /**
-          * Emits the value whenever it is selected
-         */
-        "onRadioSelect"?: (event: JeRadioCustomEvent<any>) => void;
+        "disabled"?: boolean;
         /**
           * If the option is currently selected
          */
@@ -1846,11 +1418,9 @@ declare namespace LocalJSX {
          */
         "value"?: any;
     }
+    interface JeRadioButton {
+    }
     interface JeRadioGroup {
-        /**
-          * Shows disabled state for all the controls and prevents changes
-         */
-        "disabled"?: boolean;
         /**
           * Label that shows above the controls
          */
@@ -1860,25 +1430,21 @@ declare namespace LocalJSX {
          */
         "onValueChange"?: (event: JeRadioGroupCustomEvent<any>) => void;
         /**
-          * Shows readonly state for all the controls and prevents changes
+          * Value the form will reset to. Defaults to initial value if not specified
          */
-        "readonly"?: boolean;
+        "originalValue"?: any;
+        /**
+          * Requires a value before the form can be submitted
+         */
+        "required"?: boolean;
         /**
           * The currently selected value
          */
         "value"?: any;
     }
-    interface JeSelect {
-        "expand"?: boolean;
-        "label"?: string;
-        "placeholder"?: string;
-        "required"?: boolean;
-        "value"?: string;
+    interface JeSection {
     }
-    interface JeSelectOption {
-        "onOptionSelected"?: (event: JeSelectOptionCustomEvent<string>) => void;
-        "selected"?: boolean;
-        "value"?: string;
+    interface JeSelect {
     }
     interface JeTab {
         "active"?: boolean;
@@ -1889,30 +1455,9 @@ declare namespace LocalJSX {
         "onValueChange"?: (event: JeTabsCustomEvent<string | undefined>) => void;
         "value"?: string;
     }
-    interface JeTextarea {
-        "debounce"?: number;
-        "disabled"?: boolean;
-        "label"?: string;
-        "maxLength"?: number;
-        "placeholder"?: string;
-        "readonly"?: boolean;
-        "required"?: boolean;
-        "value"?: string;
+    interface JeTextfield {
     }
-    interface JeToast {
-        "closable"?: boolean;
-        "color"?: Color;
-        "duration"?: number;
-        "fixed"?: boolean;
-        "header"?: string;
-        "icon"?: string;
-        "message"?: string;
-        "onToastDismiss"?: (event: JeToastCustomEvent<OverlayData>) => void;
-        "onToastPresent"?: (event: JeToastCustomEvent<any>) => void;
-        "open"?: boolean;
-        "position"?: 'top' | 'bottom' | 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
-        "progress"?: boolean;
-        "type"?: 'bar' | 'card';
+    interface JeToastContainer {
     }
     interface JeToggle {
         /**
@@ -1930,19 +1475,26 @@ declare namespace LocalJSX {
     }
     interface JeToolbar {
     }
+    interface JeTooltip {
+    }
     interface JeTree {
         "indentation"?: boolean;
         "onValueChange"?: (event: JeTreeCustomEvent<string>) => void;
         "selection"?: 'single' | 'multiple' | 'leaf';
         "value"?: string | string[];
     }
+    interface JeWizard {
+    }
     interface IntrinsicElements {
+        "je-action-sheet": JeActionSheet;
+        "je-alert": JeAlert;
         "je-branch": JeBranch;
+        "je-breadcrumb": JeBreadcrumb;
+        "je-breadcrumbs": JeBreadcrumbs;
         "je-button": JeButton;
+        "je-button-group": JeButtonGroup;
         "je-card": JeCard;
         "je-checkbox": JeCheckbox;
-        "je-checkbox-group": JeCheckboxGroup;
-        "je-checkbox-option": JeCheckboxOption;
         "je-color": JeColor;
         "je-column": JeColumn;
         "je-column-group": JeColumnGroup;
@@ -1954,42 +1506,50 @@ declare namespace LocalJSX {
         "je-dropzone": JeDropzone;
         "je-form": JeForm;
         "je-icon": JeIcon;
+        "je-icon-button": JeIconButton;
         "je-infinite": JeInfinite;
-        "je-input": JeInput;
+        "je-item": JeItem;
+        "je-label": JeLabel;
         "je-link": JeLink;
+        "je-list": JeList;
         "je-loading": JeLoading;
-        "je-menu": JeMenu;
-        "je-menu-option": JeMenuOption;
         "je-modal": JeModal;
-        "je-multiselect": JeMultiselect;
-        "je-multiselect-option": JeMultiselectOption;
+        "je-nav": JeNav;
+        "je-note": JeNote;
+        "je-option": JeOption;
         "je-page": JePage;
         "je-pill": JePill;
         "je-placeholder": JePlaceholder;
         "je-popover": JePopover;
         "je-radio": JeRadio;
+        "je-radio-button": JeRadioButton;
         "je-radio-group": JeRadioGroup;
+        "je-section": JeSection;
         "je-select": JeSelect;
-        "je-select-option": JeSelectOption;
         "je-tab": JeTab;
         "je-tabs": JeTabs;
-        "je-textarea": JeTextarea;
-        "je-toast": JeToast;
+        "je-textfield": JeTextfield;
+        "je-toast-container": JeToastContainer;
         "je-toggle": JeToggle;
         "je-toolbar": JeToolbar;
+        "je-tooltip": JeTooltip;
         "je-tree": JeTree;
+        "je-wizard": JeWizard;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "je-action-sheet": LocalJSX.JeActionSheet & JSXBase.HTMLAttributes<HTMLJeActionSheetElement>;
+            "je-alert": LocalJSX.JeAlert & JSXBase.HTMLAttributes<HTMLJeAlertElement>;
             "je-branch": LocalJSX.JeBranch & JSXBase.HTMLAttributes<HTMLJeBranchElement>;
+            "je-breadcrumb": LocalJSX.JeBreadcrumb & JSXBase.HTMLAttributes<HTMLJeBreadcrumbElement>;
+            "je-breadcrumbs": LocalJSX.JeBreadcrumbs & JSXBase.HTMLAttributes<HTMLJeBreadcrumbsElement>;
             "je-button": LocalJSX.JeButton & JSXBase.HTMLAttributes<HTMLJeButtonElement>;
+            "je-button-group": LocalJSX.JeButtonGroup & JSXBase.HTMLAttributes<HTMLJeButtonGroupElement>;
             "je-card": LocalJSX.JeCard & JSXBase.HTMLAttributes<HTMLJeCardElement>;
             "je-checkbox": LocalJSX.JeCheckbox & JSXBase.HTMLAttributes<HTMLJeCheckboxElement>;
-            "je-checkbox-group": LocalJSX.JeCheckboxGroup & JSXBase.HTMLAttributes<HTMLJeCheckboxGroupElement>;
-            "je-checkbox-option": LocalJSX.JeCheckboxOption & JSXBase.HTMLAttributes<HTMLJeCheckboxOptionElement>;
             "je-color": LocalJSX.JeColor & JSXBase.HTMLAttributes<HTMLJeColorElement>;
             "je-column": LocalJSX.JeColumn & JSXBase.HTMLAttributes<HTMLJeColumnElement>;
             "je-column-group": LocalJSX.JeColumnGroup & JSXBase.HTMLAttributes<HTMLJeColumnGroupElement>;
@@ -2001,30 +1561,35 @@ declare module "@stencil/core" {
             "je-dropzone": LocalJSX.JeDropzone & JSXBase.HTMLAttributes<HTMLJeDropzoneElement>;
             "je-form": LocalJSX.JeForm & JSXBase.HTMLAttributes<HTMLJeFormElement>;
             "je-icon": LocalJSX.JeIcon & JSXBase.HTMLAttributes<HTMLJeIconElement>;
+            "je-icon-button": LocalJSX.JeIconButton & JSXBase.HTMLAttributes<HTMLJeIconButtonElement>;
             "je-infinite": LocalJSX.JeInfinite & JSXBase.HTMLAttributes<HTMLJeInfiniteElement>;
-            "je-input": LocalJSX.JeInput & JSXBase.HTMLAttributes<HTMLJeInputElement>;
+            "je-item": LocalJSX.JeItem & JSXBase.HTMLAttributes<HTMLJeItemElement>;
+            "je-label": LocalJSX.JeLabel & JSXBase.HTMLAttributes<HTMLJeLabelElement>;
             "je-link": LocalJSX.JeLink & JSXBase.HTMLAttributes<HTMLJeLinkElement>;
+            "je-list": LocalJSX.JeList & JSXBase.HTMLAttributes<HTMLJeListElement>;
             "je-loading": LocalJSX.JeLoading & JSXBase.HTMLAttributes<HTMLJeLoadingElement>;
-            "je-menu": LocalJSX.JeMenu & JSXBase.HTMLAttributes<HTMLJeMenuElement>;
-            "je-menu-option": LocalJSX.JeMenuOption & JSXBase.HTMLAttributes<HTMLJeMenuOptionElement>;
             "je-modal": LocalJSX.JeModal & JSXBase.HTMLAttributes<HTMLJeModalElement>;
-            "je-multiselect": LocalJSX.JeMultiselect & JSXBase.HTMLAttributes<HTMLJeMultiselectElement>;
-            "je-multiselect-option": LocalJSX.JeMultiselectOption & JSXBase.HTMLAttributes<HTMLJeMultiselectOptionElement>;
+            "je-nav": LocalJSX.JeNav & JSXBase.HTMLAttributes<HTMLJeNavElement>;
+            "je-note": LocalJSX.JeNote & JSXBase.HTMLAttributes<HTMLJeNoteElement>;
+            "je-option": LocalJSX.JeOption & JSXBase.HTMLAttributes<HTMLJeOptionElement>;
             "je-page": LocalJSX.JePage & JSXBase.HTMLAttributes<HTMLJePageElement>;
             "je-pill": LocalJSX.JePill & JSXBase.HTMLAttributes<HTMLJePillElement>;
             "je-placeholder": LocalJSX.JePlaceholder & JSXBase.HTMLAttributes<HTMLJePlaceholderElement>;
             "je-popover": LocalJSX.JePopover & JSXBase.HTMLAttributes<HTMLJePopoverElement>;
             "je-radio": LocalJSX.JeRadio & JSXBase.HTMLAttributes<HTMLJeRadioElement>;
+            "je-radio-button": LocalJSX.JeRadioButton & JSXBase.HTMLAttributes<HTMLJeRadioButtonElement>;
             "je-radio-group": LocalJSX.JeRadioGroup & JSXBase.HTMLAttributes<HTMLJeRadioGroupElement>;
+            "je-section": LocalJSX.JeSection & JSXBase.HTMLAttributes<HTMLJeSectionElement>;
             "je-select": LocalJSX.JeSelect & JSXBase.HTMLAttributes<HTMLJeSelectElement>;
-            "je-select-option": LocalJSX.JeSelectOption & JSXBase.HTMLAttributes<HTMLJeSelectOptionElement>;
             "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
             "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;
-            "je-textarea": LocalJSX.JeTextarea & JSXBase.HTMLAttributes<HTMLJeTextareaElement>;
-            "je-toast": LocalJSX.JeToast & JSXBase.HTMLAttributes<HTMLJeToastElement>;
+            "je-textfield": LocalJSX.JeTextfield & JSXBase.HTMLAttributes<HTMLJeTextfieldElement>;
+            "je-toast-container": LocalJSX.JeToastContainer & JSXBase.HTMLAttributes<HTMLJeToastContainerElement>;
             "je-toggle": LocalJSX.JeToggle & JSXBase.HTMLAttributes<HTMLJeToggleElement>;
             "je-toolbar": LocalJSX.JeToolbar & JSXBase.HTMLAttributes<HTMLJeToolbarElement>;
+            "je-tooltip": LocalJSX.JeTooltip & JSXBase.HTMLAttributes<HTMLJeTooltipElement>;
             "je-tree": LocalJSX.JeTree & JSXBase.HTMLAttributes<HTMLJeTreeElement>;
+            "je-wizard": LocalJSX.JeWizard & JSXBase.HTMLAttributes<HTMLJeWizardElement>;
         }
     }
 }

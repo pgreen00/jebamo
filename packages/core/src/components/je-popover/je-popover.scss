@@ -1,17 +1,12 @@
-@use '../../styles/global';
-@use '../../styles/colors';
+@use '../../styles/styles' as *;
 
 :host {
   display: contents;
 
   --background: light-dark(rgb(233, 236, 236), rgb(41, 45, 46));
-  --color: light-dark(#{colors.medium(900)}, #{colors.medium(50)});
+  --color: light-dark(#{medium(900)}, #{medium(50)});
   --box-shadow: 0px 4px 16px 0px light-dark(rgba(0, 0, 0, 0.12), rgba(68, 68, 68, 0.12));
   --border: solid 1px light-dark(rgb(197, 200, 204), rgb(86, 87, 90));
-}
-
-[part=trigger-container] {
-  display: contents;
 }
 
 [part=content] {
@@ -19,10 +14,10 @@
   width: var(--content-width, max-content);
   max-height: var(--content-height, var(--available-height));
   z-index: 1;
-  border-radius: global.border-radius();
+  border-radius: radius-get(sm);
   border: var(--border);
   overflow: auto;
-  font-family: global.font-family();
+  font-family: inherit;
   background-color: var(--background, canvas);
   color: var(--color, canvastext);
   box-shadow: var(--box-shadow);
@@ -41,31 +36,6 @@
 
   &.open {
     display: block;
-  }
-}
-
-[part=backdrop] {
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out;
-  z-index: 698;
-  position: fixed;
-  width: 0;
-  height: 0;
-  left: 0;
-  top: 0;
-  background: global.backdrop-color();
-
-  &.clear {
-    background: rgba(0, 0, 0, 0);
-  }
-
-  &.open {
-    height: 100%;
-    width: 100%;
-  }
-
-  &.pointer {
-    cursor: pointer;
   }
 }
 

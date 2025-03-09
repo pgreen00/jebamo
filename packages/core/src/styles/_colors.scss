@@ -1,9 +1,10 @@
+@use 'sass:math';
+
 $primary: #4141e8;
-$secondary: #1ac3ff;
-$tertiary: #7000b1;
+$secondary: #61a6c0;
 $success: #22c55e;
 $warning: #fbbf24;
-$error: #ef4444;
+$danger: #ef4444;
 $medium: #a0aec0;
 
 @function primary($shade: 500) {
@@ -14,10 +15,6 @@ $medium: #a0aec0;
   @return shade(var(--je-secondary, #{$secondary}), $shade);
 }
 
-@function tertiary($shade: 500) {
-  @return shade(var(--je-tertiary, #{$tertiary}), $shade);
-}
-
 @function success($shade: 500) {
   @return shade(var(--je-success, #{$success}), $shade);
 }
@@ -26,8 +23,8 @@ $medium: #a0aec0;
   @return shade(var(--je-warning, #{$warning}), $shade);
 }
 
-@function error($shade: 500) {
-  @return shade(var(--je-error, #{$error}), $shade);
+@function danger($shade: 500) {
+  @return shade(var(--je-danger, #{$danger}), $shade);
 }
 
 @function medium($shade: 500) {
@@ -39,10 +36,10 @@ $medium: #a0aec0;
     @return $color;
   } @else if $shade < 500 {
     $percentage-to-white: calc((500 - $shade) / 5 / 100);
-    @return color-mix(in srgb, $color percentage(calc((1 - $percentage-to-white))), white percentage($percentage-to-white));
+    @return color-mix(in srgb, $color math.percentage(calc((1 - $percentage-to-white))), white math.percentage($percentage-to-white));
   } @else if $shade > 500 {
     $percentage-to-black: calc(($shade - 500) / 5 / 100);
-    @return color-mix(in srgb, $color percentage(calc((1 - $percentage-to-black))), black percentage($percentage-to-black));
+    @return color-mix(in srgb, $color math.percentage(calc((1 - $percentage-to-black))), black math.percentage($percentage-to-black));
   }
   @error "Invalid shade value. Accepted values are between 50 and 950 in steps of 50.";
 }
