@@ -23,35 +23,35 @@ export class JePage {
     this.resizeObserver.disconnect();
 
     const { bodySlot, headerSlot, footerSlot, leftPanelSlot, rightPanelSlot } = this;
+
+    // Optional little helper to ensure we only move if needed
+    const maybeAppend = (node: Node | null, container: HTMLElement) => {
+      if (node && node.parentNode !== container) {
+        container.appendChild(node);
+      }
+    };
+
     const body = this.el.querySelector('main');
-    const header = this.el.querySelectorAll('header');
+    const headerNodes = Array.from(this.el.querySelectorAll('header'));
     const footer = this.el.querySelector('footer');
     const leftPanel = this.el.querySelector('aside:not([right])');
     const rightPanel = this.el.querySelector('aside[right]');
-    if (body) {
-      bodySlot.appendChild(body);
-    }
-    if (header.length) {
-      for (const h of header) {
-        headerSlot.appendChild(h);
-        this.resizeObserver.observe(h);
-      }
-    }
-    if (footer) {
-      footerSlot.appendChild(footer);
-    }
-    if (leftPanel) {
-      leftPanelSlot.appendChild(leftPanel);
-    }
-    if (rightPanel) {
-      rightPanelSlot.appendChild(rightPanel);
-    }
 
+    maybeAppend(body, bodySlot);
+    for (const h of headerNodes) {
+      maybeAppend(h, headerSlot);
+      this.resizeObserver.observe(h);
+    }
+    maybeAppend(footer, footerSlot);
+    maybeAppend(leftPanel, leftPanelSlot);
+    maybeAppend(rightPanel, rightPanelSlot);
+
+    // Reattach observers after we’ve done the minimal movement
     this.mutationObserver.observe(this.el, {
       childList: true,
       subtree: true,
     });
-  }
+  };
 
   connectedCallback() {
     this.mutationObserver = new MutationObserver(this.moveProjectedContent)

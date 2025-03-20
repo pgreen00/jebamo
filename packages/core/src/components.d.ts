@@ -8,15 +8,39 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Color, OverlayData } from "./utils/utils";
 import { Color as Color1 } from "./components";
 import { DialogButton, DialogControl } from "./components/je-dialog/je-dialog";
-import { DrawerState } from "./components/je-drawer/je-drawer";
 import { Placement } from "@floating-ui/dom";
 export { Color, OverlayData } from "./utils/utils";
 export { Color as Color1 } from "./components";
 export { DialogButton, DialogControl } from "./components/je-dialog/je-dialog";
-export { DrawerState } from "./components/je-drawer/je-drawer";
 export { Placement } from "@floating-ui/dom";
 export namespace Components {
     interface JeActionSheet {
+        /**
+          * Optionally execute a promise before closing begins
+         */
+        "destroy"?: () => void | Promise<void>;
+        "hide": (role?: string, data?: any) => Promise<void>;
+        /**
+          * Optionally execute a promise before presentation begins
+         */
+        "init"?: () => void | Promise<void>;
+        /**
+          * Maximum height (expanded fullscreen).
+         */
+        "maxPercent": number;
+        /**
+          * Intermediate height (mid state).
+         */
+        "midPercent": number;
+        /**
+          * Minimum height (collapsed state).
+         */
+        "minPercent": number;
+        /**
+          * Opens and closes modal
+         */
+        "open": boolean;
+        "show": () => Promise<void>;
     }
     interface JeAlert {
         "closable": boolean;
@@ -203,12 +227,12 @@ export namespace Components {
           * Controls that are wrapped in a form
          */
         "controls"?: DialogControl[];
-        "dismiss": (role?: string, data?: any) => Promise<void>;
         "getModalElement": () => Promise<HTMLJeModalElement>;
         /**
           * Title of the dialog
          */
         "header"?: string;
+        "hide": (role?: string, data?: any) => Promise<void>;
         /**
           * Icon that goes to the left of the header
          */
@@ -217,7 +241,7 @@ export namespace Components {
           * Message text below the title
          */
         "message"?: string;
-        "present": () => Promise<void>;
+        "show": () => Promise<void>;
         /**
           * Whether or not to render the backdrop
          */
@@ -228,8 +252,28 @@ export namespace Components {
         "type": 'horizontal' | 'vertical';
     }
     interface JeDrawer {
-        "side": 'left' | 'right' | 'bottom';
-        "state": DrawerState;
+        /**
+          * Backdrop will close the modal on click when enabled
+         */
+        "backdropDismiss": boolean;
+        /**
+          * Optionally execute a promise before closing begins
+         */
+        "destroy"?: () => void | Promise<void>;
+        "hide": (role?: string, data?: any) => Promise<void>;
+        /**
+          * Optionally execute a promise before presentation begins
+         */
+        "init"?: () => void | Promise<void>;
+        /**
+          * Opens and closes modal
+         */
+        "open": boolean;
+        "show": () => Promise<void>;
+        /**
+          * Side of the screen where the drawer will be displayed
+         */
+        "side": 'left' | 'right';
     }
     interface JeDropzone {
     }
@@ -316,12 +360,21 @@ export namespace Components {
           * Backdrop will close the modal on click when enabled
          */
         "backdropDismiss": boolean;
-        "dismiss": (role?: string, data?: any) => Promise<void>;
+        /**
+          * Optionally execute a promise before closing begins
+         */
+        "destroy"?: () => void | Promise<void>;
+        "didDismiss": () => Promise<OverlayData>;
+        "hide": (role?: string, data?: any) => Promise<void>;
+        /**
+          * Optionally execute a promise before presentation begins
+         */
+        "init"?: () => void | Promise<void>;
         /**
           * Opens and closes modal
          */
         "open": boolean;
-        "present": () => Promise<void>;
+        "show": () => Promise<void>;
         /**
           * Whether or not the backdrop will be visible to the user
          */
@@ -353,13 +406,26 @@ export namespace Components {
          */
         "arrow": boolean;
         /**
+          * The padding between the arrow and the edges of the popover. Useful if you change the border-radius of the popover
+         */
+        "arrowPadding": number;
+        /**
           * Backdrop will dismiss the popover on click when enabled
          */
         "backdropDismiss": boolean;
         /**
+          * Execute a callback after the popover has dismissed
+         */
+        "destroy"?: () => Promise<void> | void;
+        /**
           * Popover will automatically dismiss itself when something is clicked in the popover when enabled
          */
         "dismissOnClick": boolean;
+        "hide": (role?: string, data?: any) => Promise<void>;
+        /**
+          * Execute a callback before the popover starts presenting
+         */
+        "init"?: () => Promise<void> | void;
         /**
           * If the popover should match the width of the trigger element
          */
@@ -384,12 +450,13 @@ export namespace Components {
           * If the popover should position itself using the mouse event or the triggerElement.
          */
         "positionStrategy": 'click' | 'element';
+        "show": () => Promise<void>;
         /**
           * @click Popover will show on left click or tap on mobile.
           * @context-menu Popover will show on right click or press on mobile.
-          * @hover Popover will show on hover or tap on mobile. No backdrop will be rendered.
+          * @hover Popover will show on hover or tap on mobile.
          */
-        "triggerAction": 'click' | 'hover' | 'context-menu' | 'content-hover';
+        "triggerAction": 'click' | 'context-menu' | 'hover';
     }
     interface JeRadio {
         /**
@@ -454,6 +521,18 @@ export namespace Components {
     interface JeToolbar {
     }
     interface JeTooltip {
+        /**
+          * The content of the tooltip
+         */
+        "content"?: string;
+        /**
+          * Horizontal offset used when auto positioning the popover content
+         */
+        "offsetX": number;
+        /**
+          * Vertical offset used when auto positioning the popover content
+         */
+        "offsetY": number;
     }
     interface JeTree {
         "indentation": boolean;
@@ -462,6 +541,10 @@ export namespace Components {
     }
     interface JeWizard {
     }
+}
+export interface JeActionSheetCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeActionSheetElement;
 }
 export interface JeAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -478,6 +561,10 @@ export interface JeCheckboxCustomEvent<T> extends CustomEvent<T> {
 export interface JeDatepickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeDatepickerElement;
+}
+export interface JeDrawerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeDrawerElement;
 }
 export interface JeDropzoneCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -516,7 +603,19 @@ export interface JeTreeCustomEvent<T> extends CustomEvent<T> {
     target: HTMLJeTreeElement;
 }
 declare global {
+    interface HTMLJeActionSheetElementEventMap {
+        "present": any;
+        "dismiss": OverlayData;
+    }
     interface HTMLJeActionSheetElement extends Components.JeActionSheet, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeActionSheetElementEventMap>(type: K, listener: (this: HTMLJeActionSheetElement, ev: JeActionSheetCustomEvent<HTMLJeActionSheetElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeActionSheetElementEventMap>(type: K, listener: (this: HTMLJeActionSheetElement, ev: JeActionSheetCustomEvent<HTMLJeActionSheetElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeActionSheetElement: {
         prototype: HTMLJeActionSheetElement;
@@ -657,7 +756,20 @@ declare global {
         prototype: HTMLJeDividerElement;
         new (): HTMLJeDividerElement;
     };
+    interface HTMLJeDrawerElementEventMap {
+        "present": any;
+        "dismiss": OverlayData;
+        "backdropClick": any;
+    }
     interface HTMLJeDrawerElement extends Components.JeDrawer, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeDrawerElementEventMap>(type: K, listener: (this: HTMLJeDrawerElement, ev: JeDrawerCustomEvent<HTMLJeDrawerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeDrawerElementEventMap>(type: K, listener: (this: HTMLJeDrawerElement, ev: JeDrawerCustomEvent<HTMLJeDrawerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeDrawerElement: {
         prototype: HTMLJeDrawerElement;
@@ -757,8 +869,9 @@ declare global {
         new (): HTMLJeLoadingElement;
     };
     interface HTMLJeModalElementEventMap {
-        "modalPresent": any;
-        "modalDismiss": { role: string, data: any };
+        "present": any;
+        "dismiss": OverlayData;
+        "backdropClick": any;
     }
     interface HTMLJeModalElement extends Components.JeModal, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeModalElementEventMap>(type: K, listener: (this: HTMLJeModalElement, ev: JeModalCustomEvent<HTMLJeModalElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -811,8 +924,9 @@ declare global {
         new (): HTMLJePlaceholderElement;
     };
     interface HTMLJePopoverElementEventMap {
-        "popoverPresent": any;
-        "popoverDismiss": any;
+        "present": any;
+        "dismiss": OverlayData;
+        "ready": any;
     }
     interface HTMLJePopoverElement extends Components.JePopover, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJePopoverElementEventMap>(type: K, listener: (this: HTMLJePopoverElement, ev: JePopoverCustomEvent<HTMLJePopoverElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1010,6 +1124,38 @@ declare global {
 }
 declare namespace LocalJSX {
     interface JeActionSheet {
+        /**
+          * Optionally execute a promise before closing begins
+         */
+        "destroy"?: () => void | Promise<void>;
+        /**
+          * Optionally execute a promise before presentation begins
+         */
+        "init"?: () => void | Promise<void>;
+        /**
+          * Maximum height (expanded fullscreen).
+         */
+        "maxPercent"?: number;
+        /**
+          * Intermediate height (mid state).
+         */
+        "midPercent"?: number;
+        /**
+          * Minimum height (collapsed state).
+         */
+        "minPercent"?: number;
+        /**
+          * Emits whenever the drawer has finished closing. Emits the role and optional data object passed to the hide() method.
+         */
+        "onDismiss"?: (event: JeActionSheetCustomEvent<OverlayData>) => void;
+        /**
+          * Emits whenever the drawer has opened. Does not emit any data
+         */
+        "onPresent"?: (event: JeActionSheetCustomEvent<any>) => void;
+        /**
+          * Opens and closes modal
+         */
+        "open"?: boolean;
     }
     interface JeAlert {
         "closable"?: boolean;
@@ -1221,8 +1367,38 @@ declare namespace LocalJSX {
         "type"?: 'horizontal' | 'vertical';
     }
     interface JeDrawer {
-        "side"?: 'left' | 'right' | 'bottom';
-        "state"?: DrawerState;
+        /**
+          * Backdrop will close the modal on click when enabled
+         */
+        "backdropDismiss"?: boolean;
+        /**
+          * Optionally execute a promise before closing begins
+         */
+        "destroy"?: () => void | Promise<void>;
+        /**
+          * Optionally execute a promise before presentation begins
+         */
+        "init"?: () => void | Promise<void>;
+        /**
+          * Emits whenever the backdrop is clicked. Does not emit any data
+         */
+        "onBackdropClick"?: (event: JeDrawerCustomEvent<any>) => void;
+        /**
+          * Emits whenever the drawer has finished closing. Emits the role and optional data object passed to the hide() method.
+         */
+        "onDismiss"?: (event: JeDrawerCustomEvent<OverlayData>) => void;
+        /**
+          * Emits whenever the drawer has opened. Does not emit any data
+         */
+        "onPresent"?: (event: JeDrawerCustomEvent<any>) => void;
+        /**
+          * Opens and closes modal
+         */
+        "open"?: boolean;
+        /**
+          * Side of the screen where the drawer will be displayed
+         */
+        "side"?: 'left' | 'right';
     }
     interface JeDropzone {
         "onDataDrop"?: (event: JeDropzoneCustomEvent<DataTransfer>) => void;
@@ -1316,13 +1492,25 @@ declare namespace LocalJSX {
          */
         "backdropDismiss"?: boolean;
         /**
-          * Emits whenever the modal has finished closing. Emits the role and optional data object passed to the closeModal() method.
+          * Optionally execute a promise before closing begins
          */
-        "onModalDismiss"?: (event: JeModalCustomEvent<{ role: string, data: any }>) => void;
+        "destroy"?: () => void | Promise<void>;
+        /**
+          * Optionally execute a promise before presentation begins
+         */
+        "init"?: () => void | Promise<void>;
+        /**
+          * Emits whenever the backdrop is clicked. Does not emit any data
+         */
+        "onBackdropClick"?: (event: JeModalCustomEvent<any>) => void;
+        /**
+          * Emits whenever the modal has finished closing. Emits the role and optional data object passed to the hide() method.
+         */
+        "onDismiss"?: (event: JeModalCustomEvent<OverlayData>) => void;
         /**
           * Emits whenever the modal has opened. Does not emit any data
          */
-        "onModalPresent"?: (event: JeModalCustomEvent<any>) => void;
+        "onPresent"?: (event: JeModalCustomEvent<any>) => void;
         /**
           * Opens and closes modal
          */
@@ -1358,13 +1546,25 @@ declare namespace LocalJSX {
          */
         "arrow"?: boolean;
         /**
+          * The padding between the arrow and the edges of the popover. Useful if you change the border-radius of the popover
+         */
+        "arrowPadding"?: number;
+        /**
           * Backdrop will dismiss the popover on click when enabled
          */
         "backdropDismiss"?: boolean;
         /**
+          * Execute a callback after the popover has dismissed
+         */
+        "destroy"?: () => Promise<void> | void;
+        /**
           * Popover will automatically dismiss itself when something is clicked in the popover when enabled
          */
         "dismissOnClick"?: boolean;
+        /**
+          * Execute a callback before the popover starts presenting
+         */
+        "init"?: () => Promise<void> | void;
         /**
           * If the popover should match the width of the trigger element
          */
@@ -1380,11 +1580,15 @@ declare namespace LocalJSX {
         /**
           * Emits when the popover is closed
          */
-        "onPopoverDismiss"?: (event: JePopoverCustomEvent<any>) => void;
+        "onDismiss"?: (event: JePopoverCustomEvent<OverlayData>) => void;
         /**
           * Emits when the popover is opened
          */
-        "onPopoverPresent"?: (event: JePopoverCustomEvent<any>) => void;
+        "onPresent"?: (event: JePopoverCustomEvent<any>) => void;
+        /**
+          * Emits when the popover has completed it's initial render
+         */
+        "onReady"?: (event: JePopoverCustomEvent<any>) => void;
         /**
           * Opens/closes the popover
          */
@@ -1400,9 +1604,9 @@ declare namespace LocalJSX {
         /**
           * @click Popover will show on left click or tap on mobile.
           * @context-menu Popover will show on right click or press on mobile.
-          * @hover Popover will show on hover or tap on mobile. No backdrop will be rendered.
+          * @hover Popover will show on hover or tap on mobile.
          */
-        "triggerAction"?: 'click' | 'hover' | 'context-menu' | 'content-hover';
+        "triggerAction"?: 'click' | 'context-menu' | 'hover';
     }
     interface JeRadio {
         /**
@@ -1476,6 +1680,18 @@ declare namespace LocalJSX {
     interface JeToolbar {
     }
     interface JeTooltip {
+        /**
+          * The content of the tooltip
+         */
+        "content"?: string;
+        /**
+          * Horizontal offset used when auto positioning the popover content
+         */
+        "offsetX"?: number;
+        /**
+          * Vertical offset used when auto positioning the popover content
+         */
+        "offsetY"?: number;
     }
     interface JeTree {
         "indentation"?: boolean;

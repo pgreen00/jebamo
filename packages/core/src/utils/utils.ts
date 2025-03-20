@@ -3,5 +3,4 @@ export * from './types/overlay-data'
 export * from './functions/animation-update'
 export * from './functions/debounce-event'
 export * from './functions/shade'
-export * from './functions/teleport-overlay'
-export * from './functions/generate-short-id'
+export * from './functions/get-dom-rect';

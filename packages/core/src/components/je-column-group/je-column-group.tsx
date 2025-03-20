@@ -33,15 +33,10 @@ export class JeColumnGroup {
    */
   @Prop({ reflect: true }) gap?: '3xs' | '2xs' |'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 
-  componentDidLoad() {
-    if (this.columns) {
-      this.el.style.setProperty('--columns', this.columns.toString());
-    }
-  }
-
   render() {
     return (
       <Host>
+        <style>{`:host{--columns:${this.columns || 12}}`}</style>
         <slot></slot>
       </Host>
     );

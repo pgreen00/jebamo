@@ -1,6 +1,6 @@
 ---
-title: 'JeCombobox | <je-combobox>'
-sidebar_label: 'Combobox'
+title: 'JeNav | <je-nav>'
+sidebar_label: 'Nav'
 ---
 <!-- Auto Generated Below -->
 

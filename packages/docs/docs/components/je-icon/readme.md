@@ -17,6 +17,16 @@ sidebar_label: 'Icon'
 | `weight`   | `weight`   | Icon weight                                         | `number`                               | `400`       |
 
 
+## CSS Custom Properties
+
+| Name        | Description           |
+| ----------- | --------------------- |
+| `--fill`    | 1 or 0, true or false |
+| `--grade`   | Emphasis?             |
+| `--optical` | Stroke weight         |
+| `--weight`  | icon weight           |
+
+
 ## Dependencies
 
 ### Used by
@@ -26,7 +36,6 @@ sidebar_label: 'Icon'
  - [je-checkbox](../je-checkbox)
  - [je-datepicker](../je-datepicker)
  - [je-dialog](../je-dialog)
- - [je-input](../je-input)
  - [je-radio](../je-radio)
 
 ### Graph
@@ -37,7 +46,6 @@ graph TD;
   je-checkbox --> je-icon
   je-datepicker --> je-icon
   je-dialog --> je-icon
-  je-input --> je-icon
   je-radio --> je-icon
   style je-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -1,7 +1,7 @@
-import { Component, Host, h, Element, EventEmitter, Listen, Prop, Event, Watch } from '@stencil/core';
+import { Component, Host, h, Element, EventEmitter, Listen, Prop, Event, Watch, Method } from '@stencil/core';
 import { arrow, autoPlacement, autoUpdate, computePosition, ComputePositionReturn, flip, offset, Placement, shift, size } from '@floating-ui/dom';
-import { animationUpdate, teleportOverlay, generateShortId } from '../../utils/utils';
 import { debounceTime, fromEvent, Subscription } from 'rxjs';
+import { getDOMRect, OverlayData } from '../../utils/utils';
 
 @Component({
   tag: 'je-popover',
@@ -11,15 +11,21 @@ import { debounceTime, fromEvent, Subscription } from 'rxjs';
 export class JePopover {
   @Element() el!: HTMLJePopoverElement;
 
+  private contentEl!: HTMLElement;
+
   private containerEl!: HTMLElement;
 
   private arrowEl?: HTMLElement;
 
   private get triggerElement() {
-    return this.el.querySelector('[slot=trigger]') ?? this.placeholder.parentNode?.querySelector(`[data-trigger=${this.triggerDataId}]`);
+    return this.el.querySelector(':scope > [slot=trigger]');
   }
 
   private mouseEvent?: MouseEvent;
+
+  private role?: string;
+
+  private data?: any;
 
   private cleanup?: () => void;
 
@@ -27,7 +33,7 @@ export class JePopover {
     return {
       getBoundingClientRect: () => {
         if (this.positionStrategy === 'element') {
-          return this.getRangeBoundingClientRect(this.triggerElement)
+          return getDOMRect(this.triggerElement ?? this.mouseEvent?.target as Element)
         } else {
           return new DOMRect(this.mouseEvent?.clientX, this.mouseEvent?.clientY)
         }
@@ -35,11 +41,7 @@ export class JePopover {
     };
   }
 
-  private mouseMoveSub?: Subscription;
-
-  private placeholder = document.createComment('je-popover-teleport')
-
-  private triggerDataId = generateShortId()
+  private mouseSub?: Subscription;
 
   /**
    * Opens/closes the popover
@@ -75,9 +77,9 @@ export class JePopover {
   /**
    * @click Popover will show on left click or tap on mobile.
    * @context-menu Popover will show on right click or press on mobile.
-   * @hover Popover will show on hover or tap on mobile. No backdrop will be rendered.
+   * @hover Popover will show on hover or tap on mobile.
    */
-  @Prop() triggerAction: 'click' | 'hover' | 'context-menu' | 'content-hover' = 'click';
+  @Prop() triggerAction: 'click' | 'context-menu' | 'hover' = 'click';
 
   /**
    * If the popover should match the width of the trigger element
@@ -87,24 +89,40 @@ export class JePopover {
   /**
    * Renders an arrow pointing to the trigger
    */
-  @Prop() arrow = false;
+  @Prop() arrow = true;
+
+  /**
+   * Execute a callback before the popover starts presenting
+   */
+  @Prop() init?: () => Promise<void> | void;
+
+  /**
+   * Execute a callback after the popover has dismissed
+   */
+  @Prop() destroy?: () => Promise<void> | void;
+
+  /**
+   * The padding between the arrow and the edges of the popover. Useful if you change the border-radius of the popover
+   */
+  @Prop() arrowPadding = 6;
 
   /**
    * Emits when the popover is opened
    */
-  @Event() popoverPresent: EventEmitter;
+  @Event({ bubbles: false }) present: EventEmitter;
 
   /**
    * Emits when the popover is closed
    */
-  @Event() popoverDismiss: EventEmitter;
+  @Event({ bubbles: false }) dismiss: EventEmitter<OverlayData>;
 
-  connectedCallback() {
-    this.mouseMoveSub = fromEvent(window, 'mousemove').pipe(debounceTime(10)).subscribe(this.onMouseMove);
-  }
+  /**
+   * Emits when the popover has completed it's initial render
+   */
+  @Event({ bubbles: false }) ready: EventEmitter;
 
-  disconnectedCallback() {
-    this.mouseMoveSub?.unsubscribe();
+  componentDidLoad() {
+    this.ready.emit();
   }
 
   componentWillRender() {
@@ -113,75 +131,73 @@ export class JePopover {
     }
   }
 
+  connectedCallback() {
+    this.mouseSub = fromEvent(window, 'mousemove')
+      .pipe(debounceTime(25))
+      .subscribe(this.onMouseMove)
+  }
+
+  disconnectedCallback() {
+    this.mouseSub?.unsubscribe();
+  }
+
   @Watch('open')
   async handleOpenChange(open: boolean) {
     if (open) {
+      if (this.init) {
+        await this.init();
+      }
       this.setPosition(await this.computePosition());
       this.cleanup = autoUpdate(this.referenceEl, this.containerEl, () => this.computePosition().then(this.setPosition));
-      this.containerEl.classList.add('open');
-      teleportOverlay(this.el, this.placeholder, this.triggerDataId)
-      await animationUpdate();
-      this.containerEl.style.opacity = '1';
+      this.containerEl.showPopover();
     } else {
-      this.containerEl.style.removeProperty('opacity');
-      if (this.cleanup) {
-        this.cleanup();
-      }
+      this.containerEl.hidePopover();
     }
   }
 
   @Listen('click', { capture: true, target: 'window' })
   handleWindowClick(ev: MouseEvent) {
+    const path = ev.composedPath();
+
     if (this.triggerAction == 'click' && !this.open) {
       this.mouseEvent = ev;
-      if (this.triggerElement?.contains(ev.target as Node)) {
+      if (path.includes(this.triggerElement)) {
         this.open = true;
       }
     }
 
-    if (this.dismissOnClick && this.open && this.el.contains(ev.target as Node)) {
-      this.open = false;
+    if (this.dismissOnClick && this.open && path.includes(this.containerEl)) {
+      this.hide('clickDismiss')
     }
 
-    if (this.backdropDismiss && this.open && !this.el.contains(ev.target as Node) && !this.triggerElement?.contains(ev.target as Node)) {
-      this.open = false;
+    if (this.backdropDismiss && this.open && !path.includes(this.containerEl) && !path.includes(this.triggerElement)) {
+      this.hide('backdropDismiss')
     }
   }
 
   @Listen('contextmenu', { capture: true, target: 'window' })
   handleWindowContextMenu(ev: MouseEvent) {
+    const path = ev.composedPath();
     if (this.triggerAction == 'context-menu' && !this.open) {
       this.mouseEvent = ev;
-      if (this.triggerElement?.contains(ev.target as Node)) {
+      if (path.includes(this.triggerElement)) {
         ev.preventDefault();
         this.open = true;
       }
     }
   }
 
-  private computePosition = () =>
-    computePosition(this.referenceEl, this.containerEl, {
-      placement: this.placement,
-      strategy: 'fixed',
-      middleware: [
-        this.placement ? flip() : autoPlacement(),
-        this.placement ? shift() : false,
-        offset({
-          mainAxis: this.offsetY,
-          crossAxis: this.offsetX,
-        }),
-        size({
-          apply: ({ availableHeight }) => {
-            this.containerEl.style.setProperty('--available-height', `${availableHeight - this.offsetY}px`);
-          },
-        }),
-        this.arrowEl
-          ? arrow({
-              element: this.arrowEl,
-            })
-          : false,
-      ],
-    });
+  @Method()
+  async show() {
+    this.open = true;
+  }
+
+  @Method()
+  async hide(role?: string, data?: any) {
+    this.role = role;
+    this.data = data;
+    this.open = false;
+  }
 
   private setPosition = ({ x, y, middlewareData, placement }: ComputePositionReturn) => {
     if (middlewareData.arrow) {
@@ -195,63 +211,73 @@ export class JePopover {
     }
     this.containerEl.style.left = `${x}px`;
     this.containerEl.style.top = `${y}px`;
-  };
+  }
 
   private onMouseMove = (ev: MouseEvent) => {
+    const node = ev.target as Node;
     const { triggerAction, triggerElement, el } = this;
-    if (triggerAction === 'content-hover' || triggerAction === 'hover') {
-      if ((triggerAction === 'content-hover' && (el.contains(ev.target as Node) || triggerElement?.contains(ev.target as Node))) || (triggerAction === 'hover' && triggerElement?.contains(ev.target as Node))) {
+    if (triggerAction === 'hover') {
+      if ((triggerAction === 'hover' && (el.contains(node) || triggerElement?.contains(node)))) {
         this.mouseEvent = ev;
         this.open = true;
       } else {
-        this.open = false;
+        this.hide('hoverDismiss')
       }
     }
   };
 
-  private handleContentTransitionEnd = () => {
-    if (!this.open) {
-      this.containerEl.classList.remove('open');
-      this.containerEl.removeAttribute('style');
-      teleportOverlay(this.el, this.placeholder, this.triggerDataId, true)
-    }
-  };
-
-  private getRangeBoundingClientRect(element: Element) {
-    const rects = [];
-    let nodes: Element[];
-
-    if (element.shadowRoot) {
-      nodes = Array.from(element.shadowRoot.children);
-    } else {
-      nodes = Array.from(element.children);
-    }
-
-    nodes.forEach(node => {
-      if (node.nodeType === Node.ELEMENT_NODE && !['STYLE', 'SCRIPT', 'LINK'].includes(node.tagName)) {
-        const computedStyle = window.getComputedStyle(node);
-        if (computedStyle.display !== 'contents') {
-          rects.push(node.getBoundingClientRect());
-        }
-      }
-    });
-
-    if (rects.length === 0) return new DOMRect();
-
-    const left = Math.min(...rects.map(r => r.left));
-    const top = Math.min(...rects.map(r => r.top));
-    const right = Math.max(...rects.map(r => r.right));
-    const bottom = Math.max(...rects.map(r => r.bottom));
-
-    return new DOMRect(left, top, right - left, bottom - top);
+  private computePosition() {
+    return computePosition(this.referenceEl, this.containerEl, {
+      placement: this.placement,
+      strategy: 'fixed',
+      middleware: [
+        offset({
+          mainAxis: this.offsetY,
+          crossAxis: this.offsetX,
+        }),
+        shift(),
+        this.placement ? flip() : autoPlacement(),
+        size({
+          apply: ({ availableHeight, availableWidth }) => {
+            this.contentEl.style.setProperty('--available-height', `${availableHeight - this.offsetY}px`);
+            this.contentEl.style.setProperty('--available-width', `${availableWidth - this.offsetX}px`);
+          },
+        }),
+        this.arrowEl
+          ? arrow({
+            element: this.arrowEl,
+            padding: this.arrowPadding,
+          })
+          : false,
+      ],
+    })
   }
+
+  private handleContentTransitionEnd = async (ev: TransitionEvent) => {
+    if (ev.propertyName == 'opacity') {
+      await new Promise(resolve => setTimeout(resolve, 300));
+      if (!this.open) {
+        if (this.cleanup) {
+          this.cleanup();
+        }
+        if (this.destroy) {
+          await this.destroy();
+        }
+        this.dismiss.emit({ role: this.role ?? 'manualClose', data: this.data });
+        this.role = undefined;
+        this.data = undefined;
+      } else {
+        this.present.emit();
+      }
+    }
+  };
 
   render() {
     return (
       <Host>
         <slot name="trigger" />
-        <div part="content-container" ref={el => this.containerEl = el} onTransitionEnd={this.handleContentTransitionEnd}>
-          <div part="content">
+        <div part="content-container" ref={el => this.containerEl = el} onTransitionStart={this.handleContentTransitionEnd} popover='manual'>
+          <div ref={el => this.contentEl = el} part="content">
             <slot />
           </div>
           {this.arrow && <div ref={el => this.arrowEl = el} part="arrow"></div>}

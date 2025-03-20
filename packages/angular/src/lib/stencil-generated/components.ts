@@ -8,24 +8,38 @@ import { Components } from 'jebamo';
 
 
 @ProxyCmp({
+  inputs: ['destroy', 'init', 'maxPercent', 'midPercent', 'minPercent', 'open'],
+  methods: ['show', 'hide']
 })
 @Component({
   selector: 'je-action-sheet',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['destroy', 'init', 'maxPercent', 'midPercent', 'minPercent', 'open'],
 })
 export class JeActionSheet {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['present', 'dismiss']);
   }
 }
 
 
-export declare interface JeActionSheet extends Components.JeActionSheet {}
+import type { OverlayData as IJeActionSheetOverlayData } from 'jebamo';
+
+export declare interface JeActionSheet extends Components.JeActionSheet {
+  /**
+   * Emits whenever the drawer has opened. Does not emit any data
+   */
+  present: EventEmitter<CustomEvent<any>>;
+  /**
+   * Emits whenever the drawer has finished closing. Emits the role and optional data object passed to the hide() method.
+   */
+  dismiss: EventEmitter<CustomEvent<IJeActionSheetOverlayData>>;
+}
 
 
 @ProxyCmp({
@@ -84,6 +98,48 @@ export declare interface JeBranch extends Components.JeBranch {
 
   branchSelect: EventEmitter<CustomEvent<string>>;
 }
+
+
+@ProxyCmp({
+})
+@Component({
+  selector: 'je-breadcrumb',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeBreadcrumb {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeBreadcrumb extends Components.JeBreadcrumb {}
+
+
+@ProxyCmp({
+})
+@Component({
+  selector: 'je-breadcrumbs',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeBreadcrumbs {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeBreadcrumbs extends Components.JeBreadcrumbs {}
 
 
 @ProxyCmp({
@@ -295,7 +351,7 @@ export declare interface JeDetails extends Components.JeDetails {}
 
 @ProxyCmp({
   inputs: ['backdropDismiss', 'buttons', 'controls', 'header', 'icon', 'message', 'showBackdrop'],
-  methods: ['getModalElement', 'present', 'dismiss']
+  methods: ['getModalElement', 'show', 'hide']
 })
 @Component({
   selector: 'je-dialog',
@@ -339,25 +395,42 @@ export declare interface JeDivider extends Components.JeDivider {}
 
 
 @ProxyCmp({
-  inputs: ['side', 'state']
+  inputs: ['backdropDismiss', 'destroy', 'init', 'open', 'side'],
+  methods: ['show', 'hide']
 })
 @Component({
   selector: 'je-drawer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['side', 'state'],
+  inputs: ['backdropDismiss', 'destroy', 'init', 'open', 'side'],
 })
 export class JeDrawer {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['present', 'dismiss', 'backdropClick']);
   }
 }
 
 
-export declare interface JeDrawer extends Components.JeDrawer {}
+import type { OverlayData as IJeDrawerOverlayData } from 'jebamo';
+
+export declare interface JeDrawer extends Components.JeDrawer {
+  /**
+   * Emits whenever the drawer has opened. Does not emit any data
+   */
+  present: EventEmitter<CustomEvent<any>>;
+  /**
+   * Emits whenever the drawer has finished closing. Emits the role and optional data object passed to the hide() method.
+   */
+  dismiss: EventEmitter<CustomEvent<IJeDrawerOverlayData>>;
+  /**
+   * Emits whenever the backdrop is clicked. Does not emit any data
+   */
+  backdropClick: EventEmitter<CustomEvent<any>>;
+}
 
 
 @ProxyCmp({
@@ -433,6 +506,27 @@ export declare interface JeIcon extends Components.JeIcon {}
 
 
 @ProxyCmp({
+})
+@Component({
+  selector: 'je-icon-button',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeIconButton {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeIconButton extends Components.JeIconButton {}
+
+
+@ProxyCmp({
   inputs: ['loading', 'rootMargin', 'threshold']
 })
 @Component({
@@ -457,35 +551,6 @@ export declare interface JeInfinite extends Components.JeInfinite {
    * Emitted when the bottom of the scroll container is in the viewport
    */
   intersect: EventEmitter<CustomEvent<void>>;
-}
-
-
-@ProxyCmp({
-  inputs: ['autocapitalize', 'autocomplete', 'autocorrect', 'autofocus', 'debounce', 'disabled', 'expand', 'format', 'helperText', 'inputmode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'pattern', 'placeholder', 'readonly', 'required', 'spellcheck', 'step', 'transform', 'type', 'validators', 'value'],
-  methods: ['getInputElement', 'markAsTouched', 'getErrors', 'reset']
-})
-@Component({
-  selector: 'je-input',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['autocapitalize', 'autocomplete', 'autocorrect', 'autofocus', 'debounce', 'disabled', 'expand', 'format', 'helperText', 'inputmode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'pattern', 'placeholder', 'readonly', 'required', 'spellcheck', 'step', 'transform', 'type', 'validators', 'value'],
-})
-export class JeInput {
-  protected el: HTMLElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['valueChange']);
-  }
-}
-
-
-export declare interface JeInput extends Components.JeInput {
-  /**
-   * Emits as the user types
-   */
-  valueChange: EventEmitter<CustomEvent<string>>;
 }
 
 
@@ -596,36 +661,63 @@ export declare interface JeLoading extends Components.JeLoading {}
 
 
 @ProxyCmp({
-  inputs: ['backdropDismiss', 'open', 'showBackdrop'],
-  methods: ['present', 'dismiss']
+  inputs: ['backdropDismiss', 'destroy', 'init', 'open', 'showBackdrop'],
+  methods: ['show', 'hide', 'didDismiss']
 })
 @Component({
   selector: 'je-modal',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['backdropDismiss', 'open', 'showBackdrop'],
+  inputs: ['backdropDismiss', 'destroy', 'init', 'open', 'showBackdrop'],
 })
 export class JeModal {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['modalPresent', 'modalDismiss']);
+    proxyOutputs(this, this.el, ['present', 'dismiss', 'backdropClick']);
   }
 }
 
+
+import type { OverlayData as IJeModalOverlayData } from 'jebamo';
 
 export declare interface JeModal extends Components.JeModal {
   /**
    * Emits whenever the modal has opened. Does not emit any data
    */
-  modalPresent: EventEmitter<CustomEvent<any>>;
+  present: EventEmitter<CustomEvent<any>>;
   /**
-   * Emits whenever the modal has finished closing. Emits the role and optional data object passed to the closeModal() method.
+   * Emits whenever the modal has finished closing. Emits the role and optional data object passed to the hide() method.
    */
-  modalDismiss: EventEmitter<CustomEvent<{ role: string, data: any }>>;
+  dismiss: EventEmitter<CustomEvent<IJeModalOverlayData>>;
+  /**
+   * Emits whenever the backdrop is clicked. Does not emit any data
+   */
+  backdropClick: EventEmitter<CustomEvent<any>>;
 }
+
+
+@ProxyCmp({
+})
+@Component({
+  selector: 'je-nav',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeNav {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeNav extends Components.JeNav {}
 
 
 @ProxyCmp({
@@ -737,34 +829,41 @@ export declare interface JePlaceholder extends Components.JePlaceholder {}
 
 
 @ProxyCmp({
-  inputs: ['arrow', 'backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'triggerAction']
+  inputs: ['arrow', 'arrowPadding', 'backdropDismiss', 'destroy', 'dismissOnClick', 'init', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'triggerAction'],
+  methods: ['show', 'hide']
 })
 @Component({
   selector: 'je-popover',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['arrow', 'backdropDismiss', 'dismissOnClick', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'triggerAction'],
+  inputs: ['arrow', 'arrowPadding', 'backdropDismiss', 'destroy', 'dismissOnClick', 'init', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'triggerAction'],
 })
 export class JePopover {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['popoverPresent', 'popoverDismiss']);
+    proxyOutputs(this, this.el, ['present', 'dismiss', 'ready']);
   }
 }
 
+
+import type { OverlayData as IJePopoverOverlayData } from 'jebamo';
 
 export declare interface JePopover extends Components.JePopover {
   /**
    * Emits when the popover is opened
    */
-  popoverPresent: EventEmitter<CustomEvent<any>>;
+  present: EventEmitter<CustomEvent<any>>;
   /**
    * Emits when the popover is closed
    */
-  popoverDismiss: EventEmitter<CustomEvent<any>>;
+  dismiss: EventEmitter<CustomEvent<IJePopoverOverlayData>>;
+  /**
+   * Emits when the popover has completed it's initial render
+   */
+  ready: EventEmitter<CustomEvent<any>>;
 }
 
 
@@ -1021,13 +1120,14 @@ export declare interface JeToolbar extends Components.JeToolbar {}
 
 
 @ProxyCmp({
+  inputs: ['content', 'offsetX', 'offsetY']
 })
 @Component({
   selector: 'je-tooltip',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['content', 'offsetX', 'offsetY'],
 })
 export class JeTooltip {
   protected el: HTMLElement;
@@ -1065,5 +1165,26 @@ export declare interface JeTree extends Components.JeTree {
 
   valueChange: EventEmitter<CustomEvent<string>>;
 }
+
+
+@ProxyCmp({
+})
+@Component({
+  selector: 'je-wizard',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeWizard {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeWizard extends Components.JeWizard {}
 
 

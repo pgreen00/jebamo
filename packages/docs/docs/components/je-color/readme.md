@@ -14,19 +14,6 @@ sidebar_label: 'Color'
 | `light`  | `light`   | Color in light mode | `"danger" \| "dark" \| "light" \| "primary" \| "secondary" \| "success" \| "warning"` | `'dark'`    |
 
 
-## Dependencies
-
-### Used by
-
- - [je-input](../je-input)
-
-### Graph
-```mermaid
-graph TD;
-  je-input --> je-color
-  style je-color fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

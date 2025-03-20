@@ -20,7 +20,17 @@ sidebar_label: 'Dialog'
 
 ## Methods
 
-### `dismiss(role?: string, data?: any) => Promise<void>`
+### `getModalElement() => Promise<HTMLJeModalElement>`
+
+
+
+#### Returns
+
+Type: `Promise<HTMLJeModalElement>`
+
+
+
+### `hide(role?: string, data?: any) => Promise<void>`
 
 
 
@@ -37,17 +47,7 @@ Type: `Promise<void>`
 
 
 
-### `getModalElement() => Promise<HTMLJeModalElement>`
-
-
-
-#### Returns
-
-Type: `Promise<HTMLJeModalElement>`
-
-
-
-### `present() => Promise<void>`
+### `show() => Promise<void>`
 
 
 
@@ -64,7 +64,6 @@ Type: `Promise<void>`
 
 - [je-form](../je-form)
 - [je-icon](../je-icon)
-- [je-input](../je-input)
 - [je-button](../je-button)
 - [je-modal](../je-modal)
 
@@ -73,12 +72,8 @@ Type: `Promise<void>`
 graph TD;
   je-dialog --> je-form
   je-dialog --> je-icon
-  je-dialog --> je-input
   je-dialog --> je-button
   je-dialog --> je-modal
-  je-input --> je-icon
-  je-input --> je-popover
-  je-input --> je-color
   style je-dialog fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

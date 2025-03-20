@@ -150,7 +150,7 @@ export class JeDatepicker {
         {(this.type == 'time' || this.type == 'datetime') && (
           <div class='timepicker'>
             <span>Time</span>
-            <je-popover arrow={true} onPopoverPresent={this.scrollTimeIntoView}>
+            <je-popover arrow={true} onPresent={this.scrollTimeIntoView}>
               <je-pill slot='trigger'>
                 {this.value ? (
                   this.includeSeconds ? format(this.value, 'hh:mm:ss a') : format(this.value, 'hh:mm a')

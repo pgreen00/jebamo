@@ -12,7 +12,7 @@ export type DialogButton = {
 export type DialogControl = {
   label?: string;
   placeholder?: string;
-  validators?: HTMLJeInputElement['validators']
+  //validators?: HTMLJeInputElement['validators']
   required?: boolean;
   type?: string;
 };
@@ -67,13 +67,13 @@ export class JeDialog {
   }
 
   @Method()
-  present() {
-    return this.modalEl.present();
+  async show() {
+    this.modalEl.show();
   }
 
   @Method()
-  dismiss(role?: string, data?: any) {
-    return this.modalEl.dismiss(role, data);
+  async hide(role?: string, data?: any) {
+    this.modalEl.hide(role, data);
   }
 
   render() {
@@ -91,7 +91,7 @@ export class JeDialog {
           {this.controls && (
             <div class="controls">
               {this.controls.map(control => (
-                <je-input type={control.type} required={control.required} label={control.label} placeholder={control.placeholder} validators={control.validators}></je-input>
+                <je-input type={control.type} required={control.required} label={control.label} placeholder={control.placeholder}></je-input>
               ))}
             </div>
           )}

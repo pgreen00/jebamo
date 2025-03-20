@@ -2,7 +2,6 @@
 
 :host {
   display: flex;
-  --columns: 12;
 }
 
 :host([wrap]:not([wrap=false])) {

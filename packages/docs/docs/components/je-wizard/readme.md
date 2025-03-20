@@ -1,6 +1,6 @@
 ---
-title: 'JeLabel | <je-label>'
-sidebar_label: 'Label'
+title: 'JeWizard | <je-wizard>'
+sidebar_label: 'Wizard'
 ---
 <!-- Auto Generated Below -->
 

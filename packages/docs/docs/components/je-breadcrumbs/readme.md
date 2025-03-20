@@ -1,6 +1,6 @@
 ---
-title: 'JeLabel | <je-label>'
-sidebar_label: 'Label'
+title: 'JeBreadcrumbs | <je-breadcrumbs>'
+sidebar_label: 'Breadcrumbs'
 ---
 <!-- Auto Generated Below -->
 

@@ -1,6 +1,6 @@
 ---
-title: 'JeLabel | <je-label>'
-sidebar_label: 'Label'
+title: 'JeIconButton | <je-icon-button>'
+sidebar_label: 'Icon Button'
 ---
 <!-- Auto Generated Below -->
 

@@ -1,5 +1,5 @@
-import { Component, Host, h, Element, Event, EventEmitter, Method, Prop, Watch } from '@stencil/core';
-import { animationUpdate } from '../../utils/utils';
+import { Component, Host, h, Element, Event, EventEmitter, Method, Prop, Watch, Listen } from '@stencil/core';
+import { OverlayData } from '../../utils/utils';
 
 @Component({
   tag: 'je-modal',
@@ -7,6 +7,10 @@ import { animationUpdate } from '../../utils/utils';
   shadow: true,
 })
 export class JeModal {
+  private role?: string;
+  private data?: any;
+  private dialogEl!: HTMLDialogElement;
+
   @Element() el!: HTMLJeModalElement;
 
   /** Whether or not the backdrop will be visible to the user */
@@ -18,87 +22,85 @@ export class JeModal {
   /** Opens and closes modal */
   @Prop({ mutable: true }) open = false;
 
+  /** Optionally execute a promise before presentation begins */
+  @Prop() init?: () => void | Promise<void>;
+
+  /** Optionally execute a promise before closing begins */
+  @Prop() destroy?: () => void | Promise<void>;
+
   /** Emits whenever the modal has opened. Does not emit any data */
-  @Event() modalPresent: EventEmitter;
+  @Event() present: EventEmitter;
 
-  /** Emits whenever the modal has finished closing. Emits the role and optional data object passed to the closeModal() method. */
-  @Event() modalDismiss: EventEmitter<{ role: string, data: any }>;
+  /** Emits whenever the modal has finished closing. Emits the role and optional data object passed to the hide() method. */
+  @Event() dismiss: EventEmitter<OverlayData>;
 
-  protected contentEl!: HTMLElement;
-  protected backdropEl!: HTMLElement;
-  protected templateEl: HTMLTemplateElement;
-
-  componentDidLoad() {
-    this.templateEl = this.el.querySelector('template');
-  }
+  /** Emits whenever the backdrop is clicked. Does not emit any data */
+  @Event() backdropClick: EventEmitter;
 
   @Watch('open')
-  handleOpenChange(open: boolean) {
+  async onOpenChange(open: boolean) {
     if (open) {
-      this.present()
-    } else {
-      this.dismiss('openChange')
-    }
-  }
-
-  @Method()
-  async present() {
-    if (this.templateEl) {
-      this.contentEl.innerHTML = '';
-      this.contentEl.appendChild(this.templateEl.content.cloneNode(true));
-    }
-    this.contentEl.classList.add('open');
-    this.backdropEl.classList.add('open');
-    await animationUpdate();
-    this.contentEl.style.opacity = '1';
-    this.backdropEl.style.opacity = '1';
-    this.modalPresent.emit();
-    if (!this.open)
-      this.open = true;
-  }
-
-  @Method()
-  async dismiss(role = 'manualClose', data?: any) {
-    this.contentEl.removeAttribute('style');
-    this.backdropEl.removeAttribute('style');
-    this.modalDismiss.emit({ role, data });
-    if (this.open)
-      this.open = false;
-  }
-
-  private handleBackdropClick = () => {
-    if (this.open && this.backdropDismiss) {
-      this.dismiss('backdropClose');
-    }
-  }
-
-  private handleContentTransitionEnd = () => {
-    if (!this.open) {
-      this.contentEl.classList.remove('open');
-      if (this.templateEl) {
-        this.contentEl.innerHTML = '';
+      if (this.init) {
+        await this.init();
       }
+      this.dialogEl.showModal();
+    } else {
+      this.dialogEl.close();
     }
   }
 
-  private handleBackdropTransitionEnd = () => {
-    if (!this.open) {
-      this.backdropEl.classList.remove('open');
+  @Listen('click')
+  onClick(event: MouseEvent) {
+    if (event.composedPath().includes(this.dialogEl)) {
+      this.backdropClick.emit();
+      if (this.backdropDismiss)
+        this.hide('backdropDismiss')
+    } else if (event.target === this.el.querySelector(':scope > [slot=trigger]')) {
+      this.show()
+    }
+  }
+
+  @Method()
+  async show() {
+    this.open = true;
+  }
+
+  @Method()
+  async hide(role = 'manualClose', data?: any) {
+    this.role = role;
+    this.data = data;
+    this.open = false;
+  }
+
+  @Method()
+  didDismiss() {
+    return new Promise<OverlayData>(resolve => this.el.addEventListener('dismiss', ev => resolve(ev.detail), { once: true }));
+  }
+
+  private onTransitionEnd = async (event: TransitionEvent) => {
+    if (event.target === this.dialogEl && event.propertyName === 'opacity') {
+      if (this.open) {
+        this.present.emit();
+      } else {
+        if (this.destroy) {
+          await this.destroy();
+        }
+        this.dismiss.emit({ role: this.role, data: this.data });
+        this.role = undefined;
+        this.data = undefined;
+      }
     }
   }
 
   render() {
     return (
       <Host>
-        <div part="trigger-container" onClick={() => this.open = true}>
-          <slot name='trigger' />
-        </div>
-
-        <div ref={el => this.contentEl = el} part='content' onTransitionEnd={this.handleContentTransitionEnd}>
-          <slot/>
-        </div>
-
-        <div part="backdrop" ref={el => this.backdropEl = el} onClick={this.handleBackdropClick} onTransitionEnd={this.handleBackdropTransitionEnd} class={{ pointer: this.backdropDismiss, clear: !this.showBackdrop }}></div>
+        <slot name='trigger' />
+        <dialog ref={el => this.dialogEl = el} part='dialog' class={{ show: this.showBackdrop, dismiss: this.backdropDismiss }} onTransitionEnd={this.onTransitionEnd}>
+          <div part='inner-container' onClick={e => e.stopPropagation()}>
+            <slot/>
+          </div>
+        </dialog>
       </Host>
     );
   }

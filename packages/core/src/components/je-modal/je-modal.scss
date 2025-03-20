@@ -1,16 +1,13 @@
 @use '../../styles/styles' as *;
 
 :host {
-  display: block;
+  display: contents;
 
   --background: light-dark(rgb(233, 236, 236), rgb(41, 45, 46));
   --color: light-dark(#{medium(900)}, #{medium(50)});
-  --box-shadow: 0px 4px 16px 0px light-dark(rgba(0, 0, 0, 0.12), rgba(68, 68, 68, 0.12));
   --border: solid 1px light-dark(rgb(197, 200, 204), rgb(86, 87, 90));
-}
-
-[part=trigger-container] {
-  display: contents;
+  --width: 100%;
+  --height: 100%;
 }
 
 @media (width > 1200px) {
@@ -34,54 +31,59 @@
   }
 }
 
-@media (width < 769px) {
-  :host {
-    --width: 100%;
-    --height: 100%;
-  }
+[part=inner-container] {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
 }
 
-[part=content] {
-  display: none;
-  flex-direction: column;
-  position: fixed;
+dialog[open] {
+  opacity: 1;
+}
+
+dialog {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 700;
-  width: var(--width);
-  height: var(--height);
+  border: var(--border);
   background-color: var(--background);
   color: var(--color);
-  box-shadow: var(--box-shadow);
-  border-radius: radius-get(sm);
-  border: var(--border);
-  overflow: hidden;
+  width: var(--width);
+  max-width: 100vw;
+  max-height: 100vh;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  height: var(--height);
+  border-radius: radius-get(md);
+  box-shadow: elevation-get(lg);
   opacity: 0;
-  transition: opacity 250ms ease-in-out;
-  &.open {
-    display: flex;
+  transition: all 300ms ease-in-out allow-discrete;
+  &:focus-visible {
+    outline: 0;
   }
 }
 
-[part=backdrop] {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  background: backdrop-color();
-  z-index: 699;
+dialog::backdrop {
   opacity: 0;
-  transition: opacity 250ms ease-in-out;
-  &.open {
-    width: 100%;
-    height: 100%;
+  background-color: backdrop-color();
+  transition: all 300ms ease-in-out allow-discrete;
+}
+
+dialog.dismiss::backdrop {
+  cursor: pointer;
+}
+
+dialog[open].show::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  dialog[open].show::backdrop {
+    opacity: 0;
   }
-  &.clear {
-    background: rgba(0, 0, 0, 0);
-  }
-  &.pointer {
-    cursor: pointer;
+
+  dialog[open] {
+    opacity: 0;
   }
 }

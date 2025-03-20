@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
   </head>
-  <body class="light">
+  <body class="system">
     <je-page>
       <header>
         <h1>Jebamo</h1>
@@ -37,8 +37,22 @@
       </aside>
 
       <main>
-        <p>This is the body</p>
-        <je-button>Hello</je-button>
+        <je-tooltip content="This is an informative message!">
+          <je-button disabled>More info!</je-button>
+        </je-tooltip>
+        <je-modal>
+          <je-button slot="trigger">Open Modal</je-button>
+        </je-modal>
+        <template id="modal-content">
+          <p>Modal content</p>
+          <je-popover>
+            <je-button slot="trigger">Open Popover</je-button>
+            <p>Popover content</p>
+          </je-popover>
+          <je-tooltip content="This is an informative message!">
+            <je-button disabled>More info!</je-button>
+          </je-tooltip>
+        </template>
       </main>
 
       <footer>
