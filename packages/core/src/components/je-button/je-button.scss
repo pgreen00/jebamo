@@ -3,52 +3,179 @@
 /**
  * @prop --height: Fixed height
  * @prop --font-size: Font size
- * @prop --inline-padding: Inner inline padding
+ * @prop --padding-inline: Inner inline padding
  * @prop --color: Text color
  * @prop --background: Default background color
  * @prop --hover-background: Hovered background color
  * @prop --active-background: Pressed background color
  */
 
+:host {
+  display: contents;
+
+  --height: 2.5rem;
+  --padding-inline: #{spacing-get(md)};
+  --font-size: #{font-size(md)};
+}
+
+:host([size=sm]) {
+  --height: 2rem;
+  --padding-inline: #{spacing-get(sm)};
+  --font-size: #{font-size(sm)};
+}
+
+:host([size=lg]) {
+  --height: 3rem;
+  --padding-inline: #{spacing-get(lg)};
+  --font-size: #{font-size(lg)};
+}
+
+:host(:not([color])) button {
+  --color: light-dark(#{medium(800)}, #{medium(200)});
+  --hover-color: light-dark(#{medium(850)}, #{medium(150)});
+  --active-color: light-dark(#{medium(900)}, #{medium(100)});
+  --background: transparent;
+  --hover-background: light-dark(#{medium(150)}, #{medium(850)});
+  --active-background: light-dark(#{medium(200)}, #{medium(800)});
+
+  &.solid {
+    --border-color: light-dark(#{medium(150)}, #{medium(850)});
+  }
+}
+
 button {
-  display: flex;
+  &.outline {
+    --border-color: currentcolor;
+  }
+
+  &.primary {
+    &.solid {
+      --color: #{primary(100)};
+      --background: #{primary(500)};
+      --hover-background: #{primary(600)};
+      --active-background: #{primary(700)};
+    }
+    &.clear,
+    &.outline {
+      --color: light-dark(#{primary(500)}, #{primary(300)});
+      --hover-color: light-dark(#{primary(600)}, #{primary(200)});
+      --active-color: light-dark(#{primary(700)}, #{primary(100)});
+      --background: transparent;
+      --hover-background: light-dark(#{primary(50)}, #{primary(850)});
+      --active-background: light-dark(#{primary(100)}, #{primary(800)});
+    }
+  }
+
+  &.secondary {
+    &.solid {
+      --color: #{secondary(900)};
+      --background: #{secondary(500)};
+      --hover-background: #{secondary(400)};
+      --active-background: #{secondary(300)};
+    }
+    &.clear,
+    &.outline {
+      --color: light-dark(#{secondary(700)}, #{secondary(500)});
+      --hover-color: light-dark(#{secondary(800)}, #{secondary(400)});
+      --active-color: light-dark(#{secondary(900)}, #{secondary(300)});
+      --background: transparent;
+      --hover-background: light-dark(#{secondary(100)}, #{secondary(875)});
+      --active-background: light-dark(#{secondary(150)}, #{secondary(850)});
+    }
+  }
+
+  &.warning {
+    &.solid {
+      --color: #{warning(900)};
+      --background: #{warning(500)};
+      --hover-background: #{warning(400)};
+      --active-background: #{warning(300)};
+    }
+    &.clear,
+    &.outline {
+      --color: light-dark(#{warning(700)}, #{warning(500)});
+      --hover-color: light-dark(#{warning(800)}, #{warning(400)});
+      --active-color: light-dark(#{warning(900)}, #{warning(300)});
+      --background: transparent;
+      --hover-background: light-dark(#{warning(100)}, #{warning(900)});
+      --active-background: light-dark(#{warning(150)}, #{warning(875)});
+    }
+  }
+
+  &.success {
+    &.solid {
+      --color: #{success(900)};
+      --background: #{success(500)};
+      --hover-background: #{success(400)};
+      --active-background: #{success(300)};
+    }
+    &.clear,
+    &.outline {
+      --color: light-dark(#{success(700)}, #{success(500)});
+      --hover-color: light-dark(#{success(800)}, #{success(400)});
+      --active-color: light-dark(#{success(900)}, #{success(300)});
+      --background: transparent;
+      --hover-background: light-dark(#{success(100)}, #{success(900)});
+      --active-background: light-dark(#{success(150)}, #{success(875)});
+    }
+  }
+
+  &.danger {
+    &.solid {
+      --color: #{danger(100)};
+      --background: #{danger(500)};
+      --hover-background: #{danger(600)};
+      --active-background: #{danger(700)};
+    }
+    &.clear,
+    &.outline {
+      --color: light-dark(#{danger(500)}, #{danger(300)});
+      --hover-color: light-dark(#{danger(600)}, #{danger(200)});
+      --active-color: light-dark(#{danger(700)}, #{danger(100)});
+      --background: transparent;
+      --hover-background: light-dark(#{danger(50)}, #{danger(750)});
+      --active-background: light-dark(#{danger(100)}, #{danger(700)});
+    }
+  }
+
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
   position: relative;
   box-sizing: border-box;
-  border-radius: radius-get(sm);
+  border-radius: radius-get(md);
   margin: 0;
   padding-block: 0;
-  padding-inline: var(--inline-padding);
+  padding-inline: var(--padding-inline);
   cursor: pointer;
   flex-shrink: 0;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
-  text-transform: uppercase;
+  text-transform: capitalize;
   text-wrap: wrap;
   font-family: inherit;
   font-size: var(--font-size);
   font-weight: font-weight(semi-bold);
-  width: var(--width);
   height: var(--height);
-  min-width: var(--min-width);
   color: var(--color);
-  background-color: var(--background);
+  background-color: var(--background, transparent);
   transition: all 125ms ease-in-out;
   outline-color: primary(300);
   outline-offset: 3px;
-  border: solid 1px transparent;
+  border: solid 1px var(--border-color, transparent);
 
   @media (hover: hover) {
-    &:hover {
-      --background: var(--hover-background);
+    &:hover:not(:disabled) {
+      background-color: var(--hover-background, var(--background, transparent));
+      color: var(--hover-color, var(--color));
     }
   }
 
-  &:active {
-    --background: var(--active-background);
+  &:active:not(:disabled) {
+    background-color: var(--active-background, var(--background, transparent));
+    color: var(--active-color, var(--color));
   }
 
   &:disabled {
@@ -56,22 +183,14 @@ button {
     cursor: not-allowed;
   }
 
-  &.outline {
-    color: var(--background);
-    background-color: transparent;
-    border-color: var(--background);
+  &.pending {
+    opacity: 0.8;
+    cursor: progress;
+    width: var(--pending-width);
   }
 
-  &.clear {
-    color: var(--background);
-    background-color: transparent;
-    font-weight: font-weight(bold);
-
-    @media (hover: hover) {
-      &:hover {
-        opacity: 0.8;
-      }
-    }
+  &.expand {
+    width: 100%;
   }
 }
 
@@ -79,12 +198,14 @@ button {
   top: 0;
   right: 0;
   position: absolute;
+  z-index: 1;
   transform: translate(50%, -50%);
-  border-radius: 14px;
-  color: var(--background);
-  background-color: var(--color);
-  padding-inline: 4px;
-  height: 20px;
+  border-radius: radius-get(circle);
+  box-sizing: border-box;
+  color: light-dark(medium(100), medium(850));
+  background-color: light-dark(medium(850), medium(100));
+  padding: spacing-get(2xs);
+  font-size: var(--font-size);
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,10 +1,10 @@
 @use 'sass:math';
 
 $primary: #4141e8;
-$secondary: #61a6c0;
+$secondary: #99becb;
 $success: #22c55e;
 $warning: #fbbf24;
-$danger: #ef4444;
+$danger: #ae1818;
 $medium: #a0aec0;
 
 @function primary($shade: 500) {

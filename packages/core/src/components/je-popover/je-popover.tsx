@@ -151,6 +151,9 @@ export class JePopover {
       this.cleanup = autoUpdate(this.referenceEl, this.containerEl, () => this.computePosition().then(this.setPosition));
       this.containerEl.showPopover();
     } else {
+      if (this.cleanup) {
+        this.cleanup();
+      }
       this.containerEl.hidePopover();
     }
   }
@@ -257,9 +260,6 @@ export class JePopover {
     if (ev.propertyName == 'opacity') {
       await new Promise(resolve => setTimeout(resolve, 300));
       if (!this.open) {
-        if (this.cleanup) {
-          this.cleanup();
-        }
         if (this.destroy) {
           await this.destroy();
         }

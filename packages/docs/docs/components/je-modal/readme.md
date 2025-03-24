@@ -14,6 +14,7 @@ sidebar_label: 'Modal'
 | `init`            | --                 | Optionally execute a promise before presentation begins | `() => void \| Promise<void>` | `undefined` |
 | `open`            | `open`             | Opens and closes modal                                  | `boolean`                     | `false`     |
 | `showBackdrop`    | `show-backdrop`    | Whether or not the backdrop will be visible to the user | `boolean`                     | `true`      |
+| `size`            | `size`             | Size of the modal                                       | `"lg" \| "md" \| "sm"`        | `'lg'`      |
 
 
 ## Events
@@ -72,19 +73,6 @@ Type: `Promise<void>`
 | `"dialog"`          |             |
 | `"inner-container"` |             |
 
-
-## Dependencies
-
-### Used by
-
- - [je-dialog](../je-dialog)
-
-### Graph
-```mermaid
-graph TD;
-  je-dialog --> je-modal
-  style je-modal fill:#f9f,stroke:#333,stroke-width:4px
-```
 
 ----------------------------------------------
 

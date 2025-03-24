@@ -28,7 +28,7 @@ sidebar_label: 'Datepicker'
 
 ### Depends on
 
-- [je-icon](../je-icon)
+- [je-icon-button](../je-icon-button)
 - [je-button](../je-button)
 - [je-popover](../je-popover)
 - [je-pill](../je-pill)
@@ -36,10 +36,13 @@ sidebar_label: 'Datepicker'
 ### Graph
 ```mermaid
 graph TD;
-  je-datepicker --> je-icon
+  je-datepicker --> je-icon-button
   je-datepicker --> je-button
   je-datepicker --> je-popover
   je-datepicker --> je-pill
+  je-icon-button --> je-button
+  je-icon-button --> je-icon
+  je-button --> je-loading
   style je-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

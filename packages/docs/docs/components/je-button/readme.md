@@ -7,16 +7,15 @@ sidebar_label: 'Button'
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                                  | Type                                                                                            | Default     |
-| ---------- | ---------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------- |
-| `color`    | `color`    | Predefined colors. Auto will switch between light and dark based on the current color scheme | `"auto" \| "danger" \| "dark" \| "light" \| "primary" \| "secondary" \| "success" \| "warning"` | `'primary'` |
-| `dark`     | `dark`     | Overrides what the dark mode color will be when color is "auto".                             | `"danger" \| "dark" \| "light" \| "primary" \| "secondary" \| "success" \| "warning"`           | `'light'`   |
-| `disabled` | `disabled` | Disables button                                                                              | `boolean`                                                                                       | `false`     |
-| `expand`   | `expand`   | Expands the button to the full width of it's container                                       | `boolean`                                                                                       | `false`     |
-| `fill`     | `fill`     | Button fill                                                                                  | `"clear" \| "outline" \| "solid"`                                                               | `'solid'`   |
-| `light`    | `light`    | Overrides what the light mode color will be when color is "auto".                            | `"danger" \| "dark" \| "light" \| "primary" \| "secondary" \| "success" \| "warning"`           | `'dark'`    |
-| `size`     | `size`     | Button size                                                                                  | `"lg" \| "md" \| "sm"`                                                                          | `'md'`      |
-| `type`     | `type`     | Can set to submit or reset to participate in forms                                           | `"reset" \| "submit"`                                                                           | `undefined` |
+| Property   | Attribute  | Description                                            | Type                                                             | Default     |
+| ---------- | ---------- | ------------------------------------------------------ | ---------------------------------------------------------------- | ----------- |
+| `color`    | `color`    | Predefined colors                                      | `"danger" \| "primary" \| "secondary" \| "success" \| "warning"` | `undefined` |
+| `disabled` | `disabled` | Disables button                                        | `boolean`                                                        | `false`     |
+| `expand`   | `expand`   | Expands the button to the full width of it's container | `boolean`                                                        | `false`     |
+| `fill`     | `fill`     | Button fill                                            | `"clear" \| "outline" \| "solid"`                                | `'solid'`   |
+| `pending`  | `pending`  | Shows a loading spinner and disables the button        | `boolean`                                                        | `false`     |
+| `size`     | `size`     | Button size                                            | `"lg" \| "md" \| "sm"`                                           | `'md'`      |
+| `type`     | `type`     | Can set to submit or reset to participate in forms     | `"reset" \| "submit"`                                            | `undefined` |
 
 
 ## Shadow Parts
@@ -36,7 +35,7 @@ sidebar_label: 'Button'
 | `--font-size`         | Font size                |
 | `--height`            | Fixed height             |
 | `--hover-background`  | Hovered background color |
-| `--inline-padding`    | Inner inline padding     |
+| `--padding-inline`    | Inner inline padding     |
 
 
 ## Dependencies
@@ -44,13 +43,18 @@ sidebar_label: 'Button'
 ### Used by
 
  - [je-datepicker](../je-datepicker)
- - [je-dialog](../je-dialog)
+ - [je-icon-button](../je-icon-button)
+
+### Depends on
+
+- [je-loading](../je-loading)
 
 ### Graph
 ```mermaid
 graph TD;
+  je-button --> je-loading
   je-datepicker --> je-button
-  je-dialog --> je-button
+  je-icon-button --> je-button
   style je-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

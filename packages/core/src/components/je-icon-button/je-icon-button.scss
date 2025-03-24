@@ -1,3 +1,21 @@
+@use '../../styles/styles' as *;
+
 :host {
-  display: block;
+  display: contents;
+}
+
+je-button {
+  --height: min-content;
+
+  &[size=sm] {
+    --padding-inline: #{spacing-get(3xs)};
+  }
+
+  &[size=md] {
+    --padding-inline: #{spacing-get(2xs)};
+  }
+
+  &[size=lg] {
+    --padding-inline: #{spacing-get(xs)};
+  }
 }

@@ -6,28 +6,46 @@
   --background: light-dark(rgb(233, 236, 236), rgb(41, 45, 46));
   --color: light-dark(#{medium(900)}, #{medium(50)});
   --border: solid 1px light-dark(rgb(197, 200, 204), rgb(86, 87, 90));
-  --width: 100%;
-  --height: 100%;
 }
 
-@media (width > 1200px) {
-  :host {
-    --width: 75%;
-    --height: 85%;
+:host([size=lg]) {
+  --width: 80%;
+  --height: 90%;
+}
+
+:host([size=md]) {
+  --width: 50%;
+  --height: 60%;
+}
+
+:host([size=sm]) {
+  --width: 30%;
+  --height: fit-content;
+}
+
+@media (768px < width <= 1200px) {
+  :host([size=lg]) {
+    --width: 90%;
+  }
+  :host([size=md]) {
+    --width: 70%;
+  }
+  :host([size=sm]) {
+    --width: 50%;
   }
 }
 
-@media (992px < width < 1201px) {
-  :host {
-    --width: 80%;
+@media (width <= 768px) {
+  :host([size=lg]) {
+    --width: 100%;
+    --height: 100%;
+  }
+  :host([size=md]) {
+    --width: 90%;
     --height: 90%;
   }
-}
-
-@media (768px < width < 993px) {
-  :host {
-    --width: 85%;
-    --height: 95%;
+  :host([size=sm]) {
+    --width: 80%;
   }
 }
 
@@ -42,9 +60,8 @@ dialog[open] {
 }
 
 dialog {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  margin: auto;
   border: var(--border);
   background-color: var(--background);
   color: var(--color);
@@ -53,7 +70,6 @@ dialog {
   max-height: 100vh;
   box-sizing: border-box;
   padding: 0;
-  margin: 0;
   height: var(--height);
   border-radius: radius-get(md);
   box-shadow: elevation-get(lg);

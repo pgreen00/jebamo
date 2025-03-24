@@ -1,8 +1,8 @@
 import { Color, COLORS } from "../types/color";
 
-export const shade = (color: Color, shade = 500) => {
+export const shade = (color: Color | 'medium', shade = 500) => {
   if (shade === 500) {
-    return color;
+    return COLORS[color];
   } else if (shade < 500) {
     const percentageToWhite = (500 - shade) / 5 / 100;
     const colorPercentage = ((1 - percentageToWhite) * 100).toFixed(2);

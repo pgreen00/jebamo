@@ -7,11 +7,9 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Color, OverlayData } from "./utils/utils";
 import { Color as Color1 } from "./components";
-import { DialogButton, DialogControl } from "./components/je-dialog/je-dialog";
 import { Placement } from "@floating-ui/dom";
 export { Color, OverlayData } from "./utils/utils";
 export { Color as Color1 } from "./components";
-export { DialogButton, DialogControl } from "./components/je-dialog/je-dialog";
 export { Placement } from "@floating-ui/dom";
 export namespace Components {
     interface JeActionSheet {
@@ -46,17 +44,14 @@ export namespace Components {
         "closable": boolean;
         "color": Color;
         "didDismiss": () => Promise<OverlayData>;
-        "dismiss": (role?: string, data?: any) => Promise<void>;
         "duration": number;
-        "fixed": boolean;
         "header"?: string;
+        "hide": (role?: string, data?: any) => Promise<void>;
         "icon"?: string;
         "message"?: string;
         "open": boolean;
-        "position": 'top' | 'bottom' | 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
-        "present": () => Promise<void>;
         "progress": boolean;
-        "type": 'bar' | 'card';
+        "show": () => Promise<void>;
     }
     interface JeBranch {
         "getParentBranch": () => Promise<HTMLJeBranchElement | null>;
@@ -72,13 +67,9 @@ export namespace Components {
     }
     interface JeButton {
         /**
-          * Predefined colors. Auto will switch between light and dark based on the current color scheme
+          * Predefined colors
          */
-        "color": Color | 'auto';
-        /**
-          * Overrides what the dark mode color will be when color is "auto".
-         */
-        "dark": Color;
+        "color"?: Color;
         /**
           * Disables button
          */
@@ -92,9 +83,9 @@ export namespace Components {
          */
         "fill": 'solid' | 'outline' | 'clear';
         /**
-          * Overrides what the light mode color will be when color is "auto".
+          * Shows a loading spinner and disables the button
          */
-        "light": Color;
+        "pending": boolean;
         /**
           * Button size
          */
@@ -148,11 +139,11 @@ export namespace Components {
         /**
           * Color in dark mode
          */
-        "dark": Color1;
+        "dark"?: Color1;
         /**
           * Color in light mode
          */
-        "light": Color1;
+        "light"?: Color1;
     }
     interface JeColumn {
         /**
@@ -214,39 +205,6 @@ export namespace Components {
         "state": 'open' | 'closed';
         "summary"?: string;
     }
-    interface JeDialog {
-        /**
-          * Whether or not the user can close the alert by clicking the backdrop
-         */
-        "backdropDismiss": boolean;
-        /**
-          * Buttons for user interaction
-         */
-        "buttons"?: DialogButton[];
-        /**
-          * Controls that are wrapped in a form
-         */
-        "controls"?: DialogControl[];
-        "getModalElement": () => Promise<HTMLJeModalElement>;
-        /**
-          * Title of the dialog
-         */
-        "header"?: string;
-        "hide": (role?: string, data?: any) => Promise<void>;
-        /**
-          * Icon that goes to the left of the header
-         */
-        "icon"?: string;
-        /**
-          * Message text below the title
-         */
-        "message"?: string;
-        "show": () => Promise<void>;
-        /**
-          * Whether or not to render the backdrop
-         */
-        "showBackdrop": boolean;
-    }
     interface JeDivider {
         "spacing": 'sm' | 'md' | 'lg' | 'none';
         "type": 'horizontal' | 'vertical';
@@ -281,14 +239,6 @@ export namespace Components {
     }
     interface JeIcon {
         /**
-          * Makes the icon a button
-         */
-        "button": boolean;
-        /**
-          * Disables button. Does nothing if button is not true
-         */
-        "disabled": boolean;
-        /**
           * Whether or not the icon should be filled
          */
         "fill": boolean;
@@ -306,6 +256,34 @@ export namespace Components {
         "weight": number;
     }
     interface JeIconButton {
+        /**
+          * Predefined colors
+         */
+        "color"?: Color;
+        /**
+          * Disables button
+         */
+        "disabled": boolean;
+        /**
+          * Button fill
+         */
+        "fill": 'solid' | 'outline' | 'clear';
+        /**
+          * Name of icon
+         */
+        "icon"?: string;
+        /**
+          * Shows a loading spinner and disables the button
+         */
+        "pending": boolean;
+        /**
+          * Button size
+         */
+        "size": 'md' | 'lg' | 'sm';
+        /**
+          * Can set to submit or reset to participate in forms
+         */
+        "type"?: 'submit' | 'reset';
     }
     interface JeInfinite {
         /**
@@ -379,6 +357,10 @@ export namespace Components {
           * Whether or not the backdrop will be visible to the user
          */
         "showBackdrop": boolean;
+        /**
+          * Size of the modal
+         */
+        "size": 'sm' | 'md' | 'lg';
     }
     interface JeNav {
     }
@@ -387,7 +369,10 @@ export namespace Components {
     interface JeOption {
     }
     interface JePage {
-        "layout": 'sticky' | 'grid';
+        /**
+          * Changes certain aspects of the page layout. - Sticky will make the entire page scrollable, and the footer will not be visible when the page is overflowing - Flex will make the main element scrollable, and the footer will always be visible
+         */
+        "layout": 'sticky' | 'flex';
     }
     interface JePill {
         "button": boolean;
@@ -506,8 +491,6 @@ export namespace Components {
     }
     interface JeTextfield {
     }
-    interface JeToastContainer {
-    }
     interface JeToggle {
         /**
           * Whether or not the toggle is active
@@ -622,8 +605,8 @@ declare global {
         new (): HTMLJeActionSheetElement;
     };
     interface HTMLJeAlertElementEventMap {
-        "alertPresent": any;
-        "alertDismiss": OverlayData;
+        "present": any;
+        "dismiss": OverlayData;
     }
     interface HTMLJeAlertElement extends Components.JeAlert, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeAlertElementEventMap>(type: K, listener: (this: HTMLJeAlertElement, ev: JeAlertCustomEvent<HTMLJeAlertElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -743,12 +726,6 @@ declare global {
     var HTMLJeDetailsElement: {
         prototype: HTMLJeDetailsElement;
         new (): HTMLJeDetailsElement;
-    };
-    interface HTMLJeDialogElement extends Components.JeDialog, HTMLStencilElement {
-    }
-    var HTMLJeDialogElement: {
-        prototype: HTMLJeDialogElement;
-        new (): HTMLJeDialogElement;
     };
     interface HTMLJeDividerElement extends Components.JeDivider, HTMLStencilElement {
     }
@@ -1012,12 +989,6 @@ declare global {
         prototype: HTMLJeTextfieldElement;
         new (): HTMLJeTextfieldElement;
     };
-    interface HTMLJeToastContainerElement extends Components.JeToastContainer, HTMLStencilElement {
-    }
-    var HTMLJeToastContainerElement: {
-        prototype: HTMLJeToastContainerElement;
-        new (): HTMLJeToastContainerElement;
-    };
     interface HTMLJeToggleElementEventMap {
         "toggled": boolean;
     }
@@ -1085,7 +1056,6 @@ declare global {
         "je-column-group": HTMLJeColumnGroupElement;
         "je-datepicker": HTMLJeDatepickerElement;
         "je-details": HTMLJeDetailsElement;
-        "je-dialog": HTMLJeDialogElement;
         "je-divider": HTMLJeDividerElement;
         "je-drawer": HTMLJeDrawerElement;
         "je-dropzone": HTMLJeDropzoneElement;
@@ -1114,7 +1084,6 @@ declare global {
         "je-tab": HTMLJeTabElement;
         "je-tabs": HTMLJeTabsElement;
         "je-textfield": HTMLJeTextfieldElement;
-        "je-toast-container": HTMLJeToastContainerElement;
         "je-toggle": HTMLJeToggleElement;
         "je-toolbar": HTMLJeToolbarElement;
         "je-tooltip": HTMLJeTooltipElement;
@@ -1161,16 +1130,13 @@ declare namespace LocalJSX {
         "closable"?: boolean;
         "color"?: Color;
         "duration"?: number;
-        "fixed"?: boolean;
         "header"?: string;
         "icon"?: string;
         "message"?: string;
-        "onAlertDismiss"?: (event: JeAlertCustomEvent<OverlayData>) => void;
-        "onAlertPresent"?: (event: JeAlertCustomEvent<any>) => void;
+        "onDismiss"?: (event: JeAlertCustomEvent<OverlayData>) => void;
+        "onPresent"?: (event: JeAlertCustomEvent<any>) => void;
         "open"?: boolean;
-        "position"?: 'top' | 'bottom' | 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
         "progress"?: boolean;
-        "type"?: 'bar' | 'card';
     }
     interface JeBranch {
         "label"?: string;
@@ -1185,13 +1151,9 @@ declare namespace LocalJSX {
     }
     interface JeButton {
         /**
-          * Predefined colors. Auto will switch between light and dark based on the current color scheme
+          * Predefined colors
          */
-        "color"?: Color | 'auto';
-        /**
-          * Overrides what the dark mode color will be when color is "auto".
-         */
-        "dark"?: Color;
+        "color"?: Color;
         /**
           * Disables button
          */
@@ -1205,9 +1167,9 @@ declare namespace LocalJSX {
          */
         "fill"?: 'solid' | 'outline' | 'clear';
         /**
-          * Overrides what the light mode color will be when color is "auto".
+          * Shows a loading spinner and disables the button
          */
-        "light"?: Color;
+        "pending"?: boolean;
         /**
           * Button size
          */
@@ -1332,36 +1294,6 @@ declare namespace LocalJSX {
         "state"?: 'open' | 'closed';
         "summary"?: string;
     }
-    interface JeDialog {
-        /**
-          * Whether or not the user can close the alert by clicking the backdrop
-         */
-        "backdropDismiss"?: boolean;
-        /**
-          * Buttons for user interaction
-         */
-        "buttons"?: DialogButton[];
-        /**
-          * Controls that are wrapped in a form
-         */
-        "controls"?: DialogControl[];
-        /**
-          * Title of the dialog
-         */
-        "header"?: string;
-        /**
-          * Icon that goes to the left of the header
-         */
-        "icon"?: string;
-        /**
-          * Message text below the title
-         */
-        "message"?: string;
-        /**
-          * Whether or not to render the backdrop
-         */
-        "showBackdrop"?: boolean;
-    }
     interface JeDivider {
         "spacing"?: 'sm' | 'md' | 'lg' | 'none';
         "type"?: 'horizontal' | 'vertical';
@@ -1408,14 +1340,6 @@ declare namespace LocalJSX {
     }
     interface JeIcon {
         /**
-          * Makes the icon a button
-         */
-        "button"?: boolean;
-        /**
-          * Disables button. Does nothing if button is not true
-         */
-        "disabled"?: boolean;
-        /**
           * Whether or not the icon should be filled
          */
         "fill"?: boolean;
@@ -1433,6 +1357,34 @@ declare namespace LocalJSX {
         "weight"?: number;
     }
     interface JeIconButton {
+        /**
+          * Predefined colors
+         */
+        "color"?: Color;
+        /**
+          * Disables button
+         */
+        "disabled"?: boolean;
+        /**
+          * Button fill
+         */
+        "fill"?: 'solid' | 'outline' | 'clear';
+        /**
+          * Name of icon
+         */
+        "icon"?: string;
+        /**
+          * Shows a loading spinner and disables the button
+         */
+        "pending"?: boolean;
+        /**
+          * Button size
+         */
+        "size"?: 'md' | 'lg' | 'sm';
+        /**
+          * Can set to submit or reset to participate in forms
+         */
+        "type"?: 'submit' | 'reset';
     }
     interface JeInfinite {
         /**
@@ -1519,6 +1471,10 @@ declare namespace LocalJSX {
           * Whether or not the backdrop will be visible to the user
          */
         "showBackdrop"?: boolean;
+        /**
+          * Size of the modal
+         */
+        "size"?: 'sm' | 'md' | 'lg';
     }
     interface JeNav {
     }
@@ -1527,7 +1483,10 @@ declare namespace LocalJSX {
     interface JeOption {
     }
     interface JePage {
-        "layout"?: 'sticky' | 'grid';
+        /**
+          * Changes certain aspects of the page layout. - Sticky will make the entire page scrollable, and the footer will not be visible when the page is overflowing - Flex will make the main element scrollable, and the footer will always be visible
+         */
+        "layout"?: 'sticky' | 'flex';
     }
     interface JePill {
         "button"?: boolean;
@@ -1661,8 +1620,6 @@ declare namespace LocalJSX {
     }
     interface JeTextfield {
     }
-    interface JeToastContainer {
-    }
     interface JeToggle {
         /**
           * Whether or not the toggle is active
@@ -1716,7 +1673,6 @@ declare namespace LocalJSX {
         "je-column-group": JeColumnGroup;
         "je-datepicker": JeDatepicker;
         "je-details": JeDetails;
-        "je-dialog": JeDialog;
         "je-divider": JeDivider;
         "je-drawer": JeDrawer;
         "je-dropzone": JeDropzone;
@@ -1745,7 +1701,6 @@ declare namespace LocalJSX {
         "je-tab": JeTab;
         "je-tabs": JeTabs;
         "je-textfield": JeTextfield;
-        "je-toast-container": JeToastContainer;
         "je-toggle": JeToggle;
         "je-toolbar": JeToolbar;
         "je-tooltip": JeTooltip;
@@ -1771,7 +1726,6 @@ declare module "@stencil/core" {
             "je-column-group": LocalJSX.JeColumnGroup & JSXBase.HTMLAttributes<HTMLJeColumnGroupElement>;
             "je-datepicker": LocalJSX.JeDatepicker & JSXBase.HTMLAttributes<HTMLJeDatepickerElement>;
             "je-details": LocalJSX.JeDetails & JSXBase.HTMLAttributes<HTMLJeDetailsElement>;
-            "je-dialog": LocalJSX.JeDialog & JSXBase.HTMLAttributes<HTMLJeDialogElement>;
             "je-divider": LocalJSX.JeDivider & JSXBase.HTMLAttributes<HTMLJeDividerElement>;
             "je-drawer": LocalJSX.JeDrawer & JSXBase.HTMLAttributes<HTMLJeDrawerElement>;
             "je-dropzone": LocalJSX.JeDropzone & JSXBase.HTMLAttributes<HTMLJeDropzoneElement>;
@@ -1800,7 +1754,6 @@ declare module "@stencil/core" {
             "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
             "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;
             "je-textfield": LocalJSX.JeTextfield & JSXBase.HTMLAttributes<HTMLJeTextfieldElement>;
-            "je-toast-container": LocalJSX.JeToastContainer & JSXBase.HTMLAttributes<HTMLJeToastContainerElement>;
             "je-toggle": LocalJSX.JeToggle & JSXBase.HTMLAttributes<HTMLJeToggleElement>;
             "je-toolbar": LocalJSX.JeToolbar & JSXBase.HTMLAttributes<HTMLJeToolbarElement>;
             "je-tooltip": LocalJSX.JeTooltip & JSXBase.HTMLAttributes<HTMLJeTooltipElement>;

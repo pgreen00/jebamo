@@ -1,4 +1,4 @@
-import { Component, Element, Event, EventEmitter, Fragment, Host, Listen, Prop, State, Watch, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Fragment, Host, Prop, State, Watch, h } from '@stencil/core';
 import { startOfMonth, endOfMonth, eachDayOfInterval, addMonths, subMonths, isSameDay, isToday, format, getDay, set, setHours, setMinutes, setSeconds } from 'date-fns';
 
 @Component({
@@ -9,7 +9,6 @@ import { startOfMonth, endOfMonth, eachDayOfInterval, addMonths, subMonths, isSa
 export class JeDatepicker {
   @Element() el!: HTMLJeDatepickerElement;
   @State() currentDate = new Date();
-  @State() isDark = false;
   @Prop() type: 'date' | 'datetime' | 'time' = 'datetime';
   @Prop() includeSeconds = false;
   @Prop() min?: number;
@@ -22,11 +21,6 @@ export class JeDatepicker {
     if (this.value) {
       this.currentDate = new Date(this.value);
     }
-  }
-
-  @Listen('themeChange', { target: 'body' })
-  handleThemeChange(e: CustomEvent<'light' | 'dark'>) {
-    this.isDark = e.detail === 'dark';
   }
 
   @Watch('value')
@@ -103,11 +97,11 @@ export class JeDatepicker {
         {(this.type == 'date' || this.type == 'datetime') && (
           <Fragment>
             <div class="header">
-              <je-icon size='sm' fill button onClick={this.prevYear}>keyboard_double_arrow_left</je-icon>
-              <je-icon size='sm' fill button onClick={this.prevMonth}>keyboard_arrow_left</je-icon>
+              <je-icon-button icon='keyboard_double_arrow_left' onClick={this.prevYear} />
+              <je-icon-button icon='keyboard_arrow_left' onClick={this.prevMonth} />
               <span>{format(this.currentDate, 'MMMM yyyy')}</span>
-              <je-icon size='sm' fill button onClick={this.nextMonth}>keyboard_arrow_right</je-icon>
-              <je-icon size='sm' fill button onClick={this.nextYear}>keyboard_double_arrow_right</je-icon>
+              <je-icon-button icon='keyboard_arrow_right' onClick={this.nextMonth} />
+              <je-icon-button icon='keyboard_double_arrow_right' onClick={this.nextYear} />
             </div>
 
             <div class="weekdays-grid">
@@ -129,7 +123,7 @@ export class JeDatepicker {
                   <je-button
                     expand={true}
                     disabled={isDisabled}
-                    color={selected || today ? 'primary' : isDisabled ? 'secondary' : this.isDark ? 'light' : 'dark'}
+                    color={selected || today ? 'primary' : isDisabled ? 'secondary' : undefined}
                     fill={selected ? 'solid' : 'clear'}
                     class='day'
                     onClick={() => this.setDay(day)}
@@ -161,7 +155,7 @@ export class JeDatepicker {
                   {Array.from({ length: 24 }).map((_, hour) => (
                     <je-button
                       size='sm'
-                      color={this.currentDate.getHours() === hour ? 'primary' : this.isDark ? 'light' : 'dark'}
+                      color={this.currentDate.getHours() === hour ? 'primary' : undefined}
                       fill={this.currentDate.getHours() === hour ? 'solid' : 'clear'}
                       onClick={() => this.setHour(hour)}
                     >
@@ -173,7 +167,7 @@ export class JeDatepicker {
                   {Array.from({ length: 60 }).map((_, minute) => (
                     <je-button
                       size='sm'
-                      color={this.currentDate.getMinutes() === minute ? 'primary' : this.isDark ? 'light' : 'dark'}
+                      color={this.currentDate.getMinutes() === minute ? 'primary' : undefined}
                       fill={this.currentDate.getMinutes() === minute ? 'solid' : 'clear'}
                       onClick={() => this.setMinute(minute)}
                     >
@@ -186,7 +180,7 @@ export class JeDatepicker {
                     {Array.from({ length: 60 }).map((_, second) => (
                       <je-button
                         size='sm'
-                        color={this.currentDate.getSeconds() === second ? 'primary' : this.isDark ? 'light' : 'dark'}
+                        color={this.currentDate.getSeconds() === second ? 'primary' : undefined}
                         fill={this.currentDate.getSeconds() === second ? 'solid' : 'clear'}
                         onClick={() => this.setSecond(second)}
                       >

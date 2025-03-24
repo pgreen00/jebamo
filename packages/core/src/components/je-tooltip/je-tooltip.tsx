@@ -33,9 +33,6 @@ export class JeTooltip {
   componentDidLoad() {
     this.ready.next();
     this.ready.complete();
-    if (this.containerEl) {
-      this.containerEl.addEventListener('transitionend', this.onTransitionEnd);
-    }
   }
 
   connectedCallback() {
@@ -51,9 +48,8 @@ export class JeTooltip {
     ).subscribe(res => this.open = res == 'enter');
 
     this.sub.add(this.ready.pipe(
-      tap(() => this.containerEl.popover = 'manual'),
-      switchMap(() => fromEvent(this.containerEl, 'transitionstart'))
-    ).subscribe(this.onTransitionEnd));
+      tap(() => this.containerEl.popover = 'manual')
+    ).subscribe());
   }
 
   disconnectedCallback() {
@@ -67,14 +63,8 @@ export class JeTooltip {
       this.cleanup = autoUpdate(this.referenceEl, this.containerEl, () => this.computePosition().then(this.setPosition));
       this.containerEl.showPopover()
     } else {
-      this.containerEl.hidePopover()
-    }
-  }
-
-  private onTransitionEnd = async (ev: TransitionEvent) => {
-    if (ev.propertyName == 'opacity' && !this.open && this.cleanup) {
-      await new Promise(resolve => setTimeout(resolve, 200));
       this.cleanup();
+      this.containerEl.hidePopover()
     }
   }
 

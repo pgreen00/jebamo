@@ -43,22 +43,22 @@ export declare interface JeActionSheet extends Components.JeActionSheet {
 
 
 @ProxyCmp({
-  inputs: ['closable', 'color', 'duration', 'fixed', 'header', 'icon', 'message', 'open', 'position', 'progress', 'type'],
-  methods: ['present', 'dismiss', 'didDismiss']
+  inputs: ['closable', 'color', 'duration', 'header', 'icon', 'message', 'open', 'progress'],
+  methods: ['show', 'hide', 'didDismiss']
 })
 @Component({
   selector: 'je-alert',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['closable', 'color', 'duration', 'fixed', 'header', 'icon', 'message', 'open', 'position', 'progress', 'type'],
+  inputs: ['closable', 'color', 'duration', 'header', 'icon', 'message', 'open', 'progress'],
 })
 export class JeAlert {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['alertPresent', 'alertDismiss']);
+    proxyOutputs(this, this.el, ['present', 'dismiss']);
   }
 }
 
@@ -67,9 +67,9 @@ import type { OverlayData as IJeAlertOverlayData } from 'jebamo';
 
 export declare interface JeAlert extends Components.JeAlert {
 
-  alertPresent: EventEmitter<CustomEvent<any>>;
+  present: EventEmitter<CustomEvent<any>>;
 
-  alertDismiss: EventEmitter<CustomEvent<IJeAlertOverlayData>>;
+  dismiss: EventEmitter<CustomEvent<IJeAlertOverlayData>>;
 }
 
 
@@ -143,14 +143,14 @@ export declare interface JeBreadcrumbs extends Components.JeBreadcrumbs {}
 
 
 @ProxyCmp({
-  inputs: ['color', 'dark', 'disabled', 'expand', 'fill', 'light', 'size', 'type']
+  inputs: ['color', 'disabled', 'expand', 'fill', 'pending', 'size', 'type']
 })
 @Component({
   selector: 'je-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['color', 'dark', 'disabled', 'expand', 'fill', 'light', 'size', 'type'],
+  inputs: ['color', 'disabled', 'expand', 'fill', 'pending', 'size', 'type'],
 })
 export class JeButton {
   protected el: HTMLElement;
@@ -350,29 +350,6 @@ export declare interface JeDetails extends Components.JeDetails {}
 
 
 @ProxyCmp({
-  inputs: ['backdropDismiss', 'buttons', 'controls', 'header', 'icon', 'message', 'showBackdrop'],
-  methods: ['getModalElement', 'show', 'hide']
-})
-@Component({
-  selector: 'je-dialog',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['backdropDismiss', 'buttons', 'controls', 'header', 'icon', 'message', 'showBackdrop'],
-})
-export class JeDialog {
-  protected el: HTMLElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-  }
-}
-
-
-export declare interface JeDialog extends Components.JeDialog {}
-
-
-@ProxyCmp({
   inputs: ['spacing', 'type']
 })
 @Component({
@@ -484,14 +461,14 @@ export declare interface JeForm extends Components.JeForm {
 
 
 @ProxyCmp({
-  inputs: ['button', 'disabled', 'fill', 'grade', 'size', 'weight']
+  inputs: ['fill', 'grade', 'size', 'weight']
 })
 @Component({
   selector: 'je-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['button', 'disabled', 'fill', 'grade', 'size', 'weight'],
+  inputs: ['fill', 'grade', 'size', 'weight'],
 })
 export class JeIcon {
   protected el: HTMLElement;
@@ -506,13 +483,14 @@ export declare interface JeIcon extends Components.JeIcon {}
 
 
 @ProxyCmp({
+  inputs: ['color', 'disabled', 'fill', 'icon', 'pending', 'size', 'type']
 })
 @Component({
   selector: 'je-icon-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['color', 'disabled', 'fill', 'icon', 'pending', 'size', 'type'],
 })
 export class JeIconButton {
   protected el: HTMLElement;
@@ -661,7 +639,7 @@ export declare interface JeLoading extends Components.JeLoading {}
 
 
 @ProxyCmp({
-  inputs: ['backdropDismiss', 'destroy', 'init', 'open', 'showBackdrop'],
+  inputs: ['backdropDismiss', 'destroy', 'init', 'open', 'showBackdrop', 'size'],
   methods: ['show', 'hide', 'didDismiss']
 })
 @Component({
@@ -669,7 +647,7 @@ export declare interface JeLoading extends Components.JeLoading {}
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['backdropDismiss', 'destroy', 'init', 'open', 'showBackdrop'],
+  inputs: ['backdropDismiss', 'destroy', 'init', 'open', 'showBackdrop', 'size'],
 })
 export class JeModal {
   protected el: HTMLElement;
@@ -1047,27 +1025,6 @@ export class JeTextfield {
 
 
 export declare interface JeTextfield extends Components.JeTextfield {}
-
-
-@ProxyCmp({
-})
-@Component({
-  selector: 'je-toast-container',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
-})
-export class JeToastContainer {
-  protected el: HTMLElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-  }
-}
-
-
-export declare interface JeToastContainer extends Components.JeToastContainer {}
 
 
 @ProxyCmp({

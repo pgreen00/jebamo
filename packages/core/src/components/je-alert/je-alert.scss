@@ -6,8 +6,16 @@
   position: relative;
   box-shadow: var(--box-shadow);
   border: var(--border);
-  border-radius: radius-get(sm);
+  border-radius: radius-get(md);
   box-sizing: border-box;
+  background-color: var(--background);
+  color: var(--color);
+  padding: spacing-get(md);
+  grid-template-columns: auto 1fr auto;
+  grid-auto-rows: auto;
+  align-items: center;
+  column-gap: spacing-get(sm);
+  row-gap: spacing-get(2xs);
 
   --background: light-dark(rgb(233, 236, 236), rgb(41, 45, 46));
   --color: light-dark(#{medium(800)}, #{medium(300)});
@@ -16,7 +24,7 @@
 }
 
 :host(.visible) {
-  display: block;
+  display: grid;
 }
 
 :host(.open) {
@@ -25,45 +33,6 @@
 
 :host(:not(.open)) {
   animation: fadeOut 600ms forwards;
-}
-
-:host([fixed]) {
-  position: fixed;
-  width: 100%;
-  z-index: 800;
-  max-width: 500px;
-}
-
-:host([fixed].top-end) {
-  top: spacing-get(lg);
-  right: spacing-get(lg);
-}
-
-:host([fixed].bottom-start) {
-  bottom: spacing-get(lg);
-  left: spacing-get(lg);
-}
-
-:host([fixed].top-start) {
-  top: spacing-get(lg);
-  left: spacing-get(lg);
-}
-
-:host([fixed].bottom-end) {
-  bottom: spacing-get(lg);
-  right: spacing-get(lg);
-}
-
-:host([fixed].top) {
-  left: spacing-get(lg);
-  top: spacing-get(lg);
-  max-width: calc(100% - calc(spacing-get(lg) * 2));
-}
-
-:host([fixed].bottom) {
-  left: spacing-get(lg);
-  bottom: spacing-get(lg);
-  max-width: calc(100% - calc(spacing-get(lg) * 2));
 }
 
 @keyframes fadeIn {
@@ -91,15 +60,17 @@
 [part=header] {
   font-weight: bold;
   display: block;
-  padding-block: spacing-get(3xs);
   box-sizing: border-box;
+  font-size: font-size(lg);
+  line-height: 1;
 }
 
-je-toolbar.bar {
-  background-color: var(--background);
-  color: var(--color);
-  padding-inline: spacing-get(lg);
-  min-height: 62px;
+[part=message] {
+  line-height: 1;
+}
+
+je-icon {
+  display: block;
 }
 
 je-icon.primary {
@@ -111,35 +82,8 @@ je-icon.primary {
   top: 0;
   left: 0;
   background-color: primary();
-}
-
-:host([type=bar]) {
-  .border {
-    width: 100%;
-    height: 3px;
-  }
-}
-
-:host([type=card]) {
-  background-color: var(--background);
-  color: var(--color);
-  padding: spacing-get(md);
-  .border {
-    width: 3px;
-    height: 100%;
-  }
-  je-toolbar {
-    color: inherit;
-    background-color: inherit;
-  }
-  [part=header] {
-    font-size: 1.2em;
-  }
-}
-
-.card-body {
-  margin-block: spacing-get(xs);
-  display: flex;
+  width: 3px;
+  height: 100%;
 }
 
 .progress {

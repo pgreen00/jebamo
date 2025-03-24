@@ -11,21 +11,17 @@ export class JeColor {
   @Prop({ reflect: true }) color?: Color;
 
   /** Color in light mode */
-  @Prop() light: Color = 'dark';
+  @Prop() light?: Color;
 
   /** Color in dark mode */
-  @Prop() dark: Color = 'light';
+  @Prop() dark?: Color;
 
   private get cssValue() {
     if (this.color) {
-      return this.getShade(this.color)
+      return shade(this.color, 500)
     } else {
-      return `light-dark(${this.getShade(this.light)}, ${this.getShade(this.dark)})`
+      return `light-dark(${this.light ? shade(this.light, 500) : shade('medium', 900)}, ${this.dark ? shade(this.dark, 500) : shade('medium', 50)})`
     }
-  }
-
-  private getShade(color: Color) {
-    return shade(color, color == 'light' ? 900 : color == 'dark' ? 50 : 500)
   }
 
   render() {

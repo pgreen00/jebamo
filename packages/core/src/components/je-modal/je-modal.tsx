@@ -22,6 +22,9 @@ export class JeModal {
   /** Opens and closes modal */
   @Prop({ mutable: true }) open = false;
 
+  /** Size of the modal */
+  @Prop({ reflect: true }) size: 'sm' | 'md' | 'lg' = 'lg';
+
   /** Optionally execute a promise before presentation begins */
   @Prop() init?: () => void | Promise<void>;
 

@@ -12,19 +12,6 @@ sidebar_label: 'Form'
 | `formData` |             | `CustomEvent<{ [x: string]: any; }>` |
 
 
-## Dependencies
-
-### Used by
-
- - [je-dialog](../je-dialog)
-
-### Graph
-```mermaid
-graph TD;
-  je-dialog --> je-form
-  style je-form fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

@@ -1,4 +1,4 @@
-import { Component, Listen, Prop, h, Element, Host, State, Event, EventEmitter, Method } from '@stencil/core';
+import { Component, Listen, Prop, h, Element, Host, State, Event, EventEmitter, Method, forceUpdate, Fragment } from '@stencil/core';
 import { Color, OverlayData } from '../../utils/utils';
 
 @Component({
@@ -7,6 +7,9 @@ import { Color, OverlayData } from '../../utils/utils';
   shadow: true,
 })
 export class JeAlert {
+  private role?: string;
+  private data?: any;
+  @State() paused = true;
   @Element() el!: HTMLJeAlertElement;
   @Prop() icon?: string;
   @Prop() header?: string;
@@ -15,15 +18,9 @@ export class JeAlert {
   @Prop() color: Color = 'primary';
   @Prop() duration = 0;
   @Prop() progress = false;
-  @Prop({ reflect: true }) type: 'bar' | 'card' = 'bar';
   @Prop({ mutable: true }) open = false;
-  @Prop({ reflect: true }) fixed = false;
-  @Prop() position: 'top' | 'bottom' | 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end' = 'bottom-start';
-  @Event() alertPresent: EventEmitter;
-  @Event() alertDismiss: EventEmitter<OverlayData>;
-  @State() paused = true;
-  private role?: string;
-  private data?: any;
+  @Event() present: EventEmitter;
+  @Event() dismiss: EventEmitter<OverlayData>;
 
   componentWillRender() {
     if (this.open) {
@@ -32,12 +29,12 @@ export class JeAlert {
   }
 
   @Method()
-  async present() {
+  async show() {
     this.open = true;
   }
 
   @Method()
-  async dismiss(role?: string, data?: any) {
+  async hide(role?: string, data?: any) {
     this.role = role;
     this.data = data;
     this.open = false;
@@ -46,7 +43,7 @@ export class JeAlert {
   @Method()
   didDismiss() {
     return new Promise<OverlayData>(resolve => {
-      this.el.addEventListener('alertDismiss', e => resolve(e.detail), { once: true });
+      this.el.addEventListener('dismiss', e => resolve(e.detail), { once: true });
     });
   }
 
@@ -55,7 +52,7 @@ export class JeAlert {
     if (e.animationName == 'fadeOut' && e.target == this.el) {
       this.el.classList.remove('visible');
       this.paused = true;
-      this.alertDismiss.emit({
+      this.dismiss.emit({
         role: this.role ?? 'manualDismiss',
         data: this.data
       });
@@ -64,7 +61,7 @@ export class JeAlert {
     }
     if (e.animationName == 'fadeIn' && e.target == this.el) {
       this.paused = false;
-      this.alertPresent.emit();
+      this.present.emit();
     }
   }
 
@@ -80,56 +77,63 @@ export class JeAlert {
       this.paused = false;
   }
 
+  @Listen('slotchange')
+  onSlotChange() {
+    forceUpdate(this.el)
+  }
+
   render() {
-    const progressBar = <div
-      onAnimationEnd={() => (this.dismiss('autoDismiss'))}
-      class={{ progress: true, running: this.open && !this.paused, visible: this.progress }}
-      style={{ animationDuration: `${this.duration}ms` }}></div>
-    if (this.type == 'card') {
-      return (
-        <Host class={{ open: this.open, [this.position]: this.fixed }}>
-          <div class="border"></div>
-          <je-toolbar>
-            {this.icon && <je-icon slot="start" class={this.color}>{this.icon}</je-icon>}
-            {this.header && <span part="header">{this.header}</span>}
-            {this.closable && (
-              <je-icon slot='end' onClick={() => (this.dismiss('userDismiss'))} button>close</je-icon>
-            )}
-          </je-toolbar>
-          <je-toolbar class="card-body">
-            {this.icon && <je-icon slot="start" style={{ opacity: '0' }}>{this.icon}</je-icon>}
-            <slot name="content">{this.message && <span part="message">{this.message}</span>}</slot>
-          </je-toolbar>
-          <je-toolbar>
-            <slot slot="start" name="start"></slot>
-            <slot slot="end" name="end"></slot>
-          </je-toolbar>
-          {this.duration > 0 && (progressBar)}
-        </Host>
-      );
-    } else {
-      return (
-        <Host class={{ open: this.open, [this.position]: this.fixed }}>
-          <div class="border"></div>
-          <je-toolbar class="bar">
-            <slot slot="start" name="start">
-              {this.icon && <je-icon class={this.color}>{this.icon}</je-icon>}
-            </slot>
-            <slot name="content">
-              <div>
-                {this.header && <span part="header">{this.header}</span>}
-                {this.message && <span part="message">{this.message}</span>}
-              </div>
-            </slot>
-            <slot slot="end" name="end">
-              {this.closable && (
-                <je-icon onClick={() => (this.dismiss('userDismiss'))} button>close</je-icon>
-              )}
-            </slot>
-          </je-toolbar>
-          {this.duration > 0 && (progressBar)}
-        </Host>
-      );
-    }
+    const hasHeader = !!this.header || !!this.el.querySelector('[slot="header"]')
+    const hasMessage = !!this.message || !!this.el.querySelector('[slot="message"]')
+    const hasButtons = !!this.el.querySelector('[slot="buttons"]')
+    return (
+      <Host class={{ open: this.open }}>
+        <div class="border"></div>
+
+        <div class="cell top-left">
+          {this.icon && <je-icon class={this.color}>{this.icon}</je-icon>}
+          <slot name="start"/>
+        </div>
+        <div class="cell top-middle">
+          {hasHeader ? (
+            <slot name='header'>{this.header && <span part="header">{this.header}</span>}</slot>
+          ) : (
+            <slot name="message">{this.message && <span part="message">{this.message}</span>}</slot>
+          )}
+        </div>
+        <div class="cell top-right">
+          <slot name="end"/>
+          {this.closable && <je-icon slot='end' size='sm' onClick={() => this.hide('userDismiss')}>close</je-icon>}
+        </div>
+
+        {hasHeader && hasMessage && (
+          <Fragment>
+            <div class="cell middle-left"></div>
+            <div class="cell middle-middle">
+              <slot name="message">{this.message && <span part="message">{this.message}</span>}</slot>
+            </div>
+            <div class="cell middle-right"></div>
+          </Fragment>
+        )}
+
+        {hasButtons && (
+          <Fragment>
+            <div class="cell bottom-left"></div>
+            <div class="cell bottom-middle">
+              <slot name="buttons"></slot>
+            </div>
+            <div class="cell bottom-right"></div>
+          </Fragment>
+        )}
+
+        {this.duration > 0 && (
+          <div
+            onAnimationEnd={() => this.hide('autoDismiss')}
+            class={{ progress: true, running: this.open && !this.paused, visible: this.progress }}
+            style={{ animationDuration: `${this.duration}ms` }}
+          ></div>
+        )}
+      </Host>
+    )
   }
 }

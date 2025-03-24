@@ -33,6 +33,14 @@
   height: 100%;
 }
 
+:host([side=left]) dialog[open] {
+  margin-left: 0;
+}
+
+:host([side=right]) dialog[open] {
+  margin-right: 0;
+}
+
 :host([side=left]) dialog {
   left: 0;
   margin-left: calc(var(--width) * -1);
@@ -41,14 +49,6 @@
 :host([side=right]) dialog {
   right: 0;
   margin-right: calc(var(--width) * -1);
-}
-
-:host([side=left]) dialog[open] {
-  margin-left: 0;
-}
-
-:host([side=right]) dialog[open] {
-  margin-right: 0;
 }
 
 dialog {

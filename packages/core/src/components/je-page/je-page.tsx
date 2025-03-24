@@ -1,7 +1,5 @@
 import { Component, Element, Host, Prop, h } from '@stencil/core';
 
-export type PanelState = 'open' | 'closed' | 'minimized';
-
 @Component({
   tag: 'je-page',
   styleUrl: 'je-page.scss'
@@ -16,7 +14,12 @@ export class JePage {
   private mutationObserver!: MutationObserver;
   private resizeObserver!: ResizeObserver;
 
-  @Prop({ reflect: true }) layout: 'sticky' | 'grid' = 'grid';
+  /**
+   * Changes certain aspects of the page layout.
+   * - Sticky will make the entire page scrollable, and the footer will not be visible when the page is overflowing
+   * - Flex will make the main element scrollable, and the footer will always be visible
+   */
+  @Prop({ reflect: true }) layout: 'sticky' | 'flex' = 'flex';
 
   private moveProjectedContent = () => {
     this.mutationObserver.disconnect();

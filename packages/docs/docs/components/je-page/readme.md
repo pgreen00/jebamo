@@ -7,9 +7,9 @@ sidebar_label: 'Page'
 
 ## Properties
 
-| Property | Attribute | Description | Type                 | Default  |
-| -------- | --------- | ----------- | -------------------- | -------- |
-| `layout` | `layout`  |             | `"grid" \| "sticky"` | `'grid'` |
+| Property | Attribute | Description                                                                                                                                                                                                                                    | Type                 | Default  |
+| -------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | -------- |
+| `layout` | `layout`  | Changes certain aspects of the page layout. - Sticky will make the entire page scrollable, and the footer will not be visible when the page is overflowing - Flex will make the main element scrollable, and the footer will always be visible | `"flex" \| "sticky"` | `'flex'` |
 
 
 ----------------------------------------------
