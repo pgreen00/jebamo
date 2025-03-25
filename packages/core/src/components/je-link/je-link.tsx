@@ -28,7 +28,7 @@ export class JeLink {
 
   render() {
     return (
-      <a tabindex={0} href={this.href} target={this.target} rel={this.rel} download={this.download}>
+      <a part='anchor' tabindex={0} href={this.href} target={this.target} rel={this.rel} download={this.download} class={{ underline: this.underline, bold: this.bold }}>
         <slot></slot>
       </a>
     );

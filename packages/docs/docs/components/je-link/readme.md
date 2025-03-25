@@ -17,6 +17,13 @@ sidebar_label: 'Link'
 | `underline` | `underline` | Underlines the text | `boolean` | `true`      |
 
 
+## Shadow Parts
+
+| Part       | Description |
+| ---------- | ----------- |
+| `"anchor"` |             |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

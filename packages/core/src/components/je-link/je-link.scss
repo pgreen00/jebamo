@@ -1,11 +1,17 @@
+@use '../../styles/styles' as *;
+
 :host {
   display: contents;
-  color: inherit;
-  font-family: inherit;
+  --color: light-dark(#{primary(500)}, #{primary(300)});
+  --visited-color: light-dark(#{primary(600)}, #{primary(350)});
 }
 
 a {
   display: inline-flex;
+  color: var(--color);
+  text-decoration: none;
+  outline-color: primary(300);
+  outline-offset: 3px;
 }
 
 .underline {
@@ -13,5 +19,5 @@ a {
 }
 
 .bold {
-  font-weight: var(--je-font-semi-bold);
+  font-weight: font-weight(semi-bold);
 }

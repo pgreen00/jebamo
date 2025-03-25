@@ -6,35 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
   </head>
-  <body class="dark">
+  <body class="light">
     <je-page>
       <header>
-        <h1>Jebamo</h1>
+        <je-nav>
+          <h1>Jebamo</h1>
+          <je-link class="active" href="#" slot="end">Components</je-link>
+          <je-link href="#" slot="end">Tutorials</je-link>
+          <je-link href="#" slot="end">Changelog</je-link>
+          <je-icon-button slot="end" size="lg" icon="dark_mode"></je-icon-button>
+        </je-nav>
       </header>
 
       <header>
         <h2>Sub header</h2>
       </header>
 
-      <aside open id="panel">
-        <div class="je-radius-md je-elevation-xl je-margin-bottom je-padding-xs">
-          <template shadowrootmode="open">
-            <style>
-              :host {
-                color: var(--je-primary-800); 
-                background-color: var(--je-primary-200);
-              }
-            </style>
-            <slot></slot>
-          </template>
-          <je-toolbar>
-            <je-icon>menu</je-icon>
-            <h2>Left panel</h2>
-            <je-icon slot="end" onclick="panel.toggleAttribute('minimized')">expand</je-icon>
-          </je-toolbar>
-        </div>
-        <je-alert open type="card" closable icon="sentiment_satisfied" header="Hey" message="Hello there">
-        </je-alert>
+      <aside open style="--panel-open-width: 300px;">
+        <je-tree selection="single" indentation="true">
+          <je-branch label="Item 1">
+            <je-branch label="Item A"></je-branch>
+            <je-branch label="Item B">
+              <je-branch label="Item Z"></je-branch>
+              <je-branch label="Item Y"></je-branch>
+              <je-branch label="Item X"></je-branch>
+            </je-branch>
+            <je-branch label="Item C"></je-branch>
+          </je-branch>
+          <je-branch label="Item 2"></je-branch>
+          <je-branch label="Item 3"></je-branch>
+        </je-tree>
       </aside>
 
       <main>

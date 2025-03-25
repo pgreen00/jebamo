@@ -363,6 +363,7 @@ export namespace Components {
         "size": 'sm' | 'md' | 'lg';
     }
     interface JeNav {
+        "mode": 'top' | 'side';
     }
     interface JeNote {
     }
@@ -478,6 +479,11 @@ export namespace Components {
         "value"?: any;
     }
     interface JeSection {
+        "collapsible": boolean;
+        "header"?: string;
+        "iconSide": 'left' | 'right';
+        "iconToggle": boolean;
+        "open": boolean;
     }
     interface JeSelect {
     }
@@ -572,6 +578,10 @@ export interface JePopoverCustomEvent<T> extends CustomEvent<T> {
 export interface JeRadioGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeRadioGroupElement;
+}
+export interface JeSectionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeSectionElement;
 }
 export interface JeTabsCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -948,7 +958,19 @@ declare global {
         prototype: HTMLJeRadioGroupElement;
         new (): HTMLJeRadioGroupElement;
     };
+    interface HTMLJeSectionElementEventMap {
+        "collapse": any;
+        "expand": any;
+    }
     interface HTMLJeSectionElement extends Components.JeSection, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeSectionElementEventMap>(type: K, listener: (this: HTMLJeSectionElement, ev: JeSectionCustomEvent<HTMLJeSectionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeSectionElementEventMap>(type: K, listener: (this: HTMLJeSectionElement, ev: JeSectionCustomEvent<HTMLJeSectionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeSectionElement: {
         prototype: HTMLJeSectionElement;
@@ -1477,6 +1499,7 @@ declare namespace LocalJSX {
         "size"?: 'sm' | 'md' | 'lg';
     }
     interface JeNav {
+        "mode"?: 'top' | 'side';
     }
     interface JeNote {
     }
@@ -1606,6 +1629,13 @@ declare namespace LocalJSX {
         "value"?: any;
     }
     interface JeSection {
+        "collapsible"?: boolean;
+        "header"?: string;
+        "iconSide"?: 'left' | 'right';
+        "iconToggle"?: boolean;
+        "onCollapse"?: (event: JeSectionCustomEvent<any>) => void;
+        "onExpand"?: (event: JeSectionCustomEvent<any>) => void;
+        "open"?: boolean;
     }
     interface JeSelect {
     }

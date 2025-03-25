@@ -130,9 +130,9 @@ export class JeBranch {
 
   render() {
     const level = this.getLevel(this.element);
-    this.element.style.setProperty('--level', `${level * 20}px`);
     return (
       <Host>
+        <style>{`:host{--level:${level * 20}px;}`}</style>
         <div ref={el => this.mainContainerEl = el} tabindex={0} part="main-container" class={{ highlight: this.selected && (this.selection == 'single' || this.selection == 'leaf') }}>
           <div part="level"></div>
           <je-icon class={{ open: this.open }} onClickCapture={this.handleIconClick} style={{ opacity: this.hasChildren ? '1' : '0' }}>chevron_right</je-icon>

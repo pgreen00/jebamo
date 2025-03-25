@@ -1,3 +1,111 @@
-:host {
-  display: block;
+@use '../../styles/styles' as *;
+
+je-nav[mode=top] {
+  display: contents;
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+
+    .__start,
+    .__end {
+      display: flex;
+      align-items: center;
+      gap: spacing-get(sm);
+    }
+
+    .__start {
+      justify-content: flex-start;
+    }
+
+    .__end {
+      justify-content: flex-end;
+    }
+
+    &>je-link,
+    &>*>je-link {
+      --color: light-dark(#{medium(50)}, #{medium(100)});
+
+      &:hover,
+      &.active {
+        --color: light-dark(#{medium(350)}, #{primary(200)});
+      }
+
+      &::part(anchor) {
+        padding-inline: spacing-get(3xs);
+        font-weight: font-weight(semi-bold);
+        text-decoration: none;
+        transition: color transition-get(fast) ease-in-out;
+      }
+    }
+
+    &>je-button,
+    &>*>je-button,
+    &>je-icon-button,
+    &>*>je-icon-button {
+      &::part(inner-button) {
+        --padding-inline: #{spacing-get(3xs)};
+        --color: light-dark(#{medium(50)}, #{medium(100)});
+        --hover-color: none;
+        --active-color: light-dark(#{medium(100)}, #{medium(50)});
+        --background: transparent;
+        --hover-background: light-dark(#{primary(800)}, #{medium(800)});
+        --active-background: light-dark(#{primary(850)}, #{medium(750)});
+        --border-color: transparent;
+      }
+    }
+  }
+}
+
+je-nav[mode=side] {
+  display: contents;
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+
+    &>je-link,
+    &>*>je-link {
+      --color: light-dark(#{medium(800)}, #{medium(100)});
+      --hover-background: light-dark(#{medium(100)}, #{medium(800)});
+
+      &.active {
+        --color: light-dark(#{primary(500)}, #{primary(300)});
+      }
+
+      &::part(anchor) {
+        border-radius: radius-get(sm);
+        display: flex;
+        width: 100%;
+        padding-inline: spacing-get(3xs);
+        font-weight: font-weight(semi-bold);
+        text-decoration: none;
+        transition: all transition-get(fast) ease-in-out;
+        &:hover {
+          background-color: var(--hover-background);
+        }
+      }
+    }
+
+    &>je-button,
+    &>*>je-button,
+    &>je-icon-button,
+    &>*>je-icon-button {
+      &::part(inner-button) {
+        --padding-inline: #{spacing-get(3xs)};
+        --color: light-dark(#{medium(50)}, #{medium(100)});
+        --hover-color: none;
+        --active-color: light-dark(#{medium(100)}, #{medium(50)});
+        --background: transparent;
+        --hover-background: light-dark(#{primary(800)}, #{medium(800)});
+        --active-background: light-dark(#{primary(850)}, #{medium(750)});
+        --border-color: transparent;
+      }
+    }
+  }
 }

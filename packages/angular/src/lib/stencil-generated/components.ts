@@ -678,13 +678,14 @@ export declare interface JeModal extends Components.JeModal {
 
 
 @ProxyCmp({
+  inputs: ['mode']
 })
 @Component({
   selector: 'je-nav',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['mode'],
 })
 export class JeNav {
   protected el: HTMLElement;
@@ -917,24 +918,31 @@ export declare interface JeRadioGroup extends Components.JeRadioGroup {
 
 
 @ProxyCmp({
+  inputs: ['collapsible', 'header', 'iconSide', 'iconToggle', 'open']
 })
 @Component({
   selector: 'je-section',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['collapsible', 'header', 'iconSide', 'iconToggle', 'open'],
 })
 export class JeSection {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['collapse', 'expand']);
   }
 }
 
 
-export declare interface JeSection extends Components.JeSection {}
+export declare interface JeSection extends Components.JeSection {
+
+  collapse: EventEmitter<CustomEvent<any>>;
+
+  expand: EventEmitter<CustomEvent<any>>;
+}
 
 
 @ProxyCmp({
