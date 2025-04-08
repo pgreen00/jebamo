@@ -1,37 +1,54 @@
 @use '../../styles/styles' as *;
 
 :host {
-  display: block;
-  user-select: none;
-  -webkit-user-select: none;
+  display: contents;
+  position: relative;
 
-  --highlight-color: light-dark(#{primary(100)}, #{medium(850)});
-  --highlight-border-color: light-dark(#{medium(900)}, #{medium(50)});
+  --selected-background: light-dark(#{primary(50)}, #{medium(850)});
+  --selected-color: light-dark(#{primary(500)}, #{medium(500)});
   --indentation-color: light-dark(#{medium(400)}, #{medium(800)});
 }
 
-[part=main-container] {
+.icon-placeholder {
+  width: 20px;
+  height: 24px;
+}
+
+.level {
+  width: spacing-get(lg);
+  height: spacing-get(lg);
+}
+
+button {
+  cursor: pointer;
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  border-left: solid 2px transparent;
+  border-radius: radius-get(md);
+  overflow: hidden;
+  background-color: transparent;
+  color: inherit;
+  width: 100%;
+  font-family: inherit;
+  margin: 0;
+  padding-block: spacing-get(2xs);
+  padding-inline: 0;
+  border: 0;
+  user-select: none;
+  -webkit-user-select: none;
   z-index: 1;
-  &.highlight {
-    border-left: solid 2px var(--highlight-border-color);
-    background-color: var(--highlight-color);
-  }
-  &:focus {
-    outline-offset: -4px;
-    outline-color: var(--je-primary-400);
-  }
-}
+  transition: all 75ms ease-in-out;
+  outline-offset: -3px;
+  outline-color: var(--je-primary-400);
 
-[part=label] {
-  margin-inline: var(--je-spacing-3xs);
-}
+  &:hover,
+  &.selected:not(.multiple) {
+    background-color: var(--selected-background);
+  }
 
-[part=level] {
-  width: var(--level);
+  &.selected:not(.multiple) {
+    color: var(--selected-color);
+  }
 }
 
 [part=inner-branch-container] {
@@ -45,31 +62,39 @@
   grid-template-rows: 0fr;
   opacity: 0;
   transition: all 250ms ease-out;
-  &.open {
-    opacity: 1;
-    grid-template-rows: 1fr;
-  }
-  &::before {
+
+  &.indentation::before {
+    left: calc(var(--level) * spacing-get(lg));
+    transform: translate(10px);
     display: block;
     content: "";
     position: absolute;
-    top: 0;
-    left: calc(var(--level) + 12px);
     background-color: var(--indentation-color);
     opacity: 0;
     width: 1px;
     transition: opacity 250ms ease-in-out;
     z-index: 2;
   }
-  &.open.indentation::before {
+
+  &.open {
     opacity: 1;
-    height: 100%;
+    grid-template-rows: 1fr;
+
+    &.indentation::before {
+      opacity: 1;
+      height: 100%;
+    }
   }
 }
 
 je-icon {
-  transition: transform 250ms ease;
+  color: light-dark(medium(800), medium(200));
+  transition: rotate 250ms ease;
   &.open {
-    transform: rotate(90deg);
+    rotate: 90deg;
   }
+}
+
+.multi-icon {
+  color: var(--selected-color);
 }

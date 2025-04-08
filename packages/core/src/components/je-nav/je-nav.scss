@@ -68,43 +68,59 @@ je-nav[mode=side] {
     flex-direction: column;
     box-sizing: border-box;
     width: 100%;
+    gap: spacing-get(2xs);
 
-    &>je-link,
-    &>*>je-link {
-      --color: light-dark(#{medium(800)}, #{medium(100)});
-      --hover-background: light-dark(#{medium(100)}, #{medium(800)});
+    &>je-details {
+      display: block;
+      --content-open-padding: 0;
 
-      &.active {
-        --color: light-dark(#{primary(500)}, #{primary(300)});
+      &::part(content) {
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        width: 100%;
+        gap: spacing-get(2xs);
       }
 
-      &::part(anchor) {
-        border-radius: radius-get(sm);
+      &::part(toggle) {
+        border-radius: radius-get(md);
         display: flex;
-        width: 100%;
-        padding-inline: spacing-get(3xs);
+        padding-inline: spacing-get(sm);
         font-weight: font-weight(semi-bold);
-        text-decoration: none;
-        transition: all transition-get(fast) ease-in-out;
+        transition: all transition-get(x-fast) ease-in-out;
         &:hover {
-          background-color: var(--hover-background);
+          background-color: light-dark(primary(50), medium(850));
         }
+      }
+
+      &>je-link::part(anchor) {
+        padding-left: spacing-get(xl);
       }
     }
 
-    &>je-button,
-    &>*>je-button,
-    &>je-icon-button,
-    &>*>je-icon-button {
-      &::part(inner-button) {
-        --padding-inline: #{spacing-get(3xs)};
-        --color: light-dark(#{medium(50)}, #{medium(100)});
-        --hover-color: none;
-        --active-color: light-dark(#{medium(100)}, #{medium(50)});
-        --background: transparent;
-        --hover-background: light-dark(#{primary(800)}, #{medium(800)});
-        --active-background: light-dark(#{primary(850)}, #{medium(750)});
-        --border-color: transparent;
+    &>je-link,
+    &>*>je-link {
+      --color: inherit;
+      --background: inherit;
+
+      &.active {
+        --color: light-dark(#{primary(500)}, #{medium(500)});
+      }
+
+      &::part(anchor) {
+        box-sizing: border-box;
+        border-radius: radius-get(md);
+        display: flex;
+        width: 100%;
+        padding-inline: spacing-get(sm);
+        font-weight: font-weight(semi-bold);
+        text-decoration: none;
+        transition: all transition-get(x-fast) ease-in-out;
+        color: var(--color);
+        background-color: var(--background);
+        &:hover {
+          --background: light-dark(#{primary(50)}, #{medium(850)});
+        }
       }
     }
   }

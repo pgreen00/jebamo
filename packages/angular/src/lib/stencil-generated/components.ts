@@ -74,30 +74,26 @@ export declare interface JeAlert extends Components.JeAlert {
 
 
 @ProxyCmp({
-  inputs: ['label', 'open', 'selected', 'value'],
-  methods: ['isLeaf', 'getParentBranch']
+  inputs: ['indentation', 'label', 'open', 'selected', 'selection', 'value'],
+  methods: ['isLeaf']
 })
 @Component({
   selector: 'je-branch',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['label', 'open', 'selected', 'value'],
+  inputs: ['indentation', 'label', 'open', 'selected', 'selection', 'value'],
 })
 export class JeBranch {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['branchSelect']);
   }
 }
 
 
-export declare interface JeBranch extends Components.JeBranch {
-
-  branchSelect: EventEmitter<CustomEvent<string>>;
-}
+export declare interface JeBranch extends Components.JeBranch {}
 
 
 @ProxyCmp({
@@ -328,14 +324,14 @@ export declare interface JeDatepicker extends Components.JeDatepicker {
 
 
 @ProxyCmp({
-  inputs: ['state', 'summary']
+  inputs: ['iconSide', 'iconToggle', 'open', 'summary']
 })
 @Component({
   selector: 'je-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['state', 'summary'],
+  inputs: ['iconSide', 'iconToggle', 'open', 'summary'],
 })
 export class JeDetails {
   protected el: HTMLElement;
@@ -918,34 +914,6 @@ export declare interface JeRadioGroup extends Components.JeRadioGroup {
 
 
 @ProxyCmp({
-  inputs: ['collapsible', 'header', 'iconSide', 'iconToggle', 'open']
-})
-@Component({
-  selector: 'je-section',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['collapsible', 'header', 'iconSide', 'iconToggle', 'open'],
-})
-export class JeSection {
-  protected el: HTMLElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['collapse', 'expand']);
-  }
-}
-
-
-export declare interface JeSection extends Components.JeSection {
-
-  collapse: EventEmitter<CustomEvent<any>>;
-
-  expand: EventEmitter<CustomEvent<any>>;
-}
-
-
-@ProxyCmp({
 })
 @Component({
   selector: 'je-select',
@@ -1128,7 +1096,7 @@ export class JeTree {
 
 export declare interface JeTree extends Components.JeTree {
 
-  valueChange: EventEmitter<CustomEvent<string>>;
+  valueChange: EventEmitter<CustomEvent<string | string[]>>;
 }
 
 

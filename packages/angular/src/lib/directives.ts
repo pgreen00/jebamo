@@ -1,4 +1,4 @@
-import { Directive, input, output } from '@angular/core';
+import { Directive, input, output } from "@angular/core";
 
 /**
  * Directive for two-way binding of a value to a form control.
@@ -11,18 +11,18 @@ import { Directive, input, output } from '@angular/core';
  * <je-checkbox [(jeModel)]="likesHats">Do you like hats?</je-checkbox>
  */
 @Directive({
-  selector: '[jeModel]',
-  host: {
-    '(valueChange)': 'handleChange($event.target.value)',
-    '[value]': 'jeModel()'
-  },
-  exportAs: 'jeModel'
+    selector: '[jeModel]',
+    host: {
+        '(valueChange)': 'handleChange($event.target.value)',
+        '[value]': 'jeModel()'
+    },
+    exportAs: 'jeModel'
 })
 export class JeModelDirective {
-  jeModel = input();
-  jeModelChange = output<unknown>();
+    jeModel = input();
+    jeModelChange = output<unknown>();
 
-  handleChange(value: unknown) {
-    this.jeModelChange.emit(value);
-  }
+    handleChange(value: unknown) {
+        this.jeModelChange.emit(value);
+    }
 }

@@ -22,9 +22,9 @@ sidebar_label: 'Icon'
  - [je-alert](../je-alert)
  - [je-branch](../je-branch)
  - [je-checkbox](../je-checkbox)
+ - [je-details](../je-details)
  - [je-icon-button](../je-icon-button)
  - [je-radio](../je-radio)
- - [je-section](../je-section)
 
 ### Graph
 ```mermaid
@@ -32,9 +32,9 @@ graph TD;
   je-alert --> je-icon
   je-branch --> je-icon
   je-checkbox --> je-icon
+  je-details --> je-icon
   je-icon-button --> je-icon
   je-radio --> je-icon
-  je-section --> je-icon
   style je-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

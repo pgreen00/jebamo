@@ -16,9 +16,9 @@ sidebar_label: 'Tree'
 
 ## Events
 
-| Event         | Description | Type                  |
-| ------------- | ----------- | --------------------- |
-| `valueChange` |             | `CustomEvent<string>` |
+| Event         | Description | Type                              |
+| ------------- | ----------- | --------------------------------- |
+| `valueChange` |             | `CustomEvent<string \| string[]>` |
 
 
 ----------------------------------------------

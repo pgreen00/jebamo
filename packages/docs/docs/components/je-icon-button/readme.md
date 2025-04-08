@@ -18,11 +18,19 @@ sidebar_label: 'Icon Button'
 | `type`     | `type`     | Can set to submit or reset to participate in forms | `"reset" \| "submit"`                                            | `undefined` |
 
 
+## Shadow Parts
+
+| Part     | Description |
+| -------- | ----------- |
+| `"icon"` |             |
+
+
 ## Dependencies
 
 ### Used by
 
  - [je-datepicker](../je-datepicker)
+ - [je-details](../je-details)
 
 ### Depends on
 
@@ -36,6 +44,7 @@ graph TD;
   je-icon-button --> je-icon
   je-button --> je-loading
   je-datepicker --> je-icon-button
+  je-details --> je-icon-button
   style je-icon-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

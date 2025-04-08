@@ -3,5 +3,5 @@
  */
 
 export * from './lib/stencil-generated/components';
-export * from './lib/directives/je-model.directive';
+export * from './lib/directives';
 export * from './lib/providers';

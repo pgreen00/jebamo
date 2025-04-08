@@ -54,11 +54,12 @@ export namespace Components {
         "show": () => Promise<void>;
     }
     interface JeBranch {
-        "getParentBranch": () => Promise<HTMLJeBranchElement | null>;
+        "indentation": boolean;
         "isLeaf": () => Promise<boolean>;
         "label"?: string;
         "open": boolean;
         "selected": boolean | null;
+        "selection"?: 'single' | 'multiple' | 'leaf';
         "value"?: string;
     }
     interface JeBreadcrumb {
@@ -202,7 +203,9 @@ export namespace Components {
         "value"?: number;
     }
     interface JeDetails {
-        "state": 'open' | 'closed';
+        "iconSide": 'left' | 'right';
+        "iconToggle": boolean;
+        "open": boolean;
         "summary"?: string;
     }
     interface JeDivider {
@@ -478,13 +481,6 @@ export namespace Components {
          */
         "value"?: any;
     }
-    interface JeSection {
-        "collapsible": boolean;
-        "header"?: string;
-        "iconSide": 'left' | 'right';
-        "iconToggle": boolean;
-        "open": boolean;
-    }
     interface JeSelect {
     }
     interface JeTab {
@@ -539,10 +535,6 @@ export interface JeAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeAlertElement;
 }
-export interface JeBranchCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJeBranchElement;
-}
 export interface JeCheckboxCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeCheckboxElement;
@@ -578,10 +570,6 @@ export interface JePopoverCustomEvent<T> extends CustomEvent<T> {
 export interface JeRadioGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeRadioGroupElement;
-}
-export interface JeSectionCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJeSectionElement;
 }
 export interface JeTabsCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -632,18 +620,7 @@ declare global {
         prototype: HTMLJeAlertElement;
         new (): HTMLJeAlertElement;
     };
-    interface HTMLJeBranchElementEventMap {
-        "branchSelect": string;
-    }
     interface HTMLJeBranchElement extends Components.JeBranch, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeBranchElementEventMap>(type: K, listener: (this: HTMLJeBranchElement, ev: JeBranchCustomEvent<HTMLJeBranchElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeBranchElementEventMap>(type: K, listener: (this: HTMLJeBranchElement, ev: JeBranchCustomEvent<HTMLJeBranchElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeBranchElement: {
         prototype: HTMLJeBranchElement;
@@ -958,24 +935,6 @@ declare global {
         prototype: HTMLJeRadioGroupElement;
         new (): HTMLJeRadioGroupElement;
     };
-    interface HTMLJeSectionElementEventMap {
-        "collapse": any;
-        "expand": any;
-    }
-    interface HTMLJeSectionElement extends Components.JeSection, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeSectionElementEventMap>(type: K, listener: (this: HTMLJeSectionElement, ev: JeSectionCustomEvent<HTMLJeSectionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeSectionElementEventMap>(type: K, listener: (this: HTMLJeSectionElement, ev: JeSectionCustomEvent<HTMLJeSectionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLJeSectionElement: {
-        prototype: HTMLJeSectionElement;
-        new (): HTMLJeSectionElement;
-    };
     interface HTMLJeSelectElement extends Components.JeSelect, HTMLStencilElement {
     }
     var HTMLJeSelectElement: {
@@ -1041,7 +1000,7 @@ declare global {
         new (): HTMLJeTooltipElement;
     };
     interface HTMLJeTreeElementEventMap {
-        "valueChange": string;
+        "valueChange": string | string[];
     }
     interface HTMLJeTreeElement extends Components.JeTree, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeTreeElementEventMap>(type: K, listener: (this: HTMLJeTreeElement, ev: JeTreeCustomEvent<HTMLJeTreeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1101,7 +1060,6 @@ declare global {
         "je-radio": HTMLJeRadioElement;
         "je-radio-button": HTMLJeRadioButtonElement;
         "je-radio-group": HTMLJeRadioGroupElement;
-        "je-section": HTMLJeSectionElement;
         "je-select": HTMLJeSelectElement;
         "je-tab": HTMLJeTabElement;
         "je-tabs": HTMLJeTabsElement;
@@ -1161,10 +1119,11 @@ declare namespace LocalJSX {
         "progress"?: boolean;
     }
     interface JeBranch {
+        "indentation"?: boolean;
         "label"?: string;
-        "onBranchSelect"?: (event: JeBranchCustomEvent<string>) => void;
         "open"?: boolean;
         "selected"?: boolean | null;
+        "selection"?: 'single' | 'multiple' | 'leaf';
         "value"?: string;
     }
     interface JeBreadcrumb {
@@ -1313,7 +1272,9 @@ declare namespace LocalJSX {
         "value"?: number;
     }
     interface JeDetails {
-        "state"?: 'open' | 'closed';
+        "iconSide"?: 'left' | 'right';
+        "iconToggle"?: boolean;
+        "open"?: boolean;
         "summary"?: string;
     }
     interface JeDivider {
@@ -1628,15 +1589,6 @@ declare namespace LocalJSX {
          */
         "value"?: any;
     }
-    interface JeSection {
-        "collapsible"?: boolean;
-        "header"?: string;
-        "iconSide"?: 'left' | 'right';
-        "iconToggle"?: boolean;
-        "onCollapse"?: (event: JeSectionCustomEvent<any>) => void;
-        "onExpand"?: (event: JeSectionCustomEvent<any>) => void;
-        "open"?: boolean;
-    }
     interface JeSelect {
     }
     interface JeTab {
@@ -1682,7 +1634,7 @@ declare namespace LocalJSX {
     }
     interface JeTree {
         "indentation"?: boolean;
-        "onValueChange"?: (event: JeTreeCustomEvent<string>) => void;
+        "onValueChange"?: (event: JeTreeCustomEvent<string | string[]>) => void;
         "selection"?: 'single' | 'multiple' | 'leaf';
         "value"?: string | string[];
     }
@@ -1726,7 +1678,6 @@ declare namespace LocalJSX {
         "je-radio": JeRadio;
         "je-radio-button": JeRadioButton;
         "je-radio-group": JeRadioGroup;
-        "je-section": JeSection;
         "je-select": JeSelect;
         "je-tab": JeTab;
         "je-tabs": JeTabs;
@@ -1779,7 +1730,6 @@ declare module "@stencil/core" {
             "je-radio": LocalJSX.JeRadio & JSXBase.HTMLAttributes<HTMLJeRadioElement>;
             "je-radio-button": LocalJSX.JeRadioButton & JSXBase.HTMLAttributes<HTMLJeRadioButtonElement>;
             "je-radio-group": LocalJSX.JeRadioGroup & JSXBase.HTMLAttributes<HTMLJeRadioGroupElement>;
-            "je-section": LocalJSX.JeSection & JSXBase.HTMLAttributes<HTMLJeSectionElement>;
             "je-select": LocalJSX.JeSelect & JSXBase.HTMLAttributes<HTMLJeSelectElement>;
             "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
             "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;

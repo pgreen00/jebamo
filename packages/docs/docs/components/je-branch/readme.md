@@ -7,32 +7,17 @@ sidebar_label: 'Branch'
 
 ## Properties
 
-| Property   | Attribute  | Description | Type      | Default     |
-| ---------- | ---------- | ----------- | --------- | ----------- |
-| `label`    | `label`    |             | `string`  | `undefined` |
-| `open`     | `open`     |             | `boolean` | `false`     |
-| `selected` | `selected` |             | `boolean` | `false`     |
-| `value`    | `value`    |             | `string`  | `undefined` |
-
-
-## Events
-
-| Event          | Description | Type                  |
-| -------------- | ----------- | --------------------- |
-| `branchSelect` |             | `CustomEvent<string>` |
+| Property      | Attribute     | Description | Type                               | Default     |
+| ------------- | ------------- | ----------- | ---------------------------------- | ----------- |
+| `indentation` | `indentation` |             | `boolean`                          | `false`     |
+| `label`       | `label`       |             | `string`                           | `undefined` |
+| `open`        | `open`        |             | `boolean`                          | `false`     |
+| `selected`    | `selected`    |             | `boolean`                          | `false`     |
+| `selection`   | `selection`   |             | `"leaf" \| "multiple" \| "single"` | `undefined` |
+| `value`       | `value`       |             | `string`                           | `undefined` |
 
 
 ## Methods
-
-### `getParentBranch() => Promise<HTMLJeBranchElement | null>`
-
-
-
-#### Returns
-
-Type: `Promise<HTMLJeBranchElement>`
-
-
 
 ### `isLeaf() => Promise<boolean>`
 
@@ -51,9 +36,6 @@ Type: `Promise<boolean>`
 | -------------------------- | ----------- |
 | `"branch-container"`       |             |
 | `"inner-branch-container"` |             |
-| `"label"`                  |             |
-| `"level"`                  |             |
-| `"main-container"`         |             |
 
 
 ## Dependencies
@@ -61,11 +43,13 @@ Type: `Promise<boolean>`
 ### Depends on
 
 - [je-icon](../je-icon)
+- [je-label](../je-label)
 
 ### Graph
 ```mermaid
 graph TD;
   je-branch --> je-icon
+  je-branch --> je-label
   style je-branch fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

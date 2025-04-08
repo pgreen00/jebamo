@@ -32,7 +32,7 @@ export class JeIconButton {
     return (
       <je-button exportparts='inner-button' fill={this.fill} color={this.color} size={this.size} pending={this.pending} type={this.type} disabled={this.disabled}>
         <slot>
-          {this.icon && <je-icon fill={true} size={this.size == 'sm' ? 'xs' : this.size == 'lg' ? 'md' : 'sm'}>{this.icon}</je-icon>}
+          {this.icon && <je-icon part='icon' fill={true} size={this.size == 'sm' ? 'xs' : this.size == 'lg' ? 'md' : 'sm'}>{this.icon}</je-icon>}
         </slot>
         <slot slot='badge' name='badge'></slot>
       </je-button>

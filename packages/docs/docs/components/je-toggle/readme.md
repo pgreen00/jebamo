@@ -20,6 +20,14 @@ sidebar_label: 'Toggle'
 | `toggled` | Emits the new value whenever toggle is clicked | `CustomEvent<boolean>` |
 
 
+## CSS Custom Properties
+
+| Name                    | Description                       |
+| ----------------------- | --------------------------------- |
+| `--active-background`   | Background color when checked     |
+| `--inactive-background` | Background color when not checked |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

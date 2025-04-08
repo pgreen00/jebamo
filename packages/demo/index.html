@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
   </head>
-  <body class="light">
+  <body class="dark">
     <je-page>
       <header>
         <je-nav>
@@ -22,19 +22,33 @@
         <h2>Sub header</h2>
       </header>
 
-      <aside open style="--panel-open-width: 300px;">
+      <aside open style="--panel-open-width: 300px; padding: 4px 8px;">
+        <je-nav mode="side">
+          <je-details summary="Item 1">
+            <je-link>Item A</je-link>
+            <je-link>Item B</je-link>
+            <je-link>Item C</je-link>
+          </je-details>
+          <je-link class="active">Item 2</je-link>
+          <je-link>Item 3</je-link>
+          <je-details summary="Item 4">
+            <je-link>Item X</je-link>
+            <je-link>Item Y</je-link>
+            <je-link>Item Z</je-link>
+          </je-details>
+        </je-nav>
         <je-tree selection="single" indentation="true">
-          <je-branch label="Item 1">
-            <je-branch label="Item A"></je-branch>
-            <je-branch label="Item B">
-              <je-branch label="Item Z"></je-branch>
-              <je-branch label="Item Y"></je-branch>
-              <je-branch label="Item X"></je-branch>
+          <je-branch label="Item 1" value="1">
+            <je-branch label="Item A" value="a"></je-branch>
+            <je-branch label="Item B" value="b">
+              <je-branch label="Item Z" value="z"></je-branch>
+              <je-branch label="Item Y" value="y"></je-branch>
+              <je-branch label="Item X" value="x"></je-branch>
             </je-branch>
-            <je-branch label="Item C"></je-branch>
+            <je-branch label="Item C" value="c"></je-branch>
           </je-branch>
-          <je-branch label="Item 2"></je-branch>
-          <je-branch label="Item 3"></je-branch>
+          <je-branch label="Item 2" value="2"></je-branch>
+          <je-branch label="Item 3" value="3"></je-branch>
         </je-tree>
       </aside>
 

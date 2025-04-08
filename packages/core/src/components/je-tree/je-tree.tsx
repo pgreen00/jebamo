@@ -1,5 +1,4 @@
 import { Component, Element, Event, EventEmitter, Host, Listen, Prop, h } from '@stencil/core';
-import { JeBranchCustomEvent } from '../../components';
 
 @Component({
   tag: 'je-tree',
@@ -11,38 +10,78 @@ export class JeTree {
   @Prop({ mutable: true }) value?: string | string[];
   @Prop() selection: 'single' | 'multiple' | 'leaf' = 'leaf';
   @Prop() indentation = false;
-  @Event() valueChange: EventEmitter<string>;
+  @Event() valueChange: EventEmitter<string | string[]>;
 
-  @Listen('branchSelect')
-  async branchSelectedHandler(event: JeBranchCustomEvent<string>) {
-    const isLeaf = await event.target.isLeaf();
-    if ((this.selection == 'leaf' && isLeaf) || this.selection == 'single') {
-      this.value = event.detail;
-      event.target.selected = true;
-      Array.from(this.element.querySelectorAll('je-branch'))
-        .filter(t => !t.isSameNode(event.target))
-        .forEach(branch => branch.selected = false);
-    } else if (this.selection == 'leaf') {
-      event.target.open = !event.target.open;
-    } else if (this.selection == 'multiple') {
-      if (!Array.isArray(this.value)) {
-        this.value = [];
+  private get branches() {
+    return Array.from(this.element.querySelectorAll('je-branch'))
+  }
+
+  componentWillLoad() {
+    if (this.selection == 'multiple' && !Array.isArray(this.value)) this.value = [];
+  }
+
+  componentWillRender() {
+    const { branches, selection, indentation } = this;
+    branches.forEach(branch => {
+      branch.selection = selection;
+      branch.indentation = indentation;
+    })
+  }
+
+  @Listen('click')
+  async onClick(event: MouseEvent) {
+    const { target } = event;
+    if (this.isBranch(target)) {
+      const { branches, selection } = this;
+      const isLeaf = await target.isLeaf();
+      if ((selection == 'leaf' && isLeaf) || selection == 'single') {
+        this.value = target.value;
+        branches.forEach(branch => branch.selected = this.value === branch.value);
+      } else if (this.selection == 'leaf') {
+        target.open = !target.open;
+      } else if (this.selection == 'multiple') {
+        target.selected = !target.selected;
+        if (isLeaf && target.selected) {
+          this.value = [...this.value, target.value]
+        } else if (isLeaf) {
+          this.value = (this.value as Array<string>).filter(v => v != target.value)
+        } else {
+          target.querySelectorAll('je-branch').forEach(branch => branch.selected = target.selected);
+        }
+        this.setParents(target);
       }
-      event.target.selected = !event.target.selected;
-      if (isLeaf && event.target.selected) {
-        this.value = [...this.value, event.detail]
-      } else if (isLeaf) {
-        this.value = this.value.filter(v => v != event.detail)
-      } else {
-        event.target.querySelectorAll('je-branch').forEach(branch => branch.selected = event.target.selected);
-      }
-      this.setParents(event.target);
     }
   }
 
+  @Listen('keyup')
+  async onKeyup(event: KeyboardEvent) {
+    const { target, key } = event;
+    if (this.isBranch(target)) {
+      const hasChildren = !(await target.isLeaf());
+      const { branches } = this;
+      if (key == 'ArrowRight' && hasChildren && !target.open) {
+        target.open = true;
+      } else if (key == 'ArrowLeft' && hasChildren && target.open) {
+        target.open = false;
+      } else if (key == 'ArrowUp') {
+        const index = branches.indexOf(target);
+        if (index > 0) {
+          branches[index - 1].focus();
+        }
+      } else if (key == 'ArrowDown') {
+        const index = branches.indexOf(target);
+        if (index < branches.length - 1) {
+          branches[index + 1].focus();
+        }
+      }
+    }
+  }
+
+  private isBranch = (target: any): target is HTMLJeBranchElement => target instanceof HTMLElement && target.tagName == 'JE-BRANCH';
+
   private async setParents(branch: HTMLJeBranchElement) {
-    const parentBranch = await branch.getParentBranch();
-    if (parentBranch) {
+    const parentBranch = branch.parentElement
+    if (this.isBranch(parentBranch)) {
       const children = Array.from(parentBranch.querySelectorAll('je-branch'));
       parentBranch.selected = children.every(child => child.selected) ? true : children.some(child => child.selected) ? null : false;
       this.setParents(parentBranch);

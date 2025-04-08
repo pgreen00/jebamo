@@ -7,31 +7,40 @@ sidebar_label: 'Details'
 
 ## Properties
 
-| Property  | Attribute | Description | Type                 | Default     |
-| --------- | --------- | ----------- | -------------------- | ----------- |
-| `state`   | `state`   |             | `"closed" \| "open"` | `'closed'`  |
-| `summary` | `summary` |             | `string`             | `undefined` |
+| Property     | Attribute     | Description | Type                | Default     |
+| ------------ | ------------- | ----------- | ------------------- | ----------- |
+| `iconSide`   | `icon-side`   |             | `"left" \| "right"` | `'right'`   |
+| `iconToggle` | `icon-toggle` |             | `boolean`           | `false`     |
+| `open`       | `open`        |             | `boolean`           | `false`     |
+| `summary`    | `summary`     |             | `string`            | `undefined` |
 
 
 ## Shadow Parts
 
 | Part                  | Description |
 | --------------------- | ----------- |
-| `"details-container"` |             |
-| `"details-icon"`      |             |
-| `"summary-container"` |             |
+| `"content"`           |             |
+| `"content-container"` |             |
+| `"toggle"`            |             |
 
 
 ## Dependencies
 
 ### Depends on
 
-- [je-card](../je-card)
+- [je-icon](../je-icon)
+- [je-toolbar](../je-toolbar)
+- [je-icon-button](../je-icon-button)
 
 ### Graph
 ```mermaid
 graph TD;
-  je-details --> je-card
+  je-details --> je-icon
+  je-details --> je-toolbar
+  je-details --> je-icon-button
+  je-icon-button --> je-button
+  je-icon-button --> je-icon
+  je-button --> je-loading
   style je-details fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

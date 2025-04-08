@@ -16,6 +16,7 @@
   --height: 2.5rem;
   --padding-inline: #{spacing-get(md)};
   --font-size: #{font-size(md)};
+  --border-color: transparent;
 }
 
 :host([size=sm]) {
@@ -164,7 +165,7 @@ button {
   transition: all 125ms ease-in-out;
   outline-color: primary(300);
   outline-offset: 3px;
-  border: solid 1px var(--border-color, transparent);
+  border: solid 1px var(--border-color);
 
   @media (hover: hover) {
     &:hover:not(:disabled) {

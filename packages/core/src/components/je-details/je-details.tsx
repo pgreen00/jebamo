@@ -1,4 +1,4 @@
-import { Component, Element, Prop, h } from '@stencil/core';
+import { Component, Element, Host, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-details',
@@ -8,28 +8,43 @@ import { Component, Element, Prop, h } from '@stencil/core';
 export class JeDetails {
   @Element() el!: HTMLElement;
   @Prop() summary?: string;
-  @Prop({ reflect: true, mutable: true }) state: 'open' | 'closed' = 'closed';
+  @Prop({ mutable: true, reflect: true }) open = false;
+  @Prop() iconToggle = false;
+  @Prop() iconSide: 'left' | 'right' = 'right';
 
   render() {
+    const icon = <je-icon>chevron_right</je-icon>
     return (
-      <je-card>
-        <div part='summary-container' onClick={() => this.state = this.state == 'open' ? 'closed' : 'open' }>
-          <slot name="summary">
-            {this.summary && <summary>{this.summary}</summary>}
-          </slot>
-          <div part='details-icon'>
-            <svg xmlns="XXXXXXXXXXXXXXXXXXXXXXXXXX" viewBox="0 0 24 24">
-              <path d="M0 0h24v24H0z" fill="none"/>
-              <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
-            </svg>
-          </div>
-        </div>
-        <div part='details-container'>
-          <div style={{overflow: 'hidden'}}>
+      <Host>
+        {this.iconToggle ? (
+          <je-toolbar>
+            {this.iconSide == 'left' && <je-icon-button onClick={() => this.open = !this.open }>{icon}</je-icon-button>}
+            <slot name='start'/>
+            <slot name="summary">
+              {this.summary && <summary>{this.summary}</summary>}
+            </slot>
+            <slot name='end' slot='end' />
+            {this.iconSide == 'right' && <je-icon-button slot='end' onClick={() => this.open = !this.open }>{icon}</je-icon-button>}
+          </je-toolbar>
+        ) : (
+          <button part='toggle' onClick={() => this.open = !this.open }>
+            <je-toolbar>
+              {this.iconSide == 'left' && <je-icon>chevron_right</je-icon>}
+              <slot name='start'/>
+              <slot name="summary">
+                {this.summary && <summary>{this.summary}</summary>}
+              </slot>
+              <slot name='end' slot='end' />
+              {this.iconSide == 'right' && <je-icon slot='end'>chevron_right</je-icon>}
+            </je-toolbar>
+          </button>
+        )}
+        <div part='content-container'>
+          <div part='content'>
             <slot/>
           </div>
         </div>
-      </je-card>
+      </Host>
     );
   }
 }
