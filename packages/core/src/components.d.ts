@@ -8,9 +8,11 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Color, OverlayData } from "./utils/utils";
 import { Color as Color1 } from "./components";
 import { Placement } from "@floating-ui/dom";
+import { FormatterFn, InputTransformer, ValidationFn } from "./components/je-textfield/je-textfield";
 export { Color, OverlayData } from "./utils/utils";
 export { Color as Color1 } from "./components";
 export { Placement } from "@floating-ui/dom";
+export { FormatterFn, InputTransformer, ValidationFn } from "./components/je-textfield/je-textfield";
 export namespace Components {
     interface JeActionSheet {
         /**
@@ -305,6 +307,8 @@ export namespace Components {
     interface JeItem {
     }
     interface JeLabel {
+        "for"?: string;
+        "required"?: boolean;
     }
     interface JeLink {
         /**
@@ -369,6 +373,7 @@ export namespace Components {
         "mode": 'top' | 'side';
     }
     interface JeNote {
+        "invalid"?: boolean;
     }
     interface JeOption {
     }
@@ -492,6 +497,134 @@ export namespace Components {
         "value"?: string;
     }
     interface JeTextfield {
+        /**
+          * Passed to native input
+         */
+        "autoCapitalize": string;
+        /**
+          * Passed to native input
+         */
+        "autoComplete": string;
+        /**
+          * Passed to native input
+         */
+        "autoCorrect": 'off' | 'on';
+        /**
+          * Passed to native input
+         */
+        "autoFocus"?: boolean;
+        /**
+          * Optional debounce of the didInput event
+         */
+        "debounce": number;
+        /**
+          * Renders input as disabled and prevents changes
+         */
+        "disabled": boolean;
+        /**
+          * Shows an error icon in the end slot when true. If a string is passed in, it will render the icon as a tooltip. Has no effect on form validation
+         */
+        "error": any;
+        /**
+          * Formatters functions that are applied as the user types
+         */
+        "format"?: FormatterFn;
+        "getErrors": () => Promise<{ requiredError: boolean; minLengthError: boolean; maxLengthError: boolean; patternError: boolean; customErrors: string[]; hasError: boolean; }>;
+        "getInputElement": () => Promise<HTMLInputElement | HTMLTextAreaElement>;
+        /**
+          * Passed to native input
+         */
+        "inputMode": string;
+        "isTouched": () => Promise<boolean>;
+        /**
+          * Text above the control
+         */
+        "label"?: string;
+        "markAsTouched": () => Promise<void>;
+        /**
+          * Passed to native input
+         */
+        "max"?: any;
+        /**
+          * Passed to native input
+         */
+        "maxlength"?: number;
+        /**
+          * Passed to native input
+         */
+        "min"?: any;
+        /**
+          * Passed to native input
+         */
+        "minlength"?: number;
+        /**
+          * Whether the control is a multiline textarea
+         */
+        "multiline": boolean;
+        /**
+          * Informational message directly below the control
+         */
+        "note"?: string;
+        /**
+          * The default value the control will reset to in a form. If not set, will default to the inital value of the "value" property.
+         */
+        "originalValue"?: string;
+        /**
+          * Passed to native input
+         */
+        "pattern"?: string;
+        /**
+          * Shows a loading indicator in the end slot when true
+         */
+        "pending": boolean;
+        /**
+          * Input placeholder text
+         */
+        "placeholder"?: string;
+        /**
+          * Renders input as read only and prevents changes
+         */
+        "readonly": boolean;
+        /**
+          * Marks as required in form and adds asterisk to the end of the label
+         */
+        "required": boolean;
+        /**
+          * Container size
+         */
+        "size": 'md' | 'lg' | 'sm';
+        /**
+          * Passed to native input
+         */
+        "spellcheck": boolean;
+        /**
+          * Passed to native input
+         */
+        "step"?: string;
+        /**
+          * Shows a success icon in the end slot when true. Has no effect on form validation
+         */
+        "success": boolean;
+        /**
+          * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).  There are built-in transformers for 'number', 'date', and 'datetime'.
+         */
+        "transform"?: InputTransformer | 'number' | 'date' | 'datetime';
+        /**
+          * Passed to native input
+         */
+        "type": string;
+        /**
+          * Validator functions for form participation
+         */
+        "validators"?: ValidationFn[];
+        /**
+          * Current value of the input
+         */
+        "value": any;
+        /**
+          * Passed to native textarea
+         */
+        "wrap"?: string;
     }
     interface JeToggle {
         /**
@@ -574,6 +707,10 @@ export interface JeRadioGroupCustomEvent<T> extends CustomEvent<T> {
 export interface JeTabsCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeTabsElement;
+}
+export interface JeTextfieldCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeTextfieldElement;
 }
 export interface JeToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -964,7 +1101,18 @@ declare global {
         prototype: HTMLJeTabsElement;
         new (): HTMLJeTabsElement;
     };
+    interface HTMLJeTextfieldElementEventMap {
+        "valueChange": any;
+    }
     interface HTMLJeTextfieldElement extends Components.JeTextfield, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeTextfieldElementEventMap>(type: K, listener: (this: HTMLJeTextfieldElement, ev: JeTextfieldCustomEvent<HTMLJeTextfieldElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeTextfieldElementEventMap>(type: K, listener: (this: HTMLJeTextfieldElement, ev: JeTextfieldCustomEvent<HTMLJeTextfieldElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeTextfieldElement: {
         prototype: HTMLJeTextfieldElement;
@@ -1390,6 +1538,8 @@ declare namespace LocalJSX {
     interface JeItem {
     }
     interface JeLabel {
+        "for"?: string;
+        "required"?: boolean;
     }
     interface JeLink {
         /**
@@ -1463,6 +1613,7 @@ declare namespace LocalJSX {
         "mode"?: 'top' | 'side';
     }
     interface JeNote {
+        "invalid"?: boolean;
     }
     interface JeOption {
     }
@@ -1601,6 +1752,134 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface JeTextfield {
+        /**
+          * Passed to native input
+         */
+        "autoCapitalize"?: string;
+        /**
+          * Passed to native input
+         */
+        "autoComplete"?: string;
+        /**
+          * Passed to native input
+         */
+        "autoCorrect"?: 'off' | 'on';
+        /**
+          * Passed to native input
+         */
+        "autoFocus"?: boolean;
+        /**
+          * Optional debounce of the didInput event
+         */
+        "debounce"?: number;
+        /**
+          * Renders input as disabled and prevents changes
+         */
+        "disabled"?: boolean;
+        /**
+          * Shows an error icon in the end slot when true. If a string is passed in, it will render the icon as a tooltip. Has no effect on form validation
+         */
+        "error"?: any;
+        /**
+          * Formatters functions that are applied as the user types
+         */
+        "format"?: FormatterFn;
+        /**
+          * Passed to native input
+         */
+        "inputMode"?: string;
+        /**
+          * Text above the control
+         */
+        "label"?: string;
+        /**
+          * Passed to native input
+         */
+        "max"?: any;
+        /**
+          * Passed to native input
+         */
+        "maxlength"?: number;
+        /**
+          * Passed to native input
+         */
+        "min"?: any;
+        /**
+          * Passed to native input
+         */
+        "minlength"?: number;
+        /**
+          * Whether the control is a multiline textarea
+         */
+        "multiline"?: boolean;
+        /**
+          * Informational message directly below the control
+         */
+        "note"?: string;
+        /**
+          * Emits as the user types
+         */
+        "onValueChange"?: (event: JeTextfieldCustomEvent<any>) => void;
+        /**
+          * The default value the control will reset to in a form. If not set, will default to the inital value of the "value" property.
+         */
+        "originalValue"?: string;
+        /**
+          * Passed to native input
+         */
+        "pattern"?: string;
+        /**
+          * Shows a loading indicator in the end slot when true
+         */
+        "pending"?: boolean;
+        /**
+          * Input placeholder text
+         */
+        "placeholder"?: string;
+        /**
+          * Renders input as read only and prevents changes
+         */
+        "readonly"?: boolean;
+        /**
+          * Marks as required in form and adds asterisk to the end of the label
+         */
+        "required"?: boolean;
+        /**
+          * Container size
+         */
+        "size"?: 'md' | 'lg' | 'sm';
+        /**
+          * Passed to native input
+         */
+        "spellcheck"?: boolean;
+        /**
+          * Passed to native input
+         */
+        "step"?: string;
+        /**
+          * Shows a success icon in the end slot when true. Has no effect on form validation
+         */
+        "success"?: boolean;
+        /**
+          * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).  There are built-in transformers for 'number', 'date', and 'datetime'.
+         */
+        "transform"?: InputTransformer | 'number' | 'date' | 'datetime';
+        /**
+          * Passed to native input
+         */
+        "type"?: string;
+        /**
+          * Validator functions for form participation
+         */
+        "validators"?: ValidationFn[];
+        /**
+          * Current value of the input
+         */
+        "value"?: any;
+        /**
+          * Passed to native textarea
+         */
+        "wrap"?: string;
     }
     interface JeToggle {
         /**

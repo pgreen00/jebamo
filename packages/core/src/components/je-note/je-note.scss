@@ -1,3 +1,13 @@
+@use '../../styles/styles' as *;
+
 :host {
-  display: block;
+  display: inline-flex;
+  font-weight: font-weight(light);
+  color: light-dark(medium(700), medium(400));
+  font-size: font-size(xs);
+  gap: spacing-get(2xs);
+}
+
+:host([invalid]) {
+  color: light-dark(danger(400), danger(300));
 }

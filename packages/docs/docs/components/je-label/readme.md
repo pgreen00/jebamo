@@ -5,16 +5,33 @@ sidebar_label: 'Label'
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property   | Attribute  | Description | Type      | Default     |
+| ---------- | ---------- | ----------- | --------- | ----------- |
+| `for`      | `for`      |             | `string`  | `undefined` |
+| `required` | `required` |             | `boolean` | `undefined` |
+
+
+## Shadow Parts
+
+| Part      | Description |
+| --------- | ----------- |
+| `"label"` |             |
+
+
 ## Dependencies
 
 ### Used by
 
  - [je-branch](../je-branch)
+ - [je-textfield](../je-textfield)
 
 ### Graph
 ```mermaid
 graph TD;
   je-branch --> je-label
+  je-textfield --> je-label
   style je-label fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

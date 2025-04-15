@@ -25,15 +25,15 @@ $font-xl: 1.5rem;
 
 @function font-size($var) {
   @if $var == xs {
-    @return var(--je-font-size-xs, #{$font-xs});
+    @return var(--je-font-xs, #{$font-xs});
   } @else if $var == sm {
-    @return var(--je-font-size-sm, #{$font-sm});
+    @return var(--je-font-sm, #{$font-sm});
   } @else if $var == md {
-    @return var(--je-font-size-md, #{$font-md});
+    @return var(--je-font-md, #{$font-md});
   } @else if $var == lg {
-    @return var(--je-font-size-lg, #{$font-lg});
+    @return var(--je-font-lg, #{$font-lg});
   } @else if $var == xl {
-    @return var(--je-font-size-xl, #{$font-xl});
+    @return var(--je-font-xl, #{$font-xl});
   } @else {
     @error 'Invalid font size value';
   }

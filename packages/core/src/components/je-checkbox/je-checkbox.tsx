@@ -95,7 +95,7 @@ export class JeCheckbox {
     return (
       <Host class={{ disabled: this.disabled, readonly: this.readonly }}>
         {this.labelPlacement == 'start' && <slot />}
-        <je-icon ref={el => this.iconEl = el} tabIndex={0} part='icon'>{icon}</je-icon>
+        <je-icon ref={el => this.iconEl = el} tabIndex={0} fill={this.value} part='icon'>{icon}</je-icon>
         {this.labelPlacement == 'end' && <slot />}
       </Host>
     );

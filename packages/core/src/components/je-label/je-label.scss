@@ -1,3 +1,20 @@
+@use '../../styles/styles' as *;
+
 :host {
-  display: block;
+  display: contents;
+}
+
+label {
+  display: inline-flex;
+  font-weight: font-weight(semi-bold);
+  color: light-dark(medium(800), medium(200));
+  font-size: font-size(sm);
+  gap: spacing-get(2xs);
+
+  &.required::after {
+    content: "*";
+    color: light-dark(danger(400), danger(300));
+    font-weight: font-weight(semi-bold);
+    font-size: font-size(sm);
+  }
 }

@@ -550,13 +550,14 @@ export declare interface JeItem extends Components.JeItem {}
 
 
 @ProxyCmp({
+  inputs: ['for', 'required']
 })
 @Component({
   selector: 'je-label',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['for', 'required'],
 })
 export class JeLabel {
   protected el: HTMLElement;
@@ -696,13 +697,14 @@ export declare interface JeNav extends Components.JeNav {}
 
 
 @ProxyCmp({
+  inputs: ['invalid']
 })
 @Component({
   selector: 'je-note',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['invalid'],
 })
 export class JeNote {
   protected el: HTMLElement;
@@ -983,24 +985,32 @@ export declare interface JeTabs extends Components.JeTabs {
 
 
 @ProxyCmp({
+  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'error', 'format', 'inputMode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiline', 'note', 'originalValue', 'pattern', 'pending', 'placeholder', 'readonly', 'required', 'size', 'spellcheck', 'step', 'success', 'transform', 'type', 'validators', 'value', 'wrap'],
+  methods: ['getInputElement', 'markAsTouched', 'getErrors', 'isTouched']
 })
 @Component({
   selector: 'je-textfield',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'error', 'format', 'inputMode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiline', 'note', 'originalValue', 'pattern', 'pending', 'placeholder', 'readonly', 'required', 'size', 'spellcheck', 'step', 'success', 'transform', 'type', 'validators', 'value', 'wrap'],
 })
 export class JeTextfield {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['valueChange']);
   }
 }
 
 
-export declare interface JeTextfield extends Components.JeTextfield {}
+export declare interface JeTextfield extends Components.JeTextfield {
+  /**
+   * Emits as the user types
+   */
+  valueChange: EventEmitter<CustomEvent<any>>;
+}
 
 
 @ProxyCmp({

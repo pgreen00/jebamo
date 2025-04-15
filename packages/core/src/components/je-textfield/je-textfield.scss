@@ -1,3 +1,67 @@
+@use '../../styles/styles' as *;
+
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: spacing-get(3xs);
+}
+
+:host(:focus) div[part=container] {
+  outline: solid 1px primary(200);
+}
+
+:host(:state(--user-invalid)) div[part=container] {
+  outline-color: light-dark(danger(400), danger(300));
+}
+
+div[part=container] {
+  box-sizing: border-box;
+  display: flex;
+  gap: spacing-get(xs);
+  border-radius: radius-get(sm);
+  align-items: center;
+  background-color: light-dark(medium(100), medium(800));
+  color: light-dark(medium(900), medium(50));
+  border: 0;
+  padding-inline: spacing-get(xs);
+  &.sm {
+    height: 2rem;
+  }
+  &.md {
+    height: 2.5rem;
+  }
+  &.lg {
+    height: 3rem;
+  }
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+:is(input, textarea) {
+  outline: 0;
+  border: 0;
+  background-color: inherit;
+  color: inherit;
+  font-family: inherit;
+  flex: 1;
+  border: none;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+
+  &[type=password]::-ms-reveal,
+  &[type=password]::-ms-clear {
+    display: none !important;
+  }
+}
+
+:is(je-note, ::slotted([slot=note])) {
+  margin-left: spacing-get(xs);
 }
