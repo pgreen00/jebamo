@@ -14,6 +14,8 @@ export { Color as Color1 } from "./components";
 export { Placement } from "@floating-ui/dom";
 export { FormatterFn, InputTransformer, ValidationFn } from "./components/je-textfield/je-textfield";
 export namespace Components {
+    interface JeAccordion {
+    }
     interface JeActionSheet {
         /**
           * Optionally execute a promise before closing begins
@@ -67,6 +69,9 @@ export namespace Components {
     interface JeBreadcrumb {
     }
     interface JeBreadcrumbs {
+        "itemsAfterCollapse": number;
+        "itemsBeforeCollapse": number;
+        "maxItems"?: number;
     }
     interface JeButton {
         /**
@@ -658,6 +663,12 @@ export namespace Components {
         "value"?: string | string[];
     }
     interface JeWizard {
+        "canSkip": () => Promise<boolean>;
+        "next": () => Promise<void>;
+        "previous": () => Promise<void>;
+        "reset": () => Promise<void>;
+        "skip": () => Promise<void>;
+        "steps": { label: string, optional?: boolean }[];
     }
 }
 export interface JeActionSheetCustomEvent<T> extends CustomEvent<T> {
@@ -668,6 +679,10 @@ export interface JeAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeAlertElement;
 }
+export interface JeBreadcrumbsCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeBreadcrumbsElement;
+}
 export interface JeCheckboxCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeCheckboxElement;
@@ -675,6 +690,10 @@ export interface JeCheckboxCustomEvent<T> extends CustomEvent<T> {
 export interface JeDatepickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeDatepickerElement;
+}
+export interface JeDetailsCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeDetailsElement;
 }
 export interface JeDrawerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -720,7 +739,17 @@ export interface JeTreeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeTreeElement;
 }
+export interface JeWizardCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeWizardElement;
+}
 declare global {
+    interface HTMLJeAccordionElement extends Components.JeAccordion, HTMLStencilElement {
+    }
+    var HTMLJeAccordionElement: {
+        prototype: HTMLJeAccordionElement;
+        new (): HTMLJeAccordionElement;
+    };
     interface HTMLJeActionSheetElementEventMap {
         "present": any;
         "dismiss": OverlayData;
@@ -769,7 +798,18 @@ declare global {
         prototype: HTMLJeBreadcrumbElement;
         new (): HTMLJeBreadcrumbElement;
     };
+    interface HTMLJeBreadcrumbsElementEventMap {
+        "expandClick": any;
+    }
     interface HTMLJeBreadcrumbsElement extends Components.JeBreadcrumbs, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeBreadcrumbsElementEventMap>(type: K, listener: (this: HTMLJeBreadcrumbsElement, ev: JeBreadcrumbsCustomEvent<HTMLJeBreadcrumbsElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeBreadcrumbsElementEventMap>(type: K, listener: (this: HTMLJeBreadcrumbsElement, ev: JeBreadcrumbsCustomEvent<HTMLJeBreadcrumbsElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeBreadcrumbsElement: {
         prototype: HTMLJeBreadcrumbsElement;
@@ -845,7 +885,19 @@ declare global {
         prototype: HTMLJeDatepickerElement;
         new (): HTMLJeDatepickerElement;
     };
+    interface HTMLJeDetailsElementEventMap {
+        "expand": any;
+        "collapse": any;
+    }
     interface HTMLJeDetailsElement extends Components.JeDetails, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeDetailsElementEventMap>(type: K, listener: (this: HTMLJeDetailsElement, ev: JeDetailsCustomEvent<HTMLJeDetailsElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeDetailsElementEventMap>(type: K, listener: (this: HTMLJeDetailsElement, ev: JeDetailsCustomEvent<HTMLJeDetailsElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeDetailsElement: {
         prototype: HTMLJeDetailsElement;
@@ -1164,13 +1216,26 @@ declare global {
         prototype: HTMLJeTreeElement;
         new (): HTMLJeTreeElement;
     };
+    interface HTMLJeWizardElementEventMap {
+        "stepChange": number;
+        "finish": void;
+    }
     interface HTMLJeWizardElement extends Components.JeWizard, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeWizardElementEventMap>(type: K, listener: (this: HTMLJeWizardElement, ev: JeWizardCustomEvent<HTMLJeWizardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeWizardElementEventMap>(type: K, listener: (this: HTMLJeWizardElement, ev: JeWizardCustomEvent<HTMLJeWizardElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeWizardElement: {
         prototype: HTMLJeWizardElement;
         new (): HTMLJeWizardElement;
     };
     interface HTMLElementTagNameMap {
+        "je-accordion": HTMLJeAccordionElement;
         "je-action-sheet": HTMLJeActionSheetElement;
         "je-alert": HTMLJeAlertElement;
         "je-branch": HTMLJeBranchElement;
@@ -1220,6 +1285,8 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface JeAccordion {
+    }
     interface JeActionSheet {
         /**
           * Optionally execute a promise before closing begins
@@ -1277,6 +1344,10 @@ declare namespace LocalJSX {
     interface JeBreadcrumb {
     }
     interface JeBreadcrumbs {
+        "itemsAfterCollapse"?: number;
+        "itemsBeforeCollapse"?: number;
+        "maxItems"?: number;
+        "onExpandClick"?: (event: JeBreadcrumbsCustomEvent<any>) => void;
     }
     interface JeButton {
         /**
@@ -1422,6 +1493,8 @@ declare namespace LocalJSX {
     interface JeDetails {
         "iconSide"?: 'left' | 'right';
         "iconToggle"?: boolean;
+        "onCollapse"?: (event: JeDetailsCustomEvent<any>) => void;
+        "onExpand"?: (event: JeDetailsCustomEvent<any>) => void;
         "open"?: boolean;
         "summary"?: string;
     }
@@ -1918,8 +1991,12 @@ declare namespace LocalJSX {
         "value"?: string | string[];
     }
     interface JeWizard {
+        "onFinish"?: (event: JeWizardCustomEvent<void>) => void;
+        "onStepChange"?: (event: JeWizardCustomEvent<number>) => void;
+        "steps"?: { label: string, optional?: boolean }[];
     }
     interface IntrinsicElements {
+        "je-accordion": JeAccordion;
         "je-action-sheet": JeActionSheet;
         "je-alert": JeAlert;
         "je-branch": JeBranch;
@@ -1972,6 +2049,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "je-accordion": LocalJSX.JeAccordion & JSXBase.HTMLAttributes<HTMLJeAccordionElement>;
             "je-action-sheet": LocalJSX.JeActionSheet & JSXBase.HTMLAttributes<HTMLJeActionSheetElement>;
             "je-alert": LocalJSX.JeAlert & JSXBase.HTMLAttributes<HTMLJeAlertElement>;
             "je-branch": LocalJSX.JeBranch & JSXBase.HTMLAttributes<HTMLJeBranchElement>;

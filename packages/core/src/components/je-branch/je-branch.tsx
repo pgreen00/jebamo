@@ -56,7 +56,7 @@ export class JeBranch {
           {this.selection === 'multiple' && (
             <je-icon size='sm' weight={300} fill class='multi-icon'>{this.selected === true ? 'check_box' : this.selected === false ? 'check_box_outline_blank' : 'indeterminate_check_box'}</je-icon>
           )}
-          <slot name="label">{this.label && <je-label>{this.label}</je-label>}</slot>
+          <slot name="label">{this.label && <span>{this.label}</span>}</slot>
         </button>
         <div class={{ open: this.open, indentation: this.indentation }} part="branch-container">
           <div part='inner-branch-container'>

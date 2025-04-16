@@ -1,4 +1,4 @@
-import { Component, Element, Host, Prop, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
 
 @Component({
   tag: 'je-details',
@@ -11,6 +11,17 @@ export class JeDetails {
   @Prop({ mutable: true, reflect: true }) open = false;
   @Prop() iconToggle = false;
   @Prop() iconSide: 'left' | 'right' = 'right';
+  @Event() expand: EventEmitter;
+  @Event() collapse: EventEmitter;
+
+  @Watch('open')
+  watchOpen() {
+    if (this.open) {
+      this.expand.emit();
+    } else {
+      this.collapse.emit();
+    }
+  }
 
   render() {
     const icon = <je-icon>chevron_right</je-icon>

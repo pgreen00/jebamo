@@ -43,13 +43,11 @@ Type: `Promise<boolean>`
 ### Depends on
 
 - [je-icon](../je-icon)
-- [je-label](../je-label)
 
 ### Graph
 ```mermaid
 graph TD;
   je-branch --> je-icon
-  je-branch --> je-label
   style je-branch fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

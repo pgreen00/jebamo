@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, h } from '@stencil/core';
 
 @Component({
   tag: 'je-breadcrumb',
@@ -8,9 +8,9 @@ import { Component, Host, h } from '@stencil/core';
 export class JeBreadcrumb {
   render() {
     return (
-      <Host>
-        <slot></slot>
-      </Host>
+      <a>
+        <slot/>
+      </a>
     );
   }
 }

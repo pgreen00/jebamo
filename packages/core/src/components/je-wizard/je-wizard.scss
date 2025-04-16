@@ -1,3 +1,69 @@
+@use '../../styles/styles' as *;
+
 :host {
+  display: flex;
+  align-items: center;
+  counter-reset: wizard;
+  box-sizing: border-box;
+  gap: spacing-get(sm);
+}
+
+.step {
+  --before-background: #{medium(300)};
+  --before-color: #{medium(800)};
+  --after-background: #{medium(400)};
+  display: flex;
+  align-items: center;
+  gap: spacing-get(sm);
+  box-sizing: border-box;
+
+  &.active,
+  &.completed {
+    --before-background: #{primary(200)};
+    --before-color: #{primary(800)};
+  }
+
+  &.completed::before {
+    font-family: 'Material Symbols Rounded';
+    content: "check";
+    font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 200, 'opsz' 24;
+    font-size: font-size(xl);
+  }
+
+  &::before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    font-size: font-size(lg);
+    counter-increment: wizard;
+    content: counter(wizard);
+    border-radius: radius-get(circle);
+    width: spacing-get(3xl);
+    height: spacing-get(3xl);
+    background-color: var(--before-background);
+    color: var(--before-color);
+    transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
+  }
+
+  &:not(:last-of-type)::after {
+    display: block;
+    content: "";
+    height: 1px;
+    width: spacing-get(3xl);
+    box-sizing: border-box;
+    background-color: var(--after-background);
+  }
+}
+
+.label {
   display: block;
+  font-weight: font-weight(semi-bold);
+  color: light-dark(medium(800), medium(200));
+}
+
+.optional {
+  display: block;
+  font-weight: font-weight(light);
+  color: light-dark(medium(700), medium(400));
 }

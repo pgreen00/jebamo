@@ -30,6 +30,8 @@ button {
   color: inherit;
   width: 100%;
   font-family: inherit;
+  font-size: font-size(md);
+  font-weight: font-weight(regular);
   margin: 0;
   padding-block: spacing-get(2xs);
   padding-inline: 0;
@@ -38,7 +40,7 @@ button {
   -webkit-user-select: none;
   z-index: 1;
   transition: all 75ms ease-in-out;
-  outline-offset: -3px;
+  outline-offset: -6px;
   outline-color: var(--je-primary-400);
 
   &:hover,

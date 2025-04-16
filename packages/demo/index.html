@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
   </head>
-  <body class="light">
+  <body class="dark">
     <je-page>
       <header>
         <je-nav>
@@ -63,6 +63,37 @@
             <je-radio value="3">Option 3</je-radio>
           </je-radio-group>
         </je-form>
+
+        <je-breadcrumbs max-items="2">
+          <je-breadcrumb>Home</je-breadcrumb>
+          <je-breadcrumb>Cases</je-breadcrumb>
+          <je-breadcrumb>Comments</je-breadcrumb>
+        </je-breadcrumbs>
+
+        <div>
+          <template shadowrootmode="open">
+            <style>
+              :host {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 1rem;
+                border: solid 1px light-dark(black, white);
+                box-sizing: border-box;
+                padding: 1rem;
+                width: fit-content;
+              }
+            </style>
+            <slot></slot>
+          </template>
+          <je-wizard id="wizard"></je-wizard>
+          <span>Content</span>
+          <je-toolbar>
+            <je-button onclick="wizard.previous()">Previous</je-button>
+            <je-button slot="end" onclick="wizard.skip()">Skip</je-button>
+            <je-button slot="end" onclick="wizard.next()">Next</je-button>
+          </je-toolbar>
+        </div>
       </main>
 
       <footer>

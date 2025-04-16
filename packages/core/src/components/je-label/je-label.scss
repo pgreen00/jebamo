@@ -10,6 +10,7 @@ label {
   color: light-dark(medium(800), medium(200));
   font-size: font-size(sm);
   gap: spacing-get(2xs);
+  cursor: inherit;
 
   &.required::after {
     content: "*";

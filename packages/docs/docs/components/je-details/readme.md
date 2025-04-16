@@ -15,6 +15,14 @@ sidebar_label: 'Details'
 | `summary`    | `summary`     |             | `string`            | `undefined` |
 
 
+## Events
+
+| Event      | Description | Type               |
+| ---------- | ----------- | ------------------ |
+| `collapse` |             | `CustomEvent<any>` |
+| `expand`   |             | `CustomEvent<any>` |
+
+
 ## Shadow Parts
 
 | Part                  | Description |

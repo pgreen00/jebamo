@@ -8,6 +8,27 @@ import { Components } from 'jebamo';
 
 
 @ProxyCmp({
+})
+@Component({
+  selector: 'je-accordion',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeAccordion {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeAccordion extends Components.JeAccordion {}
+
+
+@ProxyCmp({
   inputs: ['destroy', 'init', 'maxPercent', 'midPercent', 'minPercent', 'open'],
   methods: ['show', 'hide']
 })
@@ -118,24 +139,29 @@ export declare interface JeBreadcrumb extends Components.JeBreadcrumb {}
 
 
 @ProxyCmp({
+  inputs: ['itemsAfterCollapse', 'itemsBeforeCollapse', 'maxItems']
 })
 @Component({
   selector: 'je-breadcrumbs',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['itemsAfterCollapse', 'itemsBeforeCollapse', 'maxItems'],
 })
 export class JeBreadcrumbs {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['expandClick']);
   }
 }
 
 
-export declare interface JeBreadcrumbs extends Components.JeBreadcrumbs {}
+export declare interface JeBreadcrumbs extends Components.JeBreadcrumbs {
+
+  expandClick: EventEmitter<CustomEvent<any>>;
+}
 
 
 @ProxyCmp({
@@ -338,11 +364,17 @@ export class JeDetails {
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['expand', 'collapse']);
   }
 }
 
 
-export declare interface JeDetails extends Components.JeDetails {}
+export declare interface JeDetails extends Components.JeDetails {
+
+  expand: EventEmitter<CustomEvent<any>>;
+
+  collapse: EventEmitter<CustomEvent<any>>;
+}
 
 
 @ProxyCmp({
@@ -1111,23 +1143,31 @@ export declare interface JeTree extends Components.JeTree {
 
 
 @ProxyCmp({
+  inputs: ['steps'],
+  methods: ['next', 'previous', 'skip', 'reset', 'canSkip']
 })
 @Component({
   selector: 'je-wizard',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['steps'],
 })
 export class JeWizard {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['stepChange', 'finish']);
   }
 }
 
 
-export declare interface JeWizard extends Components.JeWizard {}
+export declare interface JeWizard extends Components.JeWizard {
+
+  stepChange: EventEmitter<CustomEvent<number>>;
+
+  finish: EventEmitter<CustomEvent<void>>;
+}
 
 
