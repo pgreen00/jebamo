@@ -2,7 +2,7 @@ import './style.css'
 import 'jebamo/styles/classes.css'
 import 'jebamo/styles/variables.css'
 import { defineCustomElements } from 'jebamo/loader'
-import { createDialog } from 'jebamo';
+import { createDialog, createToast } from 'jebamo';
 
 defineCustomElements()
 
@@ -30,3 +30,38 @@ wizard.addEventListener('finish', _ev => {
     })
     dialog.show();
 })
+
+setTimeout(() => {
+    const toast = createToast({
+        header: 'Toast',
+        message: 'This is a toast',
+        color: 'primary',
+        duration: 5000,
+        progress: true,
+        icon: 'sentiment_satisfied',
+        closable: true,
+        position: 'bottom-start',
+        buttons: [
+            { text: 'Ok', color: 'primary', handler: (toast) => toast.hide() },
+            { text: 'Cancel', color: 'secondary', handler: (toast) => toast.hide() },
+        ],
+    })
+    toast.show();
+}, 3000)
+setTimeout(() => {
+    const toast = createToast({
+        header: 'Toast',
+        message: 'This is a toast',
+        color: 'primary',
+        duration: 5000,
+        progress: true,
+        icon: 'sentiment_satisfied',
+        closable: true,
+        position: 'bottom-start',
+        buttons: [
+            { text: 'Ok', color: 'primary', handler: (toast) => toast.hide() },
+            { text: 'Cancel', color: 'secondary', handler: (toast) => toast.hide() },
+        ],
+    })
+    toast.show();
+}, 4000)

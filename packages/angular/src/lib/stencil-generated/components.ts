@@ -899,13 +899,14 @@ export declare interface JeRadio extends Components.JeRadio {}
 
 
 @ProxyCmp({
+  inputs: ['selected', 'value']
 })
 @Component({
   selector: 'je-radio-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['selected', 'value'],
 })
 export class JeRadioButton {
   protected el: HTMLElement;
@@ -1043,6 +1044,28 @@ export declare interface JeTextfield extends Components.JeTextfield {
    */
   valueChange: EventEmitter<CustomEvent<any>>;
 }
+
+
+@ProxyCmp({
+  inputs: ['position']
+})
+@Component({
+  selector: 'je-toast-container',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['position'],
+})
+export class JeToastContainer {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeToastContainer extends Components.JeToastContainer {}
 
 
 @ProxyCmp({

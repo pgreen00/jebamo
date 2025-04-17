@@ -1,0 +1,52 @@
+@use '../../styles/styles' as *;
+
+:host {
+  position: fixed;
+  display: none;
+  overflow: auto;
+  flex-direction: column;
+  gap: spacing-get(lg);
+  width: 100%;
+  max-width: 500px;
+  margin: 0;
+  border: 0;
+  inset: unset;
+  padding: 0;
+  background-color: transparent;
+}
+
+:host(:popover-open) {
+  display: flex;
+}
+
+:host([position=top-end]) {
+  right: spacing-get(lg);
+  top: spacing-get(lg);
+}
+
+:host([position=top-start]) {
+  left: spacing-get(lg);
+  top: spacing-get(lg);
+}
+
+:host([position=bottom-end]) {
+  right: spacing-get(lg);
+  bottom: spacing-get(lg);
+}
+
+:host([position=bottom-start]) {
+  left: spacing-get(lg);
+  bottom: spacing-get(lg);
+}
+
+:host([position=top]) {
+  left: spacing-get(lg);
+  top: spacing-get(lg);
+  max-width: calc(100% - calc(spacing-get(lg) * 2));
+}
+
+:host([position=bottom]) {
+  left: spacing-get(lg);
+  bottom: spacing-get(lg);
+  max-width: calc(100% - calc(spacing-get(lg) * 2));
+}

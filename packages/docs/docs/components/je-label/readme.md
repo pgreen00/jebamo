@@ -24,11 +24,13 @@ sidebar_label: 'Label'
 
 ### Used by
 
+ - [je-radio-group](../je-radio-group)
  - [je-textfield](../je-textfield)
 
 ### Graph
 ```mermaid
 graph TD;
+  je-radio-group --> je-label
   je-textfield --> je-label
   style je-label fill:#f9f,stroke:#333,stroke-width:4px
 ```

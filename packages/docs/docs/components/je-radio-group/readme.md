@@ -22,6 +22,19 @@ sidebar_label: 'Radio Group'
 | `valueChange` | Emits the selected value whenever it changes | `CustomEvent<any>` |
 
 
+## Dependencies
+
+### Depends on
+
+- [je-label](../je-label)
+
+### Graph
+```mermaid
+graph TD;
+  je-radio-group --> je-label
+  style je-radio-group fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

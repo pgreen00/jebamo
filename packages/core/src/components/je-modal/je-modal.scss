@@ -52,14 +52,16 @@
 [part=inner-container] {
   box-sizing: border-box;
   width: 100%;
-  height: 100%;
+  flex: 1;
 }
 
 dialog[open] {
   opacity: 1;
+  display: flex;
 }
 
 dialog {
+  flex-direction: column;
   inset: 0;
   margin: auto;
   border: var(--border);

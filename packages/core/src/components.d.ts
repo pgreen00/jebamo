@@ -472,6 +472,14 @@ export namespace Components {
         "value": any;
     }
     interface JeRadioButton {
+        /**
+          * Changes the styling of the card to indicate it is selected
+         */
+        "selected": boolean;
+        /**
+          * The value for this option that bw-card-group will compare against
+         */
+        "value"?: string;
     }
     interface JeRadioGroup {
         /**
@@ -630,6 +638,9 @@ export namespace Components {
           * Passed to native textarea
          */
         "wrap"?: string;
+    }
+    interface JeToastContainer {
+        "position": 'top' | 'bottom' | 'top-end' | 'top-start' | 'bottom-end' | 'bottom-start';
     }
     interface JeToggle {
         /**
@@ -1170,6 +1181,12 @@ declare global {
         prototype: HTMLJeTextfieldElement;
         new (): HTMLJeTextfieldElement;
     };
+    interface HTMLJeToastContainerElement extends Components.JeToastContainer, HTMLStencilElement {
+    }
+    var HTMLJeToastContainerElement: {
+        prototype: HTMLJeToastContainerElement;
+        new (): HTMLJeToastContainerElement;
+    };
     interface HTMLJeToggleElementEventMap {
         "toggled": boolean;
     }
@@ -1277,6 +1294,7 @@ declare global {
         "je-tab": HTMLJeTabElement;
         "je-tabs": HTMLJeTabsElement;
         "je-textfield": HTMLJeTextfieldElement;
+        "je-toast-container": HTMLJeToastContainerElement;
         "je-toggle": HTMLJeToggleElement;
         "je-toolbar": HTMLJeToolbarElement;
         "je-tooltip": HTMLJeTooltipElement;
@@ -1790,6 +1808,14 @@ declare namespace LocalJSX {
         "value"?: any;
     }
     interface JeRadioButton {
+        /**
+          * Changes the styling of the card to indicate it is selected
+         */
+        "selected"?: boolean;
+        /**
+          * The value for this option that bw-card-group will compare against
+         */
+        "value"?: string;
     }
     interface JeRadioGroup {
         /**
@@ -1954,6 +1980,9 @@ declare namespace LocalJSX {
          */
         "wrap"?: string;
     }
+    interface JeToastContainer {
+        "position"?: 'top' | 'bottom' | 'top-end' | 'top-start' | 'bottom-end' | 'bottom-start';
+    }
     interface JeToggle {
         /**
           * Whether or not the toggle is active
@@ -2038,6 +2067,7 @@ declare namespace LocalJSX {
         "je-tab": JeTab;
         "je-tabs": JeTabs;
         "je-textfield": JeTextfield;
+        "je-toast-container": JeToastContainer;
         "je-toggle": JeToggle;
         "je-toolbar": JeToolbar;
         "je-tooltip": JeTooltip;
@@ -2091,6 +2121,7 @@ declare module "@stencil/core" {
             "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
             "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;
             "je-textfield": LocalJSX.JeTextfield & JSXBase.HTMLAttributes<HTMLJeTextfieldElement>;
+            "je-toast-container": LocalJSX.JeToastContainer & JSXBase.HTMLAttributes<HTMLJeToastContainerElement>;
             "je-toggle": LocalJSX.JeToggle & JSXBase.HTMLAttributes<HTMLJeToggleElement>;
             "je-toolbar": LocalJSX.JeToolbar & JSXBase.HTMLAttributes<HTMLJeToolbarElement>;
             "je-tooltip": LocalJSX.JeTooltip & JSXBase.HTMLAttributes<HTMLJeTooltipElement>;

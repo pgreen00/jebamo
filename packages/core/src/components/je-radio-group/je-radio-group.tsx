@@ -66,11 +66,11 @@ export class JeRadioGroup {
   }
 
   private getRadios() {
-    return Array.from(this.el.querySelectorAll('je-radio'));
+    return Array.from(this.el.querySelectorAll<HTMLJeRadioElement | HTMLJeRadioButtonElement>('je-radio, je-radio-button'));
   }
 
   private isRadio(target: EventTarget | null): target is HTMLJeRadioElement {
-    return target instanceof HTMLElement && target.tagName == 'JE-RADIO'
+    return target instanceof HTMLElement && (target.tagName == 'JE-RADIO' || target.tagName == 'JE-RADIO-BUTTON')
   }
 
   @Watch('value')
@@ -89,9 +89,9 @@ export class JeRadioGroup {
 
   render() {
     return (
-      <Host>
+      <Host role='radiogroup' buttons={this.el.querySelector('je-radio-button') !== null}>
         <slot name='label'>
-          {this.label && <label tabindex={0}>{this.label}</label>}
+          {this.label && <je-label required={this.required} tabindex={0}>{this.label}</je-label>}
         </slot>
         <slot></slot>
       </Host>
