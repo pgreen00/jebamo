@@ -32,15 +32,15 @@
 }
 
 :host(:not([color])) button {
-  --color: light-dark(#{medium(800)}, #{medium(200)});
-  --hover-color: light-dark(#{medium(850)}, #{medium(150)});
-  --active-color: light-dark(#{medium(900)}, #{medium(100)});
+  --color: light-dark(#{secondary(800)}, #{secondary(200)});
+  --hover-color: light-dark(#{secondary(850)}, #{secondary(150)});
+  --active-color: light-dark(#{secondary(900)}, #{secondary(100)});
   --background: transparent;
-  --hover-background: light-dark(#{medium(150)}, #{medium(850)});
-  --active-background: light-dark(#{medium(200)}, #{medium(800)});
+  --hover-background: light-dark(#{secondary(150)}, #{secondary(850)});
+  --active-background: light-dark(#{secondary(200)}, #{secondary(800)});
 
   &.solid {
-    --border-color: light-dark(#{medium(300)}, #{medium(750)});
+    --border-color: light-dark(#{secondary(500)}, #{secondary(750)});
   }
 }
 
@@ -203,8 +203,8 @@ button {
   transform: translate(50%, -50%);
   border-radius: radius-get(circle);
   box-sizing: border-box;
-  color: light-dark(medium(100), medium(850));
-  background-color: light-dark(medium(850), medium(100));
+  color: light-dark(secondary(100), secondary(850));
+  background-color: light-dark(secondary(850), secondary(100));
   padding: spacing-get(2xs);
   font-size: var(--font-size);
   display: flex;

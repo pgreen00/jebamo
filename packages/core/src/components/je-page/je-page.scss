@@ -5,12 +5,12 @@ je-page {
   width: 100%;
   box-sizing: border-box;
   font-family: inherit;
-  color: light-dark(medium(900), medium(50));
-  background-color: light-dark(medium(50), medium(900));
+  color: light-dark(secondary(900), secondary(50));
+  background-color: light-dark(secondary(50), secondary(900));
 
-  --panel-open-width: 500px;
+  --panel-open-width: 300px;
   --panel-minimized-width: 100px;
-  --panel-border: solid 1px light-dark(#{medium(400)}, #{medium(800)});
+  --border-color: light-dark(#{secondary(400)}, #{secondary(800)});
 
   .__slot {
     display: contents;
@@ -29,17 +29,17 @@ je-page {
   }
 
   header:first-of-type {
-    background-color: light-dark(primary(750), medium(850));
-    color: light-dark(medium(50), medium(100));
+    background-color: light-dark(primary(750), secondary(850));
+    color: light-dark(secondary(50), secondary(100));
   }
 
   header:nth-of-type(2) {
-    background-color: light-dark(white, medium(850));
-    color: light-dark(medium(900), medium(100));
+    background-color: light-dark(white, secondary(850));
+    color: light-dark(secondary(900), secondary(100));
   }
 
   header:last-of-type {
-    border-bottom: solid 1px light-dark(primary(150), medium(800));
+    border-bottom: solid 1px var(--border-color);
   }
 
   main {
@@ -50,9 +50,9 @@ je-page {
 
   footer {
     box-sizing: border-box;
-    background-color: light-dark(medium(900), medium(850));
-    color: light-dark(medium(50), medium(100));
-    border-top: solid 1px light-dark(medium(400), medium(800));
+    background-color: light-dark(secondary(900), secondary(850));
+    color: light-dark(secondary(50), secondary(100));
+    border-top: solid 1px var(--border-color);
     padding: spacing-get(xs) spacing-get(lg);
   }
 
@@ -63,28 +63,28 @@ je-page {
     overflow-x: hidden;
     transition: all 250ms ease-in-out;
     margin: 0;
-    padding: spacing-get(lg);
+    padding: spacing-get(2xs) spacing-get(xs);
     scrollbar-width: thin;
 
     &:not([right]) {
       &[open] {
         width: var(--panel-open-width);
-        border-right: var(--panel-border);
+        border-right: solid 1px var(--border-color);
       }
       &[minimized] {
         width: var(--panel-minimized-width);
-        border-right: var(--panel-border);
+        border-right: solid 1px var(--border-color);
       }
     }
 
     &[right] {
       &[open] {
         width: var(--panel-open-width);
-        border-left: var(--panel-border);
+        border-left: solid 1px var(--border-color);
       }
       &[minimized] {
         width: var(--panel-minimized-width);
-        border-left: var(--panel-border);
+        border-left: solid 1px var(--border-color);
       }
     }
 

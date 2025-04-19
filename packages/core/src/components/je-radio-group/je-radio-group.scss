@@ -8,7 +8,7 @@
 :host([buttons]) {
   slot:not([name]) {
     display: flex;
-    border: solid 1px light-dark(medium(300), medium(700));
+    border: solid 1px light-dark(secondary(300), secondary(700));
     border-radius: radius-get(lg);
     overflow: hidden;
     box-sizing: border-box;

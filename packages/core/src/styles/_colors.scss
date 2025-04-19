@@ -5,7 +5,6 @@ $secondary: #99becb;
 $success: #22c55e;
 $warning: #fbbf24;
 $danger: #ae1818;
-$medium: #a0aec0;
 
 @function primary($shade: 500) {
   @return shade(var(--je-primary, #{$primary}), $shade);
@@ -25,10 +24,6 @@ $medium: #a0aec0;
 
 @function danger($shade: 500) {
   @return shade(var(--je-danger, #{$danger}), $shade);
-}
-
-@function medium($shade: 500) {
-  @return shade(var(--je-medium, #{$medium}), $shade);
 }
 
 @function shade($color, $shade) {

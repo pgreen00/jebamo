@@ -6,7 +6,7 @@
   --width: 80%;
   --padding: #{spacing-get(lg)};
   --background: light-dark(rgb(233, 236, 236), rgb(41, 45, 46));
-  --color: light-dark(#{medium(900)}, #{medium(50)});
+  --color: light-dark(#{secondary(900)}, #{secondary(50)});
 }
 
 @media (width > 1200px) {

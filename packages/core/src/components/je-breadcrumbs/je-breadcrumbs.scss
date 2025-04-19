@@ -8,7 +8,7 @@ nav {
   display: flex;
   align-items: center;
 
-  color: light-dark(medium(600), medium(400));
+  color: light-dark(secondary(600), secondary(400));
   font-weight: font-weight(semi-bold);
   font-size: font-size(sm);
   line-height: spacing-get(lg);
@@ -37,7 +37,7 @@ nav {
   direction: ltr;
   -webkit-font-smoothing: antialiased;
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
-  color: light-dark(medium(300), medium(700));
+  color: light-dark(secondary(300), secondary(700));
 }
 
 ::slotted(button.collapse) {

@@ -1,5 +1,21 @@
 import { Component, Host, h, Prop } from '@stencil/core';
 
+const size = {
+  xs: '1rem',
+  sm: '1.25rem',
+  md: '1.5rem',
+  lg: '2.5rem',
+  xl: '3rem'
+}
+
+const optical = {
+  xs: '16',
+  sm: '20',
+  md: '24',
+  lg: '40',
+  xl: '48'
+}
+
 @Component({
   tag: 'je-icon',
   styleUrl: 'je-icon.scss',
@@ -21,11 +37,6 @@ export class JeIcon {
   @Prop() weight = 400;
 
   render() {
-    const size = this.size == 'xs' ? 16
-      : this.size == 'sm' ? 20
-      : this.size == 'lg' ? 40
-      : this.size == 'xl' ? 48
-      : 24;
     return (
       <Host>
         <style>{`
@@ -33,8 +44,8 @@ export class JeIcon {
             --grade: ${this.grade == 'low' ? -25 : this.grade == 'high' ? 200 : 0};
             --weight: ${this.weight};
             --fill: ${this.fill ? 1 : 0};
-            font-size: ${size}px;
-            --optical: ${size};
+            font-size: ${size[this.size]};
+            --optical: ${optical[this.size]};
           }
         `}</style>
         <slot />

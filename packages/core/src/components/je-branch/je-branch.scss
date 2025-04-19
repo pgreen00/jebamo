@@ -4,9 +4,9 @@
   display: contents;
   position: relative;
 
-  --selected-background: light-dark(#{primary(50)}, #{medium(850)});
-  --selected-color: light-dark(#{primary(500)}, #{medium(500)});
-  --indentation-color: light-dark(#{medium(400)}, #{medium(800)});
+  --selected-background: light-dark(#{primary(50)}, #{secondary(850)});
+  --selected-color: light-dark(#{primary(500)}, #{secondary(500)});
+  --indentation-color: light-dark(#{secondary(400)}, #{secondary(800)});
 }
 
 .icon-placeholder {
@@ -90,7 +90,7 @@ button {
 }
 
 je-icon {
-  color: light-dark(medium(800), medium(200));
+  color: light-dark(secondary(800), secondary(200));
   transition: rotate 250ms ease;
   &.open {
     rotate: 90deg;

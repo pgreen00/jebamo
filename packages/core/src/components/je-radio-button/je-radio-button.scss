@@ -29,5 +29,5 @@ button {
 }
 
 :host(:not(:last-of-type)) button {
-  border-right: solid 1px light-dark(medium(300), medium(700));
+  border-right: solid 1px light-dark(secondary(300), secondary(700));
 }

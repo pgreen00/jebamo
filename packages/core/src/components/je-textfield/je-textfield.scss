@@ -7,7 +7,7 @@
 }
 
 :host(:focus) div[part=container] {
-  outline: solid 1px primary(200);
+  outline: solid 2px primary(200);
 }
 
 :host(:state(--user-invalid)) div[part=container] {
@@ -18,10 +18,10 @@ div[part=container] {
   box-sizing: border-box;
   display: flex;
   gap: spacing-get(xs);
-  border-radius: radius-get(md);
+  border-radius: radius-get(sm);
   align-items: center;
-  background-color: light-dark(medium(200), medium(800));
-  color: light-dark(medium(900), medium(50));
+  background-color: light-dark(primary(50), primary(950));
+  color: light-dark(secondary(900), secondary(50));
   border: 0;
   padding-inline: spacing-get(xs);
   &.sm {
@@ -45,6 +45,7 @@ div[part=container] {
   color: inherit;
   font-family: inherit;
   flex: 1;
+  min-width: 0;
   border: none;
   padding-top: 0;
   padding-bottom: 0;
@@ -56,11 +57,12 @@ div[part=container] {
   margin-right: 0;
   font-size: font-size(sm);
   font-weight: font-weight(light);
+  color: light-dark(secondary(950), secondary(50));
   &::placeholder {
     font-family: inherit;
-    color: light-dark(medium(700), medium(300));
+    color: light-dark(secondary(750), secondary(650));
     font-size: font-size(sm);
-    font-weight: font-weight(regular);
+    font-weight: font-weight(light);
   }
 
   &[type=password]::-ms-reveal,

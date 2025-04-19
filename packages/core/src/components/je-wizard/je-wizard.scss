@@ -9,9 +9,9 @@
 }
 
 .step {
-  --before-background: #{medium(300)};
-  --before-color: #{medium(800)};
-  --after-background: #{medium(400)};
+  --before-background: #{secondary(300)};
+  --before-color: #{secondary(800)};
+  --after-background: #{secondary(400)};
   display: flex;
   align-items: center;
   gap: spacing-get(sm);
@@ -59,11 +59,11 @@
 .label {
   display: block;
   font-weight: font-weight(semi-bold);
-  color: light-dark(medium(800), medium(200));
+  color: light-dark(secondary(800), secondary(200));
 }
 
 .optional {
   display: block;
   font-weight: font-weight(light);
-  color: light-dark(medium(700), medium(400));
+  color: light-dark(secondary(700), secondary(400));
 }

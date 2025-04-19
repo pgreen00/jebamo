@@ -14,7 +14,7 @@
   --background: inherit;
   --hover-background: #9f9e9e0e;
   --active-background: #9f9e9e19;
-  --border-color: #{medium(300)};
+  --border-color: #{secondary(300)};
 }
 
 :host([button]) {
@@ -48,14 +48,6 @@
   --border-color: var(--je-secondary-300);
 }
 
-:host([color=tertiary]) {
-  --color: var(--je-tertiary-100);
-  --background: var(--je-tertiary-500);
-  --hover-background: var(--je-tertiary-600);
-  --active-background: var(--je-tertiary-700);
-  --border-color: var(--je-tertiary-300);
-}
-
 :host([color=warning]) {
   --color: var(--je-warning-100);
   --background: var(--je-warning-500);
@@ -70,27 +62,6 @@
   --hover-background: var(--je-success-600);
   --active-background: var(--je-success-700);
   --border-color: var(--je-success-300);
-}
-
-:host([color=medium]) {
-  --color: var(--je-medium-50);
-  --background: var(--je-medium-500);
-  --hover-background: var(--je-medium-600);
-  --active-background: var(--je-medium-700);
-}
-
-:host([color=light]) {
-  --color: var(--je-medium-900);
-  --background: var(--je-medium-100);
-  --hover-background: var(--je-medium-400);
-  --active-background: var(--je-medium-500);
-}
-
-:host([color=dark]) {
-  --color: var(--je-medium-50);
-  --background: var(--je-medium-850);
-  --hover-background: var(--je-medium-850);
-  --active-background: var(--je-medium-900);
 }
 
 ::slotted([slot="media"]) {

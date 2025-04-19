@@ -3,8 +3,8 @@
 :host {
   display: inline-flex;
   font-weight: font-weight(light);
-  color: light-dark(medium(700), medium(400));
-  font-size: font-size(xs);
+  color: light-dark(secondary(700), secondary(400));
+  font-size: font-size(sm);
   gap: spacing-get(2xs);
 }
 

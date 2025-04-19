@@ -4,8 +4,8 @@
   display: contents;
 
   --padding: #{spacing-get(xs)} #{spacing-get(sm)};
-  --background: light-dark(#{medium(950)}, #{medium(800)});
-  --color: #{#{medium(300)}};
+  --background: light-dark(#{secondary(950)}, #{secondary(800)});
+  --color: #{#{secondary(300)}};
   --border: none;
   --radius: #{radius-get(md)};
 }

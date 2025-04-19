@@ -20,7 +20,7 @@ export class JeColor {
     if (this.color) {
       return shade(this.color, 500)
     } else {
-      return `light-dark(${this.light ? shade(this.light, 500) : shade('medium', 900)}, ${this.dark ? shade(this.dark, 500) : shade('medium', 50)})`
+      return `light-dark(${this.light ? shade(this.light, 500) : shade('secondary', 900)}, ${this.dark ? shade(this.dark, 500) : shade('secondary', 50)})`
     }
   }
 

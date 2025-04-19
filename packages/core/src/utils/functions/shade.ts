@@ -1,6 +1,6 @@
 import { Color, COLORS } from "../types/color";
 
-export const shade = (color: Color | 'medium', shade = 500) => {
+export const shade = (color: Color, shade = 500) => {
   if (shade === 500) {
     return COLORS[color];
   } else if (shade < 500) {
