@@ -29,6 +29,7 @@ sidebar_label: 'Icon Button'
 
 ### Used by
 
+ - [je-alert](../je-alert)
  - [je-datepicker](../je-datepicker)
  - [je-details](../je-details)
  - [je-textfield](../je-textfield)
@@ -44,6 +45,7 @@ graph TD;
   je-icon-button --> je-button
   je-icon-button --> je-icon
   je-button --> je-loading
+  je-alert --> je-icon-button
   je-datepicker --> je-icon-button
   je-details --> je-icon-button
   je-textfield --> je-icon-button

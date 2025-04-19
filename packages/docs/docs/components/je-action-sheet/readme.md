@@ -9,8 +9,8 @@ sidebar_label: 'Action Sheet'
 
 | Property     | Attribute     | Description                                             | Type                          | Default     |
 | ------------ | ------------- | ------------------------------------------------------- | ----------------------------- | ----------- |
-| `destroy`    | --            | Optionally execute a promise before closing begins      | `() => void \| Promise<void>` | `undefined` |
-| `init`       | --            | Optionally execute a promise before presentation begins | `() => void \| Promise<void>` | `undefined` |
+| `destroy`    | `destroy`     | Optionally execute a promise before closing begins      | `() => void \| Promise<void>` | `undefined` |
+| `init`       | `init`        | Optionally execute a promise before presentation begins | `() => void \| Promise<void>` | `undefined` |
 | `maxPercent` | `max-percent` | Maximum height (expanded fullscreen).                   | `number`                      | `90`        |
 | `midPercent` | `mid-percent` | Intermediate height (mid state).                        | `number`                      | `60`        |
 | `minPercent` | `min-percent` | Minimum height (collapsed state).                       | `number`                      | `30`        |

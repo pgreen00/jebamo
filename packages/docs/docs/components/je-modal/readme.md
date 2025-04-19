@@ -10,8 +10,8 @@ sidebar_label: 'Modal'
 | Property          | Attribute          | Description                                             | Type                          | Default     |
 | ----------------- | ------------------ | ------------------------------------------------------- | ----------------------------- | ----------- |
 | `backdropDismiss` | `backdrop-dismiss` | Backdrop will close the modal on click when enabled     | `boolean`                     | `true`      |
-| `destroy`         | --                 | Optionally execute a promise before closing begins      | `() => void \| Promise<void>` | `undefined` |
-| `init`            | --                 | Optionally execute a promise before presentation begins | `() => void \| Promise<void>` | `undefined` |
+| `destroy`         | `destroy`          | Optionally execute a promise before closing begins      | `() => void \| Promise<void>` | `undefined` |
+| `init`            | `init`             | Optionally execute a promise before presentation begins | `() => void \| Promise<void>` | `undefined` |
 | `open`            | `open`             | Opens and closes modal                                  | `boolean`                     | `false`     |
 | `showBackdrop`    | `show-backdrop`    | Whether or not the backdrop will be visible to the user | `boolean`                     | `true`      |
 | `size`            | `size`             | Size of the modal                                       | `"lg" \| "md" \| "sm"`        | `'lg'`      |

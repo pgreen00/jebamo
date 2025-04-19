@@ -10,8 +10,8 @@ sidebar_label: 'Drawer'
 | Property          | Attribute          | Description                                             | Type                          | Default     |
 | ----------------- | ------------------ | ------------------------------------------------------- | ----------------------------- | ----------- |
 | `backdropDismiss` | `backdrop-dismiss` | Backdrop will close the modal on click when enabled     | `boolean`                     | `true`      |
-| `destroy`         | --                 | Optionally execute a promise before closing begins      | `() => void \| Promise<void>` | `undefined` |
-| `init`            | --                 | Optionally execute a promise before presentation begins | `() => void \| Promise<void>` | `undefined` |
+| `destroy`         | `destroy`          | Optionally execute a promise before closing begins      | `() => void \| Promise<void>` | `undefined` |
+| `init`            | `init`             | Optionally execute a promise before presentation begins | `() => void \| Promise<void>` | `undefined` |
 | `open`            | `open`             | Opens and closes modal                                  | `boolean`                     | `false`     |
 | `side`            | `side`             | Side of the screen where the drawer will be displayed   | `"left" \| "right"`           | `'left'`    |
 

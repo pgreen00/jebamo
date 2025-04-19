@@ -18,9 +18,9 @@ div[part=container] {
   box-sizing: border-box;
   display: flex;
   gap: spacing-get(xs);
-  border-radius: radius-get(sm);
+  border-radius: radius-get(md);
   align-items: center;
-  background-color: light-dark(medium(100), medium(800));
+  background-color: light-dark(medium(200), medium(800));
   color: light-dark(medium(900), medium(50));
   border: 0;
   padding-inline: spacing-get(xs);
@@ -41,7 +41,6 @@ div[part=container] {
 
 :is(input, textarea) {
   outline: 0;
-  border: 0;
   background-color: inherit;
   color: inherit;
   font-family: inherit;
@@ -55,6 +54,14 @@ div[part=container] {
   margin-bottom: 0;
   margin-left: 0;
   margin-right: 0;
+  font-size: font-size(sm);
+  font-weight: font-weight(light);
+  &::placeholder {
+    font-family: inherit;
+    color: light-dark(medium(700), medium(300));
+    font-size: font-size(sm);
+    font-weight: font-weight(regular);
+  }
 
   &[type=password]::-ms-reveal,
   &[type=password]::-ms-clear {

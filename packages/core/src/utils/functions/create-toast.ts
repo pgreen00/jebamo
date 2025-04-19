@@ -33,7 +33,7 @@ export const createToast = (options: CreateToastOptions) => {
       btn.textContent = button.text;
       btn.fill = button.fill;
       btn.color = button.color;
-      btn.size = button.size;
+      btn.size = button.size ?? 'sm';
       btn.slot = 'buttons';
       if (button.handler) btn.addEventListener('click', () => button.handler(toast));
       toast.append(btn);

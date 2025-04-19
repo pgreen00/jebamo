@@ -6,7 +6,8 @@
     "url": "https://github.com/pgreen00/jebamo.git"
   },
   "scripts": {
-    "build": "npm run build --workspace=jebamo --workspace=jebamo-angular"
+    "start": "concurrently \"npm start --workspace=jebamo\" \"npm run dev --workspace=demo\"",
+    "build": "npm run build --workspace=jebamo --workspace=jebamo-angular --workspace=docs"
   },
   "keywords": [
     "web",
@@ -23,5 +24,8 @@
   "description": "",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
 }

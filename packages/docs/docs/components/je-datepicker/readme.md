@@ -7,14 +7,14 @@ sidebar_label: 'Datepicker'
 
 ## Properties
 
-| Property         | Attribute         | Description | Type                             | Default      |
-| ---------------- | ----------------- | ----------- | -------------------------------- | ------------ |
-| `includeSeconds` | `include-seconds` |             | `boolean`                        | `false`      |
-| `isDateDisabled` | --                |             | `(date: Date) => boolean`        | `undefined`  |
-| `max`            | `max`             |             | `number`                         | `undefined`  |
-| `min`            | `min`             |             | `number`                         | `undefined`  |
-| `type`           | `type`            |             | `"date" \| "datetime" \| "time"` | `'datetime'` |
-| `value`          | `value`           |             | `number`                         | `undefined`  |
+| Property         | Attribute          | Description | Type                             | Default      |
+| ---------------- | ------------------ | ----------- | -------------------------------- | ------------ |
+| `includeSeconds` | `include-seconds`  |             | `boolean`                        | `false`      |
+| `isDateDisabled` | `is-date-disabled` |             | `(date: Date) => boolean`        | `undefined`  |
+| `max`            | `max`              |             | `number`                         | `undefined`  |
+| `min`            | `min`              |             | `number`                         | `undefined`  |
+| `type`           | `type`             |             | `"date" \| "datetime" \| "time"` | `'datetime'` |
+| `value`          | `value`            |             | `number`                         | `undefined`  |
 
 
 ## Events

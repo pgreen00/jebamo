@@ -5,6 +5,7 @@
   font-family: "Work Sans";
   font-size: 16px;
   line-height: 1.75;
+  font-weight: var(--je-font-regular);
 }
 
 body.light {
@@ -43,32 +44,40 @@ p {
 
 h1 {
   font-size: 2.5rem;
+  font-weight: var(--je-font-bold);
 }
 
 h2 {
   font-size: 2rem;
+  font-weight: var(--je-font-bold);
 }
 
 h3 {
   font-size: 1.75rem;
+  font-weight: var(--je-font-bold);
 }
 
 h4 {
   font-size: 1.5rem;
+  font-weight: var(--je-font-bold);
 }
 
 h5 {
   font-size: 1.25rem;
+  font-weight: var(--je-font-bold);
 }
 
 h6 {
   font-size: 1rem;
+  font-weight: var(--je-font-bold);
 }
 
 p {
   font-size: 1rem;
+  font-weight: var(--je-font-regular);
 }
 
 small {
   font-size: 0.875rem;
+  font-weight: var(--je-font-light);
 }

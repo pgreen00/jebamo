@@ -15,7 +15,7 @@ export class JeAlert {
   @Prop() header?: string;
   @Prop() message?: string;
   @Prop() closable = false;
-  @Prop() color: Color = 'primary';
+  @Prop({reflect:true}) color: Color = 'primary';
   @Prop() duration = 0;
   @Prop() progress = false;
   @Prop({ mutable: true }) open = false;
@@ -91,7 +91,7 @@ export class JeAlert {
         <div class="border"></div>
 
         <div class="cell top-left">
-          {this.icon && <je-icon class={this.color}>{this.icon}</je-icon>}
+          {this.icon && <je-icon fill>{this.icon}</je-icon>}
           <slot name="start"/>
         </div>
         <div class="cell top-middle">
@@ -103,7 +103,7 @@ export class JeAlert {
         </div>
         <div class="cell top-right">
           <slot name="end"/>
-          {this.closable && <je-icon slot='end' size='sm' onClick={() => this.hide('userDismiss')}>close</je-icon>}
+          {this.closable && <je-icon-button icon='close' onClick={() => this.hide('userDismiss')}/>}
         </div>
 
         {hasHeader && hasMessage && (

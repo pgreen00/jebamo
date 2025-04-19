@@ -80,11 +80,16 @@ Type: `Promise<void>`
 ### Depends on
 
 - [je-icon](../je-icon)
+- [je-icon-button](../je-icon-button)
 
 ### Graph
 ```mermaid
 graph TD;
   je-alert --> je-icon
+  je-alert --> je-icon-button
+  je-icon-button --> je-button
+  je-icon-button --> je-icon
+  je-button --> je-loading
   style je-alert fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

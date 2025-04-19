@@ -329,12 +329,12 @@ export class JeTextfield {
       };
     } else if (this.transform === 'date') {
       return {
-        to: (value: string) => (value ? parseISO(value).toISOString() : value),
+        to: (value: string) => (value ? parseISO(value).getTime() : value),
         from: (value: any) => (value ? format(value, 'yyyy-MM-dd') : value),
       };
     } else if (this.transform === 'datetime') {
       return {
-        to: (value: string) => (value ? parseISO(value).toISOString() : value),
+        to: (value: string) => (value ? parseISO(value).getTime() : value),
         from: (value: any) => (value ? format(value, "yyyy-MM-dd'T'HH:mm:ss") : value),
       };
     } else {

@@ -6,6 +6,11 @@ import { createDialog, createToast } from 'jebamo';
 
 defineCustomElements()
 
+document.querySelector('#theme-button')?.addEventListener('click', () => {
+    document.body.classList.toggle('dark')
+    document.body.classList.toggle('light')
+})
+
 document.querySelector('je-breadcrumbs')?.addEventListener('expandClick', ev => ev.target.maxItems = 0)
 
 const wizard = document.querySelector('je-wizard')!;
@@ -35,7 +40,7 @@ setTimeout(() => {
     const toast = createToast({
         header: 'Toast',
         message: 'This is a toast',
-        color: 'primary',
+        color: 'secondary',
         duration: 5000,
         progress: true,
         icon: 'sentiment_satisfied',
@@ -59,8 +64,8 @@ setTimeout(() => {
         closable: true,
         position: 'bottom-start',
         buttons: [
+            { text: 'Cancel', handler: (toast) => toast.hide() },
             { text: 'Ok', color: 'primary', handler: (toast) => toast.hide() },
-            { text: 'Cancel', color: 'secondary', handler: (toast) => toast.hide() },
         ],
     })
     toast.show();

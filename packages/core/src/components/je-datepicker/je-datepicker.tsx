@@ -1,6 +1,8 @@
 import { Component, Element, Event, EventEmitter, Fragment, Host, Prop, State, Watch, h } from '@stencil/core';
 import { startOfMonth, endOfMonth, eachDayOfInterval, addMonths, subMonths, isSameDay, isToday, format, getDay, set, setHours, setMinutes, setSeconds } from 'date-fns';
 
+const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'] as const;
+
 @Component({
   tag: 'je-datepicker',
   styleUrl: 'je-datepicker.scss',
@@ -74,7 +76,6 @@ export class JeDatepicker {
   }
 
   render() {
-    const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
     const firstDayOfMonth = startOfMonth(this.currentDate);
     const lastDayOfMonth = endOfMonth(this.currentDate);
     const daysInMonth = eachDayOfInterval({ start: firstDayOfMonth, end: lastDayOfMonth });
