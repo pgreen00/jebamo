@@ -1,25 +1,58 @@
 @use '../../styles/styles' as *;
 
 :host {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: spacing-get(2xs);
   width: fit-content;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
+  outline-color: primary(200);
+  outline-offset: 2px;
+  box-sizing: border-box;
 }
 
 je-icon {
-  cursor: pointer;
   color: light-dark(primary(), primary(200));
 }
 
-:host(.readonly) {
-  cursor: default;
-}
-
-:host(.disabled) {
+:host([disabled]) {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+:host(:state(checked)) .toggle-container {
+  background-color: light-dark(primary(), primary(200));
+}
+
+:host(:state(checked)) .toggle-thumb {
+  left: 100%;
+  transform: translateX(-100%);
+  border-color: light-dark(primary(), primary(200));
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  width: 2.5rem;
+  height: 1rem;
+  padding: spacing-get(3xs);
+  box-sizing: border-box;
+  border-radius: radius-get(pill);
+  position: relative;
+  transition: background-color 250ms ease-in-out;
+  background-color: secondary();
+}
+
+.toggle-thumb {
+  position: absolute;
+  height: spacing-get(lg);
+  width: spacing-get(lg);
+  background-color: light-dark(secondary(50), secondary(950));
+  border: solid 1px secondary();
+  border-radius: 50%;
+  transition: all 250ms ease-in-out;
+  left: 0;
+  right: unset;
 }

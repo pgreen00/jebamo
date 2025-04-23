@@ -230,14 +230,14 @@ export declare interface JeCard extends Components.JeCard {}
 
 
 @ProxyCmp({
-  inputs: ['data', 'disabled', 'indeterminate', 'labelPlacement', 'readonly', 'required', 'value']
+  inputs: ['data', 'disabled', 'indeterminate', 'labelPlacement', 'originalValue', 'required', 'switch', 'value']
 })
 @Component({
   selector: 'je-checkbox',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['data', 'disabled', 'indeterminate', 'labelPlacement', 'readonly', 'required', 'value'],
+  inputs: ['data', 'disabled', 'indeterminate', 'labelPlacement', 'originalValue', 'required', 'switch', 'value'],
 })
 export class JeCheckbox {
   protected el: HTMLElement;
@@ -582,14 +582,14 @@ export declare interface JeItem extends Components.JeItem {}
 
 
 @ProxyCmp({
-  inputs: ['for', 'required']
+  inputs: ['required']
 })
 @Component({
   selector: 'je-label',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['for', 'required'],
+  inputs: ['required'],
 })
 export class JeLabel {
   protected el: HTMLElement;
@@ -946,6 +946,27 @@ export declare interface JeRadioGroup extends Components.JeRadioGroup {
    */
   valueChange: EventEmitter<CustomEvent<any>>;
 }
+
+
+@ProxyCmp({
+})
+@Component({
+  selector: 'je-refresher',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeRefresher {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeRefresher extends Components.JeRefresher {}
 
 
 @ProxyCmp({

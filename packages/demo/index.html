@@ -55,8 +55,11 @@
       <main>
         <je-form>
           <h3 style="text-transform: capitalize;">Give me some basic information</h3>
-          <je-textfield required style="max-width: 300px;" type="password" placeholder="Type something..." label="Name" note="Give it to me"></je-textfield>
-          <je-checkbox indeterminate>Do you like hats?</je-checkbox>
+          <je-textfield required style="max-width: 300px;" type="password" placeholder="Type something...">
+            <span slot="label">Name</span>
+            <span slot="note">Give it to me</span>
+          </je-textfield>
+          <je-checkbox switch>Do you like hats?</je-checkbox>
           <je-radio-group label="Favorite Option">
             <je-radio value="1">Option 1</je-radio>
             <je-radio value="2">Option 2</je-radio>

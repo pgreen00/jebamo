@@ -9,15 +9,7 @@ sidebar_label: 'Label'
 
 | Property   | Attribute  | Description | Type      | Default     |
 | ---------- | ---------- | ----------- | --------- | ----------- |
-| `for`      | `for`      |             | `string`  | `undefined` |
 | `required` | `required` |             | `boolean` | `undefined` |
-
-
-## Shadow Parts
-
-| Part      | Description |
-| --------- | ----------- |
-| `"label"` |             |
 
 
 ## Dependencies

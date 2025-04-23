@@ -111,7 +111,7 @@ export namespace Components {
     }
     interface JeCheckbox {
         /**
-          * Data to submit to the form
+          * By default, it will submit true or false depending on the checked state. Use this property to submit a custom value instead.
          */
         "data"?: string;
         /**
@@ -127,13 +127,17 @@ export namespace Components {
          */
         "labelPlacement": 'start' | 'end';
         /**
-          * Shows the readonly state and prevents changes
+          * Original value form will reset to
          */
-        "readonly": boolean;
+        "originalValue"?: boolean;
         /**
           * Marks the control as required in the form. This will only affect indeterminate checkboxes.
          */
         "required": boolean;
+        /**
+          * Renders the component as a on/off switch rather than a checkbox.
+         */
+        "switch": boolean;
         /**
           * Whether or not the checkbox is active
          */
@@ -312,7 +316,6 @@ export namespace Components {
     interface JeItem {
     }
     interface JeLabel {
-        "for"?: string;
         "required"?: boolean;
     }
     interface JeLink {
@@ -498,6 +501,8 @@ export namespace Components {
           * The currently selected value
          */
         "value"?: any;
+    }
+    interface JeRefresher {
     }
     interface JeSelect {
     }
@@ -1135,6 +1140,12 @@ declare global {
         prototype: HTMLJeRadioGroupElement;
         new (): HTMLJeRadioGroupElement;
     };
+    interface HTMLJeRefresherElement extends Components.JeRefresher, HTMLStencilElement {
+    }
+    var HTMLJeRefresherElement: {
+        prototype: HTMLJeRefresherElement;
+        new (): HTMLJeRefresherElement;
+    };
     interface HTMLJeSelectElement extends Components.JeSelect, HTMLStencilElement {
     }
     var HTMLJeSelectElement: {
@@ -1290,6 +1301,7 @@ declare global {
         "je-radio": HTMLJeRadioElement;
         "je-radio-button": HTMLJeRadioButtonElement;
         "je-radio-group": HTMLJeRadioGroupElement;
+        "je-refresher": HTMLJeRefresherElement;
         "je-select": HTMLJeSelectElement;
         "je-tab": HTMLJeTabElement;
         "je-tabs": HTMLJeTabsElement;
@@ -1405,7 +1417,7 @@ declare namespace LocalJSX {
     }
     interface JeCheckbox {
         /**
-          * Data to submit to the form
+          * By default, it will submit true or false depending on the checked state. Use this property to submit a custom value instead.
          */
         "data"?: string;
         /**
@@ -1425,13 +1437,17 @@ declare namespace LocalJSX {
          */
         "onValueChange"?: (event: JeCheckboxCustomEvent<boolean | undefined>) => void;
         /**
-          * Shows the readonly state and prevents changes
+          * Original value form will reset to
          */
-        "readonly"?: boolean;
+        "originalValue"?: boolean;
         /**
           * Marks the control as required in the form. This will only affect indeterminate checkboxes.
          */
         "required"?: boolean;
+        /**
+          * Renders the component as a on/off switch rather than a checkbox.
+         */
+        "switch"?: boolean;
         /**
           * Whether or not the checkbox is active
          */
@@ -1629,7 +1645,6 @@ declare namespace LocalJSX {
     interface JeItem {
     }
     interface JeLabel {
-        "for"?: string;
         "required"?: boolean;
     }
     interface JeLink {
@@ -1838,6 +1853,8 @@ declare namespace LocalJSX {
           * The currently selected value
          */
         "value"?: any;
+    }
+    interface JeRefresher {
     }
     interface JeSelect {
     }
@@ -2063,6 +2080,7 @@ declare namespace LocalJSX {
         "je-radio": JeRadio;
         "je-radio-button": JeRadioButton;
         "je-radio-group": JeRadioGroup;
+        "je-refresher": JeRefresher;
         "je-select": JeSelect;
         "je-tab": JeTab;
         "je-tabs": JeTabs;
@@ -2117,6 +2135,7 @@ declare module "@stencil/core" {
             "je-radio": LocalJSX.JeRadio & JSXBase.HTMLAttributes<HTMLJeRadioElement>;
             "je-radio-button": LocalJSX.JeRadioButton & JSXBase.HTMLAttributes<HTMLJeRadioButtonElement>;
             "je-radio-group": LocalJSX.JeRadioGroup & JSXBase.HTMLAttributes<HTMLJeRadioGroupElement>;
+            "je-refresher": LocalJSX.JeRefresher & JSXBase.HTMLAttributes<HTMLJeRefresherElement>;
             "je-select": LocalJSX.JeSelect & JSXBase.HTMLAttributes<HTMLJeSelectElement>;
             "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
             "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;

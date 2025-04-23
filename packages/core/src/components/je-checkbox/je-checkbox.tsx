@@ -3,16 +3,23 @@ import { AttachInternals, Component, EventEmitter, Host, Prop, h, Element, Event
 @Component({
   tag: 'je-checkbox',
   styleUrl: 'je-checkbox.scss',
-  shadow: {
-    delegatesFocus: true
-  },
+  shadow: true,
   formAssociated: true
 })
 export class JeCheckbox {
   @AttachInternals() internals: ElementInternals;
   @Element() el!: HTMLElement;
-  private iconEl!: HTMLElement;
-  private originalValue?: boolean;
+
+  /**
+   * Original value form will reset to
+   */
+  @Prop() originalValue?: boolean;
+
+  /**
+   * By default, it will submit true or false depending on the checked state.
+   * Use this property to submit a custom value instead.
+   */
+  @Prop() data?: string;
 
   /**
    * Whether or not the checkbox is active
@@ -30,11 +37,6 @@ export class JeCheckbox {
   @Prop() indeterminate = false;
 
   /**
-   * Shows the readonly state and prevents changes
-   */
-  @Prop() readonly = false;
-
-  /**
    * Shows the disabled state and prevents changes
    */
   @Prop() disabled = false;
@@ -45,9 +47,9 @@ export class JeCheckbox {
   @Prop() required = false;
 
   /**
-   * Data to submit to the form
+   * Renders the component as a on/off switch rather than a checkbox.
    */
-  @Prop() data?: string;
+  @Prop({ reflect: true }) switch = false;
 
   /**
    * Emits the current value whenever it's state changes
@@ -61,41 +63,63 @@ export class JeCheckbox {
     this.originalValue = this.value;
   }
 
-  componentDidLoad() {
-    //this.handleValueChange();
-  }
-
   formResetCallback() {
     if (this.value !== this.originalValue) {
       this.value = this.originalValue;
-      this.valueChange.emit(this.value);
     }
   }
 
+  componentDidLoad() {
+    this.internals.role = 'checkbox'
+  }
+
+  componentDidRender() {
+    this.internals.states.clear()
+    this.internals.states.add(this.value ? 'checked' : this.value === undefined ? 'indeterminate' : 'unchecked')
+    this.internals.ariaChecked = this.value ? 'true' : this.value === undefined ? 'mixed' : 'false'
+    this.internals.ariaRequired = this.required ? 'true' : 'false'
+    this.internals.ariaInvalid = this.internals.validity.valid ? 'true' : 'false'
+    this.el.tabIndex = this.disabled ? -1 : 0
+  }
+
   @Listen('click')
-  onClick() {
-    if (!this.readonly && !this.disabled) {
+  onClick(_ev: MouseEvent) {
+    this.value = !this.value;
+  }
+
+  @Listen('keydown', { capture: true })
+  onKeyDown(ev: KeyboardEvent) {
+    if (ev.key === ' ') {
+      ev.preventDefault();
+      ev.stopPropagation();
       this.value = !this.value;
-      this.valueChange.emit(this.value);
     }
   }
 
   @Watch('value')
   handleValueChange() {
-    this.internals.setFormValue(this.value ? this.data || 'true' : null);
+    this.valueChange.emit(this.value);
+    this.internals.setFormValue(this.value === true ? this.data ?? 'true' : this.value === false ? 'false' : null);
     if (this.value === undefined && this.required) {
-      this.internals.setValidity({ valueMissing: true }, 'This field is required', this.iconEl);
+      this.internals.setValidity({ valueMissing: true }, 'This field is required');
     } else {
       this.internals.setValidity({});
     }
   }
 
   render() {
-    const icon = this.value === true ? 'check_box' : this.value === false ? 'check_box_outline_blank' : 'indeterminate_check_box';
     return (
-      <Host class={{ disabled: this.disabled, readonly: this.readonly }}>
+      <Host>
         {this.labelPlacement == 'start' && <slot />}
-        <je-icon ref={el => this.iconEl = el} tabIndex={0} fill={this.value} part='icon'>{icon}</je-icon>
+        {this.switch ? (
+          <div aria-hidden="true" class='toggle-container'>
+            <div class='toggle-thumb'></div>
+          </div>
+        ) : (
+          <je-icon aria-hidden="true" fill={this.value}>
+            {this.value === true ? 'check_box' : this.value === false ? 'check_box_outline_blank' : 'indeterminate_check_box'}
+          </je-icon>
+        )}
         {this.labelPlacement == 'end' && <slot />}
       </Host>
     );

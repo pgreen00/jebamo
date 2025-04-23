@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, Host } from '@stencil/core';
 
 @Component({
   tag: 'je-label',
@@ -6,15 +6,13 @@ import { Component, h, Prop } from '@stencil/core';
   shadow: true,
 })
 export class JeLabel {
-  @Prop() for?: string;
-
-  @Prop() required?: boolean;
+  @Prop({ reflect: true }) required?: boolean;
 
   render() {
     return (
-      <label part='label' htmlFor={this.for} class={{required: this.required}}>
-        <slot/>
-      </label>
+      <Host>
+        <slot></slot>
+      </Host>
     );
   }
 }

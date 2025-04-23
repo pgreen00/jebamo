@@ -26,7 +26,7 @@ export class JeForm {
     this.el$.subscribe(el => {
       const formData = new FormData(el);
       let json: Record<string, any> = {};
-      for (let [key, value] of formData.entries()) {
+      for (const [key, value] of formData.entries()) {
         if (Array.isArray(json[key])) {
           json[key].push(value);
         } else if (json[key]) {
