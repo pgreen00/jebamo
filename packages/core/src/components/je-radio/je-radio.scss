@@ -1,21 +1,13 @@
 @use '../../styles/styles' as *;
 
 :host {
-  display: contents;
-}
-
-label {
   display: flex;
   align-items: center;
   gap: spacing-get(2xs);
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
+  outline-color: primary(200);
 }
 
 je-icon {

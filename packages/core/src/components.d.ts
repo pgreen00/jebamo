@@ -105,6 +105,8 @@ export namespace Components {
     }
     interface JeButtonGroup {
     }
+    interface JeCalendar {
+    }
     interface JeCard {
         "button"?: boolean;
         "color"?: Color;
@@ -114,10 +116,6 @@ export namespace Components {
           * By default, it will submit true or false depending on the checked state. Use this property to submit a custom value instead.
          */
         "data"?: string;
-        /**
-          * Shows the disabled state and prevents changes
-         */
-        "disabled": boolean;
         /**
           * If the checkbox should contain a 3rd indeterminate state
          */
@@ -134,10 +132,6 @@ export namespace Components {
           * Marks the control as required in the form. This will only affect indeterminate checkboxes.
          */
         "required": boolean;
-        /**
-          * Renders the component as a on/off switch rather than a checkbox.
-         */
-        "switch": boolean;
         /**
           * Whether or not the checkbox is active
          */
@@ -462,10 +456,6 @@ export namespace Components {
     }
     interface JeRadio {
         /**
-          * Disables option and shows state
-         */
-        "disabled": boolean;
-        /**
           * If the option is currently selected
          */
         "selected"?: boolean;
@@ -486,9 +476,17 @@ export namespace Components {
     }
     interface JeRadioGroup {
         /**
-          * Label that shows above the controls
+          * Disables the controls
+         */
+        "disabled": boolean;
+        /**
+          * Label that shows above the control
          */
         "label"?: string;
+        /**
+          * Additional info that shows below the control
+         */
+        "note"?: string;
         /**
           * Value the form will reset to. Defaults to initial value if not specified
          */
@@ -649,13 +647,17 @@ export namespace Components {
     }
     interface JeToggle {
         /**
-          * Whether or not the toggle is active
-         */
-        "checked": boolean;
-        /**
           * If the label should be placed at the start or end of the toggle
          */
         "labelPlacement": 'start' | 'end';
+        /**
+          * Original value form will reset to
+         */
+        "originalValue": boolean;
+        /**
+          * Whether or not the toggle is active
+         */
+        "value": boolean;
     }
     interface JeToolbar {
     }
@@ -842,6 +844,12 @@ declare global {
     var HTMLJeButtonGroupElement: {
         prototype: HTMLJeButtonGroupElement;
         new (): HTMLJeButtonGroupElement;
+    };
+    interface HTMLJeCalendarElement extends Components.JeCalendar, HTMLStencilElement {
+    }
+    var HTMLJeCalendarElement: {
+        prototype: HTMLJeCalendarElement;
+        new (): HTMLJeCalendarElement;
     };
     interface HTMLJeCardElement extends Components.JeCard, HTMLStencilElement {
     }
@@ -1199,7 +1207,7 @@ declare global {
         new (): HTMLJeToastContainerElement;
     };
     interface HTMLJeToggleElementEventMap {
-        "toggled": boolean;
+        "valueChange": boolean;
     }
     interface HTMLJeToggleElement extends Components.JeToggle, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeToggleElementEventMap>(type: K, listener: (this: HTMLJeToggleElement, ev: JeToggleCustomEvent<HTMLJeToggleElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1271,6 +1279,7 @@ declare global {
         "je-breadcrumbs": HTMLJeBreadcrumbsElement;
         "je-button": HTMLJeButtonElement;
         "je-button-group": HTMLJeButtonGroupElement;
+        "je-calendar": HTMLJeCalendarElement;
         "je-card": HTMLJeCardElement;
         "je-checkbox": HTMLJeCheckboxElement;
         "je-color": HTMLJeColorElement;
@@ -1411,6 +1420,8 @@ declare namespace LocalJSX {
     }
     interface JeButtonGroup {
     }
+    interface JeCalendar {
+    }
     interface JeCard {
         "button"?: boolean;
         "color"?: Color;
@@ -1420,10 +1431,6 @@ declare namespace LocalJSX {
           * By default, it will submit true or false depending on the checked state. Use this property to submit a custom value instead.
          */
         "data"?: string;
-        /**
-          * Shows the disabled state and prevents changes
-         */
-        "disabled"?: boolean;
         /**
           * If the checkbox should contain a 3rd indeterminate state
          */
@@ -1444,10 +1451,6 @@ declare namespace LocalJSX {
           * Marks the control as required in the form. This will only affect indeterminate checkboxes.
          */
         "required"?: boolean;
-        /**
-          * Renders the component as a on/off switch rather than a checkbox.
-         */
-        "switch"?: boolean;
         /**
           * Whether or not the checkbox is active
          */
@@ -1810,10 +1813,6 @@ declare namespace LocalJSX {
     }
     interface JeRadio {
         /**
-          * Disables option and shows state
-         */
-        "disabled"?: boolean;
-        /**
           * If the option is currently selected
          */
         "selected"?: boolean;
@@ -1834,9 +1833,17 @@ declare namespace LocalJSX {
     }
     interface JeRadioGroup {
         /**
-          * Label that shows above the controls
+          * Disables the controls
+         */
+        "disabled"?: boolean;
+        /**
+          * Label that shows above the control
          */
         "label"?: string;
+        /**
+          * Additional info that shows below the control
+         */
+        "note"?: string;
         /**
           * Emits the selected value whenever it changes
          */
@@ -2002,17 +2009,21 @@ declare namespace LocalJSX {
     }
     interface JeToggle {
         /**
-          * Whether or not the toggle is active
-         */
-        "checked"?: boolean;
-        /**
           * If the label should be placed at the start or end of the toggle
          */
         "labelPlacement"?: 'start' | 'end';
         /**
           * Emits the new value whenever toggle is clicked
          */
-        "onToggled"?: (event: JeToggleCustomEvent<boolean>) => void;
+        "onValueChange"?: (event: JeToggleCustomEvent<boolean>) => void;
+        /**
+          * Original value form will reset to
+         */
+        "originalValue"?: boolean;
+        /**
+          * Whether or not the toggle is active
+         */
+        "value"?: boolean;
     }
     interface JeToolbar {
     }
@@ -2050,6 +2061,7 @@ declare namespace LocalJSX {
         "je-breadcrumbs": JeBreadcrumbs;
         "je-button": JeButton;
         "je-button-group": JeButtonGroup;
+        "je-calendar": JeCalendar;
         "je-card": JeCard;
         "je-checkbox": JeCheckbox;
         "je-color": JeColor;
@@ -2105,6 +2117,7 @@ declare module "@stencil/core" {
             "je-breadcrumbs": LocalJSX.JeBreadcrumbs & JSXBase.HTMLAttributes<HTMLJeBreadcrumbsElement>;
             "je-button": LocalJSX.JeButton & JSXBase.HTMLAttributes<HTMLJeButtonElement>;
             "je-button-group": LocalJSX.JeButtonGroup & JSXBase.HTMLAttributes<HTMLJeButtonGroupElement>;
+            "je-calendar": LocalJSX.JeCalendar & JSXBase.HTMLAttributes<HTMLJeCalendarElement>;
             "je-card": LocalJSX.JeCard & JSXBase.HTMLAttributes<HTMLJeCardElement>;
             "je-checkbox": LocalJSX.JeCheckbox & JSXBase.HTMLAttributes<HTMLJeCheckboxElement>;
             "je-color": LocalJSX.JeColor & JSXBase.HTMLAttributes<HTMLJeColorElement>;

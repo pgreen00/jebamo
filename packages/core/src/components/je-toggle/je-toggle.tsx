@@ -1,15 +1,24 @@
-import { Component, EventEmitter, Host, Listen, Prop, Watch, h, Event } from '@stencil/core';
+import { Component, EventEmitter, Host, Listen, Prop, h, Event, Element, AttachInternals } from '@stencil/core';
 
 @Component({
   tag: 'je-toggle',
   styleUrl: 'je-toggle.scss',
   shadow: true,
+  formAssociated: true
 })
 export class JeToggle {
+  @AttachInternals() internals: ElementInternals;
+  @Element() el!: HTMLElement;
+
+  /**
+   * Original value form will reset to
+   */
+  @Prop() originalValue: boolean;
+
   /**
    * Whether or not the toggle is active
    */
-  @Prop({ reflect: true, mutable: true }) checked = false;
+  @Prop({ mutable: true }) value = false;
 
   /**
    * If the label should be placed at the start or end of the toggle
@@ -19,29 +28,53 @@ export class JeToggle {
   /**
    * Emits the new value whenever toggle is clicked
    */
-  @Event() toggled: EventEmitter<boolean>;
+  @Event({ bubbles: false }) valueChange: EventEmitter<boolean>;
 
-  @Listen('click', { capture: true })
-  toggle() {
-    this.checked = !this.checked;
-    this.toggled.emit(this.checked);
+  componentWillLoad() {
+    if (this.originalValue === undefined) {
+      this.originalValue = this.value;
+    }
   }
 
-  @Watch('checked')
-  onCheckedChange(newVal: boolean) {
-    if (newVal !== this.checked) {
-      this.checked = newVal;
+  formResetCallback() {
+    this.value = this.originalValue;
+  }
+
+  componentDidLoad() {
+    this.internals.role = 'switch'
+    this.el.tabIndex = 0
+  }
+
+  componentDidRender() {
+    this.internals.states.clear()
+    this.internals.states.add(this.value ? 'checked' : 'unchecked')
+    this.internals.ariaChecked = this.value ? 'true' : 'false'
+  }
+
+  @Listen('click', { capture: true })
+  onClick() {
+    this.value = !this.value;
+    this.valueChange.emit(this.value);
+  }
+
+  @Listen('keydown', { capture: true })
+  onKeyDown(ev: KeyboardEvent) {
+    if (ev.key === ' ') {
+      ev.preventDefault();
+      ev.stopPropagation();
+      this.value = !this.value;
+      this.valueChange.emit(this.value);
     }
   }
 
   render() {
     return (
       <Host>
-        {this.labelPlacement == 'start' && <slot></slot>}
-        <div class="toggle-container">
-          <div class={{ 'toggle-thumb': true, 'checked': this.checked }}></div>
+        {this.labelPlacement == 'start' && <slot />}
+        <div class='toggle-container'>
+          <div class='toggle-thumb'></div>
         </div>
-        {this.labelPlacement == 'end' && <slot></slot>}
+        {this.labelPlacement == 'end' && <slot />}
       </Host>
     );
   }

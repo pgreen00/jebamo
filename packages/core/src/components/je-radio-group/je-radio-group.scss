@@ -1,16 +1,23 @@
 @use '../../styles/styles' as *;
 
 :host {
+  display: contents;
+}
+
+[part=main] {
   display: block;
   width: fit-content;
 }
 
-:host([buttons]) {
-  slot:not([name]) {
-    display: flex;
-    border: solid 1px light-dark(secondary(300), secondary(700));
-    border-radius: radius-get(lg);
-    overflow: hidden;
-    box-sizing: border-box;
-  }
+:host([disabled]) [part=main] {
+  opacity: 0.6;
+}
+
+.buttons {
+  display: flex;
+  box-sizing: border-box;
+}
+
+.content {
+  display: contents;
 }

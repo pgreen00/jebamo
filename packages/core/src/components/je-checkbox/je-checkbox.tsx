@@ -37,19 +37,9 @@ export class JeCheckbox {
   @Prop() indeterminate = false;
 
   /**
-   * Shows the disabled state and prevents changes
-   */
-  @Prop() disabled = false;
-
-  /**
    * Marks the control as required in the form. This will only affect indeterminate checkboxes.
    */
   @Prop() required = false;
-
-  /**
-   * Renders the component as a on/off switch rather than a checkbox.
-   */
-  @Prop({ reflect: true }) switch = false;
 
   /**
    * Emits the current value whenever it's state changes
@@ -71,6 +61,7 @@ export class JeCheckbox {
 
   componentDidLoad() {
     this.internals.role = 'checkbox'
+    this.el.tabIndex = 0
   }
 
   componentDidRender() {
@@ -79,27 +70,27 @@ export class JeCheckbox {
     this.internals.ariaChecked = this.value ? 'true' : this.value === undefined ? 'mixed' : 'false'
     this.internals.ariaRequired = this.required ? 'true' : 'false'
     this.internals.ariaInvalid = this.internals.validity.valid ? 'true' : 'false'
-    this.el.tabIndex = this.disabled ? -1 : 0
   }
 
   @Listen('click')
   onClick(_ev: MouseEvent) {
     this.value = !this.value;
+    this.valueChange.emit(this.value);
   }
 
-  @Listen('keydown', { capture: true })
+  @Listen('keydown')
   onKeyDown(ev: KeyboardEvent) {
     if (ev.key === ' ') {
       ev.preventDefault();
       ev.stopPropagation();
       this.value = !this.value;
+      this.valueChange.emit(this.value);
     }
   }
 
   @Watch('value')
   handleValueChange() {
-    this.valueChange.emit(this.value);
-    this.internals.setFormValue(this.value === true ? this.data ?? 'true' : this.value === false ? 'false' : null);
+    this.internals.setFormValue(this.data ? (this.value === true ? this.data : null) : this.value === true ? 'true' : this.value === false ? 'false' : null);
     if (this.value === undefined && this.required) {
       this.internals.setValidity({ valueMissing: true }, 'This field is required');
     } else {
@@ -111,15 +102,9 @@ export class JeCheckbox {
     return (
       <Host>
         {this.labelPlacement == 'start' && <slot />}
-        {this.switch ? (
-          <div aria-hidden="true" class='toggle-container'>
-            <div class='toggle-thumb'></div>
-          </div>
-        ) : (
-          <je-icon aria-hidden="true" fill={this.value}>
-            {this.value === true ? 'check_box' : this.value === false ? 'check_box_outline_blank' : 'indeterminate_check_box'}
-          </je-icon>
-        )}
+        <je-icon aria-hidden="true" fill={this.value}>
+          {this.value === true ? 'check_box' : this.value === false ? 'check_box_outline_blank' : 'indeterminate_check_box'}
+        </je-icon>
         {this.labelPlacement == 'end' && <slot />}
       </Host>
     );

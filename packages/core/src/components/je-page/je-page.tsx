@@ -1,4 +1,5 @@
-import { Component, Element, Host, Prop, h } from '@stencil/core';
+import { Component, Element, Host, Prop, State, h } from '@stencil/core';
+import { concatMap, debounceTime, from, Subject, Subscription } from 'rxjs';
 
 @Component({
   tag: 'je-page',
@@ -13,6 +14,11 @@ export class JePage {
   private rightPanelSlot!: HTMLDivElement;
   private mutationObserver!: MutationObserver;
   private resizeObserver!: ResizeObserver;
+  private moveContent$ = new Subject<void>();
+  private sub?: Subscription;
+  @State() headerHeight = 0;
+  @State() subTop = 0;
+  @State() footerHeight = 0;
 
   /**
    * Changes certain aspects of the page layout.
@@ -21,18 +27,36 @@ export class JePage {
    */
   @Prop({ reflect: true }) layout: 'sticky' | 'flex' = 'flex';
 
-  private moveProjectedContent = () => {
+  connectedCallback() {
+    this.sub = this.moveContent$.pipe(
+      debounceTime(50),
+      concatMap(() => from(this.moveProjectedContent()))
+    ).subscribe();
+    this.mutationObserver = new MutationObserver(() => this.moveContent$.next())
+    this.resizeObserver = new ResizeObserver(this.setCssVars);
+  }
+
+  disconnectedCallback() {
+    this.sub?.unsubscribe();
+    this.mutationObserver.disconnect();
+    this.resizeObserver.disconnect();
+  }
+
+  componentDidLoad() {
+    this.moveProjectedContent()
+  }
+
+  private maybeAppend = (node: Node | null, container: HTMLElement) => {
+    if (container && node && node.parentNode !== container) {
+      container.appendChild(node);
+    }
+  };
+
+  private moveProjectedContent = async () => {
     this.mutationObserver.disconnect();
     this.resizeObserver.disconnect();
 
-    const { bodySlot, headerSlot, footerSlot, leftPanelSlot, rightPanelSlot } = this;
-
-    // Optional little helper to ensure we only move if needed
-    const maybeAppend = (node: Node | null, container: HTMLElement) => {
-      if (node && node.parentNode !== container) {
-        container.appendChild(node);
-      }
-    };
+    const { bodySlot, headerSlot, footerSlot, leftPanelSlot, rightPanelSlot, maybeAppend } = this;
 
     const body = this.el.querySelector('main');
     const headerNodes = Array.from(this.el.querySelectorAll('header'));
@@ -41,51 +65,38 @@ export class JePage {
     const rightPanel = this.el.querySelector('aside[right]');
 
     maybeAppend(body, bodySlot);
+    maybeAppend(leftPanel, leftPanelSlot);
+    maybeAppend(rightPanel, rightPanelSlot);
+
     for (const h of headerNodes) {
       maybeAppend(h, headerSlot);
       this.resizeObserver.observe(h);
     }
-    maybeAppend(footer, footerSlot);
-    maybeAppend(leftPanel, leftPanelSlot);
-    maybeAppend(rightPanel, rightPanelSlot);
 
-    // Reattach observers after we’ve done the minimal movement
-    this.mutationObserver.observe(this.el, {
-      childList: true,
-      subtree: true,
-    });
+    maybeAppend(footer, footerSlot);
+    if (footer) this.resizeObserver.observe(footer);
+
+    this.mutationObserver.observe(this.el, { childList: true, subtree: true });
   };
 
-  connectedCallback() {
-    this.mutationObserver = new MutationObserver(this.moveProjectedContent)
-    this.mutationObserver.observe(this.el, {
-      childList: true,
-      subtree: true,
-    });
+  private setCssVars = () => {
+    this.headerHeight = Array.from(this.el.querySelectorAll('header'))
+      .map(t => t.clientHeight)
+      .reduce((a, b) => a + b, 0);
 
-    this.resizeObserver = new ResizeObserver(_entries => {
-      const height = Array.from(this.el.querySelectorAll('header'))
-        .map(t => t.clientHeight)
-        .reduce((a, b) => a + b, 0);
-      const sub = this.el.querySelector<HTMLElement>('header:first-of-type')?.clientHeight;
-      this.el.style.setProperty('--header-height', `${height}px`);
-      if (sub) {
-        this.el.style.setProperty('--sub-top', `${sub}px`);
-      }
-    });
-  }
+    this.subTop = this.el.querySelector<HTMLElement>('header:first-of-type')?.clientHeight ?? 0;
 
-  disconnectedCallback() {
-    this.mutationObserver.disconnect();
-  }
-
-  componentDidLoad() {
-    this.moveProjectedContent();
+    this.footerHeight = this.el.querySelector<HTMLElement>('footer')?.clientHeight ?? 0;
   }
 
   render() {
+    const style = {
+      '--header-height': `${this.headerHeight}px`,
+      '--sub-top': `${this.subTop}px`,
+      '--footer-height': `${this.footerHeight}px`
+    };
     return (
-      <Host>
+      <Host style={style}>
         <div class="__slot" ref={el => this.headerSlot = el}></div>
         <div class="__body_container">
           <div class="__slot" ref={el => this.leftPanelSlot = el}></div>

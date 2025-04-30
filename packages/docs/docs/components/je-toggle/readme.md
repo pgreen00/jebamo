@@ -7,25 +7,18 @@ sidebar_label: 'Toggle'
 
 ## Properties
 
-| Property         | Attribute         | Description                                                     | Type               | Default |
-| ---------------- | ----------------- | --------------------------------------------------------------- | ------------------ | ------- |
-| `checked`        | `checked`         | Whether or not the toggle is active                             | `boolean`          | `false` |
-| `labelPlacement` | `label-placement` | If the label should be placed at the start or end of the toggle | `"end" \| "start"` | `'end'` |
+| Property         | Attribute         | Description                                                     | Type               | Default     |
+| ---------------- | ----------------- | --------------------------------------------------------------- | ------------------ | ----------- |
+| `labelPlacement` | `label-placement` | If the label should be placed at the start or end of the toggle | `"end" \| "start"` | `'end'`     |
+| `originalValue`  | `original-value`  | Original value form will reset to                               | `boolean`          | `undefined` |
+| `value`          | `value`           | Whether or not the toggle is active                             | `boolean`          | `false`     |
 
 
 ## Events
 
-| Event     | Description                                    | Type                   |
-| --------- | ---------------------------------------------- | ---------------------- |
-| `toggled` | Emits the new value whenever toggle is clicked | `CustomEvent<boolean>` |
-
-
-## CSS Custom Properties
-
-| Name                    | Description                       |
-| ----------------------- | --------------------------------- |
-| `--active-background`   | Background color when checked     |
-| `--inactive-background` | Background color when not checked |
+| Event         | Description                                    | Type                   |
+| ------------- | ---------------------------------------------- | ---------------------- |
+| `valueChange` | Emits the new value whenever toggle is clicked | `CustomEvent<boolean>` |
 
 
 ----------------------------------------------

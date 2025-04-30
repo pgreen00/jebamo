@@ -1,17 +1,12 @@
-import { Component, Prop, h, Element, Listen } from '@stencil/core';
+import { Component, Prop, h, Element, Host } from '@stencil/core';
 
 @Component({
   tag: 'je-radio',
   styleUrl: 'je-radio.scss',
-  shadow: {
-    delegatesFocus: true
-  }
+  shadow: true
 })
 export class JeRadio {
   @Element() el!: HTMLElement;
-
-  /** Disables option and shows state */
-  @Prop() disabled = false;
 
   /**
    * The value of this option and the radio group will compare against
@@ -23,19 +18,12 @@ export class JeRadio {
    */
   @Prop() selected?: boolean;
 
-  @Listen('click', { capture: true })
-  handleClick(ev: Event) {
-    if (this.disabled || this.selected === true) {
-      ev.stopPropagation()
-    }
-  }
-
   render() {
     return (
-      <label tabindex={0} class={{ disabled: this.disabled }} part='main'>
-        <je-icon>{this.selected ? 'radio_button_checked' : 'radio_button_unchecked'}</je-icon>
+      <Host role='radio' tabindex={-1} aria-checked={this.selected ? 'true' : 'false'}>
+        <je-icon aria-hidden='true'>{this.selected ? 'radio_button_checked' : 'radio_button_unchecked'}</je-icon>
         <slot />
-      </label>
+      </Host>
     );
   }
 }

@@ -1,10 +1,6 @@
 @use '../../styles/styles' as *;
 
 :host {
-  display: contents;
-}
-
-button {
   display: flex;
   cursor: pointer;
   align-items: center;
@@ -21,13 +17,29 @@ button {
   color: inherit;
   box-sizing: border-box;
   transition: all 75ms ease-in-out;
-
-  &.selected {
-    background-color: light-dark(primary(500), primary(200));
-    color: light-dark(primary(100), primary(900));
-  }
 }
 
-:host(:not(:last-of-type)) button {
-  border-right: solid 1px light-dark(secondary(300), secondary(700));
+:host(:not(:first-of-type)) {
+  border: solid 1px light-dark(secondary(300), secondary(700));
+  border-left: 0;
+}
+
+:host(:first-of-type) {
+  border: solid 1px light-dark(secondary(300), secondary(700));
+}
+
+:host([aria-checked=true]) {
+  background-color: light-dark(primary(500), primary(200));
+  color: light-dark(secondary(50), secondary(900));
+  border-color: light-dark(primary(500), primary(200));
+}
+
+:host(:first-of-type) {
+  border-top-left-radius: radius-get(md);
+  border-bottom-left-radius: radius-get(md);
+}
+
+:host(:last-of-type) {
+  border-top-right-radius: radius-get(md);
+  border-bottom-right-radius: radius-get(md);
 }

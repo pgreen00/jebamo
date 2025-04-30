@@ -1,16 +1,15 @@
-import { Component, Host, h, Element, EventEmitter, Prop, Event, Watch, Listen, AttachInternals } from '@stencil/core';
+import { Component, h, Element, EventEmitter, Prop, Event, Watch, Listen, AttachInternals, State, Host } from '@stencil/core';
 
 @Component({
   tag: 'je-radio-group',
   styleUrl: 'je-radio-group.scss',
-  shadow: {
-    delegatesFocus: true
-  },
+  shadow: true,
   formAssociated: true
 })
 export class JeRadioGroup {
   @AttachInternals() internals!: ElementInternals;
   @Element() el!: HTMLJeRadioGroupElement;
+  @State() tabindex = 0;
 
   /**
    * Requires a value before the form can be submitted
@@ -18,14 +17,24 @@ export class JeRadioGroup {
   @Prop() required?: boolean;
 
   /**
-   * Value the form will reset to. Defaults to initial value if not specified
+   * Disables the controls
    */
-  @Prop({ mutable: true }) originalValue?: any;
+  @Prop() disabled = false;
 
   /**
-   * Label that shows above the controls
+   * Value the form will reset to. Defaults to initial value if not specified
+   */
+  @Prop() originalValue?: any;
+
+  /**
+   * Label that shows above the control
    */
   @Prop() label?: string;
+
+  /**
+   * Additional info that shows below the control
+   */
+  @Prop() note?: string;
 
   /**
    * The currently selected value
@@ -35,9 +44,9 @@ export class JeRadioGroup {
   /**
    * Emits the selected value whenever it changes
    */
-  @Event({ bubbles: false }) valueChange!: EventEmitter<any>;
+  @Event({ bubbles: false }) valueChange: EventEmitter<any>;
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.internals.setFormValue(this.value);
     if (!this.originalValue) this.originalValue = this.value;
   }
@@ -47,6 +56,10 @@ export class JeRadioGroup {
   }
 
   componentDidRender() {
+    this.internals.ariaLabel = this.label || this.el.querySelector('[slot=label]')?.textContent
+    this.internals.ariaDescription = this.note || this.el.querySelector('[slot=note]')?.textContent
+    this.internals.ariaInvalid = this.internals.validity.valid ? 'true' : 'false';
+
     this.internals.states.clear()
     if (this.required) {
       this.internals.states.add('--required');
@@ -59,6 +72,10 @@ export class JeRadioGroup {
     }
   }
 
+  componentDidLoad() {
+    this.internals.role = 'radiogroup';
+  }
+
   formResetCallback() {
     if (this.value !== this.originalValue) {
       this.value = this.originalValue;
@@ -69,14 +86,29 @@ export class JeRadioGroup {
     return Array.from(this.el.querySelectorAll<HTMLJeRadioElement | HTMLJeRadioButtonElement>('je-radio, je-radio-button'));
   }
 
-  private isRadio(target: EventTarget | null): target is HTMLJeRadioElement {
+  private isRadio(target: EventTarget | null): target is (HTMLJeRadioElement | HTMLJeRadioButtonElement) {
     return target instanceof HTMLElement && (target.tagName == 'JE-RADIO' || target.tagName == 'JE-RADIO-BUTTON')
   }
 
   @Watch('value')
   handleValueChange() {
-    this.valueChange.emit(this.value);
     this.internals.setFormValue(this.value);
+  }
+
+  @Listen('focus')
+  onFocus() {
+    const radios = this.getRadios();
+    (radios.find(radio => radio.value === this.value) ?? radios[0])?.focus();
+  }
+
+  @Listen('focusin')
+  onFocusIn() {
+    this.tabindex = -1;
+  }
+
+  @Listen('focusout')
+  onFocusOut() {
+    this.tabindex = 0;
   }
 
   @Listen('click')
@@ -84,16 +116,50 @@ export class JeRadioGroup {
     const { target } = ev;
     if (this.isRadio(target)) {
       this.value = target.value;
+      this.valueChange.emit(this.value);
+    }
+  }
+
+  @Listen('keydown', { capture: true })
+  handleKeyDown(ev: KeyboardEvent) {
+    const { target, key } = ev;
+    if (this.isRadio(target) && !this.disabled) {
+      if (key === 'ArrowDown' || key === 'ArrowRight') {
+        ev.preventDefault();
+        const radios = this.getRadios();
+        const index = radios.findIndex(radio => radio.value === this.value);
+        const radio = radios[(index + 1) % radios.length];
+        radio.focus();
+        this.value = radio.value;
+        this.valueChange.emit(this.value);
+      } else if (key === 'ArrowUp' || key === 'ArrowLeft') {
+        ev.preventDefault();
+        const radios = this.getRadios();
+        const index = radios.findIndex(radio => radio.value === this.value);
+        const radio = radios[(index - 1 + radios.length) % radios.length];
+        radio.focus();
+        this.value = radio.value;
+        this.valueChange.emit(this.value);
+      } else if (ev.key === ' ') {
+        this.value = target.value;
+        this.valueChange.emit(this.value);
+      }
     }
   }
 
   render() {
+    const buttons = this.el.querySelector('je-radio-button') !== null
     return (
-      <Host role='radiogroup' buttons={this.el.querySelector('je-radio-button') !== null}>
+      <Host tabindex={this.tabindex}>
         <slot name='label'>
-          {this.label && <je-label required={this.required} tabindex={0}>{this.label}</je-label>}
+          {this.label && <je-label required={this.required}>{this.label}</je-label>}
         </slot>
-        <slot></slot>
+        <div class={buttons ? 'buttons' : 'content'}>
+          <slot/>
+        </div>
+        <slot name='note'>
+          {this.note && <je-note>{this.note}</je-note>}
+        </slot>
       </Host>
     );
   }

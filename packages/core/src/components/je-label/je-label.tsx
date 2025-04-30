@@ -10,7 +10,7 @@ export class JeLabel {
 
   render() {
     return (
-      <Host>
+      <Host aria-hidden='true'>
         <slot></slot>
       </Host>
     );

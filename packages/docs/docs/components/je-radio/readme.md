@@ -9,16 +9,8 @@ sidebar_label: 'Radio'
 
 | Property   | Attribute  | Description                                                       | Type      | Default     |
 | ---------- | ---------- | ----------------------------------------------------------------- | --------- | ----------- |
-| `disabled` | `disabled` | Disables option and shows state                                   | `boolean` | `false`     |
 | `selected` | `selected` | If the option is currently selected                               | `boolean` | `undefined` |
 | `value`    | `value`    | The value of this option and the radio group will compare against | `any`     | `undefined` |
-
-
-## Shadow Parts
-
-| Part     | Description |
-| -------- | ----------- |
-| `"main"` |             |
 
 
 ## Dependencies

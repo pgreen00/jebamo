@@ -1,11 +1,9 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'je-radio-button',
   styleUrl: 'je-radio-button.scss',
-  shadow: {
-    delegatesFocus: true
-  },
+  shadow: true,
 })
 export class JeRadioButton {
   /** The value for this option that bw-card-group will compare against */
@@ -16,9 +14,9 @@ export class JeRadioButton {
 
   render() {
     return (
-      <button tabindex={0} role="radio" class={{ selected: this.selected }}>
-        <slot></slot>
-      </button>
+      <Host role='radio' tabindex={-1} aria-checked={this.selected ? 'true' : 'false'}>
+        <slot/>
+      </Host>
     );
   }
 }

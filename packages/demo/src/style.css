@@ -81,3 +81,7 @@ small {
   font-size: 0.875rem;
   font-weight: var(--je-font-light);
 }
+
+aside[open] {
+  width: 300px;
+}

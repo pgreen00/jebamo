@@ -18,17 +18,13 @@ je-note {
   margin-left: spacing-get(xs);
 }
 
-:is(je-note, je-label):has(slot[empty]) {
-  display: none;
-}
-
 div[part=container] {
   position: relative;
   box-sizing: border-box;
   display: flex;
   gap: spacing-get(xs);
-  border-radius: radius-get(sm);
-  border: solid 2px secondary();
+  border-radius: radius-get(md);
+  border: solid 1px light-dark(secondary(), secondary(400));
   align-items: center;
   background-color: light-dark(primary(25), primary(975));
   color: light-dark(secondary(900), secondary(50));

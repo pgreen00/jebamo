@@ -211,6 +211,7 @@ export class JeTextfield {
   }
 
   componentDidLoad() {
+    this.internals.role = 'textbox';
     if (this.value) this.internals.setFormValue(this.value);
   }
 
@@ -246,6 +247,16 @@ export class JeTextfield {
   }
 
   componentDidRender() {
+    this.internals.ariaLabel = this.label || this.hostEl.querySelector('[slot=label]')?.textContent
+    this.internals.ariaDescription = this.note || this.hostEl.querySelector('[slot=note]')?.textContent
+    this.internals.ariaInvalid = this.internals.validity.valid ? 'true' : 'false'
+    this.internals.ariaRequired = this.required ? 'true' : 'false'
+    this.internals.ariaDisabled = this.disabled ? 'true' : 'false'
+    this.internals.ariaReadOnly = this.readonly ? 'true' : 'false'
+    this.internals.ariaMultiLine = this.multiline ? 'true' : 'false'
+    this.internals.ariaPlaceholder = this.placeholder || this.hostEl.querySelector('[slot=placeholder]')?.textContent
+    this.internals.ariaAutoComplete = this.autoComplete
+
     this.internals.states.clear()
     this.internals.states.add(this.invalid ? '--invalid' : '--valid');
     if (this.touched) this.internals.states.add(this.invalid ? '--user-invalid' : '--user-valid')
@@ -359,24 +370,19 @@ export class JeTextfield {
 
   render() {
     const transformer = this.getTransformer();
-    const noLabel = { empty: !this.label && !this.hostEl.querySelector('[slot=label]') };
-    const noNote = { empty: !this.note && !this.hostEl.querySelector('[slot=note]') };
     return (
       <Host>
         <div part="container" class={{ [this.size]: true, disabled: this.disabled, multiline: this.multiline }}>
           <slot name="start" />
 
-          <je-label aria-hidden="true" id='label' part='label' required={this.required}>
-            <slot name="label" { ...noLabel } onSlotchange={() => forceUpdate(this.hostEl)}>
-              {this.label && <span>{this.label}</span>}
-            </slot>
-          </je-label>
+          <slot name='label'>
+            {this.label && <je-label part='label' required={this.required}>{this.label}</je-label>}
+          </slot>
 
           {this.multiline ? (
             <textarea
               part="textarea"
-              aria-describedby='note'
-              aria-labelledby='label'
+              aria-hidden='true'
               tabindex={0}
               ref={el => (this.inputEl = el)}
               onInputCapture={this.formatInput}
@@ -399,9 +405,8 @@ export class JeTextfield {
           ) : (
             <input
               part='input'
+              aria-hidden='true'
               tabindex={0}
-              aria-describedby='note'
-              aria-labelledby='label'
               ref={el => (this.inputEl = el)}
               onInputCapture={this.formatInput}
               onInput={this.handleInput}
@@ -449,15 +454,13 @@ export class JeTextfield {
           ) : null}
         </div>
 
-        <je-note aria-hidden="true" id='note' part='note' invalid={this.invalid && this.touched}>
+        <slot name='note'>
           {this.invalid && this.touched ? (
-            <span>{this.internals.validationMessage}</span>
-          ) : (
-            <slot name="note" { ...noNote } onSlotchange={() => forceUpdate(this.hostEl)}>
-              {this.note && <span>{this.note}</span>}
-            </slot>
-          )}
-        </je-note>
+            <je-note part='note' invalid>{this.internals.validationMessage}</je-note>
+          ) : this.note ? (
+            <je-note part='note'>{this.note}</je-note>
+          ) : null}
+        </slot>
       </Host>
     );
   }

@@ -208,6 +208,27 @@ export declare interface JeButtonGroup extends Components.JeButtonGroup {}
 
 
 @ProxyCmp({
+})
+@Component({
+  selector: 'je-calendar',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeCalendar {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeCalendar extends Components.JeCalendar {}
+
+
+@ProxyCmp({
   inputs: ['button', 'color']
 })
 @Component({
@@ -230,14 +251,14 @@ export declare interface JeCard extends Components.JeCard {}
 
 
 @ProxyCmp({
-  inputs: ['data', 'disabled', 'indeterminate', 'labelPlacement', 'originalValue', 'required', 'switch', 'value']
+  inputs: ['data', 'indeterminate', 'labelPlacement', 'originalValue', 'required', 'value']
 })
 @Component({
   selector: 'je-checkbox',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['data', 'disabled', 'indeterminate', 'labelPlacement', 'originalValue', 'required', 'switch', 'value'],
+  inputs: ['data', 'indeterminate', 'labelPlacement', 'originalValue', 'required', 'value'],
 })
 export class JeCheckbox {
   protected el: HTMLElement;
@@ -877,14 +898,14 @@ export declare interface JePopover extends Components.JePopover {
 
 
 @ProxyCmp({
-  inputs: ['disabled', 'selected', 'value']
+  inputs: ['selected', 'value']
 })
 @Component({
   selector: 'je-radio',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['disabled', 'selected', 'value'],
+  inputs: ['selected', 'value'],
 })
 export class JeRadio {
   protected el: HTMLElement;
@@ -921,14 +942,14 @@ export declare interface JeRadioButton extends Components.JeRadioButton {}
 
 
 @ProxyCmp({
-  inputs: ['label', 'originalValue', 'required', 'value']
+  inputs: ['disabled', 'label', 'note', 'originalValue', 'required', 'value']
 })
 @Component({
   selector: 'je-radio-group',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['label', 'originalValue', 'required', 'value'],
+  inputs: ['disabled', 'label', 'note', 'originalValue', 'required', 'value'],
 })
 export class JeRadioGroup {
   protected el: HTMLElement;
@@ -1090,21 +1111,21 @@ export declare interface JeToastContainer extends Components.JeToastContainer {}
 
 
 @ProxyCmp({
-  inputs: ['checked', 'labelPlacement']
+  inputs: ['labelPlacement', 'originalValue', 'value']
 })
 @Component({
   selector: 'je-toggle',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['checked', 'labelPlacement'],
+  inputs: ['labelPlacement', 'originalValue', 'value'],
 })
 export class JeToggle {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['toggled']);
+    proxyOutputs(this, this.el, ['valueChange']);
   }
 }
 
@@ -1113,7 +1134,7 @@ export declare interface JeToggle extends Components.JeToggle {
   /**
    * Emits the new value whenever toggle is clicked
    */
-  toggled: EventEmitter<CustomEvent<boolean>>;
+  valueChange: EventEmitter<CustomEvent<boolean>>;
 }
 
 
