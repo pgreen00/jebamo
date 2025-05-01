@@ -17,6 +17,8 @@
   color: inherit;
   box-sizing: border-box;
   transition: all 75ms ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 :host(:not(:first-of-type)) {

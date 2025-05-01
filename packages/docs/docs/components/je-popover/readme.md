@@ -26,11 +26,13 @@ sidebar_label: 'Popover'
 
 ## Events
 
-| Event     | Description                                              | Type                                          |
-| --------- | -------------------------------------------------------- | --------------------------------------------- |
-| `dismiss` | Emits when the popover is closed                         | `CustomEvent<{ role?: string; data?: any; }>` |
-| `present` | Emits when the popover is opened                         | `CustomEvent<any>`                            |
-| `ready`   | Emits when the popover has completed it's initial render | `CustomEvent<any>`                            |
+| Event         | Description                                              | Type                                          |
+| ------------- | -------------------------------------------------------- | --------------------------------------------- |
+| `dismiss`     | Emits when the popover is closed                         | `CustomEvent<{ role?: string; data?: any; }>` |
+| `present`     | Emits when the popover is opened                         | `CustomEvent<any>`                            |
+| `ready`       | Emits when the popover has completed it's initial render | `CustomEvent<any>`                            |
+| `willDismiss` | Emits before the popover starts dismissing               | `CustomEvent<any>`                            |
+| `willPresent` | Emits before the popover starts opening                  | `CustomEvent<any>`                            |
 
 
 ## Methods
@@ -77,11 +79,13 @@ Type: `Promise<void>`
 ### Used by
 
  - [je-datepicker](../je-datepicker)
+ - [je-select](../je-select)
 
 ### Graph
 ```mermaid
 graph TD;
   je-datepicker --> je-popover
+  je-select --> je-popover
   style je-popover fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

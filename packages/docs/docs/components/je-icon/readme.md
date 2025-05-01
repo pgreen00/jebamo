@@ -25,6 +25,7 @@ sidebar_label: 'Icon'
  - [je-details](../je-details)
  - [je-icon-button](../je-icon-button)
  - [je-radio](../je-radio)
+ - [je-select](../je-select)
  - [je-textfield](../je-textfield)
 
 ### Graph
@@ -36,6 +37,7 @@ graph TD;
   je-details --> je-icon
   je-icon-button --> je-icon
   je-radio --> je-icon
+  je-select --> je-icon
   je-textfield --> je-icon
   style je-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```

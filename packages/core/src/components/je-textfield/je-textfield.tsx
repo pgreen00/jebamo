@@ -382,7 +382,6 @@ export class JeTextfield {
           {this.multiline ? (
             <textarea
               part="textarea"
-              aria-hidden='true'
               tabindex={0}
               ref={el => (this.inputEl = el)}
               onInputCapture={this.formatInput}
@@ -405,7 +404,6 @@ export class JeTextfield {
           ) : (
             <input
               part='input'
-              aria-hidden='true'
               tabindex={0}
               ref={el => (this.inputEl = el)}
               onInputCapture={this.formatInput}

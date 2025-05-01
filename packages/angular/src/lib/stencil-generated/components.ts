@@ -772,13 +772,14 @@ export declare interface JeNote extends Components.JeNote {}
 
 
 @ProxyCmp({
+  inputs: ['disabled', 'selected', 'value']
 })
 @Component({
   selector: 'je-option',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['disabled', 'selected', 'value'],
 })
 export class JeOption {
   protected el: HTMLElement;
@@ -874,7 +875,7 @@ export class JePopover {
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
-    proxyOutputs(this, this.el, ['present', 'dismiss', 'ready']);
+    proxyOutputs(this, this.el, ['willPresent', 'present', 'dismiss', 'willDismiss', 'ready']);
   }
 }
 
@@ -883,6 +884,10 @@ import type { OverlayData as IJePopoverOverlayData } from 'jebamo';
 
 export declare interface JePopover extends Components.JePopover {
   /**
+   * Emits before the popover starts opening
+   */
+  willPresent: EventEmitter<CustomEvent<any>>;
+  /**
    * Emits when the popover is opened
    */
   present: EventEmitter<CustomEvent<any>>;
@@ -890,6 +895,10 @@ export declare interface JePopover extends Components.JePopover {
    * Emits when the popover is closed
    */
   dismiss: EventEmitter<CustomEvent<IJePopoverOverlayData>>;
+  /**
+   * Emits before the popover starts dismissing
+   */
+  willDismiss: EventEmitter<CustomEvent<any>>;
   /**
    * Emits when the popover has completed it's initial render
    */
@@ -991,24 +1000,29 @@ export declare interface JeRefresher extends Components.JeRefresher {}
 
 
 @ProxyCmp({
+  inputs: ['disabled', 'label', 'multiple', 'note', 'options', 'originalValue', 'placeholder', 'required', 'size', 'value']
 })
 @Component({
   selector: 'je-select',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['disabled', 'label', 'multiple', 'note', 'options', 'originalValue', 'placeholder', 'required', 'size', 'value'],
 })
 export class JeSelect {
   protected el: HTMLElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
+    proxyOutputs(this, this.el, ['valueChange']);
   }
 }
 
 
-export declare interface JeSelect extends Components.JeSelect {}
+export declare interface JeSelect extends Components.JeSelect {
+
+  valueChange: EventEmitter<CustomEvent<any>>;
+}
 
 
 @ProxyCmp({

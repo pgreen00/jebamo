@@ -107,6 +107,11 @@ export class JePopover {
   @Prop() arrowPadding = 6;
 
   /**
+   * Emits before the popover starts opening
+   */
+  @Event({ bubbles: false }) willPresent: EventEmitter;
+
+  /**
    * Emits when the popover is opened
    */
   @Event({ bubbles: false }) present: EventEmitter;
@@ -115,6 +120,11 @@ export class JePopover {
    * Emits when the popover is closed
    */
   @Event({ bubbles: false }) dismiss: EventEmitter<OverlayData>;
+
+  /**
+   * Emits before the popover starts dismissing
+   */
+  @Event({ bubbles: false }) willDismiss: EventEmitter;
 
   /**
    * Emits when the popover has completed it's initial render
@@ -144,6 +154,7 @@ export class JePopover {
   @Watch('open')
   async handleOpenChange(open: boolean) {
     if (open) {
+      this.willPresent.emit();
       if (this.init) {
         await this.init();
       }
@@ -151,6 +162,7 @@ export class JePopover {
       this.cleanup = autoUpdate(this.referenceEl, this.containerEl, () => this.computePosition().then(this.setPosition));
       this.containerEl.showPopover();
     } else {
+      this.willDismiss.emit();
       if (this.cleanup) {
         this.cleanup();
       }

@@ -378,6 +378,9 @@ export namespace Components {
         "invalid"?: boolean;
     }
     interface JeOption {
+        "disabled": boolean;
+        "selected": boolean;
+        "value": any;
     }
     interface JePage {
         /**
@@ -503,6 +506,16 @@ export namespace Components {
     interface JeRefresher {
     }
     interface JeSelect {
+        "disabled": boolean;
+        "label"?: string;
+        "multiple": boolean;
+        "note"?: string;
+        "options"?: { value: any, label: string }[];
+        "originalValue": any;
+        "placeholder"?: string;
+        "required": boolean;
+        "size": 'md' | 'lg' | 'sm';
+        "value": any;
     }
     interface JeTab {
         "active": boolean;
@@ -740,6 +753,10 @@ export interface JePopoverCustomEvent<T> extends CustomEvent<T> {
 export interface JeRadioGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeRadioGroupElement;
+}
+export interface JeSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeSelectElement;
 }
 export interface JeTabsCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1101,8 +1118,10 @@ declare global {
         new (): HTMLJePlaceholderElement;
     };
     interface HTMLJePopoverElementEventMap {
+        "willPresent": any;
         "present": any;
         "dismiss": OverlayData;
+        "willDismiss": any;
         "ready": any;
     }
     interface HTMLJePopoverElement extends Components.JePopover, HTMLStencilElement {
@@ -1154,7 +1173,18 @@ declare global {
         prototype: HTMLJeRefresherElement;
         new (): HTMLJeRefresherElement;
     };
+    interface HTMLJeSelectElementEventMap {
+        "valueChange": any;
+    }
     interface HTMLJeSelectElement extends Components.JeSelect, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeSelectElementEventMap>(type: K, listener: (this: HTMLJeSelectElement, ev: JeSelectCustomEvent<HTMLJeSelectElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeSelectElementEventMap>(type: K, listener: (this: HTMLJeSelectElement, ev: JeSelectCustomEvent<HTMLJeSelectElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeSelectElement: {
         prototype: HTMLJeSelectElement;
@@ -1725,6 +1755,9 @@ declare namespace LocalJSX {
         "invalid"?: boolean;
     }
     interface JeOption {
+        "disabled"?: boolean;
+        "selected"?: boolean;
+        "value"?: any;
     }
     interface JePage {
         /**
@@ -1792,6 +1825,14 @@ declare namespace LocalJSX {
           * Emits when the popover has completed it's initial render
          */
         "onReady"?: (event: JePopoverCustomEvent<any>) => void;
+        /**
+          * Emits before the popover starts dismissing
+         */
+        "onWillDismiss"?: (event: JePopoverCustomEvent<any>) => void;
+        /**
+          * Emits before the popover starts opening
+         */
+        "onWillPresent"?: (event: JePopoverCustomEvent<any>) => void;
         /**
           * Opens/closes the popover
          */
@@ -1864,6 +1905,17 @@ declare namespace LocalJSX {
     interface JeRefresher {
     }
     interface JeSelect {
+        "disabled"?: boolean;
+        "label"?: string;
+        "multiple"?: boolean;
+        "note"?: string;
+        "onValueChange"?: (event: JeSelectCustomEvent<any>) => void;
+        "options"?: { value: any, label: string }[];
+        "originalValue"?: any;
+        "placeholder"?: string;
+        "required"?: boolean;
+        "size"?: 'md' | 'lg' | 'sm';
+        "value"?: any;
     }
     interface JeTab {
         "active"?: boolean;
