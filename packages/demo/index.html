@@ -45,6 +45,36 @@
             <je-option value="3">Option 3</je-option>
           </je-select>
         </je-form>
+
+        <je-popover style="--padding: 0">
+          <je-button slot="trigger">Open Menu</je-button>
+          <je-menu>
+            <je-item>
+              Item 1
+              <je-icon-button icon="favorite" slot="end"></je-icon-button>
+            </je-item>
+            <je-popover trigger-action="hover" style="--padding: 0">
+              <je-item slot="trigger">
+                Item 2
+                <je-icon-button icon="chevron_right" slot="end"></je-icon-button>
+              </je-item>
+              <je-menu>
+                <je-item>Undo</je-item>
+                <je-item>Redo</je-item>
+                <je-divider></je-divider>
+                <je-item>
+                  Delete
+                  <je-icon fill slot="end">delete</je-icon>
+                </je-item>
+              </je-menu>
+            </je-popover>
+            <je-item>
+              <je-icon slot="start" fill>folder</je-icon>
+              Item 3
+              <je-icon-button icon="favorite" slot="end"></je-icon-button>
+            </je-item>
+          </je-popover>
+        </div>
       </div>
     </main>
 

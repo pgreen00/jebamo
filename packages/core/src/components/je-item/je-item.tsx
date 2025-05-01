@@ -3,13 +3,23 @@ import { Component, Host, h } from '@stencil/core';
 @Component({
   tag: 'je-item',
   styleUrl: 'je-item.scss',
-  shadow: true,
+  shadow: {
+    delegatesFocus: true
+  },
 })
 export class JeItem {
   render() {
     return (
       <Host>
-        <slot></slot>
+        <div>
+          <slot name='start'/>
+        </div>
+        <button type='button'>
+          <slot />
+        </button>
+        <div>
+        <slot name='end'/>
+        </div>
       </Host>
     );
   }

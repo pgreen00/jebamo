@@ -338,9 +338,9 @@ export namespace Components {
          */
         "underline": boolean;
     }
-    interface JeList {
-    }
     interface JeLoading {
+    }
+    interface JeMenu {
     }
     interface JeModal {
         /**
@@ -1050,17 +1050,17 @@ declare global {
         prototype: HTMLJeLinkElement;
         new (): HTMLJeLinkElement;
     };
-    interface HTMLJeListElement extends Components.JeList, HTMLStencilElement {
-    }
-    var HTMLJeListElement: {
-        prototype: HTMLJeListElement;
-        new (): HTMLJeListElement;
-    };
     interface HTMLJeLoadingElement extends Components.JeLoading, HTMLStencilElement {
     }
     var HTMLJeLoadingElement: {
         prototype: HTMLJeLoadingElement;
         new (): HTMLJeLoadingElement;
+    };
+    interface HTMLJeMenuElement extends Components.JeMenu, HTMLStencilElement {
+    }
+    var HTMLJeMenuElement: {
+        prototype: HTMLJeMenuElement;
+        new (): HTMLJeMenuElement;
     };
     interface HTMLJeModalElementEventMap {
         "present": any;
@@ -1327,8 +1327,8 @@ declare global {
         "je-item": HTMLJeItemElement;
         "je-label": HTMLJeLabelElement;
         "je-link": HTMLJeLinkElement;
-        "je-list": HTMLJeListElement;
         "je-loading": HTMLJeLoadingElement;
+        "je-menu": HTMLJeMenuElement;
         "je-modal": HTMLJeModalElement;
         "je-nav": HTMLJeNavElement;
         "je-note": HTMLJeNoteElement;
@@ -1706,9 +1706,9 @@ declare namespace LocalJSX {
          */
         "underline"?: boolean;
     }
-    interface JeList {
-    }
     interface JeLoading {
+    }
+    interface JeMenu {
     }
     interface JeModal {
         /**
@@ -2131,8 +2131,8 @@ declare namespace LocalJSX {
         "je-item": JeItem;
         "je-label": JeLabel;
         "je-link": JeLink;
-        "je-list": JeList;
         "je-loading": JeLoading;
+        "je-menu": JeMenu;
         "je-modal": JeModal;
         "je-nav": JeNav;
         "je-note": JeNote;
@@ -2187,8 +2187,8 @@ declare module "@stencil/core" {
             "je-item": LocalJSX.JeItem & JSXBase.HTMLAttributes<HTMLJeItemElement>;
             "je-label": LocalJSX.JeLabel & JSXBase.HTMLAttributes<HTMLJeLabelElement>;
             "je-link": LocalJSX.JeLink & JSXBase.HTMLAttributes<HTMLJeLinkElement>;
-            "je-list": LocalJSX.JeList & JSXBase.HTMLAttributes<HTMLJeListElement>;
             "je-loading": LocalJSX.JeLoading & JSXBase.HTMLAttributes<HTMLJeLoadingElement>;
+            "je-menu": LocalJSX.JeMenu & JSXBase.HTMLAttributes<HTMLJeMenuElement>;
             "je-modal": LocalJSX.JeModal & JSXBase.HTMLAttributes<HTMLJeModalElement>;
             "je-nav": LocalJSX.JeNav & JSXBase.HTMLAttributes<HTMLJeNavElement>;
             "je-note": LocalJSX.JeNote & JSXBase.HTMLAttributes<HTMLJeNoteElement>;

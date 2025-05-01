@@ -649,27 +649,6 @@ export declare interface JeLink extends Components.JeLink {}
 @ProxyCmp({
 })
 @Component({
-  selector: 'je-list',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
-})
-export class JeList {
-  protected el: HTMLElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-  }
-}
-
-
-export declare interface JeList extends Components.JeList {}
-
-
-@ProxyCmp({
-})
-@Component({
   selector: 'je-loading',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
@@ -686,6 +665,27 @@ export class JeLoading {
 
 
 export declare interface JeLoading extends Components.JeLoading {}
+
+
+@ProxyCmp({
+})
+@Component({
+  selector: 'je-menu',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeMenu {
+  protected el: HTMLElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeMenu extends Components.JeMenu {}
 
 
 @ProxyCmp({

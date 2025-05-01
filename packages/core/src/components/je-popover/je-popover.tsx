@@ -173,20 +173,23 @@ export class JePopover {
   @Listen('click', { capture: true, target: 'window' })
   handleWindowClick(ev: MouseEvent) {
     const path = ev.composedPath();
+    if (this.triggerAction == 'click') {
+      if (this.open) {
+        if (this.backdropDismiss && !path.includes(this.containerEl)) {
+          this.hide('backdropDismiss')
+          this.open = false;
+        }
 
-    if (this.triggerAction == 'click' && !this.open) {
-      this.mouseEvent = ev;
-      if (path.includes(this.triggerElement)) {
-        this.open = true;
+        if (this.dismissOnClick && path.includes(this.containerEl)) {
+          this.open = false;
+          this.hide('clickDismiss')
+        }
+      } else {
+        this.mouseEvent = ev;
+        if (path.includes(this.triggerElement)) {
+          this.open = true;
+        }
       }
-    }
-
-    if (this.dismissOnClick && this.open && path.includes(this.containerEl)) {
-      this.hide('clickDismiss')
-    }
-
-    if (this.backdropDismiss && this.open && !path.includes(this.containerEl) && !path.includes(this.triggerElement)) {
-      this.hide('backdropDismiss')
     }
   }
 

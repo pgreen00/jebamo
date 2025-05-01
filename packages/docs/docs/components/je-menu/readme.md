@@ -1,6 +1,6 @@
 ---
-title: 'JeList | <je-list>'
-sidebar_label: 'List'
+title: 'JeMenu | <je-menu>'
+sidebar_label: 'Menu'
 ---
 <!-- Auto Generated Below -->
 

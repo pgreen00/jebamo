@@ -42,8 +42,7 @@ export class JeSelect {
   componentDidRender() {
     this.internals.ariaLabel = this.label || this.hostEl.querySelector('[slot=label]')?.textContent
     this.internals.ariaDescription = this.note || this.hostEl.querySelector('[slot=note]')?.textContent
-    this.internals.ariaInvalid = this.internals.validity.valid ? 'true' : 'false';
-    this.hostEl.title = this.note || this.placeholder || this.label
+    this.internals.ariaInvalid = this.internals.validity.valid ? 'true' : 'false'
   }
 
   private getOptions() {
@@ -67,7 +66,7 @@ export class JeSelect {
   render() {
     return (
       <Host role='listbox'>
-        <je-popover arrow={false} placement='bottom' matchWidth={true} onWillPresent={() => this.open = true} onWillDismiss={() => this.open = false}>
+        <je-popover arrow={false} placement='bottom' matchWidth={true} dismissOnClick={!this.multiple} onWillPresent={() => this.open = true} onWillDismiss={() => this.open = false}>
           <button class={this.size} disabled={this.disabled} slot='trigger' tabindex={0} type='button'>
             <slot name='start'/>
             <slot name='label'>

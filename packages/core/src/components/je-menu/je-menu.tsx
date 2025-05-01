@@ -1,11 +1,11 @@
 import { Component, Host, h } from '@stencil/core';
 
 @Component({
-  tag: 'je-list',
-  styleUrl: 'je-list.scss',
+  tag: 'je-menu',
+  styleUrl: 'je-menu.scss',
   shadow: true,
 })
-export class JeList {
+export class JeMenu {
   render() {
     return (
       <Host>

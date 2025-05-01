@@ -1,18 +1,18 @@
 import { newSpecPage } from '@stencil/core/testing';
-import { JeList } from '../je-list';
+import { JeMenu } from '../je-menu';
 
-describe('je-list', () => {
+describe('je-menu', () => {
   it('renders', async () => {
     const page = await newSpecPage({
-      components: [JeList],
-      html: `<je-list></je-list>`,
+      components: [JeMenu],
+      html: `<je-menu></je-menu>`,
     });
     expect(page.root).toEqualHtml(`
-      <je-list>
+      <je-menu>
         <mock:shadow-root>
           <slot></slot>
         </mock:shadow-root>
-      </je-list>
+      </je-menu>
     `);
   });
 });
