@@ -31,12 +31,25 @@ div[part=container] {
   padding-inline: spacing-get(xs);
   &.sm {
     height: 2.5rem;
+    textarea {
+      height: 6rem;
+    }
   }
   &.md {
     height: 3rem;
+    textarea {
+      height: 8rem;
+    }
   }
   &.lg {
     height: 3.5rem;
+    textarea {
+      height: 10rem;
+    }
+  }
+  &.multiline {
+    align-items: baseline;
+    height: fit-content;
   }
   &.disabled {
     opacity: 0.6;
@@ -49,8 +62,10 @@ textarea {
   background-color: inherit;
   color: inherit;
   font-family: inherit;
+  box-shadow: none;
   flex: 1;
   min-width: 0;
+  box-sizing: border-box;
   outline: 0;
   border: 0;
   margin: 0;
@@ -70,4 +85,12 @@ textarea {
   &[type=password]::-ms-clear {
     display: none !important;
   }
+
+  &.suppress::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+}
+
+textarea {
+  resize: none;
 }

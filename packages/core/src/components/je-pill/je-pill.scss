@@ -1,40 +1,39 @@
+@use '../../styles/styles' as *;
+
 :host {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  gap: var(--je-spacing-2xs);
-  padding-inline: 4px;
-  border-radius: var(--je-border-radius, 2px);
-  height: 20px;
-  min-width: 40px;
+  gap: spacing-get(xs);
+  padding-inline: spacing-get(xs);
+  border-radius: radius-get(md);
+  height: 1.5rem;
+  min-width: 2.5rem;
   -webkit-user-select: none;
   user-select: none;
   transition: all 125ms ease-in-out;
   color: var(--je-pill-color);
   background-color: var(--je-pill-background);
 
-  --je-pill-color: var(--je-primary-500, buttonface);
-  --je-pill-background: var(--je-primary-100, buttontext);
-  --je-pill-hover-background: var(--je-primary-200, buttontext);
+  --je-pill-color: #{primary()};
+  --je-pill-background: #{primary(100)};
+  --je-pill-hover-background: #{primary(200)};
 }
 
-:host(:not([button=false])) {
+:host([role=button]) {
   cursor: pointer;
-  ::slotted(je-icon) {
-    cursor: pointer;
-  }
 }
 
-:host(:not([button=false]):not([disabled]):hover) {
+:host([role=button][disabled]) {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+:host([role=button]:not([disabled]):hover) {
   @media (hover: hover) {
     --je-pill-background: var(--je-pill-hover-background);
   }
-}
-
-:host([disabled]) {
-  opacity: 0.8;
-  cursor: default;
 }
 
 :host([outline]) {

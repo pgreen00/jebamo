@@ -165,14 +165,14 @@ export declare interface JeBreadcrumbs extends Components.JeBreadcrumbs {
 
 
 @ProxyCmp({
-  inputs: ['color', 'disabled', 'expand', 'fill', 'pending', 'size', 'type']
+  inputs: ['color', 'disabled', 'expand', 'fill', 'form', 'pending', 'size', 'type']
 })
 @Component({
   selector: 'je-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['color', 'disabled', 'expand', 'fill', 'pending', 'size', 'type'],
+  inputs: ['color', 'disabled', 'expand', 'fill', 'form', 'pending', 'size', 'type'],
 })
 export class JeButton {
   protected el: HTMLElement;
@@ -366,7 +366,7 @@ export class JeDatepicker {
 
 export declare interface JeDatepicker extends Components.JeDatepicker {
 
-  valueChange: EventEmitter<CustomEvent<number | undefined>>;
+  valueChange: EventEmitter<CustomEvent<number>>;
 }
 
 
@@ -816,14 +816,14 @@ export declare interface JePage extends Components.JePage {}
 
 
 @ProxyCmp({
-  inputs: ['button', 'disabled', 'outline']
+  inputs: ['outline']
 })
 @Component({
   selector: 'je-pill',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['button', 'disabled', 'outline'],
+  inputs: ['outline'],
 })
 export class JePill {
   protected el: HTMLElement;
@@ -1074,7 +1074,7 @@ export declare interface JeTabs extends Components.JeTabs {
 
 
 @ProxyCmp({
-  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'error', 'format', 'inputMode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiline', 'note', 'originalValue', 'pattern', 'pending', 'placeholder', 'readonly', 'required', 'size', 'spellcheck', 'step', 'success', 'transform', 'type', 'validators', 'value', 'wrap'],
+  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'error', 'format', 'inputMode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiline', 'note', 'originalValue', 'pattern', 'pending', 'placeholder', 'readonly', 'required', 'size', 'spellcheck', 'step', 'success', 'suppressDefaultBehavior', 'transform', 'type', 'validators', 'value', 'wrap'],
   methods: ['getInputElement', 'markAsTouched', 'getErrors', 'isTouched']
 })
 @Component({
@@ -1082,7 +1082,7 @@ export declare interface JeTabs extends Components.JeTabs {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'error', 'format', 'inputMode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiline', 'note', 'originalValue', 'pattern', 'pending', 'placeholder', 'readonly', 'required', 'size', 'spellcheck', 'step', 'success', 'transform', 'type', 'validators', 'value', 'wrap'],
+  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'error', 'format', 'inputMode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiline', 'note', 'originalValue', 'pattern', 'pending', 'placeholder', 'readonly', 'required', 'size', 'spellcheck', 'step', 'success', 'suppressDefaultBehavior', 'transform', 'type', 'validators', 'value', 'wrap'],
 })
 export class JeTextfield {
   protected el: HTMLElement;

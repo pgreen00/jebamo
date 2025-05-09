@@ -1,5 +1,5 @@
 import { Component, Element, Event, EventEmitter, Fragment, Host, Prop, State, Watch, h } from '@stencil/core';
-import { startOfMonth, endOfMonth, eachDayOfInterval, addMonths, subMonths, isSameDay, isToday, format, getDay, set, setHours, setMinutes, setSeconds } from 'date-fns';
+import { startOfMonth, endOfMonth, eachDayOfInterval, addMonths, subMonths, isSameDay, isToday, format, getDay, set } from 'date-fns';
 
 const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'] as const;
 
@@ -17,7 +17,7 @@ export class JeDatepicker {
   @Prop() max?: number;
   @Prop() isDateDisabled?: (date: Date) => boolean;
   @Prop({ mutable: true }) value?: number;
-  @Event() valueChange: EventEmitter<number | undefined>;
+  @Event() valueChange: EventEmitter<number>;
 
   componentWillLoad() {
     if (this.value) {
@@ -30,7 +30,6 @@ export class JeDatepicker {
     if (this.value) {
       this.currentDate = new Date(this.value);
     }
-    this.valueChange.emit(this.value ? new Date(this.value).getTime() : undefined);
   }
 
   nextMonth = () => {
@@ -49,29 +48,24 @@ export class JeDatepicker {
     this.currentDate = subMonths(this.currentDate, 12);
   }
 
-  setDay = (day: Date) => {
-    this.value = set(this.value, {
-      year: day.getFullYear(),
-      month: day.getMonth(),
-      date: day.getDate()
-    }).getTime();
-  }
-
-  setHour = (hour: number) => {
-    this.value = setHours(this.value, hour).getTime();
-  }
-
-  setMinute = (minute: number) => {
-    this.value = setMinutes(this.value, minute).getTime();
-  }
-
-  setSecond = (second: number) => {
-    this.value = setSeconds(this.value, second).getTime();
+  setValue = (opts: { day?: Date, hour?: number, minute?: number, second?: number }) => {
+    const newValue = set(this.value ?? new Date(), {
+      year: opts.day?.getFullYear(),
+      month: opts.day?.getMonth(),
+      date: opts.day?.getDate(),
+      hours: opts.hour,
+      minutes: opts.minute,
+      seconds: opts.second
+    })
+    this.value = newValue.getTime();
+    this.valueChange.emit(this.value);
   }
 
   scrollTimeIntoView = () => {
     this.el.shadowRoot.querySelectorAll('.timepicker-column').forEach(column => {
-      column.querySelector('je-button[color="primary"][fill="solid"]')?.scrollIntoView({ block: 'center', behavior: 'smooth'});
+      column.querySelector('je-button[color="primary"][fill="solid"]')
+        ?.shadowRoot.querySelector('button')
+        ?.scrollIntoView({ block: 'center', behavior: 'instant' });
     });
   }
 
@@ -127,7 +121,7 @@ export class JeDatepicker {
                     color={selected || today ? 'primary' : isDisabled ? 'secondary' : undefined}
                     fill={selected ? 'solid' : 'clear'}
                     class='day'
-                    onClick={() => this.setDay(day)}
+                    onClick={() => this.setValue({day})}
                   >
                     {format(day, 'd')}
                   </je-button>
@@ -146,7 +140,7 @@ export class JeDatepicker {
           <div class='timepicker'>
             <span>Time</span>
             <je-popover arrow={true} onPresent={this.scrollTimeIntoView}>
-              <je-pill slot='trigger'>
+              <je-pill role='button' {...{tabindex: 0}} slot='trigger'>
                 {this.value ? (
                   this.includeSeconds ? format(this.value, 'hh:mm:ss a') : format(this.value, 'hh:mm a')
                 ) : '-'}
@@ -158,7 +152,7 @@ export class JeDatepicker {
                       size='sm'
                       color={this.currentDate.getHours() === hour ? 'primary' : undefined}
                       fill={this.currentDate.getHours() === hour ? 'solid' : 'clear'}
-                      onClick={() => this.setHour(hour)}
+                      onClick={() => this.setValue({hour})}
                     >
                       {format(new Date().setHours(hour), 'hh a')}
                     </je-button>
@@ -170,7 +164,7 @@ export class JeDatepicker {
                       size='sm'
                       color={this.currentDate.getMinutes() === minute ? 'primary' : undefined}
                       fill={this.currentDate.getMinutes() === minute ? 'solid' : 'clear'}
-                      onClick={() => this.setMinute(minute)}
+                      onClick={() => this.setValue({minute})}
                     >
                       {format(new Date().setMinutes(minute), 'mm')}
                     </je-button>
@@ -183,7 +177,7 @@ export class JeDatepicker {
                         size='sm'
                         color={this.currentDate.getSeconds() === second ? 'primary' : undefined}
                         fill={this.currentDate.getSeconds() === second ? 'solid' : 'clear'}
-                        onClick={() => this.setSecond(second)}
+                        onClick={() => this.setValue({second})}
                       >
                         {format(new Date().setSeconds(second), 'ss')}
                       </je-button>

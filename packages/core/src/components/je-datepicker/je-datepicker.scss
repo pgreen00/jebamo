@@ -11,11 +11,11 @@
 }
 
 je-button.day {
-  --height: #{spacing-get(xl)};
+  --height: #{spacing-get(2xl)};
   --padding-inline: 0px;
 
   &::part(inner-button) {
-    width: spacing-get(xl);
+    width: spacing-get(2xl);
     font-weight: 400;
   }
 }
@@ -40,8 +40,8 @@ je-button.day {
   gap: spacing-get(2xs);
 
   div {
-    height: spacing-get(xl);
-    width: spacing-get(xl);
+    height: spacing-get(2xl);
+    width: spacing-get(2xl);
     font-size: font-size(md);
     font-weight: 400;
     color: secondary(600);

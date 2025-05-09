@@ -19,6 +19,12 @@ export class JeButton {
   /** Can set to submit or reset to participate in forms */
   @Prop() type?: 'submit' | 'reset';
 
+  /**
+   * Can set form id to participate in forms. Use this if you need to place
+   * submit/reset button outside the form element
+   */
+  @Prop() form?: string;
+
   /** Expands the button to the full width of it's container */
   @Prop() expand = false;
 
@@ -36,7 +42,8 @@ export class JeButton {
 
   componentDidLoad() {
     if (this.type) {
-      const formEl = this.el.closest('form');
+      const formEl = this.form ? document.getElementById(this.form) : this.el.closest('form');
+      console.log(formEl);
       if (formEl) {
         this.formButtonEl = document.createElement('button');
         this.formButtonEl.type = this.type;

@@ -161,6 +161,11 @@ export class JeTextfield {
   @Prop() note?: string;
 
   /**
+   * Whether to suppress the default behavior of the input event
+   */
+  @Prop() suppressDefaultBehavior = false
+
+  /**
    * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).
    *
    * There are built-in transformers for 'number', 'date', and 'datetime'.
@@ -270,12 +275,12 @@ export class JeTextfield {
   formResetCallback() {
     this.touched = false;
     this.value = this.originalValue;
+    this.valueChange.emit(this.value);
   }
 
   @Watch('value')
   handleValueChange() {
     this.internals.setFormValue(this.value || null);
-    this.valueChange.emit(this.value);
   }
 
   @Method()
@@ -360,12 +365,18 @@ export class JeTextfield {
     if (input) {
       const transformer = this.getTransformer();
       this.value = transformer?.to ? transformer.to(input.value) : input.value;
+      this.valueChange.emit(this.value);
     }
   };
 
   private onFocus = () => {
     if (this.touched) forceUpdate(this.hostEl);
     else this.touched = true;
+  }
+
+  private suppress = (ev: Event) => {
+    if (this.suppressDefaultBehavior)
+      ev.preventDefault();
   }
 
   render() {
@@ -406,8 +417,10 @@ export class JeTextfield {
               part='input'
               tabindex={0}
               ref={el => (this.inputEl = el)}
+              class={{suppress: this.suppressDefaultBehavior}}
               onInputCapture={this.formatInput}
               onInput={this.handleInput}
+              onClick={this.suppress}
               onFocus={this.onFocus}
               disabled={this.disabled}
               autoCapitalize={this.autoCapitalize}

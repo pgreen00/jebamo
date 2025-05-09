@@ -1,4 +1,4 @@
-import { Component, Element, Event, EventEmitter, Host, Listen, Prop, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Listen, Prop, Watch, h } from '@stencil/core';
 
 @Component({
   tag: 'je-tree',
@@ -26,6 +26,11 @@ export class JeTree {
       branch.selection = selection;
       branch.indentation = indentation;
     })
+  }
+
+  @Watch('value')
+  valueChanged() {
+    this.valueChange.emit(this.value);
   }
 
   @Listen('click')

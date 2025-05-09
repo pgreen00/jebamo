@@ -1,4 +1,4 @@
-import { Component, Host, Prop, h } from '@stencil/core';
+import { Component, Element, Host, Listen, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-pill',
@@ -6,9 +6,15 @@ import { Component, Host, Prop, h } from '@stencil/core';
   shadow: true,
 })
 export class JePill {
+  @Element() el: HTMLJePillElement
   @Prop({ reflect: true }) outline = false;
-  @Prop({ reflect: true }) button = true;
-  @Prop({ reflect: true }) disabled = false;
+
+  @Listen('keydown', { capture: true })
+  onClick(ev: KeyboardEvent) {
+    if (this.el.role == 'button' && (ev.key == ' ' || ev.key == 'Enter')) {
+      this.el.click()
+    }
+  }
 
   render() {
     return (

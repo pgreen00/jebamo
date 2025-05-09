@@ -7,15 +7,16 @@ sidebar_label: 'Button'
 
 ## Properties
 
-| Property   | Attribute  | Description                                            | Type                                                             | Default     |
-| ---------- | ---------- | ------------------------------------------------------ | ---------------------------------------------------------------- | ----------- |
-| `color`    | `color`    | Predefined colors                                      | `"danger" \| "primary" \| "secondary" \| "success" \| "warning"` | `undefined` |
-| `disabled` | `disabled` | Disables button                                        | `boolean`                                                        | `false`     |
-| `expand`   | `expand`   | Expands the button to the full width of it's container | `boolean`                                                        | `false`     |
-| `fill`     | `fill`     | Button fill                                            | `"clear" \| "outline" \| "solid"`                                | `'solid'`   |
-| `pending`  | `pending`  | Shows a loading spinner and disables the button        | `boolean`                                                        | `false`     |
-| `size`     | `size`     | Button size                                            | `"lg" \| "md" \| "sm"`                                           | `'md'`      |
-| `type`     | `type`     | Can set to submit or reset to participate in forms     | `"reset" \| "submit"`                                            | `undefined` |
+| Property   | Attribute  | Description                                                                                                         | Type                                                             | Default     |
+| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ----------- |
+| `color`    | `color`    | Predefined colors                                                                                                   | `"danger" \| "primary" \| "secondary" \| "success" \| "warning"` | `undefined` |
+| `disabled` | `disabled` | Disables button                                                                                                     | `boolean`                                                        | `false`     |
+| `expand`   | `expand`   | Expands the button to the full width of it's container                                                              | `boolean`                                                        | `false`     |
+| `fill`     | `fill`     | Button fill                                                                                                         | `"clear" \| "outline" \| "solid"`                                | `'solid'`   |
+| `form`     | `form`     | Can set form id to participate in forms. Use this if you need to place submit/reset button outside the form element | `string`                                                         | `undefined` |
+| `pending`  | `pending`  | Shows a loading spinner and disables the button                                                                     | `boolean`                                                        | `false`     |
+| `size`     | `size`     | Button size                                                                                                         | `"lg" \| "md" \| "sm"`                                           | `'md'`      |
+| `type`     | `type`     | Can set to submit or reset to participate in forms                                                                  | `"reset" \| "submit"`                                            | `undefined` |
 
 
 ## Shadow Parts

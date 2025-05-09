@@ -91,6 +91,10 @@ export namespace Components {
          */
         "fill": 'solid' | 'outline' | 'clear';
         /**
+          * Can set form id to participate in forms. Use this if you need to place submit/reset button outside the form element
+         */
+        "form"?: string;
+        /**
           * Shows a loading spinner and disables the button
          */
         "pending": boolean;
@@ -389,8 +393,6 @@ export namespace Components {
         "layout": 'sticky' | 'flex';
     }
     interface JePill {
-        "button": boolean;
-        "disabled": boolean;
         "outline": boolean;
     }
     interface JePlaceholder {
@@ -634,6 +636,10 @@ export namespace Components {
           * Shows a success icon in the end slot when true. Has no effect on form validation
          */
         "success": boolean;
+        /**
+          * Whether to suppress the default behavior of the input event
+         */
+        "suppressDefaultBehavior": boolean;
         /**
           * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).  There are built-in transformers for 'number', 'date', and 'datetime'.
          */
@@ -910,7 +916,7 @@ declare global {
         new (): HTMLJeColumnGroupElement;
     };
     interface HTMLJeDatepickerElementEventMap {
-        "valueChange": number | undefined;
+        "valueChange": number;
     }
     interface HTMLJeDatepickerElement extends Components.JeDatepicker, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeDatepickerElementEventMap>(type: K, listener: (this: HTMLJeDatepickerElement, ev: JeDatepickerCustomEvent<HTMLJeDatepickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1436,6 +1442,10 @@ declare namespace LocalJSX {
          */
         "fill"?: 'solid' | 'outline' | 'clear';
         /**
+          * Can set form id to participate in forms. Use this if you need to place submit/reset button outside the form element
+         */
+        "form"?: string;
+        /**
           * Shows a loading spinner and disables the button
          */
         "pending"?: boolean;
@@ -1553,7 +1563,7 @@ declare namespace LocalJSX {
         "isDateDisabled"?: (date: Date) => boolean;
         "max"?: number;
         "min"?: number;
-        "onValueChange"?: (event: JeDatepickerCustomEvent<number | undefined>) => void;
+        "onValueChange"?: (event: JeDatepickerCustomEvent<number>) => void;
         "type"?: 'date' | 'datetime' | 'time';
         "value"?: number;
     }
@@ -1766,8 +1776,6 @@ declare namespace LocalJSX {
         "layout"?: 'sticky' | 'flex';
     }
     interface JePill {
-        "button"?: boolean;
-        "disabled"?: boolean;
         "outline"?: boolean;
     }
     interface JePlaceholder {
@@ -2035,6 +2043,10 @@ declare namespace LocalJSX {
           * Shows a success icon in the end slot when true. Has no effect on form validation
          */
         "success"?: boolean;
+        /**
+          * Whether to suppress the default behavior of the input event
+         */
+        "suppressDefaultBehavior"?: boolean;
         /**
           * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).  There are built-in transformers for 'number', 'date', and 'datetime'.
          */

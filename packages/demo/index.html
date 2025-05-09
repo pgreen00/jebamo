@@ -22,7 +22,7 @@
 
     <main>
       <div style="max-width: 500px;">
-        <je-form>
+        <je-form id="form">
           <h3 style="text-transform: capitalize;">Give me some basic information</h3>
           <je-textfield required style="max-width: 300px;" type="password" placeholder="Type something...">
             <je-label slot="label">Name</je-label>
@@ -44,7 +44,17 @@
             <je-option disabled value="2">Option 2</je-option>
             <je-option value="3">Option 3</je-option>
           </je-select>
+          <je-popover arrow="false" placement="bottom">
+            <je-textfield slot="trigger" id="mask" type="date" transform="date" label="Date of Birth" suppress-default-behavior>
+              <je-icon slot="end">calendar_month</je-icon>
+            </je-textfield>
+            <je-datepicker id="mask-dp" type="date"></je-datepicker>
+          </je-popover>
+          <je-textfield label="Notes" placeholder="Additional info..." multiline pending>
+            <je-button slot="end">Submit</je-button>
+          </je-textfield>
         </je-form>
+        <je-button form="form">Submit</je-button>
 
         <je-popover style="--padding: 0">
           <je-button slot="trigger">Open Menu</je-button>

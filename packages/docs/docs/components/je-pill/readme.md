@@ -7,11 +7,9 @@ sidebar_label: 'Pill'
 
 ## Properties
 
-| Property   | Attribute  | Description | Type      | Default |
-| ---------- | ---------- | ----------- | --------- | ------- |
-| `button`   | `button`   |             | `boolean` | `true`  |
-| `disabled` | `disabled` |             | `boolean` | `false` |
-| `outline`  | `outline`  |             | `boolean` | `false` |
+| Property  | Attribute | Description | Type      | Default |
+| --------- | --------- | ----------- | --------- | ------- |
+| `outline` | `outline` |             | `boolean` | `false` |
 
 
 ## Dependencies
