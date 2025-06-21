@@ -130,7 +130,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Built with [Stencil](https://stenciljs.com/)
 - Documentation powered by [Docusaurus](https://docusaurus.io/)
-- Icons and design inspiration from various open-source projects
+- Popovers and tooltips powered by [Floating UI](https://floating-ui.com)
+- Date and calendar components utilize [date-fns](https://date-fns.org)
 
 ---
 
