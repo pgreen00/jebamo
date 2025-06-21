@@ -118,10 +118,6 @@ Visit the [documentation site](https://jebamo.com) for:
 - Tutorials
 - Installation instructions
 
-## 🤝 Contributing
-
-We welcome contributions! Please see our [contributing guidelines](CONTRIBUTING.md) for details.
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
