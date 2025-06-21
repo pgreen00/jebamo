@@ -15,9 +15,10 @@ import { Components } from 'jebamo';
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
+  standalone: false
 })
 export class JeAccordion {
-  protected el: HTMLElement;
+  protected el: HTMLJeAccordionElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -38,9 +39,10 @@ export declare interface JeAccordion extends Components.JeAccordion {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['destroy', 'init', 'maxPercent', 'midPercent', 'minPercent', 'open'],
+  standalone: false
 })
 export class JeActionSheet {
-  protected el: HTMLElement;
+  protected el: HTMLJeActionSheetElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -73,9 +75,10 @@ export declare interface JeActionSheet extends Components.JeActionSheet {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['closable', 'color', 'duration', 'header', 'icon', 'message', 'open', 'progress'],
+  standalone: false
 })
 export class JeAlert {
-  protected el: HTMLElement;
+  protected el: HTMLJeAlertElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -104,9 +107,10 @@ export declare interface JeAlert extends Components.JeAlert {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['indentation', 'label', 'open', 'selected', 'selection', 'value'],
+  standalone: false
 })
 export class JeBranch {
-  protected el: HTMLElement;
+  protected el: HTMLJeBranchElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -125,9 +129,10 @@ export declare interface JeBranch extends Components.JeBranch {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
+  standalone: false
 })
 export class JeBreadcrumb {
-  protected el: HTMLElement;
+  protected el: HTMLJeBreadcrumbElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -147,9 +152,10 @@ export declare interface JeBreadcrumb extends Components.JeBreadcrumb {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['itemsAfterCollapse', 'itemsBeforeCollapse', 'maxItems'],
+  standalone: false
 })
 export class JeBreadcrumbs {
-  protected el: HTMLElement;
+  protected el: HTMLJeBreadcrumbsElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -173,9 +179,10 @@ export declare interface JeBreadcrumbs extends Components.JeBreadcrumbs {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['color', 'disabled', 'expand', 'fill', 'form', 'pending', 'size', 'type'],
+  standalone: false
 })
 export class JeButton {
-  protected el: HTMLElement;
+  protected el: HTMLJeButtonElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -194,9 +201,10 @@ export declare interface JeButton extends Components.JeButton {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
+  standalone: false
 })
 export class JeButtonGroup {
-  protected el: HTMLElement;
+  protected el: HTMLJeButtonGroupElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -215,9 +223,10 @@ export declare interface JeButtonGroup extends Components.JeButtonGroup {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
+  standalone: false
 })
 export class JeCalendar {
-  protected el: HTMLElement;
+  protected el: HTMLJeCalendarElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -237,9 +246,10 @@ export declare interface JeCalendar extends Components.JeCalendar {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['button', 'color'],
+  standalone: false
 })
 export class JeCard {
-  protected el: HTMLElement;
+  protected el: HTMLJeCardElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -251,6 +261,28 @@ export declare interface JeCard extends Components.JeCard {}
 
 
 @ProxyCmp({
+})
+@Component({
+  selector: 'je-cell',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+  standalone: false
+})
+export class JeCell {
+  protected el: HTMLJeCellElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeCell extends Components.JeCell {}
+
+
+@ProxyCmp({
   inputs: ['data', 'indeterminate', 'labelPlacement', 'originalValue', 'required', 'value']
 })
 @Component({
@@ -259,9 +291,10 @@ export declare interface JeCard extends Components.JeCard {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['data', 'indeterminate', 'labelPlacement', 'originalValue', 'required', 'value'],
+  standalone: false
 })
 export class JeCheckbox {
-  protected el: HTMLElement;
+  protected el: HTMLJeCheckboxElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -287,9 +320,10 @@ export declare interface JeCheckbox extends Components.JeCheckbox {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['color', 'dark', 'light'],
+  standalone: false
 })
 export class JeColor {
-  protected el: HTMLElement;
+  protected el: HTMLJeColorElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -309,9 +343,10 @@ export declare interface JeColor extends Components.JeColor {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['size', 'sizeLg', 'sizeMd', 'sizeSm', 'sizeXl', 'sizeXs'],
+  standalone: false
 })
 export class JeColumn {
-  protected el: HTMLElement;
+  protected el: HTMLJeColumnElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -331,9 +366,10 @@ export declare interface JeColumn extends Components.JeColumn {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['align', 'columns', 'gap', 'justify', 'wrap'],
+  standalone: false
 })
 export class JeColumnGroup {
-  protected el: HTMLElement;
+  protected el: HTMLJeColumnGroupElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -353,9 +389,10 @@ export declare interface JeColumnGroup extends Components.JeColumnGroup {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['includeSeconds', 'isDateDisabled', 'max', 'min', 'type', 'value'],
+  standalone: false
 })
 export class JeDatepicker {
-  protected el: HTMLElement;
+  protected el: HTMLJeDatepickerElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -379,9 +416,10 @@ export declare interface JeDatepicker extends Components.JeDatepicker {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['iconSide', 'iconToggle', 'open', 'summary'],
+  standalone: false
 })
 export class JeDetails {
-  protected el: HTMLElement;
+  protected el: HTMLJeDetailsElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -407,9 +445,10 @@ export declare interface JeDetails extends Components.JeDetails {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['spacing', 'type'],
+  standalone: false
 })
 export class JeDivider {
-  protected el: HTMLElement;
+  protected el: HTMLJeDividerElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -430,9 +469,10 @@ export declare interface JeDivider extends Components.JeDivider {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['backdropDismiss', 'destroy', 'init', 'open', 'side'],
+  standalone: false
 })
 export class JeDrawer {
-  protected el: HTMLElement;
+  protected el: HTMLJeDrawerElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -467,9 +507,10 @@ export declare interface JeDrawer extends Components.JeDrawer {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
+  standalone: false
 })
 export class JeDropzone {
-  protected el: HTMLElement;
+  protected el: HTMLJeDropzoneElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -492,9 +533,10 @@ export declare interface JeDropzone extends Components.JeDropzone {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
+  standalone: false
 })
 export class JeForm {
-  protected el: HTMLElement;
+  protected el: HTMLJeFormElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -518,9 +560,10 @@ export declare interface JeForm extends Components.JeForm {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['fill', 'grade', 'size', 'weight'],
+  standalone: false
 })
 export class JeIcon {
-  protected el: HTMLElement;
+  protected el: HTMLJeIconElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -540,9 +583,10 @@ export declare interface JeIcon extends Components.JeIcon {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['color', 'disabled', 'fill', 'icon', 'pending', 'size', 'type'],
+  standalone: false
 })
 export class JeIconButton {
-  protected el: HTMLElement;
+  protected el: HTMLJeIconButtonElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -562,9 +606,10 @@ export declare interface JeIconButton extends Components.JeIconButton {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['loading', 'rootMargin', 'threshold'],
+  standalone: false
 })
 export class JeInfinite {
-  protected el: HTMLElement;
+  protected el: HTMLJeInfiniteElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -589,9 +634,10 @@ export declare interface JeInfinite extends Components.JeInfinite {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
+  standalone: false
 })
 export class JeItem {
-  protected el: HTMLElement;
+  protected el: HTMLJeItemElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -611,9 +657,10 @@ export declare interface JeItem extends Components.JeItem {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['required'],
+  standalone: false
 })
 export class JeLabel {
-  protected el: HTMLElement;
+  protected el: HTMLJeLabelElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -633,9 +680,10 @@ export declare interface JeLabel extends Components.JeLabel {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['bold', 'download', 'href', 'rel', 'target', 'underline'],
+  standalone: false
 })
 export class JeLink {
-  protected el: HTMLElement;
+  protected el: HTMLJeLinkElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -654,9 +702,10 @@ export declare interface JeLink extends Components.JeLink {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
+  standalone: false
 })
 export class JeLoading {
-  protected el: HTMLElement;
+  protected el: HTMLJeLoadingElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -675,9 +724,10 @@ export declare interface JeLoading extends Components.JeLoading {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
+  standalone: false
 })
 export class JeMenu {
-  protected el: HTMLElement;
+  protected el: HTMLJeMenuElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -698,9 +748,10 @@ export declare interface JeMenu extends Components.JeMenu {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['backdropDismiss', 'destroy', 'init', 'open', 'showBackdrop', 'size'],
+  standalone: false
 })
 export class JeModal {
-  protected el: HTMLElement;
+  protected el: HTMLJeModalElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -736,9 +787,10 @@ export declare interface JeModal extends Components.JeModal {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['mode'],
+  standalone: false
 })
 export class JeNav {
-  protected el: HTMLElement;
+  protected el: HTMLJeNavElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -758,9 +810,10 @@ export declare interface JeNav extends Components.JeNav {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['invalid'],
+  standalone: false
 })
 export class JeNote {
-  protected el: HTMLElement;
+  protected el: HTMLJeNoteElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -780,9 +833,10 @@ export declare interface JeNote extends Components.JeNote {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled', 'selected', 'value'],
+  standalone: false
 })
 export class JeOption {
-  protected el: HTMLElement;
+  protected el: HTMLJeOptionElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -802,9 +856,10 @@ export declare interface JeOption extends Components.JeOption {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['layout'],
+  standalone: false
 })
 export class JePage {
-  protected el: HTMLElement;
+  protected el: HTMLJePageElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -824,9 +879,10 @@ export declare interface JePage extends Components.JePage {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['outline'],
+  standalone: false
 })
 export class JePill {
-  protected el: HTMLElement;
+  protected el: HTMLJePillElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -846,9 +902,10 @@ export declare interface JePill extends Components.JePill {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['animated'],
+  standalone: false
 })
 export class JePlaceholder {
-  protected el: HTMLElement;
+  protected el: HTMLJePlaceholderElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -869,9 +926,10 @@ export declare interface JePlaceholder extends Components.JePlaceholder {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['arrow', 'arrowPadding', 'backdropDismiss', 'destroy', 'dismissOnClick', 'init', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'triggerAction'],
+  standalone: false
 })
 export class JePopover {
-  protected el: HTMLElement;
+  protected el: HTMLJePopoverElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -915,9 +973,10 @@ export declare interface JePopover extends Components.JePopover {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['selected', 'value'],
+  standalone: false
 })
 export class JeRadio {
-  protected el: HTMLElement;
+  protected el: HTMLJeRadioElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -937,9 +996,10 @@ export declare interface JeRadio extends Components.JeRadio {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['selected', 'value'],
+  standalone: false
 })
 export class JeRadioButton {
-  protected el: HTMLElement;
+  protected el: HTMLJeRadioButtonElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -959,9 +1019,10 @@ export declare interface JeRadioButton extends Components.JeRadioButton {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled', 'label', 'note', 'originalValue', 'required', 'value'],
+  standalone: false
 })
 export class JeRadioGroup {
-  protected el: HTMLElement;
+  protected el: HTMLJeRadioGroupElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -986,9 +1047,10 @@ export declare interface JeRadioGroup extends Components.JeRadioGroup {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
+  standalone: false
 })
 export class JeRefresher {
-  protected el: HTMLElement;
+  protected el: HTMLJeRefresherElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -1000,6 +1062,51 @@ export declare interface JeRefresher extends Components.JeRefresher {}
 
 
 @ProxyCmp({
+  inputs: ['value']
+})
+@Component({
+  selector: 'je-rich-text',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['value'],
+  standalone: false
+})
+export class JeRichText {
+  protected el: HTMLJeRichTextElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeRichText extends Components.JeRichText {}
+
+
+@ProxyCmp({
+})
+@Component({
+  selector: 'je-row',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+  standalone: false
+})
+export class JeRow {
+  protected el: HTMLJeRowElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeRow extends Components.JeRow {}
+
+
+@ProxyCmp({
   inputs: ['disabled', 'label', 'multiple', 'note', 'options', 'originalValue', 'placeholder', 'required', 'size', 'value']
 })
 @Component({
@@ -1008,9 +1115,10 @@ export declare interface JeRefresher extends Components.JeRefresher {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled', 'label', 'multiple', 'note', 'options', 'originalValue', 'placeholder', 'required', 'size', 'value'],
+  standalone: false
 })
 export class JeSelect {
-  protected el: HTMLElement;
+  protected el: HTMLJeSelectElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -1034,9 +1142,10 @@ export declare interface JeSelect extends Components.JeSelect {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['active', 'value'],
+  standalone: false
 })
 export class JeTab {
-  protected el: HTMLElement;
+  protected el: HTMLJeTabElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -1048,6 +1157,28 @@ export declare interface JeTab extends Components.JeTab {}
 
 
 @ProxyCmp({
+})
+@Component({
+  selector: 'je-table',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+  standalone: false
+})
+export class JeTable {
+  protected el: HTMLJeTableElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeTable extends Components.JeTable {}
+
+
+@ProxyCmp({
   inputs: ['mode', 'value']
 })
 @Component({
@@ -1056,9 +1187,10 @@ export declare interface JeTab extends Components.JeTab {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['mode', 'value'],
+  standalone: false
 })
 export class JeTabs {
-  protected el: HTMLElement;
+  protected el: HTMLJeTabsElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -1083,9 +1215,10 @@ export declare interface JeTabs extends Components.JeTabs {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'error', 'format', 'inputMode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiline', 'note', 'originalValue', 'pattern', 'pending', 'placeholder', 'readonly', 'required', 'size', 'spellcheck', 'step', 'success', 'suppressDefaultBehavior', 'transform', 'type', 'validators', 'value', 'wrap'],
+  standalone: false
 })
 export class JeTextfield {
-  protected el: HTMLElement;
+  protected el: HTMLJeTextfieldElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -1111,9 +1244,10 @@ export declare interface JeTextfield extends Components.JeTextfield {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['position'],
+  standalone: false
 })
 export class JeToastContainer {
-  protected el: HTMLElement;
+  protected el: HTMLJeToastContainerElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -1133,9 +1267,10 @@ export declare interface JeToastContainer extends Components.JeToastContainer {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['labelPlacement', 'originalValue', 'value'],
+  standalone: false
 })
 export class JeToggle {
-  protected el: HTMLElement;
+  protected el: HTMLJeToggleElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -1160,9 +1295,10 @@ export declare interface JeToggle extends Components.JeToggle {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
+  standalone: false
 })
 export class JeToolbar {
-  protected el: HTMLElement;
+  protected el: HTMLJeToolbarElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -1182,9 +1318,10 @@ export declare interface JeToolbar extends Components.JeToolbar {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['content', 'offsetX', 'offsetY'],
+  standalone: false
 })
 export class JeTooltip {
-  protected el: HTMLElement;
+  protected el: HTMLJeTooltipElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -1204,9 +1341,10 @@ export declare interface JeTooltip extends Components.JeTooltip {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['indentation', 'selection', 'value'],
+  standalone: false
 })
 export class JeTree {
-  protected el: HTMLElement;
+  protected el: HTMLJeTreeElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -1231,9 +1369,10 @@ export declare interface JeTree extends Components.JeTree {
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['steps'],
+  standalone: false
 })
 export class JeWizard {
-  protected el: HTMLElement;
+  protected el: HTMLJeWizardElement;
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;

@@ -6,12 +6,12 @@
     "experimentalDecorators": true,
     "lib": [
       "dom",
-      "es2017",
+      "es2022",
       "dom.iterable"
     ],
     "moduleResolution": "node",
     "module": "esnext",
-    "target": "es2017",
+    "target": "es2022",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "skipLibCheck": true,

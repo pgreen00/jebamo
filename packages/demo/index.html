@@ -16,7 +16,7 @@
         <je-link class="active" href="#" slot="end">Components</je-link>
         <je-link href="#" slot="end">Tutorials</je-link>
         <je-link href="#" slot="end">Changelog</je-link>
-        <je-icon-button slot="end" size="lg" icon="dark_mode" id="theme-button"></je-icon-button>
+        <je-icon-button slot="end" size="lg" icon="dark_mode" id="themeButton"></je-icon-button>
       </je-nav>
     </header>
 
@@ -44,12 +44,6 @@
             <je-option disabled value="2">Option 2</je-option>
             <je-option value="3">Option 3</je-option>
           </je-select>
-          <je-popover arrow="false" placement="bottom">
-            <je-textfield slot="trigger" id="mask" type="date" transform="date" label="Date of Birth" suppress-default-behavior>
-              <je-icon slot="end">calendar_month</je-icon>
-            </je-textfield>
-            <je-datepicker id="mask-dp" type="date"></je-datepicker>
-          </je-popover>
           <je-textfield label="Notes" placeholder="Additional info..." multiline pending>
             <je-button slot="end">Submit</je-button>
           </je-textfield>
@@ -83,8 +77,47 @@
               Item 3
               <je-icon-button icon="favorite" slot="end"></je-icon-button>
             </je-item>
-          </je-popover>
-        </div>
+          </je-menu>
+        </je-popover>
+
+        <je-details summary="Hey">
+          <p>stuff</p>
+        </je-details>
+
+        <je-rich-text></je-rich-text>
+
+        <je-table style="max-height: 200px;">
+          <je-row slot="head">
+            <je-cell>Name</je-cell>
+            <je-cell>Age</je-cell>
+            <je-cell>Gender</je-cell>
+          </je-row>
+          <je-row>
+            <je-cell>John</je-cell>
+            <je-cell>25</je-cell>
+            <je-cell>Male</je-cell>
+          </je-row>
+          <je-row>
+            <je-cell>Jane</je-cell>
+            <je-cell>26</je-cell>
+            <je-cell>Female</je-cell>
+          </je-row>
+          <je-row>
+            <je-cell>John</je-cell>
+            <je-cell>25</je-cell>
+            <je-cell>Male</je-cell>
+          </je-row>
+          <je-row>
+            <je-cell>John</je-cell>
+            <je-cell>25</je-cell>
+            <je-cell>Male</je-cell>
+          </je-row>
+          <je-row slot="foot">
+            <je-cell>Total</je-cell>
+            <je-cell>40</je-cell>
+            <je-cell>2</je-cell>
+          </je-row>
+        </je-table>
       </div>
     </main>
 

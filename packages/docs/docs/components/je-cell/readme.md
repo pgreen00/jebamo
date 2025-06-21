@@ -1,6 +1,6 @@
 ---
-title: 'JeCalendar | <je-calendar>'
-sidebar_label: 'Calendar'
+title: 'JeCell | <je-cell>'
+sidebar_label: 'Cell'
 ---
 <!-- Auto Generated Below -->
 

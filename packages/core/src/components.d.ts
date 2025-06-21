@@ -28,40 +28,68 @@ export namespace Components {
         "init"?: () => void | Promise<void>;
         /**
           * Maximum height (expanded fullscreen).
+          * @default 90
          */
         "maxPercent": number;
         /**
           * Intermediate height (mid state).
+          * @default 60
          */
         "midPercent": number;
         /**
           * Minimum height (collapsed state).
+          * @default 30
          */
         "minPercent": number;
         /**
           * Opens and closes modal
+          * @default false
          */
         "open": boolean;
         "show": () => Promise<void>;
     }
     interface JeAlert {
+        /**
+          * @default false
+         */
         "closable": boolean;
+        /**
+          * @default 'primary'
+         */
         "color": Color;
         "didDismiss": () => Promise<OverlayData>;
+        /**
+          * @default 0
+         */
         "duration": number;
         "header"?: string;
         "hide": (role?: string, data?: any) => Promise<void>;
         "icon"?: string;
         "message"?: string;
+        /**
+          * @default false
+         */
         "open": boolean;
+        /**
+          * @default false
+         */
         "progress": boolean;
         "show": () => Promise<void>;
     }
     interface JeBranch {
+        /**
+          * @default false
+         */
         "indentation": boolean;
         "isLeaf": () => Promise<boolean>;
         "label"?: string;
+        /**
+          * @default false
+         */
         "open": boolean;
+        /**
+          * @default false
+         */
         "selected": boolean | null;
         "selection"?: 'single' | 'multiple' | 'leaf';
         "value"?: string;
@@ -69,7 +97,13 @@ export namespace Components {
     interface JeBreadcrumb {
     }
     interface JeBreadcrumbs {
+        /**
+          * @default 1
+         */
         "itemsAfterCollapse": number;
+        /**
+          * @default 1
+         */
         "itemsBeforeCollapse": number;
         "maxItems"?: number;
     }
@@ -80,14 +114,17 @@ export namespace Components {
         "color"?: Color;
         /**
           * Disables button
+          * @default false
          */
         "disabled": boolean;
         /**
           * Expands the button to the full width of it's container
+          * @default false
          */
         "expand": boolean;
         /**
           * Button fill
+          * @default 'solid'
          */
         "fill": 'solid' | 'outline' | 'clear';
         /**
@@ -96,10 +133,12 @@ export namespace Components {
         "form"?: string;
         /**
           * Shows a loading spinner and disables the button
+          * @default false
          */
         "pending": boolean;
         /**
           * Button size
+          * @default 'md'
          */
         "size": 'md' | 'lg' | 'sm';
         /**
@@ -115,6 +154,8 @@ export namespace Components {
         "button"?: boolean;
         "color"?: Color;
     }
+    interface JeCell {
+    }
     interface JeCheckbox {
         /**
           * By default, it will submit true or false depending on the checked state. Use this property to submit a custom value instead.
@@ -122,10 +163,12 @@ export namespace Components {
         "data"?: string;
         /**
           * If the checkbox should contain a 3rd indeterminate state
+          * @default false
          */
         "indeterminate": boolean;
         /**
           * Whether or not the label should go before or after the checkbox
+          * @default 'end'
          */
         "labelPlacement": 'start' | 'end';
         /**
@@ -134,6 +177,7 @@ export namespace Components {
         "originalValue"?: boolean;
         /**
           * Marks the control as required in the form. This will only affect indeterminate checkboxes.
+          * @default false
          */
         "required": boolean;
         /**
@@ -204,26 +248,48 @@ export namespace Components {
         "wrap"?: boolean;
     }
     interface JeDatepicker {
+        /**
+          * @default false
+         */
         "includeSeconds": boolean;
         "isDateDisabled"?: (date: Date) => boolean;
         "max"?: number;
         "min"?: number;
+        /**
+          * @default 'datetime'
+         */
         "type": 'date' | 'datetime' | 'time';
         "value"?: number;
     }
     interface JeDetails {
+        /**
+          * @default 'right'
+         */
         "iconSide": 'left' | 'right';
+        /**
+          * @default false
+         */
         "iconToggle": boolean;
+        /**
+          * @default false
+         */
         "open": boolean;
         "summary"?: string;
     }
     interface JeDivider {
+        /**
+          * @default 'md'
+         */
         "spacing": 'sm' | 'md' | 'lg' | 'none';
+        /**
+          * @default 'horizontal'
+         */
         "type": 'horizontal' | 'vertical';
     }
     interface JeDrawer {
         /**
           * Backdrop will close the modal on click when enabled
+          * @default true
          */
         "backdropDismiss": boolean;
         /**
@@ -237,11 +303,13 @@ export namespace Components {
         "init"?: () => void | Promise<void>;
         /**
           * Opens and closes modal
+          * @default false
          */
         "open": boolean;
         "show": () => Promise<void>;
         /**
           * Side of the screen where the drawer will be displayed
+          * @default 'left'
          */
         "side": 'left' | 'right';
     }
@@ -252,6 +320,7 @@ export namespace Components {
     interface JeIcon {
         /**
           * Whether or not the icon should be filled
+          * @default false
          */
         "fill": boolean;
         /**
@@ -260,10 +329,12 @@ export namespace Components {
         "grade"?: 'high' | 'low';
         /**
           * Size of the icon
+          * @default 'md'
          */
         "size": 'xs' | 'sm' | 'md' | 'lg' | 'xl';
         /**
           * Icon weight
+          * @default 400
          */
         "weight": number;
     }
@@ -274,10 +345,12 @@ export namespace Components {
         "color"?: Color;
         /**
           * Disables button
+          * @default false
          */
         "disabled": boolean;
         /**
           * Button fill
+          * @default 'clear'
          */
         "fill": 'solid' | 'outline' | 'clear';
         /**
@@ -286,10 +359,12 @@ export namespace Components {
         "icon"?: string;
         /**
           * Shows a loading spinner and disables the button
+          * @default false
          */
         "pending": boolean;
         /**
           * Button size
+          * @default 'md'
          */
         "size": 'md' | 'lg' | 'sm';
         /**
@@ -300,14 +375,17 @@ export namespace Components {
     interface JeInfinite {
         /**
           * This must be manually set to true/false to show/hide the intersecting content
+          * @default false
          */
         "loading": boolean;
         /**
           * Passed to observer api
+          * @default '0px'
          */
         "rootMargin": string;
         /**
           * Threshold passed to observer api
+          * @default 0.8
          */
         "threshold": number;
     }
@@ -319,6 +397,7 @@ export namespace Components {
     interface JeLink {
         /**
           * Makes text bold
+          * @default false
          */
         "bold": boolean;
         /**
@@ -339,6 +418,7 @@ export namespace Components {
         "target"?: string;
         /**
           * Underlines the text
+          * @default true
          */
         "underline": boolean;
     }
@@ -349,6 +429,7 @@ export namespace Components {
     interface JeModal {
         /**
           * Backdrop will close the modal on click when enabled
+          * @default true
          */
         "backdropDismiss": boolean;
         /**
@@ -363,55 +444,75 @@ export namespace Components {
         "init"?: () => void | Promise<void>;
         /**
           * Opens and closes modal
+          * @default false
          */
         "open": boolean;
         "show": () => Promise<void>;
         /**
           * Whether or not the backdrop will be visible to the user
+          * @default true
          */
         "showBackdrop": boolean;
         /**
           * Size of the modal
+          * @default 'lg'
          */
         "size": 'sm' | 'md' | 'lg';
     }
     interface JeNav {
+        /**
+          * @default 'top'
+         */
         "mode": 'top' | 'side';
     }
     interface JeNote {
         "invalid"?: boolean;
     }
     interface JeOption {
+        /**
+          * @default false
+         */
         "disabled": boolean;
+        /**
+          * @default false
+         */
         "selected": boolean;
         "value": any;
     }
     interface JePage {
         /**
           * Changes certain aspects of the page layout. - Sticky will make the entire page scrollable, and the footer will not be visible when the page is overflowing - Flex will make the main element scrollable, and the footer will always be visible
+          * @default 'flex'
          */
         "layout": 'sticky' | 'flex';
     }
     interface JePill {
+        /**
+          * @default false
+         */
         "outline": boolean;
     }
     interface JePlaceholder {
         /**
           * Whether or not the component should have the animated "shimmer" effect
+          * @default true
          */
         "animated": boolean;
     }
     interface JePopover {
         /**
           * Renders an arrow pointing to the trigger
+          * @default true
          */
         "arrow": boolean;
         /**
           * The padding between the arrow and the edges of the popover. Useful if you change the border-radius of the popover
+          * @default 6
          */
         "arrowPadding": number;
         /**
           * Backdrop will dismiss the popover on click when enabled
+          * @default true
          */
         "backdropDismiss": boolean;
         /**
@@ -420,6 +521,7 @@ export namespace Components {
         "destroy"?: () => Promise<void> | void;
         /**
           * Popover will automatically dismiss itself when something is clicked in the popover when enabled
+          * @default false
          */
         "dismissOnClick": boolean;
         "hide": (role?: string, data?: any) => Promise<void>;
@@ -429,18 +531,22 @@ export namespace Components {
         "init"?: () => Promise<void> | void;
         /**
           * If the popover should match the width of the trigger element
+          * @default false
          */
         "matchWidth": boolean;
         /**
           * Horizontal offset used when auto positioning the popover content
+          * @default 0
          */
         "offsetX": number;
         /**
           * Vertical offset used when auto positioning the popover content
+          * @default 10
          */
         "offsetY": number;
         /**
           * Opens/closes the popover
+          * @default false
          */
         "open": boolean;
         /**
@@ -449,6 +555,7 @@ export namespace Components {
         "placement"?: Placement;
         /**
           * If the popover should position itself using the mouse event or the triggerElement.
+          * @default 'element'
          */
         "positionStrategy": 'click' | 'element';
         "show": () => Promise<void>;
@@ -456,6 +563,7 @@ export namespace Components {
           * @click Popover will show on left click or tap on mobile.
           * @context-menu Popover will show on right click or press on mobile.
           * @hover Popover will show on hover or tap on mobile.
+          * @default 'click'
          */
         "triggerAction": 'click' | 'context-menu' | 'hover';
     }
@@ -472,6 +580,7 @@ export namespace Components {
     interface JeRadioButton {
         /**
           * Changes the styling of the card to indicate it is selected
+          * @default false
          */
         "selected": boolean;
         /**
@@ -482,6 +591,7 @@ export namespace Components {
     interface JeRadioGroup {
         /**
           * Disables the controls
+          * @default false
          */
         "disabled": boolean;
         /**
@@ -507,37 +617,69 @@ export namespace Components {
     }
     interface JeRefresher {
     }
+    interface JeRichText {
+        /**
+          * The content of the rich text editor
+          * @default ''
+         */
+        "value": string;
+    }
+    interface JeRow {
+    }
     interface JeSelect {
+        /**
+          * @default false
+         */
         "disabled": boolean;
         "label"?: string;
+        /**
+          * @default false
+         */
         "multiple": boolean;
         "note"?: string;
         "options"?: { value: any, label: string }[];
         "originalValue": any;
         "placeholder"?: string;
+        /**
+          * @default false
+         */
         "required": boolean;
+        /**
+          * @default 'md'
+         */
         "size": 'md' | 'lg' | 'sm';
         "value": any;
     }
     interface JeTab {
+        /**
+          * @default false
+         */
         "active": boolean;
         "value"?: string;
     }
+    interface JeTable {
+    }
     interface JeTabs {
+        /**
+          * @default 'segment'
+         */
         "mode": 'mobile' | 'pill' | 'segment';
         "value"?: string;
     }
     interface JeTextfield {
         /**
           * Passed to native input
+          * @default 'off'
          */
         "autoCapitalize": string;
         /**
           * Passed to native input
+          * @default 'off'
          */
         "autoComplete": string;
         /**
           * Passed to native input
+          * @default 'off'
          */
         "autoCorrect": 'off' | 'on';
         /**
@@ -546,10 +688,12 @@ export namespace Components {
         "autoFocus"?: boolean;
         /**
           * Optional debounce of the didInput event
+          * @default 0
          */
         "debounce": number;
         /**
           * Renders input as disabled and prevents changes
+          * @default false
          */
         "disabled": boolean;
         /**
@@ -590,6 +734,7 @@ export namespace Components {
         "minlength"?: number;
         /**
           * Whether the control is a multiline textarea
+          * @default false
          */
         "multiline": boolean;
         /**
@@ -606,6 +751,7 @@ export namespace Components {
         "pattern"?: string;
         /**
           * Shows a loading indicator in the end slot when true
+          * @default false
          */
         "pending": boolean;
         /**
@@ -614,18 +760,22 @@ export namespace Components {
         "placeholder"?: string;
         /**
           * Renders input as read only and prevents changes
+          * @default false
          */
         "readonly": boolean;
         /**
           * Marks as required in form and adds asterisk to the end of the label
+          * @default false
          */
         "required": boolean;
         /**
           * Container size
+          * @default 'md'
          */
         "size": 'md' | 'lg' | 'sm';
         /**
           * Passed to native input
+          * @default false
          */
         "spellcheck": boolean;
         /**
@@ -634,10 +784,12 @@ export namespace Components {
         "step"?: string;
         /**
           * Shows a success icon in the end slot when true. Has no effect on form validation
+          * @default false
          */
         "success": boolean;
         /**
           * Whether to suppress the default behavior of the input event
+          * @default false
          */
         "suppressDefaultBehavior": boolean;
         /**
@@ -646,6 +798,7 @@ export namespace Components {
         "transform"?: InputTransformer | 'number' | 'date' | 'datetime';
         /**
           * Passed to native input
+          * @default 'text'
          */
         "type": string;
         /**
@@ -662,11 +815,15 @@ export namespace Components {
         "wrap"?: string;
     }
     interface JeToastContainer {
+        /**
+          * @default 'bottom-start'
+         */
         "position": 'top' | 'bottom' | 'top-end' | 'top-start' | 'bottom-end' | 'bottom-start';
     }
     interface JeToggle {
         /**
           * If the label should be placed at the start or end of the toggle
+          * @default 'end'
          */
         "labelPlacement": 'start' | 'end';
         /**
@@ -675,6 +832,7 @@ export namespace Components {
         "originalValue": boolean;
         /**
           * Whether or not the toggle is active
+          * @default false
          */
         "value": boolean;
     }
@@ -687,15 +845,23 @@ export namespace Components {
         "content"?: string;
         /**
           * Horizontal offset used when auto positioning the popover content
+          * @default 0
          */
         "offsetX": number;
         /**
           * Vertical offset used when auto positioning the popover content
+          * @default 10
          */
         "offsetY": number;
     }
     interface JeTree {
+        /**
+          * @default false
+         */
         "indentation": boolean;
+        /**
+          * @default 'leaf'
+         */
         "selection": 'single' | 'multiple' | 'leaf';
         "value"?: string | string[];
     }
@@ -705,6 +871,9 @@ export namespace Components {
         "previous": () => Promise<void>;
         "reset": () => Promise<void>;
         "skip": () => Promise<void>;
+        /**
+          * @default []
+         */
         "steps": { label: string, optional?: boolean }[];
     }
 }
@@ -879,6 +1048,12 @@ declare global {
     var HTMLJeCardElement: {
         prototype: HTMLJeCardElement;
         new (): HTMLJeCardElement;
+    };
+    interface HTMLJeCellElement extends Components.JeCell, HTMLStencilElement {
+    }
+    var HTMLJeCellElement: {
+        prototype: HTMLJeCellElement;
+        new (): HTMLJeCellElement;
     };
     interface HTMLJeCheckboxElementEventMap {
         "valueChange": boolean | undefined;
@@ -1179,6 +1354,18 @@ declare global {
         prototype: HTMLJeRefresherElement;
         new (): HTMLJeRefresherElement;
     };
+    interface HTMLJeRichTextElement extends Components.JeRichText, HTMLStencilElement {
+    }
+    var HTMLJeRichTextElement: {
+        prototype: HTMLJeRichTextElement;
+        new (): HTMLJeRichTextElement;
+    };
+    interface HTMLJeRowElement extends Components.JeRow, HTMLStencilElement {
+    }
+    var HTMLJeRowElement: {
+        prototype: HTMLJeRowElement;
+        new (): HTMLJeRowElement;
+    };
     interface HTMLJeSelectElementEventMap {
         "valueChange": any;
     }
@@ -1201,6 +1388,12 @@ declare global {
     var HTMLJeTabElement: {
         prototype: HTMLJeTabElement;
         new (): HTMLJeTabElement;
+    };
+    interface HTMLJeTableElement extends Components.JeTable, HTMLStencilElement {
+    }
+    var HTMLJeTableElement: {
+        prototype: HTMLJeTableElement;
+        new (): HTMLJeTableElement;
     };
     interface HTMLJeTabsElementEventMap {
         "valueChange": string | undefined;
@@ -1317,6 +1510,7 @@ declare global {
         "je-button-group": HTMLJeButtonGroupElement;
         "je-calendar": HTMLJeCalendarElement;
         "je-card": HTMLJeCardElement;
+        "je-cell": HTMLJeCellElement;
         "je-checkbox": HTMLJeCheckboxElement;
         "je-color": HTMLJeColorElement;
         "je-column": HTMLJeColumnElement;
@@ -1347,8 +1541,11 @@ declare global {
         "je-radio-button": HTMLJeRadioButtonElement;
         "je-radio-group": HTMLJeRadioGroupElement;
         "je-refresher": HTMLJeRefresherElement;
+        "je-rich-text": HTMLJeRichTextElement;
+        "je-row": HTMLJeRowElement;
         "je-select": HTMLJeSelectElement;
         "je-tab": HTMLJeTabElement;
+        "je-table": HTMLJeTableElement;
         "je-tabs": HTMLJeTabsElement;
         "je-textfield": HTMLJeTextfieldElement;
         "je-toast-container": HTMLJeToastContainerElement;
@@ -1373,14 +1570,17 @@ declare namespace LocalJSX {
         "init"?: () => void | Promise<void>;
         /**
           * Maximum height (expanded fullscreen).
+          * @default 90
          */
         "maxPercent"?: number;
         /**
           * Intermediate height (mid state).
+          * @default 60
          */
         "midPercent"?: number;
         /**
           * Minimum height (collapsed state).
+          * @default 30
          */
         "minPercent"?: number;
         /**
@@ -1393,25 +1593,50 @@ declare namespace LocalJSX {
         "onPresent"?: (event: JeActionSheetCustomEvent<any>) => void;
         /**
           * Opens and closes modal
+          * @default false
          */
         "open"?: boolean;
     }
     interface JeAlert {
+        /**
+          * @default false
+         */
         "closable"?: boolean;
+        /**
+          * @default 'primary'
+         */
         "color"?: Color;
+        /**
+          * @default 0
+         */
         "duration"?: number;
         "header"?: string;
         "icon"?: string;
         "message"?: string;
         "onDismiss"?: (event: JeAlertCustomEvent<OverlayData>) => void;
         "onPresent"?: (event: JeAlertCustomEvent<any>) => void;
+        /**
+          * @default false
+         */
         "open"?: boolean;
+        /**
+          * @default false
+         */
         "progress"?: boolean;
     }
     interface JeBranch {
+        /**
+          * @default false
+         */
         "indentation"?: boolean;
         "label"?: string;
+        /**
+          * @default false
+         */
         "open"?: boolean;
+        /**
+          * @default false
+         */
         "selected"?: boolean | null;
         "selection"?: 'single' | 'multiple' | 'leaf';
         "value"?: string;
@@ -1419,7 +1644,13 @@ declare namespace LocalJSX {
     interface JeBreadcrumb {
     }
     interface JeBreadcrumbs {
+        /**
+          * @default 1
+         */
         "itemsAfterCollapse"?: number;
+        /**
+          * @default 1
+         */
         "itemsBeforeCollapse"?: number;
         "maxItems"?: number;
         "onExpandClick"?: (event: JeBreadcrumbsCustomEvent<any>) => void;
@@ -1431,14 +1662,17 @@ declare namespace LocalJSX {
         "color"?: Color;
         /**
           * Disables button
+          * @default false
          */
         "disabled"?: boolean;
         /**
           * Expands the button to the full width of it's container
+          * @default false
          */
         "expand"?: boolean;
         /**
           * Button fill
+          * @default 'solid'
          */
         "fill"?: 'solid' | 'outline' | 'clear';
         /**
@@ -1447,10 +1681,12 @@ declare namespace LocalJSX {
         "form"?: string;
         /**
           * Shows a loading spinner and disables the button
+          * @default false
          */
         "pending"?: boolean;
         /**
           * Button size
+          * @default 'md'
          */
         "size"?: 'md' | 'lg' | 'sm';
         /**
@@ -1466,6 +1702,8 @@ declare namespace LocalJSX {
         "button"?: boolean;
         "color"?: Color;
     }
+    interface JeCell {
+    }
     interface JeCheckbox {
         /**
           * By default, it will submit true or false depending on the checked state. Use this property to submit a custom value instead.
@@ -1473,10 +1711,12 @@ declare namespace LocalJSX {
         "data"?: string;
         /**
           * If the checkbox should contain a 3rd indeterminate state
+          * @default false
          */
         "indeterminate"?: boolean;
         /**
           * Whether or not the label should go before or after the checkbox
+          * @default 'end'
          */
         "labelPlacement"?: 'start' | 'end';
         /**
@@ -1489,6 +1729,7 @@ declare namespace LocalJSX {
         "originalValue"?: boolean;
         /**
           * Marks the control as required in the form. This will only affect indeterminate checkboxes.
+          * @default false
          */
         "required"?: boolean;
         /**
@@ -1559,29 +1800,51 @@ declare namespace LocalJSX {
         "wrap"?: boolean;
     }
     interface JeDatepicker {
+        /**
+          * @default false
+         */
         "includeSeconds"?: boolean;
         "isDateDisabled"?: (date: Date) => boolean;
         "max"?: number;
         "min"?: number;
         "onValueChange"?: (event: JeDatepickerCustomEvent<number>) => void;
+        /**
+          * @default 'datetime'
+         */
         "type"?: 'date' | 'datetime' | 'time';
         "value"?: number;
     }
     interface JeDetails {
+        /**
+          * @default 'right'
+         */
         "iconSide"?: 'left' | 'right';
+        /**
+          * @default false
+         */
         "iconToggle"?: boolean;
         "onCollapse"?: (event: JeDetailsCustomEvent<any>) => void;
         "onExpand"?: (event: JeDetailsCustomEvent<any>) => void;
+        /**
+          * @default false
+         */
         "open"?: boolean;
         "summary"?: string;
     }
     interface JeDivider {
+        /**
+          * @default 'md'
+         */
         "spacing"?: 'sm' | 'md' | 'lg' | 'none';
+        /**
+          * @default 'horizontal'
+         */
         "type"?: 'horizontal' | 'vertical';
     }
     interface JeDrawer {
         /**
           * Backdrop will close the modal on click when enabled
+          * @default true
          */
         "backdropDismiss"?: boolean;
         /**
@@ -1606,10 +1869,12 @@ declare namespace LocalJSX {
         "onPresent"?: (event: JeDrawerCustomEvent<any>) => void;
         /**
           * Opens and closes modal
+          * @default false
          */
         "open"?: boolean;
         /**
           * Side of the screen where the drawer will be displayed
+          * @default 'left'
          */
         "side"?: 'left' | 'right';
     }
@@ -1622,6 +1887,7 @@ declare namespace LocalJSX {
     interface JeIcon {
         /**
           * Whether or not the icon should be filled
+          * @default false
          */
         "fill"?: boolean;
         /**
@@ -1630,10 +1896,12 @@ declare namespace LocalJSX {
         "grade"?: 'high' | 'low';
         /**
           * Size of the icon
+          * @default 'md'
          */
         "size"?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
         /**
           * Icon weight
+          * @default 400
          */
         "weight"?: number;
     }
@@ -1644,10 +1912,12 @@ declare namespace LocalJSX {
         "color"?: Color;
         /**
           * Disables button
+          * @default false
          */
         "disabled"?: boolean;
         /**
           * Button fill
+          * @default 'clear'
          */
         "fill"?: 'solid' | 'outline' | 'clear';
         /**
@@ -1656,10 +1926,12 @@ declare namespace LocalJSX {
         "icon"?: string;
         /**
           * Shows a loading spinner and disables the button
+          * @default false
          */
         "pending"?: boolean;
         /**
           * Button size
+          * @default 'md'
          */
         "size"?: 'md' | 'lg' | 'sm';
         /**
@@ -1670,6 +1942,7 @@ declare namespace LocalJSX {
     interface JeInfinite {
         /**
           * This must be manually set to true/false to show/hide the intersecting content
+          * @default false
          */
         "loading"?: boolean;
         /**
@@ -1678,10 +1951,12 @@ declare namespace LocalJSX {
         "onIntersect"?: (event: JeInfiniteCustomEvent<void>) => void;
         /**
           * Passed to observer api
+          * @default '0px'
          */
         "rootMargin"?: string;
         /**
           * Threshold passed to observer api
+          * @default 0.8
          */
         "threshold"?: number;
     }
@@ -1693,6 +1968,7 @@ declare namespace LocalJSX {
     interface JeLink {
         /**
           * Makes text bold
+          * @default false
          */
         "bold"?: boolean;
         /**
@@ -1713,6 +1989,7 @@ declare namespace LocalJSX {
         "target"?: string;
         /**
           * Underlines the text
+          * @default true
          */
         "underline"?: boolean;
     }
@@ -1723,6 +2000,7 @@ declare namespace LocalJSX {
     interface JeModal {
         /**
           * Backdrop will close the modal on click when enabled
+          * @default true
          */
         "backdropDismiss"?: boolean;
         /**
@@ -1747,54 +2025,74 @@ declare namespace LocalJSX {
         "onPresent"?: (event: JeModalCustomEvent<any>) => void;
         /**
           * Opens and closes modal
+          * @default false
          */
         "open"?: boolean;
         /**
           * Whether or not the backdrop will be visible to the user
+          * @default true
          */
         "showBackdrop"?: boolean;
         /**
           * Size of the modal
+          * @default 'lg'
          */
         "size"?: 'sm' | 'md' | 'lg';
     }
     interface JeNav {
+        /**
+          * @default 'top'
+         */
         "mode"?: 'top' | 'side';
     }
     interface JeNote {
         "invalid"?: boolean;
     }
     interface JeOption {
+        /**
+          * @default false
+         */
         "disabled"?: boolean;
+        /**
+          * @default false
+         */
         "selected"?: boolean;
         "value"?: any;
     }
     interface JePage {
         /**
           * Changes certain aspects of the page layout. - Sticky will make the entire page scrollable, and the footer will not be visible when the page is overflowing - Flex will make the main element scrollable, and the footer will always be visible
+          * @default 'flex'
          */
         "layout"?: 'sticky' | 'flex';
     }
     interface JePill {
+        /**
+          * @default false
+         */
         "outline"?: boolean;
     }
     interface JePlaceholder {
         /**
           * Whether or not the component should have the animated "shimmer" effect
+          * @default true
          */
         "animated"?: boolean;
     }
     interface JePopover {
         /**
           * Renders an arrow pointing to the trigger
+          * @default true
          */
         "arrow"?: boolean;
         /**
           * The padding between the arrow and the edges of the popover. Useful if you change the border-radius of the popover
+          * @default 6
          */
         "arrowPadding"?: number;
         /**
           * Backdrop will dismiss the popover on click when enabled
+          * @default true
          */
         "backdropDismiss"?: boolean;
         /**
@@ -1803,6 +2101,7 @@ declare namespace LocalJSX {
         "destroy"?: () => Promise<void> | void;
         /**
           * Popover will automatically dismiss itself when something is clicked in the popover when enabled
+          * @default false
          */
         "dismissOnClick"?: boolean;
         /**
@@ -1811,14 +2110,17 @@ declare namespace LocalJSX {
         "init"?: () => Promise<void> | void;
         /**
           * If the popover should match the width of the trigger element
+          * @default false
          */
         "matchWidth"?: boolean;
         /**
           * Horizontal offset used when auto positioning the popover content
+          * @default 0
          */
         "offsetX"?: number;
         /**
           * Vertical offset used when auto positioning the popover content
+          * @default 10
          */
         "offsetY"?: number;
         /**
@@ -1843,6 +2145,7 @@ declare namespace LocalJSX {
         "onWillPresent"?: (event: JePopoverCustomEvent<any>) => void;
         /**
           * Opens/closes the popover
+          * @default false
          */
         "open"?: boolean;
         /**
@@ -1851,12 +2154,14 @@ declare namespace LocalJSX {
         "placement"?: Placement;
         /**
           * If the popover should position itself using the mouse event or the triggerElement.
+          * @default 'element'
          */
         "positionStrategy"?: 'click' | 'element';
         /**
           * @click Popover will show on left click or tap on mobile.
           * @context-menu Popover will show on right click or press on mobile.
           * @hover Popover will show on hover or tap on mobile.
+          * @default 'click'
          */
         "triggerAction"?: 'click' | 'context-menu' | 'hover';
     }
@@ -1873,6 +2178,7 @@ declare namespace LocalJSX {
     interface JeRadioButton {
         /**
           * Changes the styling of the card to indicate it is selected
+          * @default false
          */
         "selected"?: boolean;
         /**
@@ -1883,6 +2189,7 @@ declare namespace LocalJSX {
     interface JeRadioGroup {
         /**
           * Disables the controls
+          * @default false
          */
         "disabled"?: boolean;
         /**
@@ -1912,24 +2219,53 @@ declare namespace LocalJSX {
     }
     interface JeRefresher {
     }
+    interface JeRichText {
+        /**
+          * The content of the rich text editor
+          * @default ''
+         */
+        "value"?: string;
+    }
+    interface JeRow {
+    }
     interface JeSelect {
+        /**
+          * @default false
+         */
         "disabled"?: boolean;
         "label"?: string;
+        /**
+          * @default false
+         */
         "multiple"?: boolean;
         "note"?: string;
         "onValueChange"?: (event: JeSelectCustomEvent<any>) => void;
         "options"?: { value: any, label: string }[];
         "originalValue"?: any;
         "placeholder"?: string;
+        /**
+          * @default false
+         */
         "required"?: boolean;
+        /**
+          * @default 'md'
+         */
         "size"?: 'md' | 'lg' | 'sm';
         "value"?: any;
     }
     interface JeTab {
+        /**
+          * @default false
+         */
         "active"?: boolean;
         "value"?: string;
     }
+    interface JeTable {
+    }
     interface JeTabs {
+        /**
+          * @default 'segment'
+         */
         "mode"?: 'mobile' | 'pill' | 'segment';
         "onValueChange"?: (event: JeTabsCustomEvent<string | undefined>) => void;
         "value"?: string;
@@ -1937,14 +2273,17 @@ declare namespace LocalJSX {
     interface JeTextfield {
         /**
           * Passed to native input
+          * @default 'off'
          */
         "autoCapitalize"?: string;
         /**
           * Passed to native input
+          * @default 'off'
          */
         "autoComplete"?: string;
         /**
           * Passed to native input
+          * @default 'off'
          */
         "autoCorrect"?: 'off' | 'on';
         /**
@@ -1953,10 +2292,12 @@ declare namespace LocalJSX {
         "autoFocus"?: boolean;
         /**
           * Optional debounce of the didInput event
+          * @default 0
          */
         "debounce"?: number;
         /**
           * Renders input as disabled and prevents changes
+          * @default false
          */
         "disabled"?: boolean;
         /**
@@ -1993,6 +2334,7 @@ declare namespace LocalJSX {
         "minlength"?: number;
         /**
           * Whether the control is a multiline textarea
+          * @default false
          */
         "multiline"?: boolean;
         /**
@@ -2013,6 +2355,7 @@ declare namespace LocalJSX {
         "pattern"?: string;
         /**
           * Shows a loading indicator in the end slot when true
+          * @default false
          */
         "pending"?: boolean;
         /**
@@ -2021,18 +2364,22 @@ declare namespace LocalJSX {
         "placeholder"?: string;
         /**
           * Renders input as read only and prevents changes
+          * @default false
          */
         "readonly"?: boolean;
         /**
           * Marks as required in form and adds asterisk to the end of the label
+          * @default false
          */
         "required"?: boolean;
         /**
           * Container size
+          * @default 'md'
          */
         "size"?: 'md' | 'lg' | 'sm';
         /**
           * Passed to native input
+          * @default false
          */
         "spellcheck"?: boolean;
         /**
@@ -2041,10 +2388,12 @@ declare namespace LocalJSX {
         "step"?: string;
         /**
           * Shows a success icon in the end slot when true. Has no effect on form validation
+          * @default false
          */
         "success"?: boolean;
         /**
           * Whether to suppress the default behavior of the input event
+          * @default false
          */
         "suppressDefaultBehavior"?: boolean;
         /**
@@ -2053,6 +2402,7 @@ declare namespace LocalJSX {
         "transform"?: InputTransformer | 'number' | 'date' | 'datetime';
         /**
           * Passed to native input
+          * @default 'text'
          */
         "type"?: string;
         /**
@@ -2069,11 +2419,15 @@ declare namespace LocalJSX {
         "wrap"?: string;
     }
     interface JeToastContainer {
+        /**
+          * @default 'bottom-start'
+         */
         "position"?: 'top' | 'bottom' | 'top-end' | 'top-start' | 'bottom-end' | 'bottom-start';
     }
     interface JeToggle {
         /**
           * If the label should be placed at the start or end of the toggle
+          * @default 'end'
          */
         "labelPlacement"?: 'start' | 'end';
         /**
@@ -2086,6 +2440,7 @@ declare namespace LocalJSX {
         "originalValue"?: boolean;
         /**
           * Whether or not the toggle is active
+          * @default false
          */
         "value"?: boolean;
     }
@@ -2098,22 +2453,33 @@ declare namespace LocalJSX {
         "content"?: string;
         /**
           * Horizontal offset used when auto positioning the popover content
+          * @default 0
          */
         "offsetX"?: number;
         /**
           * Vertical offset used when auto positioning the popover content
+          * @default 10
          */
         "offsetY"?: number;
     }
     interface JeTree {
+        /**
+          * @default false
+         */
         "indentation"?: boolean;
         "onValueChange"?: (event: JeTreeCustomEvent<string | string[]>) => void;
+        /**
+          * @default 'leaf'
+         */
         "selection"?: 'single' | 'multiple' | 'leaf';
         "value"?: string | string[];
     }
     interface JeWizard {
         "onFinish"?: (event: JeWizardCustomEvent<void>) => void;
         "onStepChange"?: (event: JeWizardCustomEvent<number>) => void;
+        /**
+          * @default []
+         */
         "steps"?: { label: string, optional?: boolean }[];
     }
     interface IntrinsicElements {
@@ -2127,6 +2493,7 @@ declare namespace LocalJSX {
         "je-button-group": JeButtonGroup;
         "je-calendar": JeCalendar;
         "je-card": JeCard;
+        "je-cell": JeCell;
         "je-checkbox": JeCheckbox;
         "je-color": JeColor;
         "je-column": JeColumn;
@@ -2157,8 +2524,11 @@ declare namespace LocalJSX {
         "je-radio-button": JeRadioButton;
         "je-radio-group": JeRadioGroup;
         "je-refresher": JeRefresher;
+        "je-rich-text": JeRichText;
+        "je-row": JeRow;
         "je-select": JeSelect;
         "je-tab": JeTab;
+        "je-table": JeTable;
         "je-tabs": JeTabs;
         "je-textfield": JeTextfield;
         "je-toast-container": JeToastContainer;
@@ -2183,6 +2553,7 @@ declare module "@stencil/core" {
             "je-button-group": LocalJSX.JeButtonGroup & JSXBase.HTMLAttributes<HTMLJeButtonGroupElement>;
             "je-calendar": LocalJSX.JeCalendar & JSXBase.HTMLAttributes<HTMLJeCalendarElement>;
             "je-card": LocalJSX.JeCard & JSXBase.HTMLAttributes<HTMLJeCardElement>;
+            "je-cell": LocalJSX.JeCell & JSXBase.HTMLAttributes<HTMLJeCellElement>;
             "je-checkbox": LocalJSX.JeCheckbox & JSXBase.HTMLAttributes<HTMLJeCheckboxElement>;
             "je-color": LocalJSX.JeColor & JSXBase.HTMLAttributes<HTMLJeColorElement>;
             "je-column": LocalJSX.JeColumn & JSXBase.HTMLAttributes<HTMLJeColumnElement>;
@@ -2213,8 +2584,11 @@ declare module "@stencil/core" {
             "je-radio-button": LocalJSX.JeRadioButton & JSXBase.HTMLAttributes<HTMLJeRadioButtonElement>;
             "je-radio-group": LocalJSX.JeRadioGroup & JSXBase.HTMLAttributes<HTMLJeRadioGroupElement>;
             "je-refresher": LocalJSX.JeRefresher & JSXBase.HTMLAttributes<HTMLJeRefresherElement>;
+            "je-rich-text": LocalJSX.JeRichText & JSXBase.HTMLAttributes<HTMLJeRichTextElement>;
+            "je-row": LocalJSX.JeRow & JSXBase.HTMLAttributes<HTMLJeRowElement>;
             "je-select": LocalJSX.JeSelect & JSXBase.HTMLAttributes<HTMLJeSelectElement>;
             "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
+            "je-table": LocalJSX.JeTable & JSXBase.HTMLAttributes<HTMLJeTableElement>;
             "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;
             "je-textfield": LocalJSX.JeTextfield & JSXBase.HTMLAttributes<HTMLJeTextfieldElement>;
             "je-toast-container": LocalJSX.JeToastContainer & JSXBase.HTMLAttributes<HTMLJeToastContainerElement>;

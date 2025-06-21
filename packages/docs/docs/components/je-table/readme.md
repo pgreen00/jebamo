@@ -1,6 +1,6 @@
 ---
-title: 'JeCalendar | <je-calendar>'
-sidebar_label: 'Calendar'
+title: 'JeTable | <je-table>'
+sidebar_label: 'Table'
 ---
 <!-- Auto Generated Below -->
 
