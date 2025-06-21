@@ -20,7 +20,7 @@ This monorepo contains the following packages:
 - **`jebamo`** - Core web component library
 - **`jebamo-angular`** - Angular-specific wrapper components
 - **`jebamo-docs`** - Documentation site built with Docusaurus
-- **`demo`** - Demo application showcasing all components
+- **`demo`** - Vite playground
 
 ## 🛠️ Installation
 
@@ -55,18 +55,41 @@ npm install jebamo-angular
 ### Angular
 
 ```typescript
-// app.module.ts
-import { JebamoModule } from 'jebamo-angular';
+// app.config.ts
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
+import { routes } from './app.routes';
+import { provideJebamo } from 'jebamo-angular';
 
-@NgModule({
-  imports: [JebamoModule],
-  // ...
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideZonelessChangeDetection(),
+    provideRouter(routes, withViewTransitions(), withComponentInputBinding()),
+    provideJebamo() //<- add jebamo provider
+  ]
+};
+```
+
+```typescript
+//app.ts
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { JeButton } from 'jebamo-angular';
+
+@Component({
+  selector: 'app-root',
+  imports: [JeButton],
+  templateUrl: './app.html',
+  styleUrl: './app.css'
 })
-export class AppModule { }
+export class App {
+
+}
 ```
 
 ```html
-<!-- app.component.html -->
+<!-- app.html -->
 <je-button color="primary" (click)="handleClick()">
   Click me!
 </je-button>
@@ -84,113 +107,6 @@ function App() {
     </je-button>
   );
 }
-```
-
-## 🎨 Available Components
-
-Jebamo includes over 50+ components covering all common UI patterns:
-
-### Form Components
-- `je-button` - Buttons with various styles and states
-- `je-textfield` - Text input fields
-- `je-checkbox` - Checkbox inputs
-- `je-radio` & `je-radio-group` - Radio button controls
-- `je-select` - Dropdown select components
-- `je-datepicker` - Date picker component
-- `je-toggle` - Toggle switch component
-- `je-form` - Form container with validation
-
-### Layout Components
-- `je-card` - Card containers
-- `je-column` & `je-column-group` - Grid layout system
-- `je-divider` - Visual separators
-- `je-page` - Page container
-- `je-toolbar` - Toolbar component
-
-### Navigation Components
-- `je-nav` - Navigation component
-- `je-breadcrumb` & `je-breadcrumbs` - Breadcrumb navigation
-- `je-tabs` & `je-tab` - Tab navigation
-- `je-menu` - Dropdown menus
-- `je-tree` - Tree navigation
-
-### Feedback Components
-- `je-alert` - Alert messages
-- `je-loading` - Loading indicators
-- `je-toast-container` - Toast notifications
-- `je-modal` - Modal dialogs
-- `je-drawer` - Slide-out drawers
-- `je-popover` - Popover tooltips
-- `je-tooltip` - Tooltip components
-
-### Data Display
-- `je-table` - Data tables
-- `je-calendar` - Calendar component
-- `je-tree` - Tree view
-- `je-infinite` - Infinite scroll
-- `je-placeholder` - Loading placeholders
-
-### Utility Components
-- `je-icon` - Icon component
-- `je-link` - Link component
-- `je-color` - Color picker
-- `je-dropzone` - File upload zones
-- `je-wizard` - Multi-step wizard
-
-## 🎨 Theming
-
-Jebamo components are highly customizable using CSS custom properties:
-
-```css
-je-button {
-  --background: #007bff;
-  --color: white;
-  --hover-background: #0056b3;
-  --active-background: #004085;
-}
-```
-
-## 🏗️ Development
-
-### Prerequisites
-
-- Node.js 18+
-- npm or yarn
-
-### Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/pgreen00/jebamo.git
-cd jebamo
-
-# Install dependencies
-npm install
-
-# Start development servers
-npm start
-```
-
-This will start:
-- Core component development server
-- Demo application
-- Documentation site
-
-### Build
-
-```bash
-# Build all packages
-npm run build
-```
-
-### Testing
-
-```bash
-# Run tests
-npm test
-
-# Run tests in watch mode
-npm run test.watch
 ```
 
 ## 📚 Documentation
