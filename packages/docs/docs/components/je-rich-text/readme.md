@@ -7,28 +7,84 @@ sidebar_label: 'Rich Text Editor'
 
 ## Properties
 
-| Property | Attribute | Description                         | Type     | Default |
-| -------- | --------- | ----------------------------------- | -------- | ------- |
-| `value`  | `value`   | The content of the rich text editor | `string` | `''`    |
+| Property        | Attribute         | Description | Type      | Default             |
+| --------------- | ----------------- | ----------- | --------- | ------------------- |
+| `disabled`      | `disabled`        |             | `boolean` | `false`             |
+| `maxHeight`     | `max-height`      |             | `string`  | `'500px'`           |
+| `minHeight`     | `min-height`      |             | `string`  | `'200px'`           |
+| `placeholder`   | `placeholder`     |             | `string`  | `'Start typing...'` |
+| `readonly`      | `readonly`        |             | `boolean` | `false`             |
+| `showWordCount` | `show-word-count` |             | `boolean` | `true`              |
+| `value`         | `value`           |             | `string`  | `''`                |
 
 
-## Dependencies
+## Events
 
-### Depends on
+| Event          | Description | Type                             |
+| -------------- | ----------- | -------------------------------- |
+| `editorBlur`   |             | `CustomEvent<FocusEvent>`        |
+| `editorChange` |             | `CustomEvent<EditorChangeEvent>` |
+| `editorFocus`  |             | `CustomEvent<FocusEvent>`        |
 
-- [je-divider](../je-divider)
-- [je-icon-button](../je-icon-button)
 
-### Graph
-```mermaid
-graph TD;
-  je-rich-text --> je-divider
-  je-rich-text --> je-icon-button
-  je-icon-button --> je-button
-  je-icon-button --> je-icon
-  je-button --> je-loading
-  style je-rich-text fill:#f9f,stroke:#333,stroke-width:4px
-```
+## Methods
+
+### `clear() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `focus() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `getContent() => Promise<string>`
+
+
+
+#### Returns
+
+Type: `Promise<string>`
+
+
+
+### `getText() => Promise<string>`
+
+
+
+#### Returns
+
+Type: `Promise<string>`
+
+
+
+### `setContent(html: string) => Promise<void>`
+
+
+
+#### Parameters
+
+| Name   | Type     | Description |
+| ------ | -------- | ----------- |
+| `html` | `string` |             |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ----------------------------------------------
 

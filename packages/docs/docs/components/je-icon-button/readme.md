@@ -32,7 +32,7 @@ sidebar_label: 'Icon Button'
  - [je-alert](../je-alert)
  - [je-datepicker](../je-datepicker)
  - [je-details](../je-details)
- - [je-rich-text](../je-rich-text)
+ - [je-overlay-content](../je-overlay-content)
  - [je-textfield](../je-textfield)
 
 ### Depends on
@@ -49,7 +49,7 @@ graph TD;
   je-alert --> je-icon-button
   je-datepicker --> je-icon-button
   je-details --> je-icon-button
-  je-rich-text --> je-icon-button
+  je-overlay-content --> je-icon-button
   je-textfield --> je-icon-button
   style je-icon-button fill:#f9f,stroke:#333,stroke-width:4px
 ```

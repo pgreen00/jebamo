@@ -16,109 +16,43 @@
         <je-link class="active" href="#" slot="end">Components</je-link>
         <je-link href="#" slot="end">Tutorials</je-link>
         <je-link href="#" slot="end">Changelog</je-link>
-        <je-icon-button slot="end" size="lg" icon="dark_mode" id="themeButton"></je-icon-button>
+        <je-icon-button slot="end" size="lg" icon="dark_mode" onclick="document.body.classList.toggle('dark'); document.body.classList.toggle('light')"></je-icon-button>
       </je-nav>
     </header>
 
     <main>
-      <div style="max-width: 500px;">
-        <je-form id="form">
-          <h3 style="text-transform: capitalize;">Give me some basic information</h3>
-          <je-textfield required style="max-width: 300px;" type="password" placeholder="Type something...">
-            <je-label slot="label">Name</je-label>
-            <je-note slot="note">Give it to me</je-note>
-          </je-textfield>
-          <je-divider></je-divider>
-          <je-checkbox indeterminate>Do you like hats?</je-checkbox>
-          <je-divider></je-divider>
-          <je-toggle>Do you like hats?</je-toggle>
-          <je-divider></je-divider>
-          <je-radio-group note="Pick something you will be proud of" label="Favorite Option">
-            <je-radio-button value="1">Option 1</je-radio-button>
-            <je-radio-button value="2">Option 2</je-radio-button>
-            <je-radio-button value="3">Option 3</je-radio-button>
-          </je-radio-group>
-          <je-divider></je-divider>
-          <je-select label="Options" placeholder="Select something...">
-            <je-option value="1">Option 1</je-option>
-            <je-option disabled value="2">Option 2</je-option>
-            <je-option value="3">Option 3</je-option>
-          </je-select>
-          <je-textfield label="Notes" placeholder="Additional info..." multiline pending>
-            <je-button slot="end">Submit</je-button>
-          </je-textfield>
-        </je-form>
-        <je-button form="form">Submit</je-button>
-
-        <je-popover style="--padding: 0">
-          <je-button slot="trigger">Open Menu</je-button>
-          <je-menu>
-            <je-item>
-              Item 1
-              <je-icon-button icon="favorite" slot="end"></je-icon-button>
-            </je-item>
-            <je-popover trigger-action="hover" style="--padding: 0">
-              <je-item slot="trigger">
-                Item 2
-                <je-icon-button icon="chevron_right" slot="end"></je-icon-button>
-              </je-item>
-              <je-menu>
-                <je-item>Undo</je-item>
-                <je-item>Redo</je-item>
-                <je-divider></je-divider>
-                <je-item>
-                  Delete
-                  <je-icon fill slot="end">delete</je-icon>
-                </je-item>
-              </je-menu>
-            </je-popover>
-            <je-item>
-              <je-icon slot="start" fill>folder</je-icon>
-              Item 3
-              <je-icon-button icon="favorite" slot="end"></je-icon-button>
-            </je-item>
-          </je-menu>
-        </je-popover>
-
-        <je-details summary="Hey">
-          <p>stuff</p>
-        </je-details>
-
-        <je-rich-text></je-rich-text>
-
-        <je-table style="max-height: 200px;">
-          <je-row slot="head">
-            <je-cell>Name</je-cell>
-            <je-cell>Age</je-cell>
-            <je-cell>Gender</je-cell>
-          </je-row>
-          <je-row>
-            <je-cell>John</je-cell>
-            <je-cell>25</je-cell>
-            <je-cell>Male</je-cell>
-          </je-row>
-          <je-row>
-            <je-cell>Jane</je-cell>
-            <je-cell>26</je-cell>
-            <je-cell>Female</je-cell>
-          </je-row>
-          <je-row>
-            <je-cell>John</je-cell>
-            <je-cell>25</je-cell>
-            <je-cell>Male</je-cell>
-          </je-row>
-          <je-row>
-            <je-cell>John</je-cell>
-            <je-cell>25</je-cell>
-            <je-cell>Male</je-cell>
-          </je-row>
-          <je-row slot="foot">
-            <je-cell>Total</je-cell>
-            <je-cell>40</je-cell>
-            <je-cell>2</je-cell>
-          </je-row>
-        </je-table>
-      </div>
+      <app-counter count="7"></app-counter>
+      <je-placeholder style="height: 30px; width: 50px;"></je-placeholder>
+      <je-rich-text></je-rich-text>
+      <je-overlay side="left">
+        <je-button slot="trigger">Open</je-button>
+        <je-overlay-content label="Header">
+          <div slot="body">
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+            <p>Body goes here</p>
+          </div>
+          <je-button slot="footer">Submit</je-button>
+        </je-overlay-content>
+      </je-overlay>
     </main>
 
     <footer>

@@ -19,7 +19,7 @@ export type DialogButton = {
   color?: Color;
   type?: 'submit' | 'reset';
   size?: 'sm' | 'md' | 'lg';
-  handler?: (dialog: HTMLJeModalElement) => void | Promise<void>;
+  handler?: (dialog: HTMLJeOverlayElement) => void | Promise<void>;
 };
 
 export type CreateDialogOptions = {
@@ -28,12 +28,11 @@ export type CreateDialogOptions = {
   icon?: string,
   buttons?: DialogButton[];
   controls?: DialogControl[],
-  showBackdrop?: boolean,
   backdropDismiss?: boolean
 }
 
 export const createDialog = (options: CreateDialogOptions) => {
-  const dialog = document.createElement('je-modal');
+  const dialog = document.createElement('je-overlay');
   dialog.size = 'sm';
   dialog.setHTMLUnsafe(`
     <je-form>
@@ -61,7 +60,6 @@ export const createDialog = (options: CreateDialogOptions) => {
     </je-form>
   `)
   dialog.backdropDismiss = options.backdropDismiss;
-  dialog.showBackdrop = options.showBackdrop;
   document.body.append(dialog);
   const container = dialog.querySelector('.je-dialog-container')
   if (options.header) {

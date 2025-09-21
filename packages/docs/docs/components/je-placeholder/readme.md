@@ -14,9 +14,10 @@ sidebar_label: 'Placeholder'
 
 ## CSS Custom Properties
 
-| Name              | Description      |
-| ----------------- | ---------------- |
-| `--je-background` | background color |
+| Name              | Description                    |
+| ----------------- | ------------------------------ |
+| `--background`    | background color               |
+| `--shimmer-color` | color of the shimmer animation |
 
 
 ----------------------------------------------

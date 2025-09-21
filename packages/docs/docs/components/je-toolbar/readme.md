@@ -18,11 +18,13 @@ sidebar_label: 'Toolbar'
 ### Used by
 
  - [je-details](../je-details)
+ - [je-overlay-content](../je-overlay-content)
 
 ### Graph
 ```mermaid
 graph TD;
   je-details --> je-toolbar
+  je-overlay-content --> je-toolbar
   style je-toolbar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -13,19 +13,6 @@ sidebar_label: 'Divider'
 | `type`    | `type`    |             | `"horizontal" \| "vertical"`     | `'horizontal'` |
 
 
-## Dependencies
-
-### Used by
-
- - [je-rich-text](../je-rich-text)
-
-### Graph
-```mermaid
-graph TD;
-  je-rich-text --> je-divider
-  style je-divider fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

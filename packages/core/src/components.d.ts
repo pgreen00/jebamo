@@ -8,45 +8,15 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Color, OverlayData } from "./utils/utils";
 import { Color as Color1 } from "./components";
 import { Placement } from "@floating-ui/dom";
+import { EditorChangeEvent } from "./components/je-rich-text/je-rich-text";
 import { FormatterFn, InputTransformer, ValidationFn } from "./components/je-textfield/je-textfield";
 export { Color, OverlayData } from "./utils/utils";
 export { Color as Color1 } from "./components";
 export { Placement } from "@floating-ui/dom";
+export { EditorChangeEvent } from "./components/je-rich-text/je-rich-text";
 export { FormatterFn, InputTransformer, ValidationFn } from "./components/je-textfield/je-textfield";
 export namespace Components {
     interface JeAccordion {
-    }
-    interface JeActionSheet {
-        /**
-          * Optionally execute a promise before closing begins
-         */
-        "destroy"?: () => void | Promise<void>;
-        "hide": (role?: string, data?: any) => Promise<void>;
-        /**
-          * Optionally execute a promise before presentation begins
-         */
-        "init"?: () => void | Promise<void>;
-        /**
-          * Maximum height (expanded fullscreen).
-          * @default 90
-         */
-        "maxPercent": number;
-        /**
-          * Intermediate height (mid state).
-          * @default 60
-         */
-        "midPercent": number;
-        /**
-          * Minimum height (collapsed state).
-          * @default 30
-         */
-        "minPercent": number;
-        /**
-          * Opens and closes modal
-          * @default false
-         */
-        "open": boolean;
-        "show": () => Promise<void>;
     }
     interface JeAlert {
         /**
@@ -154,8 +124,6 @@ export namespace Components {
         "button"?: boolean;
         "color"?: Color;
     }
-    interface JeCell {
-    }
     interface JeCheckbox {
         /**
           * By default, it will submit true or false depending on the checked state. Use this property to submit a custom value instead.
@@ -247,6 +215,8 @@ export namespace Components {
          */
         "wrap"?: boolean;
     }
+    interface JeControl {
+    }
     interface JeDatepicker {
         /**
           * @default false
@@ -276,6 +246,8 @@ export namespace Components {
         "open": boolean;
         "summary"?: string;
     }
+    interface JeDiscardForm {
+    }
     interface JeDivider {
         /**
           * @default 'md'
@@ -285,33 +257,6 @@ export namespace Components {
           * @default 'horizontal'
          */
         "type": 'horizontal' | 'vertical';
-    }
-    interface JeDrawer {
-        /**
-          * Backdrop will close the modal on click when enabled
-          * @default true
-         */
-        "backdropDismiss": boolean;
-        /**
-          * Optionally execute a promise before closing begins
-         */
-        "destroy"?: () => void | Promise<void>;
-        "hide": (role?: string, data?: any) => Promise<void>;
-        /**
-          * Optionally execute a promise before presentation begins
-         */
-        "init"?: () => void | Promise<void>;
-        /**
-          * Opens and closes modal
-          * @default false
-         */
-        "open": boolean;
-        "show": () => Promise<void>;
-        /**
-          * Side of the screen where the drawer will be displayed
-          * @default 'left'
-         */
-        "side": 'left' | 'right';
     }
     interface JeDropzone {
     }
@@ -372,23 +317,6 @@ export namespace Components {
          */
         "type"?: 'submit' | 'reset';
     }
-    interface JeInfinite {
-        /**
-          * This must be manually set to true/false to show/hide the intersecting content
-          * @default false
-         */
-        "loading": boolean;
-        /**
-          * Passed to observer api
-          * @default '0px'
-         */
-        "rootMargin": string;
-        /**
-          * Threshold passed to observer api
-          * @default 0.8
-         */
-        "threshold": number;
-    }
     interface JeItem {
     }
     interface JeLabel {
@@ -426,39 +354,6 @@ export namespace Components {
     }
     interface JeMenu {
     }
-    interface JeModal {
-        /**
-          * Backdrop will close the modal on click when enabled
-          * @default true
-         */
-        "backdropDismiss": boolean;
-        /**
-          * Optionally execute a promise before closing begins
-         */
-        "destroy"?: () => void | Promise<void>;
-        "didDismiss": () => Promise<OverlayData>;
-        "hide": (role?: string, data?: any) => Promise<void>;
-        /**
-          * Optionally execute a promise before presentation begins
-         */
-        "init"?: () => void | Promise<void>;
-        /**
-          * Opens and closes modal
-          * @default false
-         */
-        "open": boolean;
-        "show": () => Promise<void>;
-        /**
-          * Whether or not the backdrop will be visible to the user
-          * @default true
-         */
-        "showBackdrop": boolean;
-        /**
-          * Size of the modal
-          * @default 'lg'
-         */
-        "size": 'sm' | 'md' | 'lg';
-    }
     interface JeNav {
         /**
           * @default 'top'
@@ -478,6 +373,44 @@ export namespace Components {
          */
         "selected": boolean;
         "value": any;
+    }
+    interface JeOverlay {
+        /**
+          * Backdrop will close the modal on click when enabled
+          * @default true
+         */
+        "backdropDismiss": boolean;
+        /**
+          * Optionally execute a promise after closing completes
+         */
+        "destroy"?: () => void | Promise<void>;
+        "hide": (role?: string, data?: any) => Promise<void>;
+        /**
+          * Optionally execute a promise before presentation begins
+         */
+        "init"?: () => void | Promise<void>;
+        /**
+          * Opens and closes modal
+          * @default false
+         */
+        "open": boolean;
+        "show": () => Promise<void>;
+        /**
+          * Side of the screen where the drawer will be displayed
+         */
+        "side"?: 'left' | 'right' | 'bottom' | 'top';
+        /**
+          * Size of the overlay
+          * @default 'md'
+         */
+        "size": 'sm' | 'md' | 'lg';
+    }
+    interface JeOverlayContent {
+        /**
+          * @default true
+         */
+        "closable": boolean;
+        "label"?: string;
     }
     interface JePage {
         /**
@@ -615,16 +548,44 @@ export namespace Components {
          */
         "value"?: any;
     }
-    interface JeRefresher {
+    interface JeReorderItem {
+    }
+    interface JeReorderList {
     }
     interface JeRichText {
+        "clear": () => Promise<void>;
         /**
-          * The content of the rich text editor
+          * @default false
+         */
+        "disabled": boolean;
+        "focus": () => Promise<void>;
+        "getContent": () => Promise<string>;
+        "getText": () => Promise<string>;
+        /**
+          * @default '500px'
+         */
+        "maxHeight": string;
+        /**
+          * @default '200px'
+         */
+        "minHeight": string;
+        /**
+          * @default 'Start typing...'
+         */
+        "placeholder": string;
+        /**
+          * @default false
+         */
+        "readonly": boolean;
+        "setContent": (html: string) => Promise<void>;
+        /**
+          * @default true
+         */
+        "showWordCount": boolean;
+        /**
           * @default ''
          */
         "value": string;
-    }
-    interface JeRow {
     }
     interface JeSelect {
         /**
@@ -650,14 +611,18 @@ export namespace Components {
         "size": 'md' | 'lg' | 'sm';
         "value": any;
     }
+    interface JeSplitPanel {
+    }
+    interface JeSplitView {
+    }
+    interface JeStore {
+    }
     interface JeTab {
         /**
           * @default false
          */
         "active": boolean;
         "value"?: string;
-    }
-    interface JeTable {
     }
     interface JeTabs {
         /**
@@ -877,10 +842,6 @@ export namespace Components {
         "steps": { label: string, optional?: boolean }[];
     }
 }
-export interface JeActionSheetCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJeActionSheetElement;
-}
 export interface JeAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeAlertElement;
@@ -901,10 +862,6 @@ export interface JeDetailsCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeDetailsElement;
 }
-export interface JeDrawerCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJeDrawerElement;
-}
 export interface JeDropzoneCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeDropzoneElement;
@@ -913,13 +870,9 @@ export interface JeFormCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeFormElement;
 }
-export interface JeInfiniteCustomEvent<T> extends CustomEvent<T> {
+export interface JeOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLJeInfiniteElement;
-}
-export interface JeModalCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLJeModalElement;
+    target: HTMLJeOverlayElement;
 }
 export interface JePopoverCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -928,6 +881,10 @@ export interface JePopoverCustomEvent<T> extends CustomEvent<T> {
 export interface JeRadioGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLJeRadioGroupElement;
+}
+export interface JeRichTextCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLJeRichTextElement;
 }
 export interface JeSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -959,24 +916,6 @@ declare global {
     var HTMLJeAccordionElement: {
         prototype: HTMLJeAccordionElement;
         new (): HTMLJeAccordionElement;
-    };
-    interface HTMLJeActionSheetElementEventMap {
-        "present": any;
-        "dismiss": OverlayData;
-    }
-    interface HTMLJeActionSheetElement extends Components.JeActionSheet, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeActionSheetElementEventMap>(type: K, listener: (this: HTMLJeActionSheetElement, ev: JeActionSheetCustomEvent<HTMLJeActionSheetElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeActionSheetElementEventMap>(type: K, listener: (this: HTMLJeActionSheetElement, ev: JeActionSheetCustomEvent<HTMLJeActionSheetElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLJeActionSheetElement: {
-        prototype: HTMLJeActionSheetElement;
-        new (): HTMLJeActionSheetElement;
     };
     interface HTMLJeAlertElementEventMap {
         "present": any;
@@ -1049,12 +988,6 @@ declare global {
         prototype: HTMLJeCardElement;
         new (): HTMLJeCardElement;
     };
-    interface HTMLJeCellElement extends Components.JeCell, HTMLStencilElement {
-    }
-    var HTMLJeCellElement: {
-        prototype: HTMLJeCellElement;
-        new (): HTMLJeCellElement;
-    };
     interface HTMLJeCheckboxElementEventMap {
         "valueChange": boolean | undefined;
     }
@@ -1089,6 +1022,12 @@ declare global {
     var HTMLJeColumnGroupElement: {
         prototype: HTMLJeColumnGroupElement;
         new (): HTMLJeColumnGroupElement;
+    };
+    interface HTMLJeControlElement extends Components.JeControl, HTMLStencilElement {
+    }
+    var HTMLJeControlElement: {
+        prototype: HTMLJeControlElement;
+        new (): HTMLJeControlElement;
     };
     interface HTMLJeDatepickerElementEventMap {
         "valueChange": number;
@@ -1125,30 +1064,17 @@ declare global {
         prototype: HTMLJeDetailsElement;
         new (): HTMLJeDetailsElement;
     };
+    interface HTMLJeDiscardFormElement extends Components.JeDiscardForm, HTMLStencilElement {
+    }
+    var HTMLJeDiscardFormElement: {
+        prototype: HTMLJeDiscardFormElement;
+        new (): HTMLJeDiscardFormElement;
+    };
     interface HTMLJeDividerElement extends Components.JeDivider, HTMLStencilElement {
     }
     var HTMLJeDividerElement: {
         prototype: HTMLJeDividerElement;
         new (): HTMLJeDividerElement;
-    };
-    interface HTMLJeDrawerElementEventMap {
-        "present": any;
-        "dismiss": OverlayData;
-        "backdropClick": any;
-    }
-    interface HTMLJeDrawerElement extends Components.JeDrawer, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeDrawerElementEventMap>(type: K, listener: (this: HTMLJeDrawerElement, ev: JeDrawerCustomEvent<HTMLJeDrawerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeDrawerElementEventMap>(type: K, listener: (this: HTMLJeDrawerElement, ev: JeDrawerCustomEvent<HTMLJeDrawerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLJeDrawerElement: {
-        prototype: HTMLJeDrawerElement;
-        new (): HTMLJeDrawerElement;
     };
     interface HTMLJeDropzoneElementEventMap {
         "dataDrop": DataTransfer;
@@ -1196,23 +1122,6 @@ declare global {
         prototype: HTMLJeIconButtonElement;
         new (): HTMLJeIconButtonElement;
     };
-    interface HTMLJeInfiniteElementEventMap {
-        "intersect": void;
-    }
-    interface HTMLJeInfiniteElement extends Components.JeInfinite, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeInfiniteElementEventMap>(type: K, listener: (this: HTMLJeInfiniteElement, ev: JeInfiniteCustomEvent<HTMLJeInfiniteElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeInfiniteElementEventMap>(type: K, listener: (this: HTMLJeInfiniteElement, ev: JeInfiniteCustomEvent<HTMLJeInfiniteElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLJeInfiniteElement: {
-        prototype: HTMLJeInfiniteElement;
-        new (): HTMLJeInfiniteElement;
-    };
     interface HTMLJeItemElement extends Components.JeItem, HTMLStencilElement {
     }
     var HTMLJeItemElement: {
@@ -1243,25 +1152,6 @@ declare global {
         prototype: HTMLJeMenuElement;
         new (): HTMLJeMenuElement;
     };
-    interface HTMLJeModalElementEventMap {
-        "present": any;
-        "dismiss": OverlayData;
-        "backdropClick": any;
-    }
-    interface HTMLJeModalElement extends Components.JeModal, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLJeModalElementEventMap>(type: K, listener: (this: HTMLJeModalElement, ev: JeModalCustomEvent<HTMLJeModalElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLJeModalElementEventMap>(type: K, listener: (this: HTMLJeModalElement, ev: JeModalCustomEvent<HTMLJeModalElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLJeModalElement: {
-        prototype: HTMLJeModalElement;
-        new (): HTMLJeModalElement;
-    };
     interface HTMLJeNavElement extends Components.JeNav, HTMLStencilElement {
     }
     var HTMLJeNavElement: {
@@ -1279,6 +1169,31 @@ declare global {
     var HTMLJeOptionElement: {
         prototype: HTMLJeOptionElement;
         new (): HTMLJeOptionElement;
+    };
+    interface HTMLJeOverlayElementEventMap {
+        "present": any;
+        "dismiss": OverlayData;
+        "backdropClick": any;
+    }
+    interface HTMLJeOverlayElement extends Components.JeOverlay, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLJeOverlayElementEventMap>(type: K, listener: (this: HTMLJeOverlayElement, ev: JeOverlayCustomEvent<HTMLJeOverlayElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeOverlayElementEventMap>(type: K, listener: (this: HTMLJeOverlayElement, ev: JeOverlayCustomEvent<HTMLJeOverlayElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLJeOverlayElement: {
+        prototype: HTMLJeOverlayElement;
+        new (): HTMLJeOverlayElement;
+    };
+    interface HTMLJeOverlayContentElement extends Components.JeOverlayContent, HTMLStencilElement {
+    }
+    var HTMLJeOverlayContentElement: {
+        prototype: HTMLJeOverlayContentElement;
+        new (): HTMLJeOverlayContentElement;
     };
     interface HTMLJePageElement extends Components.JePage, HTMLStencilElement {
     }
@@ -1348,23 +1263,37 @@ declare global {
         prototype: HTMLJeRadioGroupElement;
         new (): HTMLJeRadioGroupElement;
     };
-    interface HTMLJeRefresherElement extends Components.JeRefresher, HTMLStencilElement {
+    interface HTMLJeReorderItemElement extends Components.JeReorderItem, HTMLStencilElement {
     }
-    var HTMLJeRefresherElement: {
-        prototype: HTMLJeRefresherElement;
-        new (): HTMLJeRefresherElement;
+    var HTMLJeReorderItemElement: {
+        prototype: HTMLJeReorderItemElement;
+        new (): HTMLJeReorderItemElement;
     };
-    interface HTMLJeRichTextElement extends Components.JeRichText, HTMLStencilElement {
+    interface HTMLJeReorderListElement extends Components.JeReorderList, HTMLStencilElement {
+    }
+    var HTMLJeReorderListElement: {
+        prototype: HTMLJeReorderListElement;
+        new (): HTMLJeReorderListElement;
+    };
+    interface HTMLJeRichTextElementEventMap {
+        "editorChange": EditorChangeEvent;
+        "editorFocus": FocusEvent;
+        "editorBlur": FocusEvent;
+    }
+    interface HTMLJeRichTextElement extends Omit<Components.JeRichText, "focus">, HTMLStencilElement {
+        "focus": () => Promise<void>;
+        addEventListener<K extends keyof HTMLJeRichTextElementEventMap>(type: K, listener: (this: HTMLJeRichTextElement, ev: JeRichTextCustomEvent<HTMLJeRichTextElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLJeRichTextElementEventMap>(type: K, listener: (this: HTMLJeRichTextElement, ev: JeRichTextCustomEvent<HTMLJeRichTextElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLJeRichTextElement: {
         prototype: HTMLJeRichTextElement;
         new (): HTMLJeRichTextElement;
-    };
-    interface HTMLJeRowElement extends Components.JeRow, HTMLStencilElement {
-    }
-    var HTMLJeRowElement: {
-        prototype: HTMLJeRowElement;
-        new (): HTMLJeRowElement;
     };
     interface HTMLJeSelectElementEventMap {
         "valueChange": any;
@@ -1383,17 +1312,29 @@ declare global {
         prototype: HTMLJeSelectElement;
         new (): HTMLJeSelectElement;
     };
+    interface HTMLJeSplitPanelElement extends Components.JeSplitPanel, HTMLStencilElement {
+    }
+    var HTMLJeSplitPanelElement: {
+        prototype: HTMLJeSplitPanelElement;
+        new (): HTMLJeSplitPanelElement;
+    };
+    interface HTMLJeSplitViewElement extends Components.JeSplitView, HTMLStencilElement {
+    }
+    var HTMLJeSplitViewElement: {
+        prototype: HTMLJeSplitViewElement;
+        new (): HTMLJeSplitViewElement;
+    };
+    interface HTMLJeStoreElement extends Components.JeStore, HTMLStencilElement {
+    }
+    var HTMLJeStoreElement: {
+        prototype: HTMLJeStoreElement;
+        new (): HTMLJeStoreElement;
+    };
     interface HTMLJeTabElement extends Components.JeTab, HTMLStencilElement {
     }
     var HTMLJeTabElement: {
         prototype: HTMLJeTabElement;
         new (): HTMLJeTabElement;
-    };
-    interface HTMLJeTableElement extends Components.JeTable, HTMLStencilElement {
-    }
-    var HTMLJeTableElement: {
-        prototype: HTMLJeTableElement;
-        new (): HTMLJeTableElement;
     };
     interface HTMLJeTabsElementEventMap {
         "valueChange": string | undefined;
@@ -1501,7 +1442,6 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "je-accordion": HTMLJeAccordionElement;
-        "je-action-sheet": HTMLJeActionSheetElement;
         "je-alert": HTMLJeAlertElement;
         "je-branch": HTMLJeBranchElement;
         "je-breadcrumb": HTMLJeBreadcrumbElement;
@@ -1510,29 +1450,29 @@ declare global {
         "je-button-group": HTMLJeButtonGroupElement;
         "je-calendar": HTMLJeCalendarElement;
         "je-card": HTMLJeCardElement;
-        "je-cell": HTMLJeCellElement;
         "je-checkbox": HTMLJeCheckboxElement;
         "je-color": HTMLJeColorElement;
         "je-column": HTMLJeColumnElement;
         "je-column-group": HTMLJeColumnGroupElement;
+        "je-control": HTMLJeControlElement;
         "je-datepicker": HTMLJeDatepickerElement;
         "je-details": HTMLJeDetailsElement;
+        "je-discard-form": HTMLJeDiscardFormElement;
         "je-divider": HTMLJeDividerElement;
-        "je-drawer": HTMLJeDrawerElement;
         "je-dropzone": HTMLJeDropzoneElement;
         "je-form": HTMLJeFormElement;
         "je-icon": HTMLJeIconElement;
         "je-icon-button": HTMLJeIconButtonElement;
-        "je-infinite": HTMLJeInfiniteElement;
         "je-item": HTMLJeItemElement;
         "je-label": HTMLJeLabelElement;
         "je-link": HTMLJeLinkElement;
         "je-loading": HTMLJeLoadingElement;
         "je-menu": HTMLJeMenuElement;
-        "je-modal": HTMLJeModalElement;
         "je-nav": HTMLJeNavElement;
         "je-note": HTMLJeNoteElement;
         "je-option": HTMLJeOptionElement;
+        "je-overlay": HTMLJeOverlayElement;
+        "je-overlay-content": HTMLJeOverlayContentElement;
         "je-page": HTMLJePageElement;
         "je-pill": HTMLJePillElement;
         "je-placeholder": HTMLJePlaceholderElement;
@@ -1540,12 +1480,14 @@ declare global {
         "je-radio": HTMLJeRadioElement;
         "je-radio-button": HTMLJeRadioButtonElement;
         "je-radio-group": HTMLJeRadioGroupElement;
-        "je-refresher": HTMLJeRefresherElement;
+        "je-reorder-item": HTMLJeReorderItemElement;
+        "je-reorder-list": HTMLJeReorderListElement;
         "je-rich-text": HTMLJeRichTextElement;
-        "je-row": HTMLJeRowElement;
         "je-select": HTMLJeSelectElement;
+        "je-split-panel": HTMLJeSplitPanelElement;
+        "je-split-view": HTMLJeSplitViewElement;
+        "je-store": HTMLJeStoreElement;
         "je-tab": HTMLJeTabElement;
-        "je-table": HTMLJeTableElement;
         "je-tabs": HTMLJeTabsElement;
         "je-textfield": HTMLJeTextfieldElement;
         "je-toast-container": HTMLJeToastContainerElement;
@@ -1558,44 +1500,6 @@ declare global {
 }
 declare namespace LocalJSX {
     interface JeAccordion {
-    }
-    interface JeActionSheet {
-        /**
-          * Optionally execute a promise before closing begins
-         */
-        "destroy"?: () => void | Promise<void>;
-        /**
-          * Optionally execute a promise before presentation begins
-         */
-        "init"?: () => void | Promise<void>;
-        /**
-          * Maximum height (expanded fullscreen).
-          * @default 90
-         */
-        "maxPercent"?: number;
-        /**
-          * Intermediate height (mid state).
-          * @default 60
-         */
-        "midPercent"?: number;
-        /**
-          * Minimum height (collapsed state).
-          * @default 30
-         */
-        "minPercent"?: number;
-        /**
-          * Emits whenever the drawer has finished closing. Emits the role and optional data object passed to the hide() method.
-         */
-        "onDismiss"?: (event: JeActionSheetCustomEvent<OverlayData>) => void;
-        /**
-          * Emits whenever the drawer has opened. Does not emit any data
-         */
-        "onPresent"?: (event: JeActionSheetCustomEvent<any>) => void;
-        /**
-          * Opens and closes modal
-          * @default false
-         */
-        "open"?: boolean;
     }
     interface JeAlert {
         /**
@@ -1702,8 +1606,6 @@ declare namespace LocalJSX {
         "button"?: boolean;
         "color"?: Color;
     }
-    interface JeCell {
-    }
     interface JeCheckbox {
         /**
           * By default, it will submit true or false depending on the checked state. Use this property to submit a custom value instead.
@@ -1799,6 +1701,8 @@ declare namespace LocalJSX {
          */
         "wrap"?: boolean;
     }
+    interface JeControl {
+    }
     interface JeDatepicker {
         /**
           * @default false
@@ -1831,6 +1735,8 @@ declare namespace LocalJSX {
         "open"?: boolean;
         "summary"?: string;
     }
+    interface JeDiscardForm {
+    }
     interface JeDivider {
         /**
           * @default 'md'
@@ -1840,43 +1746,6 @@ declare namespace LocalJSX {
           * @default 'horizontal'
          */
         "type"?: 'horizontal' | 'vertical';
-    }
-    interface JeDrawer {
-        /**
-          * Backdrop will close the modal on click when enabled
-          * @default true
-         */
-        "backdropDismiss"?: boolean;
-        /**
-          * Optionally execute a promise before closing begins
-         */
-        "destroy"?: () => void | Promise<void>;
-        /**
-          * Optionally execute a promise before presentation begins
-         */
-        "init"?: () => void | Promise<void>;
-        /**
-          * Emits whenever the backdrop is clicked. Does not emit any data
-         */
-        "onBackdropClick"?: (event: JeDrawerCustomEvent<any>) => void;
-        /**
-          * Emits whenever the drawer has finished closing. Emits the role and optional data object passed to the hide() method.
-         */
-        "onDismiss"?: (event: JeDrawerCustomEvent<OverlayData>) => void;
-        /**
-          * Emits whenever the drawer has opened. Does not emit any data
-         */
-        "onPresent"?: (event: JeDrawerCustomEvent<any>) => void;
-        /**
-          * Opens and closes modal
-          * @default false
-         */
-        "open"?: boolean;
-        /**
-          * Side of the screen where the drawer will be displayed
-          * @default 'left'
-         */
-        "side"?: 'left' | 'right';
     }
     interface JeDropzone {
         "onDataDrop"?: (event: JeDropzoneCustomEvent<DataTransfer>) => void;
@@ -1939,27 +1808,6 @@ declare namespace LocalJSX {
          */
         "type"?: 'submit' | 'reset';
     }
-    interface JeInfinite {
-        /**
-          * This must be manually set to true/false to show/hide the intersecting content
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Emitted when the bottom of the scroll container is in the viewport
-         */
-        "onIntersect"?: (event: JeInfiniteCustomEvent<void>) => void;
-        /**
-          * Passed to observer api
-          * @default '0px'
-         */
-        "rootMargin"?: string;
-        /**
-          * Threshold passed to observer api
-          * @default 0.8
-         */
-        "threshold"?: number;
-    }
     interface JeItem {
     }
     interface JeLabel {
@@ -1997,48 +1845,6 @@ declare namespace LocalJSX {
     }
     interface JeMenu {
     }
-    interface JeModal {
-        /**
-          * Backdrop will close the modal on click when enabled
-          * @default true
-         */
-        "backdropDismiss"?: boolean;
-        /**
-          * Optionally execute a promise before closing begins
-         */
-        "destroy"?: () => void | Promise<void>;
-        /**
-          * Optionally execute a promise before presentation begins
-         */
-        "init"?: () => void | Promise<void>;
-        /**
-          * Emits whenever the backdrop is clicked. Does not emit any data
-         */
-        "onBackdropClick"?: (event: JeModalCustomEvent<any>) => void;
-        /**
-          * Emits whenever the modal has finished closing. Emits the role and optional data object passed to the hide() method.
-         */
-        "onDismiss"?: (event: JeModalCustomEvent<OverlayData>) => void;
-        /**
-          * Emits whenever the modal has opened. Does not emit any data
-         */
-        "onPresent"?: (event: JeModalCustomEvent<any>) => void;
-        /**
-          * Opens and closes modal
-          * @default false
-         */
-        "open"?: boolean;
-        /**
-          * Whether or not the backdrop will be visible to the user
-          * @default true
-         */
-        "showBackdrop"?: boolean;
-        /**
-          * Size of the modal
-          * @default 'lg'
-         */
-        "size"?: 'sm' | 'md' | 'lg';
-    }
     interface JeNav {
         /**
           * @default 'top'
@@ -2058,6 +1864,54 @@ declare namespace LocalJSX {
          */
         "selected"?: boolean;
         "value"?: any;
+    }
+    interface JeOverlay {
+        /**
+          * Backdrop will close the modal on click when enabled
+          * @default true
+         */
+        "backdropDismiss"?: boolean;
+        /**
+          * Optionally execute a promise after closing completes
+         */
+        "destroy"?: () => void | Promise<void>;
+        /**
+          * Optionally execute a promise before presentation begins
+         */
+        "init"?: () => void | Promise<void>;
+        /**
+          * Emits whenever the backdrop is clicked. Does not emit any data
+         */
+        "onBackdropClick"?: (event: JeOverlayCustomEvent<any>) => void;
+        /**
+          * Emits whenever the drawer has finished closing. Emits the role and optional data object passed to the hide() method.
+         */
+        "onDismiss"?: (event: JeOverlayCustomEvent<OverlayData>) => void;
+        /**
+          * Emits whenever the drawer has opened. Does not emit any data
+         */
+        "onPresent"?: (event: JeOverlayCustomEvent<any>) => void;
+        /**
+          * Opens and closes modal
+          * @default false
+         */
+        "open"?: boolean;
+        /**
+          * Side of the screen where the drawer will be displayed
+         */
+        "side"?: 'left' | 'right' | 'bottom' | 'top';
+        /**
+          * Size of the overlay
+          * @default 'md'
+         */
+        "size"?: 'sm' | 'md' | 'lg';
+    }
+    interface JeOverlayContent {
+        /**
+          * @default true
+         */
+        "closable"?: boolean;
+        "label"?: string;
     }
     interface JePage {
         /**
@@ -2217,16 +2071,42 @@ declare namespace LocalJSX {
          */
         "value"?: any;
     }
-    interface JeRefresher {
+    interface JeReorderItem {
+    }
+    interface JeReorderList {
     }
     interface JeRichText {
         /**
-          * The content of the rich text editor
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * @default '500px'
+         */
+        "maxHeight"?: string;
+        /**
+          * @default '200px'
+         */
+        "minHeight"?: string;
+        "onEditorBlur"?: (event: JeRichTextCustomEvent<FocusEvent>) => void;
+        "onEditorChange"?: (event: JeRichTextCustomEvent<EditorChangeEvent>) => void;
+        "onEditorFocus"?: (event: JeRichTextCustomEvent<FocusEvent>) => void;
+        /**
+          * @default 'Start typing...'
+         */
+        "placeholder"?: string;
+        /**
+          * @default false
+         */
+        "readonly"?: boolean;
+        /**
+          * @default true
+         */
+        "showWordCount"?: boolean;
+        /**
           * @default ''
          */
         "value"?: string;
-    }
-    interface JeRow {
     }
     interface JeSelect {
         /**
@@ -2253,14 +2133,18 @@ declare namespace LocalJSX {
         "size"?: 'md' | 'lg' | 'sm';
         "value"?: any;
     }
+    interface JeSplitPanel {
+    }
+    interface JeSplitView {
+    }
+    interface JeStore {
+    }
     interface JeTab {
         /**
           * @default false
          */
         "active"?: boolean;
         "value"?: string;
-    }
-    interface JeTable {
     }
     interface JeTabs {
         /**
@@ -2484,7 +2368,6 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "je-accordion": JeAccordion;
-        "je-action-sheet": JeActionSheet;
         "je-alert": JeAlert;
         "je-branch": JeBranch;
         "je-breadcrumb": JeBreadcrumb;
@@ -2493,29 +2376,29 @@ declare namespace LocalJSX {
         "je-button-group": JeButtonGroup;
         "je-calendar": JeCalendar;
         "je-card": JeCard;
-        "je-cell": JeCell;
         "je-checkbox": JeCheckbox;
         "je-color": JeColor;
         "je-column": JeColumn;
         "je-column-group": JeColumnGroup;
+        "je-control": JeControl;
         "je-datepicker": JeDatepicker;
         "je-details": JeDetails;
+        "je-discard-form": JeDiscardForm;
         "je-divider": JeDivider;
-        "je-drawer": JeDrawer;
         "je-dropzone": JeDropzone;
         "je-form": JeForm;
         "je-icon": JeIcon;
         "je-icon-button": JeIconButton;
-        "je-infinite": JeInfinite;
         "je-item": JeItem;
         "je-label": JeLabel;
         "je-link": JeLink;
         "je-loading": JeLoading;
         "je-menu": JeMenu;
-        "je-modal": JeModal;
         "je-nav": JeNav;
         "je-note": JeNote;
         "je-option": JeOption;
+        "je-overlay": JeOverlay;
+        "je-overlay-content": JeOverlayContent;
         "je-page": JePage;
         "je-pill": JePill;
         "je-placeholder": JePlaceholder;
@@ -2523,12 +2406,14 @@ declare namespace LocalJSX {
         "je-radio": JeRadio;
         "je-radio-button": JeRadioButton;
         "je-radio-group": JeRadioGroup;
-        "je-refresher": JeRefresher;
+        "je-reorder-item": JeReorderItem;
+        "je-reorder-list": JeReorderList;
         "je-rich-text": JeRichText;
-        "je-row": JeRow;
         "je-select": JeSelect;
+        "je-split-panel": JeSplitPanel;
+        "je-split-view": JeSplitView;
+        "je-store": JeStore;
         "je-tab": JeTab;
-        "je-table": JeTable;
         "je-tabs": JeTabs;
         "je-textfield": JeTextfield;
         "je-toast-container": JeToastContainer;
@@ -2544,7 +2429,6 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "je-accordion": LocalJSX.JeAccordion & JSXBase.HTMLAttributes<HTMLJeAccordionElement>;
-            "je-action-sheet": LocalJSX.JeActionSheet & JSXBase.HTMLAttributes<HTMLJeActionSheetElement>;
             "je-alert": LocalJSX.JeAlert & JSXBase.HTMLAttributes<HTMLJeAlertElement>;
             "je-branch": LocalJSX.JeBranch & JSXBase.HTMLAttributes<HTMLJeBranchElement>;
             "je-breadcrumb": LocalJSX.JeBreadcrumb & JSXBase.HTMLAttributes<HTMLJeBreadcrumbElement>;
@@ -2553,29 +2437,29 @@ declare module "@stencil/core" {
             "je-button-group": LocalJSX.JeButtonGroup & JSXBase.HTMLAttributes<HTMLJeButtonGroupElement>;
             "je-calendar": LocalJSX.JeCalendar & JSXBase.HTMLAttributes<HTMLJeCalendarElement>;
             "je-card": LocalJSX.JeCard & JSXBase.HTMLAttributes<HTMLJeCardElement>;
-            "je-cell": LocalJSX.JeCell & JSXBase.HTMLAttributes<HTMLJeCellElement>;
             "je-checkbox": LocalJSX.JeCheckbox & JSXBase.HTMLAttributes<HTMLJeCheckboxElement>;
             "je-color": LocalJSX.JeColor & JSXBase.HTMLAttributes<HTMLJeColorElement>;
             "je-column": LocalJSX.JeColumn & JSXBase.HTMLAttributes<HTMLJeColumnElement>;
             "je-column-group": LocalJSX.JeColumnGroup & JSXBase.HTMLAttributes<HTMLJeColumnGroupElement>;
+            "je-control": LocalJSX.JeControl & JSXBase.HTMLAttributes<HTMLJeControlElement>;
             "je-datepicker": LocalJSX.JeDatepicker & JSXBase.HTMLAttributes<HTMLJeDatepickerElement>;
             "je-details": LocalJSX.JeDetails & JSXBase.HTMLAttributes<HTMLJeDetailsElement>;
+            "je-discard-form": LocalJSX.JeDiscardForm & JSXBase.HTMLAttributes<HTMLJeDiscardFormElement>;
             "je-divider": LocalJSX.JeDivider & JSXBase.HTMLAttributes<HTMLJeDividerElement>;
-            "je-drawer": LocalJSX.JeDrawer & JSXBase.HTMLAttributes<HTMLJeDrawerElement>;
             "je-dropzone": LocalJSX.JeDropzone & JSXBase.HTMLAttributes<HTMLJeDropzoneElement>;
             "je-form": LocalJSX.JeForm & JSXBase.HTMLAttributes<HTMLJeFormElement>;
             "je-icon": LocalJSX.JeIcon & JSXBase.HTMLAttributes<HTMLJeIconElement>;
             "je-icon-button": LocalJSX.JeIconButton & JSXBase.HTMLAttributes<HTMLJeIconButtonElement>;
-            "je-infinite": LocalJSX.JeInfinite & JSXBase.HTMLAttributes<HTMLJeInfiniteElement>;
             "je-item": LocalJSX.JeItem & JSXBase.HTMLAttributes<HTMLJeItemElement>;
             "je-label": LocalJSX.JeLabel & JSXBase.HTMLAttributes<HTMLJeLabelElement>;
             "je-link": LocalJSX.JeLink & JSXBase.HTMLAttributes<HTMLJeLinkElement>;
             "je-loading": LocalJSX.JeLoading & JSXBase.HTMLAttributes<HTMLJeLoadingElement>;
             "je-menu": LocalJSX.JeMenu & JSXBase.HTMLAttributes<HTMLJeMenuElement>;
-            "je-modal": LocalJSX.JeModal & JSXBase.HTMLAttributes<HTMLJeModalElement>;
             "je-nav": LocalJSX.JeNav & JSXBase.HTMLAttributes<HTMLJeNavElement>;
             "je-note": LocalJSX.JeNote & JSXBase.HTMLAttributes<HTMLJeNoteElement>;
             "je-option": LocalJSX.JeOption & JSXBase.HTMLAttributes<HTMLJeOptionElement>;
+            "je-overlay": LocalJSX.JeOverlay & JSXBase.HTMLAttributes<HTMLJeOverlayElement>;
+            "je-overlay-content": LocalJSX.JeOverlayContent & JSXBase.HTMLAttributes<HTMLJeOverlayContentElement>;
             "je-page": LocalJSX.JePage & JSXBase.HTMLAttributes<HTMLJePageElement>;
             "je-pill": LocalJSX.JePill & JSXBase.HTMLAttributes<HTMLJePillElement>;
             "je-placeholder": LocalJSX.JePlaceholder & JSXBase.HTMLAttributes<HTMLJePlaceholderElement>;
@@ -2583,12 +2467,14 @@ declare module "@stencil/core" {
             "je-radio": LocalJSX.JeRadio & JSXBase.HTMLAttributes<HTMLJeRadioElement>;
             "je-radio-button": LocalJSX.JeRadioButton & JSXBase.HTMLAttributes<HTMLJeRadioButtonElement>;
             "je-radio-group": LocalJSX.JeRadioGroup & JSXBase.HTMLAttributes<HTMLJeRadioGroupElement>;
-            "je-refresher": LocalJSX.JeRefresher & JSXBase.HTMLAttributes<HTMLJeRefresherElement>;
+            "je-reorder-item": LocalJSX.JeReorderItem & JSXBase.HTMLAttributes<HTMLJeReorderItemElement>;
+            "je-reorder-list": LocalJSX.JeReorderList & JSXBase.HTMLAttributes<HTMLJeReorderListElement>;
             "je-rich-text": LocalJSX.JeRichText & JSXBase.HTMLAttributes<HTMLJeRichTextElement>;
-            "je-row": LocalJSX.JeRow & JSXBase.HTMLAttributes<HTMLJeRowElement>;
             "je-select": LocalJSX.JeSelect & JSXBase.HTMLAttributes<HTMLJeSelectElement>;
+            "je-split-panel": LocalJSX.JeSplitPanel & JSXBase.HTMLAttributes<HTMLJeSplitPanelElement>;
+            "je-split-view": LocalJSX.JeSplitView & JSXBase.HTMLAttributes<HTMLJeSplitViewElement>;
+            "je-store": LocalJSX.JeStore & JSXBase.HTMLAttributes<HTMLJeStoreElement>;
             "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
-            "je-table": LocalJSX.JeTable & JSXBase.HTMLAttributes<HTMLJeTableElement>;
             "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;
             "je-textfield": LocalJSX.JeTextfield & JSXBase.HTMLAttributes<HTMLJeTextfieldElement>;
             "je-toast-container": LocalJSX.JeToastContainer & JSXBase.HTMLAttributes<HTMLJeToastContainerElement>;

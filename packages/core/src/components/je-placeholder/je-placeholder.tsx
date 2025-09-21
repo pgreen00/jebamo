@@ -1,4 +1,4 @@
-import { Component, Host, Prop, h } from '@stencil/core';
+import { Component, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-placeholder',
@@ -9,13 +9,9 @@ export class JePlaceholder {
   /**
    * Whether or not the component should have the animated "shimmer" effect
    */
-  @Prop() animated = true;
+  @Prop({ reflect: true }) animated = true;
 
   render() {
-    return (
-      <Host class={{'animated': this.animated}}>
-        <slot></slot>
-      </Host>
-    );
+    return <slot/>
   }
 }
