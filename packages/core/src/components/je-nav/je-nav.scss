@@ -43,9 +43,7 @@ je-nav[mode=top] {
     }
 
     &>je-button,
-    &>*>je-button,
-    &>je-icon-button,
-    &>*>je-icon-button {
+    &>*>je-button {
       &::part(inner-button) {
         --padding-inline: #{spacing-get(3xs)};
         --color: light-dark(#{secondary(50)}, #{secondary(100)});

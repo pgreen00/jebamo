@@ -1,5 +1,5 @@
 import { Component, Listen, Prop, h, Element, Host, State, Event, EventEmitter, Method, forceUpdate, Fragment } from '@stencil/core';
-import { Color, OverlayData } from '../../utils/utils';
+import { Color } from '../../utils/color';
 
 @Component({
   tag: 'je-alert',
@@ -15,12 +15,12 @@ export class JeAlert {
   @Prop() header?: string;
   @Prop() message?: string;
   @Prop() closable = false;
-  @Prop({reflect:true}) color: Color = 'primary';
+  @Prop({ reflect: true }) color: Color = 'primary';
   @Prop() duration = 0;
   @Prop() progress = false;
   @Prop({ mutable: true }) open = false;
   @Event() present: EventEmitter;
-  @Event() dismiss: EventEmitter<OverlayData>;
+  @Event() dismiss: EventEmitter;
 
   componentWillRender() {
     if (this.open) {
@@ -42,7 +42,7 @@ export class JeAlert {
 
   @Method()
   didDismiss() {
-    return new Promise<OverlayData>(resolve => {
+    return new Promise(resolve => {
       this.el.addEventListener('dismiss', e => resolve(e.detail), { once: true });
     });
   }
@@ -92,7 +92,7 @@ export class JeAlert {
 
         <div class="cell top-left">
           {this.icon && <je-icon fill>{this.icon}</je-icon>}
-          <slot name="start"/>
+          <slot name="start" />
         </div>
         <div class="cell top-middle">
           {hasHeader ? (
@@ -102,8 +102,8 @@ export class JeAlert {
           )}
         </div>
         <div class="cell top-right">
-          <slot name="end"/>
-          {this.closable && <je-icon-button icon='close' onClick={() => this.hide('userDismiss')}/>}
+          <slot name="end" />
+          {this.closable && <je-button onClick={() => this.hide('userDismiss')}><je-icon>close</je-icon></je-button>}
         </div>
 
         {hasHeader && hasMessage && (

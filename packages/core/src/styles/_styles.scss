@@ -4,9 +4,3 @@
 @forward 'elevation' as elevation-*;
 @forward 'transition' as transition-*;
 @forward 'radius' as radius-*;
-
-$backdrop-color: rgba(0, 0, 0, 0.5);
-
-@function backdrop-color() {
-  @return var(--je-backdrop-color, #{$backdrop-color});
-}

@@ -1,52 +1,55 @@
 @use '../../styles/styles' as *;
 
-je-page {
+:is(je-page:not(:has(> .je-page-container)), je-page > .je-page-container) {
+  display: grid;
   height: 100%;
   width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
   box-sizing: border-box;
-  font-family: inherit;
-  color: light-dark(secondary(900), secondary(50));
-  background-color: light-dark(secondary(50), secondary(900));
-
   --border-color: light-dark(#{secondary(400)}, #{secondary(800)});
 
-  .__slot {
-    display: contents;
-  }
-
-  .__body_container {
-    display: flex;
+  >header:first-of-type {
+    flex-shrink: 0;
+    grid-area: head;
+    position: sticky;
+    z-index: 1;
+    top: 0;
     box-sizing: border-box;
-    width: 100%;
-    overflow: hidden;
-  }
-
-  header {
-    box-sizing: border-box;
-    padding-inline: spacing-get(sm);
-  }
-
-  header:first-of-type {
+    padding: spacing-get(xs) spacing-get(sm);
     background-color: light-dark(primary(750), secondary(850));
     color: light-dark(secondary(50), secondary(100));
   }
 
-  header:nth-of-type(2) {
+  >header:nth-of-type(2) {
+    flex-shrink: 0;
+    grid-area: sub;
+    position: sticky;
+    z-index: 1;
+    top: var(--head-height);
+    padding: spacing-get(xs) spacing-get(sm);
+    box-sizing: border-box;
     background-color: light-dark(secondary(50), secondary(850));
     color: light-dark(secondary(900), secondary(100));
   }
 
-  header:last-of-type {
+  >header:last-of-type {
     border-bottom: solid 1px var(--border-color);
   }
 
-  main {
-    flex: 1;
+  >main {
+    grid-area: body;
     box-sizing: border-box;
-    padding: spacing-get(sm);
+    padding: spacing-get(xs) spacing-get(sm);
+    color: light-dark(secondary(900), secondary(50));
+    background-color: light-dark(secondary(50), secondary(900));
   }
 
-  footer {
+  >footer {
+    position: sticky;
+    bottom: 0;
+    grid-area: foot;
+    flex-shrink: 0;
     box-sizing: border-box;
     background-color: light-dark(secondary(900), secondary(850));
     color: light-dark(secondary(50), secondary(100));
@@ -54,75 +57,25 @@ je-page {
     padding: spacing-get(xs) spacing-get(sm);
   }
 
-  aside {
-    display: block;
+  >aside {
+    position: sticky;
+    top: calc(var(--head-height, 0px) + var(--sub-height, 0px));
+    bottom: var(--foot-height, 0px);
+    max-height: calc(100vh - var(--head-height, 0px) - var(--sub-height, 0px) - var(--foot-height, 0px));
+    color: light-dark(secondary(900), secondary(50));
+    background-color: light-dark(secondary(50), secondary(900));
+    overflow-y: auto;
+    overflow-x: hidden;
     box-sizing: border-box;
-    overflow-y: auto;
-    overflow-x: hidden;
-    transition: all 250ms ease-in-out;
-    margin: 0;
-    padding: spacing-get(sm);
-    scrollbar-width: thin;
-
-    &[right] {
-      border-left: solid 1px var(--border-color);
-    }
-
-    &:not([right]) {
-      border-right: solid 1px var(--border-color);
-    }
-
-    &:not([open]) {
-      padding-inline: 0;
-      width: 0;
-      border: 0;
-    }
-  }
-}
-
-je-page[layout=flex] {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-
-  main {
-    overflow-y: auto;
-    overflow-x: hidden;
   }
 
-  .__body_container {
-    flex: 1;
-  }
-}
-
-je-page[layout=sticky] {
-  display: block;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 1;
+  >aside:not(main+aside) {
+    grid-area: left;
+    border-right: solid 1px var(--border-color);
   }
 
-  header:nth-of-type(2) {
-    top: var(--sub-top);
-  }
-
-  main {
-    position: sticky;
-    top: var(--header-height);
-    min-height: calc(100vh - var(--header-height) - var(--footer-height) - 2px);
-  }
-
-  aside {
-    position: sticky;
-    top: var(--header-height);
-    max-height: calc(100vh - var(--header-height) - 2px);
-  }
-
-  .__body_container {
-    overflow: visible;
+  >main+aside {
+    grid-area: right;
+    border-left: solid 1px var(--border-color);
   }
 }

@@ -24,7 +24,7 @@ export class JeOverlayContent {
             </slot>
             <div class="end" slot='end'>
               <slot name='actions'/>
-              {this.closable && <je-icon-button size='lg' onClick={() => this.overlay.hide()} icon='close'/>}
+              {this.closable && <je-button size='lg' onClick={() => this.overlay.hide()}><je-icon>close</je-icon></je-button>}
             </div>
           </je-toolbar>
         </header>

@@ -30,23 +30,20 @@ export class JeModelDirective {
 /**
  * Directive for automatically embedding and removing ng-templates from overlays on show/hide.
  *
- * @usageNotes
- * Overlay components this will work with include JePopover, JeDrawer, and JeModal
- *
  * @example
- * <je-modal>
+ * <je-overlay>
  *   <je-button slot="trigger">Open Modal</je-button>
  *   <ng-template>
  *     <h1>Modal Title</h1>
  *     <p>Modal content</p>
  *   </ng-template>
- * </je-modal>
+ * </je-overlay>
  */
 @Directive({
-  selector: 'je-popover > ng-template, je-drawer > ng-template, je-modal > ng-template',
+  selector: 'je-overlay > ng-template',
   exportAs: 'overlay'
 })
-export class JeOverlayDirective {
+export class JeOverlayTemplateDirective {
   private viewContainerRef = inject(ViewContainerRef);
   private template = inject(TemplateRef);
   private elementRef = inject(ElementRef);

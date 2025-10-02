@@ -92,11 +92,11 @@ export class JeDatepicker {
         {(this.type == 'date' || this.type == 'datetime') && (
           <Fragment>
             <div class="header">
-              <je-icon-button icon='keyboard_double_arrow_left' onClick={this.prevYear} />
-              <je-icon-button icon='keyboard_arrow_left' onClick={this.prevMonth} />
+              <je-button onClick={this.prevYear}><je-icon>keyboard_double_arrow_left</je-icon></je-button>
+              <je-button onClick={this.prevMonth}><je-icon>keyboard_arrow_left</je-icon></je-button>
               <span>{format(this.currentDate, 'MMMM yyyy')}</span>
-              <je-icon-button icon='keyboard_arrow_right' onClick={this.nextMonth} />
-              <je-icon-button icon='keyboard_double_arrow_right' onClick={this.nextYear} />
+              <je-button onClick={this.nextMonth}><je-icon>keyboard_arrow_right</je-icon></je-button>
+              <je-button onClick={this.nextYear}><je-icon>keyboard_double_arrow_right</je-icon></je-button>
             </div>
 
             <div class="weekdays-grid">

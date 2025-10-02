@@ -19,26 +19,23 @@ export const config: Config = {
     },
     {
       type: 'dist-custom-elements',
-      customElementsExportBehavior: 'auto-define-custom-elements',
+      customElementsExportBehavior: 'single-export-module',
       externalRuntime: false,
       dir: 'components'
     },
     angularOutputTarget({
       componentCorePackage: 'jebamo',
-      outputType: 'component',
-      directivesProxyFile: '../angular/src/lib/stencil-generated/components.ts'
+      outputType: 'standalone',
+      directivesProxyFile: '../angular/src/lib/components.ts'
     }),
     {
       type: 'docs-readme',
-      dir: '../docs/docs',
+      dir: '../docs/pages',
       strict: true
     },
     {
       type: 'docs-vscode',
       file: 'dist/vscode-data.json'
     },
-  ],
-  testing: {
-    browserHeadless: 'shell',
-  },
+  ]
 };

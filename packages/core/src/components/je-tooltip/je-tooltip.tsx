@@ -1,7 +1,7 @@
 import { autoUpdate, ComputePositionReturn, computePosition, offset, autoPlacement, size } from '@floating-ui/dom';
 import { Component, Host, Prop, State, Watch, h, Element } from '@stencil/core';
 import { AsyncSubject, Subscription, fromEvent, debounceTime, map, switchMap, merge, debounce, tap } from 'rxjs';
-import { getDOMRect } from '../../utils/utils';
+import { getDOMRect } from '../../utils/get-dom-rect';
 
 @Component({
   tag: 'je-tooltip',

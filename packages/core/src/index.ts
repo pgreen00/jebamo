@@ -1,3 +1,3 @@
 export type * from './components.d.ts';
-export type * from './utils/utils';
-export { createDialog, createToast } from './utils/utils';
+export { createDialog, CreateDialogOptions } from './utils/create-dialog'
+export { createToast, CreateToastOptions } from './utils/create-toast'

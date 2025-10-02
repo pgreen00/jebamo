@@ -9,11 +9,6 @@ export class JeDropzone {
   @Element() el!: HTMLJeDropzoneElement;
   @Event() dataDrop: EventEmitter<DataTransfer>;
 
-  @Listen('themeChange', { target: 'body' })
-  handleThemeChange(e: CustomEvent<'light' | 'dark'>) {
-    this.el.toggleAttribute('darkmode', e.detail == 'dark')
-  }
-
   @Listen('drop', { passive: false })
   onDrop(e: DragEvent) {
     e.preventDefault();
@@ -36,9 +31,7 @@ export class JeDropzone {
   render() {
     return (
       <Host>
-        <div part="content-container">
-          <slot></slot>
-        </div>
+        <slot/>
       </Host>
     );
   }

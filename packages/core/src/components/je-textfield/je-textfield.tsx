@@ -1,6 +1,6 @@
 import { Component, Host, Prop, h, Element, State, Event, EventEmitter, AttachInternals, forceUpdate, Method, Listen, Watch } from '@stencil/core';
 import { format, parseISO } from 'date-fns';
-import { debounceEvent } from '../../utils/utils';
+import { debounceEvent } from '../../utils/debounce-event';
 
 export type InputTransformer<T = any> = {
   to?: (value: string) => T;
@@ -444,7 +444,9 @@ export class JeTextfield {
           )}
 
           {this.type === 'password' && (
-            <je-icon-button size="sm" icon={this.showPassword ? 'visibility_off' : 'visibility'} onClick={() => (this.showPassword = !this.showPassword)} />
+            <je-button size="sm" onClick={() => (this.showPassword = !this.showPassword)}>
+              <je-icon>{this.showPassword ? 'visibility_off' : 'visibility'}</je-icon>
+            </je-button>
           )}
 
           <slot name="end" />

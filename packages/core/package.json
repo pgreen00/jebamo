@@ -25,17 +25,15 @@
   "dependencies": {
     "@floating-ui/dom": "^1.6.12",
     "date-fns": "^4.1.0",
+    "interactjs": "^1.10.27",
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.55.1",
     "@stencil/angular-output-target": "^1.0.0",
     "@stencil/core": "^4.7.0",
     "@stencil/sass": "~3.1.0",
-    "@types/jest": "^30.0.0",
-    "@types/node": "^24.0.3",
-    "jest": "^30.0.2",
-    "jest-cli": "^30.0.2",
-    "puppeteer": "^24.10.2"
+    "@types/node": "^24.5.2"
   },
   "license": "MIT"
 }

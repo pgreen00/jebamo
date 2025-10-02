@@ -1,7 +1,7 @@
 import { Component, Host, h, Element, EventEmitter, Listen, Prop, Event, Watch, Method } from '@stencil/core';
 import { arrow, autoPlacement, autoUpdate, computePosition, ComputePositionReturn, flip, offset, Placement, shift, size } from '@floating-ui/dom';
 import { debounceTime, fromEvent, Subscription } from 'rxjs';
-import { getDOMRect, OverlayData } from '../../utils/utils';
+import { getDOMRect } from '../../utils/get-dom-rect';
 
 @Component({
   tag: 'je-popover',
@@ -119,7 +119,7 @@ export class JePopover {
   /**
    * Emits when the popover is closed
    */
-  @Event({ bubbles: false }) dismiss: EventEmitter<OverlayData>;
+  @Event({ bubbles: false }) dismiss: EventEmitter;
 
   /**
    * Emits before the popover starts dismissing

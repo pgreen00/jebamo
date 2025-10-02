@@ -5,13 +5,13 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Color, OverlayData } from "./utils/utils";
-import { Color as Color1 } from "./components";
+import { Color } from "./utils/color";
+import { OverlayData } from "./components/je-overlay/je-overlay";
 import { Placement } from "@floating-ui/dom";
 import { EditorChangeEvent } from "./components/je-rich-text/je-rich-text";
 import { FormatterFn, InputTransformer, ValidationFn } from "./components/je-textfield/je-textfield";
-export { Color, OverlayData } from "./utils/utils";
-export { Color as Color1 } from "./components";
+export { Color } from "./utils/color";
+export { OverlayData } from "./components/je-overlay/je-overlay";
 export { Placement } from "@floating-ui/dom";
 export { EditorChangeEvent } from "./components/je-rich-text/je-rich-text";
 export { FormatterFn, InputTransformer, ValidationFn } from "./components/je-textfield/je-textfield";
@@ -27,7 +27,7 @@ export namespace Components {
           * @default 'primary'
          */
         "color": Color;
-        "didDismiss": () => Promise<OverlayData>;
+        "didDismiss": () => Promise<unknown>;
         /**
           * @default 0
          */
@@ -94,9 +94,8 @@ export namespace Components {
         "expand": boolean;
         /**
           * Button fill
-          * @default 'solid'
          */
-        "fill": 'solid' | 'outline' | 'clear';
+        "fill"?: 'solid' | 'outline' | 'clear';
         /**
           * Can set form id to participate in forms. Use this if you need to place submit/reset button outside the form element
          */
@@ -157,63 +156,15 @@ export namespace Components {
         /**
           * Fixed color
          */
-        "color"?: Color1;
+        "color"?: Color;
         /**
           * Color in dark mode
          */
-        "dark"?: Color1;
+        "dark"?: Color;
         /**
           * Color in light mode
          */
-        "light"?: Color1;
-    }
-    interface JeColumn {
-        /**
-          * The size of the column, in terms of how many columns it should take up out of the total available.
-         */
-        "size"?: string;
-        /**
-          * The size of the column for lg screens, in terms of how many columns it should take up out of the total available.
-         */
-        "sizeLg"?: string;
-        /**
-          * The size of the column for md screens, in terms of how many columns it should take up out of the total available.
-         */
-        "sizeMd"?: string;
-        /**
-          * The size of the column for sm screens, in terms of how many columns it should take up out of the total available.
-         */
-        "sizeSm"?: string;
-        /**
-          * The size of the column for xl screens, in terms of how many columns it should take up out of the total available.
-         */
-        "sizeXl"?: string;
-        /**
-          * The size of the column for xs screens, in terms of how many columns it should take up out of the total available.
-         */
-        "sizeXs"?: string;
-    }
-    interface JeColumnGroup {
-        /**
-          * Alignment of the columns.
-         */
-        "align"?: 'start' | 'center' | 'end' | 'stretch' | 'baseline';
-        /**
-          * The number of columns the flex grid has.
-         */
-        "columns"?: number;
-        /**
-          * The gap between the columns.
-         */
-        "gap"?: '3xs' | '2xs' |'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
-        /**
-          * Justification of the columns.
-         */
-        "justify"?: 'start' | 'center' | 'end' | 'space-between' | 'space-around';
-        /**
-          * If the columns should wrap.
-         */
-        "wrap"?: boolean;
+        "light"?: Color;
     }
     interface JeControl {
     }
@@ -262,6 +213,8 @@ export namespace Components {
     }
     interface JeForm {
     }
+    interface JeGrid {
+    }
     interface JeIcon {
         /**
           * Whether or not the icon should be filled
@@ -282,40 +235,6 @@ export namespace Components {
           * @default 400
          */
         "weight": number;
-    }
-    interface JeIconButton {
-        /**
-          * Predefined colors
-         */
-        "color"?: Color;
-        /**
-          * Disables button
-          * @default false
-         */
-        "disabled": boolean;
-        /**
-          * Button fill
-          * @default 'clear'
-         */
-        "fill": 'solid' | 'outline' | 'clear';
-        /**
-          * Name of icon
-         */
-        "icon"?: string;
-        /**
-          * Shows a loading spinner and disables the button
-          * @default false
-         */
-        "pending": boolean;
-        /**
-          * Button size
-          * @default 'md'
-         */
-        "size": 'md' | 'lg' | 'sm';
-        /**
-          * Can set to submit or reset to participate in forms
-         */
-        "type"?: 'submit' | 'reset';
     }
     interface JeItem {
     }
@@ -413,11 +332,6 @@ export namespace Components {
         "label"?: string;
     }
     interface JePage {
-        /**
-          * Changes certain aspects of the page layout. - Sticky will make the entire page scrollable, and the footer will not be visible when the page is overflowing - Flex will make the main element scrollable, and the footer will always be visible
-          * @default 'flex'
-         */
-        "layout": 'sticky' | 'flex';
     }
     interface JePill {
         /**
@@ -615,7 +529,7 @@ export namespace Components {
     }
     interface JeSplitView {
     }
-    interface JeStore {
+    interface JeStack {
     }
     interface JeTab {
         /**
@@ -919,7 +833,7 @@ declare global {
     };
     interface HTMLJeAlertElementEventMap {
         "present": any;
-        "dismiss": OverlayData;
+        "dismiss": any;
     }
     interface HTMLJeAlertElement extends Components.JeAlert, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeAlertElementEventMap>(type: K, listener: (this: HTMLJeAlertElement, ev: JeAlertCustomEvent<HTMLJeAlertElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1011,18 +925,6 @@ declare global {
         prototype: HTMLJeColorElement;
         new (): HTMLJeColorElement;
     };
-    interface HTMLJeColumnElement extends Components.JeColumn, HTMLStencilElement {
-    }
-    var HTMLJeColumnElement: {
-        prototype: HTMLJeColumnElement;
-        new (): HTMLJeColumnElement;
-    };
-    interface HTMLJeColumnGroupElement extends Components.JeColumnGroup, HTMLStencilElement {
-    }
-    var HTMLJeColumnGroupElement: {
-        prototype: HTMLJeColumnGroupElement;
-        new (): HTMLJeColumnGroupElement;
-    };
     interface HTMLJeControlElement extends Components.JeControl, HTMLStencilElement {
     }
     var HTMLJeControlElement: {
@@ -1110,17 +1012,17 @@ declare global {
         prototype: HTMLJeFormElement;
         new (): HTMLJeFormElement;
     };
+    interface HTMLJeGridElement extends Components.JeGrid, HTMLStencilElement {
+    }
+    var HTMLJeGridElement: {
+        prototype: HTMLJeGridElement;
+        new (): HTMLJeGridElement;
+    };
     interface HTMLJeIconElement extends Components.JeIcon, HTMLStencilElement {
     }
     var HTMLJeIconElement: {
         prototype: HTMLJeIconElement;
         new (): HTMLJeIconElement;
-    };
-    interface HTMLJeIconButtonElement extends Components.JeIconButton, HTMLStencilElement {
-    }
-    var HTMLJeIconButtonElement: {
-        prototype: HTMLJeIconButtonElement;
-        new (): HTMLJeIconButtonElement;
     };
     interface HTMLJeItemElement extends Components.JeItem, HTMLStencilElement {
     }
@@ -1173,7 +1075,6 @@ declare global {
     interface HTMLJeOverlayElementEventMap {
         "present": any;
         "dismiss": OverlayData;
-        "backdropClick": any;
     }
     interface HTMLJeOverlayElement extends Components.JeOverlay, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeOverlayElementEventMap>(type: K, listener: (this: HTMLJeOverlayElement, ev: JeOverlayCustomEvent<HTMLJeOverlayElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1216,7 +1117,7 @@ declare global {
     interface HTMLJePopoverElementEventMap {
         "willPresent": any;
         "present": any;
-        "dismiss": OverlayData;
+        "dismiss": any;
         "willDismiss": any;
         "ready": any;
     }
@@ -1324,11 +1225,11 @@ declare global {
         prototype: HTMLJeSplitViewElement;
         new (): HTMLJeSplitViewElement;
     };
-    interface HTMLJeStoreElement extends Components.JeStore, HTMLStencilElement {
+    interface HTMLJeStackElement extends Components.JeStack, HTMLStencilElement {
     }
-    var HTMLJeStoreElement: {
-        prototype: HTMLJeStoreElement;
-        new (): HTMLJeStoreElement;
+    var HTMLJeStackElement: {
+        prototype: HTMLJeStackElement;
+        new (): HTMLJeStackElement;
     };
     interface HTMLJeTabElement extends Components.JeTab, HTMLStencilElement {
     }
@@ -1452,8 +1353,6 @@ declare global {
         "je-card": HTMLJeCardElement;
         "je-checkbox": HTMLJeCheckboxElement;
         "je-color": HTMLJeColorElement;
-        "je-column": HTMLJeColumnElement;
-        "je-column-group": HTMLJeColumnGroupElement;
         "je-control": HTMLJeControlElement;
         "je-datepicker": HTMLJeDatepickerElement;
         "je-details": HTMLJeDetailsElement;
@@ -1461,8 +1360,8 @@ declare global {
         "je-divider": HTMLJeDividerElement;
         "je-dropzone": HTMLJeDropzoneElement;
         "je-form": HTMLJeFormElement;
+        "je-grid": HTMLJeGridElement;
         "je-icon": HTMLJeIconElement;
-        "je-icon-button": HTMLJeIconButtonElement;
         "je-item": HTMLJeItemElement;
         "je-label": HTMLJeLabelElement;
         "je-link": HTMLJeLinkElement;
@@ -1486,7 +1385,7 @@ declare global {
         "je-select": HTMLJeSelectElement;
         "je-split-panel": HTMLJeSplitPanelElement;
         "je-split-view": HTMLJeSplitViewElement;
-        "je-store": HTMLJeStoreElement;
+        "je-stack": HTMLJeStackElement;
         "je-tab": HTMLJeTabElement;
         "je-tabs": HTMLJeTabsElement;
         "je-textfield": HTMLJeTextfieldElement;
@@ -1517,7 +1416,7 @@ declare namespace LocalJSX {
         "header"?: string;
         "icon"?: string;
         "message"?: string;
-        "onDismiss"?: (event: JeAlertCustomEvent<OverlayData>) => void;
+        "onDismiss"?: (event: JeAlertCustomEvent<any>) => void;
         "onPresent"?: (event: JeAlertCustomEvent<any>) => void;
         /**
           * @default false
@@ -1576,7 +1475,6 @@ declare namespace LocalJSX {
         "expand"?: boolean;
         /**
           * Button fill
-          * @default 'solid'
          */
         "fill"?: 'solid' | 'outline' | 'clear';
         /**
@@ -1643,63 +1541,15 @@ declare namespace LocalJSX {
         /**
           * Fixed color
          */
-        "color"?: Color1;
+        "color"?: Color;
         /**
           * Color in dark mode
          */
-        "dark"?: Color1;
+        "dark"?: Color;
         /**
           * Color in light mode
          */
-        "light"?: Color1;
-    }
-    interface JeColumn {
-        /**
-          * The size of the column, in terms of how many columns it should take up out of the total available.
-         */
-        "size"?: string;
-        /**
-          * The size of the column for lg screens, in terms of how many columns it should take up out of the total available.
-         */
-        "sizeLg"?: string;
-        /**
-          * The size of the column for md screens, in terms of how many columns it should take up out of the total available.
-         */
-        "sizeMd"?: string;
-        /**
-          * The size of the column for sm screens, in terms of how many columns it should take up out of the total available.
-         */
-        "sizeSm"?: string;
-        /**
-          * The size of the column for xl screens, in terms of how many columns it should take up out of the total available.
-         */
-        "sizeXl"?: string;
-        /**
-          * The size of the column for xs screens, in terms of how many columns it should take up out of the total available.
-         */
-        "sizeXs"?: string;
-    }
-    interface JeColumnGroup {
-        /**
-          * Alignment of the columns.
-         */
-        "align"?: 'start' | 'center' | 'end' | 'stretch' | 'baseline';
-        /**
-          * The number of columns the flex grid has.
-         */
-        "columns"?: number;
-        /**
-          * The gap between the columns.
-         */
-        "gap"?: '3xs' | '2xs' |'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
-        /**
-          * Justification of the columns.
-         */
-        "justify"?: 'start' | 'center' | 'end' | 'space-between' | 'space-around';
-        /**
-          * If the columns should wrap.
-         */
-        "wrap"?: boolean;
+        "light"?: Color;
     }
     interface JeControl {
     }
@@ -1753,6 +1603,8 @@ declare namespace LocalJSX {
     interface JeForm {
         "onFormData"?: (event: JeFormCustomEvent<Record<string, any>>) => void;
     }
+    interface JeGrid {
+    }
     interface JeIcon {
         /**
           * Whether or not the icon should be filled
@@ -1773,40 +1625,6 @@ declare namespace LocalJSX {
           * @default 400
          */
         "weight"?: number;
-    }
-    interface JeIconButton {
-        /**
-          * Predefined colors
-         */
-        "color"?: Color;
-        /**
-          * Disables button
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Button fill
-          * @default 'clear'
-         */
-        "fill"?: 'solid' | 'outline' | 'clear';
-        /**
-          * Name of icon
-         */
-        "icon"?: string;
-        /**
-          * Shows a loading spinner and disables the button
-          * @default false
-         */
-        "pending"?: boolean;
-        /**
-          * Button size
-          * @default 'md'
-         */
-        "size"?: 'md' | 'lg' | 'sm';
-        /**
-          * Can set to submit or reset to participate in forms
-         */
-        "type"?: 'submit' | 'reset';
     }
     interface JeItem {
     }
@@ -1880,15 +1698,11 @@ declare namespace LocalJSX {
          */
         "init"?: () => void | Promise<void>;
         /**
-          * Emits whenever the backdrop is clicked. Does not emit any data
-         */
-        "onBackdropClick"?: (event: JeOverlayCustomEvent<any>) => void;
-        /**
-          * Emits whenever the drawer has finished closing. Emits the role and optional data object passed to the hide() method.
+          * Emits whenever the overlay has finished closing. Emits the role and optional data object passed to the hide() method.
          */
         "onDismiss"?: (event: JeOverlayCustomEvent<OverlayData>) => void;
         /**
-          * Emits whenever the drawer has opened. Does not emit any data
+          * Emits whenever the overlay has opened. Does not emit any data
          */
         "onPresent"?: (event: JeOverlayCustomEvent<any>) => void;
         /**
@@ -1914,11 +1728,6 @@ declare namespace LocalJSX {
         "label"?: string;
     }
     interface JePage {
-        /**
-          * Changes certain aspects of the page layout. - Sticky will make the entire page scrollable, and the footer will not be visible when the page is overflowing - Flex will make the main element scrollable, and the footer will always be visible
-          * @default 'flex'
-         */
-        "layout"?: 'sticky' | 'flex';
     }
     interface JePill {
         /**
@@ -1980,7 +1789,7 @@ declare namespace LocalJSX {
         /**
           * Emits when the popover is closed
          */
-        "onDismiss"?: (event: JePopoverCustomEvent<OverlayData>) => void;
+        "onDismiss"?: (event: JePopoverCustomEvent<any>) => void;
         /**
           * Emits when the popover is opened
          */
@@ -2137,7 +1946,7 @@ declare namespace LocalJSX {
     }
     interface JeSplitView {
     }
-    interface JeStore {
+    interface JeStack {
     }
     interface JeTab {
         /**
@@ -2378,8 +2187,6 @@ declare namespace LocalJSX {
         "je-card": JeCard;
         "je-checkbox": JeCheckbox;
         "je-color": JeColor;
-        "je-column": JeColumn;
-        "je-column-group": JeColumnGroup;
         "je-control": JeControl;
         "je-datepicker": JeDatepicker;
         "je-details": JeDetails;
@@ -2387,8 +2194,8 @@ declare namespace LocalJSX {
         "je-divider": JeDivider;
         "je-dropzone": JeDropzone;
         "je-form": JeForm;
+        "je-grid": JeGrid;
         "je-icon": JeIcon;
-        "je-icon-button": JeIconButton;
         "je-item": JeItem;
         "je-label": JeLabel;
         "je-link": JeLink;
@@ -2412,7 +2219,7 @@ declare namespace LocalJSX {
         "je-select": JeSelect;
         "je-split-panel": JeSplitPanel;
         "je-split-view": JeSplitView;
-        "je-store": JeStore;
+        "je-stack": JeStack;
         "je-tab": JeTab;
         "je-tabs": JeTabs;
         "je-textfield": JeTextfield;
@@ -2439,8 +2246,6 @@ declare module "@stencil/core" {
             "je-card": LocalJSX.JeCard & JSXBase.HTMLAttributes<HTMLJeCardElement>;
             "je-checkbox": LocalJSX.JeCheckbox & JSXBase.HTMLAttributes<HTMLJeCheckboxElement>;
             "je-color": LocalJSX.JeColor & JSXBase.HTMLAttributes<HTMLJeColorElement>;
-            "je-column": LocalJSX.JeColumn & JSXBase.HTMLAttributes<HTMLJeColumnElement>;
-            "je-column-group": LocalJSX.JeColumnGroup & JSXBase.HTMLAttributes<HTMLJeColumnGroupElement>;
             "je-control": LocalJSX.JeControl & JSXBase.HTMLAttributes<HTMLJeControlElement>;
             "je-datepicker": LocalJSX.JeDatepicker & JSXBase.HTMLAttributes<HTMLJeDatepickerElement>;
             "je-details": LocalJSX.JeDetails & JSXBase.HTMLAttributes<HTMLJeDetailsElement>;
@@ -2448,8 +2253,8 @@ declare module "@stencil/core" {
             "je-divider": LocalJSX.JeDivider & JSXBase.HTMLAttributes<HTMLJeDividerElement>;
             "je-dropzone": LocalJSX.JeDropzone & JSXBase.HTMLAttributes<HTMLJeDropzoneElement>;
             "je-form": LocalJSX.JeForm & JSXBase.HTMLAttributes<HTMLJeFormElement>;
+            "je-grid": LocalJSX.JeGrid & JSXBase.HTMLAttributes<HTMLJeGridElement>;
             "je-icon": LocalJSX.JeIcon & JSXBase.HTMLAttributes<HTMLJeIconElement>;
-            "je-icon-button": LocalJSX.JeIconButton & JSXBase.HTMLAttributes<HTMLJeIconButtonElement>;
             "je-item": LocalJSX.JeItem & JSXBase.HTMLAttributes<HTMLJeItemElement>;
             "je-label": LocalJSX.JeLabel & JSXBase.HTMLAttributes<HTMLJeLabelElement>;
             "je-link": LocalJSX.JeLink & JSXBase.HTMLAttributes<HTMLJeLinkElement>;
@@ -2473,7 +2278,7 @@ declare module "@stencil/core" {
             "je-select": LocalJSX.JeSelect & JSXBase.HTMLAttributes<HTMLJeSelectElement>;
             "je-split-panel": LocalJSX.JeSplitPanel & JSXBase.HTMLAttributes<HTMLJeSplitPanelElement>;
             "je-split-view": LocalJSX.JeSplitView & JSXBase.HTMLAttributes<HTMLJeSplitViewElement>;
-            "je-store": LocalJSX.JeStore & JSXBase.HTMLAttributes<HTMLJeStoreElement>;
+            "je-stack": LocalJSX.JeStack & JSXBase.HTMLAttributes<HTMLJeStackElement>;
             "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
             "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;
             "je-textfield": LocalJSX.JeTextfield & JSXBase.HTMLAttributes<HTMLJeTextfieldElement>;

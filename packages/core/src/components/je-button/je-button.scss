@@ -12,11 +12,7 @@
 
 :host {
   display: contents;
-
-  --height: 2.5rem;
-  --padding-inline: #{spacing-get(md)};
-  --font-size: #{font-size(md)};
-  --border-color: transparent;
+  --border-color: transparent
 }
 
 :host([size=sm]) {
@@ -25,30 +21,42 @@
   --font-size: #{font-size(sm)};
 }
 
+:host([size=md]) {
+  --height: 2.5rem;
+  --padding-inline: #{spacing-get(md)};
+  --font-size: #{font-size(md)};
+}
+
 :host([size=lg]) {
   --height: 3rem;
   --padding-inline: #{spacing-get(lg)};
   --font-size: #{font-size(lg)};
 }
 
-:host(:not([color])) button {
+:host(.icon-only) {
+  --height: fit-content;
+  --padding-inline: #{spacing-get(3xs)};
+}
+
+:host([fill=outline]) {
+  --border-color: currentcolor;
+}
+
+:host(:not([color])) {
   --color: light-dark(#{secondary(800)}, #{secondary(200)});
   --hover-color: light-dark(#{secondary(850)}, #{secondary(150)});
   --active-color: light-dark(#{secondary(900)}, #{secondary(100)});
   --background: transparent;
   --hover-background: light-dark(#{secondary(150)}, #{secondary(850)});
   --active-background: light-dark(#{secondary(200)}, #{secondary(800)});
+}
 
-  &.solid {
-    --border-color: light-dark(#{secondary(500)}, #{secondary(750)});
-  }
+:host(:not([color])[fill=solid]),
+:host(:not([color]):not([fill]):not(.icon-only)) {
+  --border-color: light-dark(#{secondary(500)}, #{secondary(750)});
 }
 
 button {
-  &.outline {
-    --border-color: currentcolor;
-  }
-
   &.primary {
     &.solid {
       --color: #{primary(100)};
@@ -56,6 +64,7 @@ button {
       --hover-background: #{primary(600)};
       --active-background: #{primary(700)};
     }
+
     &.clear,
     &.outline {
       --color: light-dark(#{primary(500)}, #{primary(300)});
@@ -67,24 +76,6 @@ button {
     }
   }
 
-  &.secondary {
-    &.solid {
-      --color: #{secondary(900)};
-      --background: #{secondary(500)};
-      --hover-background: #{secondary(400)};
-      --active-background: #{secondary(300)};
-    }
-    &.clear,
-    &.outline {
-      --color: light-dark(#{secondary(700)}, #{secondary(500)});
-      --hover-color: light-dark(#{secondary(800)}, #{secondary(400)});
-      --active-color: light-dark(#{secondary(900)}, #{secondary(300)});
-      --background: transparent;
-      --hover-background: light-dark(#{secondary(100)}, #{secondary(875)});
-      --active-background: light-dark(#{secondary(150)}, #{secondary(850)});
-    }
-  }
-
   &.warning {
     &.solid {
       --color: #{warning(900)};
@@ -92,6 +83,7 @@ button {
       --hover-background: #{warning(400)};
       --active-background: #{warning(300)};
     }
+
     &.clear,
     &.outline {
       --color: light-dark(#{warning(700)}, #{warning(500)});
@@ -110,6 +102,7 @@ button {
       --hover-background: #{success(400)};
       --active-background: #{success(300)};
     }
+
     &.clear,
     &.outline {
       --color: light-dark(#{success(700)}, #{success(500)});
@@ -128,6 +121,7 @@ button {
       --hover-background: #{danger(600)};
       --active-background: #{danger(700)};
     }
+
     &.clear,
     &.outline {
       --color: light-dark(#{danger(500)}, #{danger(300)});

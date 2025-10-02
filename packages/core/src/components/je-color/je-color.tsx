@@ -1,6 +1,5 @@
 import { Component, Host, Prop, h } from '@stencil/core';
-import { Color } from '../../components';
-import { shade } from '../../utils/utils';
+import { shade, Color } from '../../utils/color';
 
 @Component({
   tag: 'je-color',
@@ -28,7 +27,7 @@ export class JeColor {
     return (
       <Host>
         <style>{`:host{display:contents;color:${this.cssValue};}`}</style>
-        <slot></slot>
+        <slot/>
       </Host>
     );
   }

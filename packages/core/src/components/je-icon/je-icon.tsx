@@ -19,9 +19,7 @@ const optical = {
 @Component({
   tag: 'je-icon',
   styleUrl: 'je-icon.scss',
-  shadow: {
-    delegatesFocus: true
-  },
+  shadow: true
 })
 export class JeIcon {
   /** Size of the icon */

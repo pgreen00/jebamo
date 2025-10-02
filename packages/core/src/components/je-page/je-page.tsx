@@ -1,109 +1,66 @@
-import { Component, Element, Host, Prop, State, h } from '@stencil/core';
-import { concatMap, debounceTime, from, Subject, Subscription } from 'rxjs';
+import { Component, Element, Host, forceUpdate, h } from '@stencil/core';
 
 @Component({
   tag: 'je-page',
   styleUrl: 'je-page.scss'
 })
 export class JePage {
-  @Element() el!: HTMLJePageElement;
-  private bodySlot!: HTMLDivElement;
-  private headerSlot!: HTMLDivElement;
-  private footerSlot!: HTMLDivElement;
-  private leftPanelSlot!: HTMLDivElement;
-  private rightPanelSlot!: HTMLDivElement;
-  private mutationObserver!: MutationObserver;
-  private resizeObserver!: ResizeObserver;
-  private moveContent$ = new Subject<void>();
-  private sub?: Subscription;
-  @State() headerHeight = 0;
-  @State() subTop = 0;
-  @State() footerHeight = 0;
-
-  /**
-   * Changes certain aspects of the page layout.
-   * - Sticky will make the entire page scrollable, and the footer will not be visible when the page is overflowing
-   * - Flex will make the main element scrollable, and the footer will always be visible
-   */
-  @Prop({ reflect: true }) layout: 'sticky' | 'flex' = 'flex';
+  @Element() el: HTMLElement
+  private get header() {
+    return this.el.querySelector(':scope > header:first-child')
+  }
+  private get sub() {
+    return this.el.querySelector(':scope > header + header')
+  }
+  private get leftPanel() {
+    return this.el.querySelector(':scope > aside:not(main + aside)')
+  }
+  private get rightPanel() {
+    return this.el.querySelector(':scope > main + aside')
+  }
+  private get footer() {
+    return this.el.querySelector(':scope > footer')
+  }
+  private resizeObserver = new ResizeObserver(() => forceUpdate(this.el))
+  private mutationObserver = new MutationObserver(() => forceUpdate(this.el))
 
   connectedCallback() {
-    this.sub = this.moveContent$.pipe(
-      debounceTime(50),
-      concatMap(() => from(this.moveProjectedContent()))
-    ).subscribe();
-    this.mutationObserver = new MutationObserver(() => this.moveContent$.next())
-    this.resizeObserver = new ResizeObserver(this.setCssVars);
+    this.mutationObserver.observe(this.el, { childList: true })
   }
 
   disconnectedCallback() {
-    this.sub?.unsubscribe();
-    this.mutationObserver.disconnect();
-    this.resizeObserver.disconnect();
+    this.mutationObserver.disconnect()
   }
 
-  componentDidLoad() {
-    this.moveProjectedContent()
-  }
-
-  private maybeAppend = (node: Node | null, container: HTMLElement) => {
-    if (container && node && node.parentNode !== container) {
-      container.appendChild(node);
-    }
-  };
-
-  private moveProjectedContent = async () => {
-    this.mutationObserver.disconnect();
-    this.resizeObserver.disconnect();
-
-    const { bodySlot, headerSlot, footerSlot, leftPanelSlot, rightPanelSlot, maybeAppend } = this;
-
-    const body = this.el.querySelector('main');
-    const headerNodes = Array.from(this.el.querySelectorAll('header'));
-    const footer = this.el.querySelector('footer');
-    const leftPanel = this.el.querySelector('aside:not([right])');
-    const rightPanel = this.el.querySelector('aside[right]');
-
-    maybeAppend(body, bodySlot);
-    maybeAppend(leftPanel, leftPanelSlot);
-    maybeAppend(rightPanel, rightPanelSlot);
-
-    for (const h of headerNodes) {
-      maybeAppend(h, headerSlot);
-      this.resizeObserver.observe(h);
-    }
-
-    maybeAppend(footer, footerSlot);
-    if (footer) this.resizeObserver.observe(footer);
-
-    this.mutationObserver.observe(this.el, { childList: true, subtree: true });
-  };
-
-  private setCssVars = () => {
-    this.headerHeight = Array.from(this.el.querySelectorAll('header'))
-      .map(t => t.clientHeight)
-      .reduce((a, b) => a + b, 0);
-
-    this.subTop = this.el.querySelector<HTMLElement>('header:first-of-type')?.clientHeight ?? 0;
-
-    this.footerHeight = this.el.querySelector<HTMLElement>('footer')?.clientHeight ?? 0;
+  componentDidRender() {
+    const { header, sub, resizeObserver, footer } = this
+    resizeObserver.disconnect()
+    if (header) resizeObserver.observe(header)
+    if (sub) resizeObserver.observe(sub)
+    if (footer) resizeObserver.observe(footer)
   }
 
   render() {
-    const style = {
-      '--header-height': `${this.headerHeight}px`,
-      '--sub-top': `${this.subTop}px`,
-      '--footer-height': `${this.footerHeight}px`
-    };
+    const { header, sub, leftPanel, rightPanel, footer } = this
+    const columns = (leftPanel && rightPanel) ? 3 : (leftPanel || rightPanel) ? 2 : 1
+    const template = [
+      header ? `"${Array.from({length: columns}, () => 'head').join(' ')}"` : null,
+      sub ? `"${Array.from({length: columns}, () => 'sub').join(' ')}"` : null,
+      (leftPanel && rightPanel) ? `"left body right"`
+        : leftPanel ? `"left body"`
+        : rightPanel ? `"body right"`
+        : '"body"',
+      footer ? `"${Array.from({length: columns}, () => 'foot').join(' ')}"` : null
+    ]
     return (
-      <Host style={style}>
-        <div class="__slot" ref={el => this.headerSlot = el}></div>
-        <div class="__body_container">
-          <div class="__slot" ref={el => this.leftPanelSlot = el}></div>
-          <div class="__slot" ref={el => this.bodySlot = el}></div>
-          <div class="__slot" ref={el => this.rightPanelSlot = el}></div>
-        </div>
-        <div class="__slot" ref={el => this.footerSlot = el}></div>
+      <Host style={{
+        'grid-template-areas': template.filter(val => val !== null).join(' '),
+        'grid-template-columns': (leftPanel && rightPanel) ? 'auto 1fr auto' : leftPanel ? 'auto 1fr' : rightPanel ? '1fr auto' : 'auto',
+        ...(header ? {'--head-height': `${header.clientHeight}px`} : {}),
+        ...(sub ? {'--sub-height': `${sub.clientHeight}px`} : {}),
+        ...(footer ? {'--foot-height': `${footer.clientHeight}px`} : {}),
+      }}>
+        <slot />
       </Host>
     )
   }

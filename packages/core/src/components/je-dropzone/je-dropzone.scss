@@ -4,18 +4,11 @@
   justify-content: center;
   height: 200px;
   width: 300px;
-  border: 1px dashed var(--je-text-color);
-  border-radius: var(--je-border-radius);
-  color: var(--je-text-color);
-  background-color: var(--je-background-color);
+  border: 1px dashed canvastext;
   transition: border-color 250ms, background-color 250ms;
 }
 
 :host(.hover) {
   border-color: var(--je-primary-500);
-  background-color: var(--je-secondary-100);
-}
-
-:host([darkmode].hover) {
-  background-color: var(--je-secondary-850);
+  background-color: light-dark(var(--je-secondary-100), var(--je-secondary-850));
 }

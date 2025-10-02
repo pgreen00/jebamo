@@ -1,5 +1,11 @@
-import { Component, Host, h, Prop, Element, Watch, Method, EventEmitter, Event, Listen, State } from '@stencil/core';
-import { isFirefox, OverlayData } from '../../utils/utils';
+import { Component, Host, h, Prop, Element, Watch, Method, EventEmitter, Event, Listen } from '@stencil/core';
+import { isFirefox } from '../../utils/is-firefox';
+import interact from 'interactjs';
+
+export type OverlayData<T = any> = {
+  role?: string,
+  data?: T
+}
 
 @Component({
   tag: 'je-overlay',
@@ -10,20 +16,7 @@ export class JeOverlay {
   private role?: string;
   private data?: any;
   private dialogEl!: HTMLDialogElement;
-  private startY = 0;
-  private startHeightPx = 0;
-  private dragging = false;
-  private get minPx() {
-    return window.innerHeight * (30 / 100);
-  }
-  private get midPx() {
-    return window.innerHeight * (80 / 100);
-  }
-  private get maxPx() {
-    return window.innerHeight * (95 / 100);
-  }
   @Element() el!: HTMLElement;
-  @State() currentHeightPx = 0;
 
   /** Backdrop will close the modal on click when enabled */
   @Prop() backdropDismiss = true;
@@ -43,22 +36,41 @@ export class JeOverlay {
   /** Optionally execute a promise after closing completes */
   @Prop() destroy?: () => void | Promise<void>;
 
-  /** Emits whenever the drawer has opened. Does not emit any data */
+  /** Emits whenever the overlay has opened. Does not emit any data */
   @Event() present: EventEmitter;
 
-  /** Emits whenever the drawer has finished closing. Emits the role and optional data object passed to the hide() method. */
+  /** Emits whenever the overlay has finished closing. Emits the role and optional data object passed to the hide() method. */
   @Event() dismiss: EventEmitter<OverlayData>;
 
-  /** Emits whenever the backdrop is clicked. Does not emit any data */
-  @Event() backdropClick: EventEmitter;
+  componentDidLoad() {
+    const { side } = this
+    if (side === 'bottom') {
+      interact(this.dialogEl).resizable({
+        edges: {
+          top: '.drag'
+        },
+        listeners: {
+          move: event => {
+            let { y } = event.target.dataset
+            y = (parseFloat(y) || 0) + event.deltaRect.top
+            Object.assign(event.target.style, {
+              height: `${event.rect.height}px`,
+            })
+            Object.assign(event.target.dataset, { y })
+          }
+        }
+      })
+    }
+  }
 
   private animateBackdrop(enter: boolean) {
     if (!isFirefox()) {
       const keyframes = [{ opacity: 0 }, { opacity: 1 }]
       if (!enter) keyframes.reverse()
       this.dialogEl.animate(keyframes, {
-        duration: 200,
-        pseudoElement: '::backdrop'
+        duration: 300,
+        pseudoElement: '::backdrop',
+        easing: 'ease-in-out'
       })
     }
   }
@@ -69,7 +81,14 @@ export class JeOverlay {
     const keyframes = [to, from]
     if (!enter) keyframes.reverse()
     this.animateBackdrop(enter)
-    return this.dialogEl.animate(keyframes, 200)
+    return this.dialogEl.animate(keyframes, {
+      duration: 300,
+      easing: 'ease-in-out'
+    })
+  }
+
+  private pulse() {
+    this.dialogEl.animate({ scale: [1, 1.03, 1] }, 300)
   }
 
   @Watch('open')
@@ -107,8 +126,23 @@ export class JeOverlay {
   @Listen('mousedown')
   onMouseDown(event: MouseEvent) {
     if (event.target === this.el) {
-      this.backdropClick.emit();
-      if (this.backdropDismiss) this.hide('backdropDismiss');
+      if (this.backdropDismiss) {
+        this.hide('backdropDismiss');
+      } else {
+        this.pulse()
+      }
+    }
+  }
+
+  @Listen('keydown')
+  onKeyDown(ev: KeyboardEvent) {
+    if (ev.key === 'Escape' && this.open) {
+      ev.preventDefault()
+      if (this.backdropDismiss) {
+        this.hide('escapeDismiss')
+      } else {
+        this.pulse()
+      }
     }
   }
 
@@ -124,39 +158,12 @@ export class JeOverlay {
     this.open = false;
   }
 
-  private handleTouchStart = (event: TouchEvent) => {
-    this.dragging = true;
-    this.startY = event.touches[0].clientY;
-    this.startHeightPx = this.currentHeightPx;
-  };
-
-  private handleTouchMove = (event: TouchEvent) => {
-    if (!this.dragging) return;
-    const deltaY = this.startY - event.touches[0].clientY;
-    let newHeight = this.startHeightPx + deltaY;
-    if (newHeight < this.minPx) newHeight = this.minPx;
-    if (newHeight > this.maxPx) newHeight = this.maxPx;
-    this.currentHeightPx = newHeight;
-  };
-
-  private handleTouchEnd = () => {
-    this.dragging = false;
-    if (this.currentHeightPx < this.midPx) {
-      const midpoint = (this.minPx + this.midPx) / 2;
-      this.currentHeightPx = this.currentHeightPx < midpoint ? this.minPx : this.midPx;
-    } else {
-      const midpoint = (this.midPx + this.maxPx) / 2;
-      this.currentHeightPx = this.currentHeightPx < midpoint ? this.midPx : this.maxPx;
-    }
-  };
-
   render() {
     return (
       <Host>
-        {this.open && this.side === 'bottom' && <style>{`dialog{@media (any-pointer: coarse) {--width:${this.currentHeightPx}px;}}`}</style>}
         <slot name="trigger" />
         <dialog ref={el => this.dialogEl = el} part="dialog">
-          {this.side === 'bottom' && <div class="drag" onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} onTouchEnd={this.handleTouchEnd}/>}
+          {this.side === 'bottom' && <div class="drag" />}
           <slot />
         </dialog>
       </Host>

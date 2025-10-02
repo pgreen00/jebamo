@@ -27,11 +27,6 @@ $shades: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950;
   @include generate-shades(warning);
   @include generate-shades(danger);
 
-  //elevation
-  @each $name, $value in elevation.$elevation {
-    --je-shadow-#{$name}: #{$value};
-  }
-
   //font
   --je-font-light: #{font.$font-light};
   --je-font-regular: #{font.$font-regular};
@@ -42,6 +37,11 @@ $shades: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950;
   --je-font-md: #{font.$font-md};
   --je-font-lg: #{font.$font-lg};
   --je-font-xl: #{font.$font-xl};
+
+  //elevation
+  @each $name, $value in elevation.$elevation {
+    --je-shadow-#{$name}: #{$value};
+  }
 
   //radius
   @each $name, $value in radius.$radius {

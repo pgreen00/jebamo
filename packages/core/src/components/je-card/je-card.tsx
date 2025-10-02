@@ -1,5 +1,5 @@
 import { Component, Host, Prop, h } from '@stencil/core';
-import { Color } from '../../utils/utils';
+import { Color } from '../../utils/color';
 
 @Component({
   tag: 'je-card',

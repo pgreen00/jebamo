@@ -29,13 +29,13 @@ export class JeDetails {
       <Host>
         {this.iconToggle ? (
           <je-toolbar>
-            {this.iconSide == 'left' && <je-icon-button onClick={() => this.open = !this.open }>{icon}</je-icon-button>}
+            {this.iconSide == 'left' && <je-button onClick={() => this.open = !this.open }>{icon}</je-button>}
             <slot name='start'/>
             <slot name="summary">
               {this.summary && <summary>{this.summary}</summary>}
             </slot>
             <slot name='end' slot='end' />
-            {this.iconSide == 'right' && <je-icon-button slot='end' onClick={() => this.open = !this.open }>{icon}</je-icon-button>}
+            {this.iconSide == 'right' && <je-button slot='end' onClick={() => this.open = !this.open }>{icon}</je-button>}
           </je-toolbar>
         ) : (
           <button part='toggle' onClick={() => this.open = !this.open }>

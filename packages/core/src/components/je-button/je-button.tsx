@@ -1,5 +1,5 @@
-import { Component, Prop, h, Element, Listen, Host, Watch } from '@stencil/core';
-import { Color } from '../../utils/utils';
+import { Component, Prop, h, Element, Listen, Host, Watch, forceUpdate } from '@stencil/core';
+import { Color } from '../../utils/color';
 
 @Component({
   tag: 'je-button',
@@ -12,6 +12,9 @@ export class JeButton {
   @Element() el: HTMLJeButtonElement;
   private formButtonEl?: HTMLButtonElement;
   private buttonEl: HTMLButtonElement;
+  private get iconOnly() {
+    return !!this.el.querySelector(':scope > je-icon:only-child')
+  }
 
   /** Disables button */
   @Prop() disabled = false;
@@ -32,7 +35,7 @@ export class JeButton {
   @Prop() pending = false;
 
   /** Button fill */
-  @Prop({ reflect: true }) fill: 'solid' | 'outline' | 'clear' = 'solid';
+  @Prop({ reflect: true }) fill?: 'solid' | 'outline' | 'clear';
 
   /** Button size */
   @Prop({ reflect: true }) size: 'md' | 'lg' | 'sm' = 'md';
@@ -43,7 +46,6 @@ export class JeButton {
   componentDidLoad() {
     if (this.type) {
       const formEl = this.form ? document.getElementById(this.form) : this.el.closest('form');
-      console.log(formEl);
       if (formEl) {
         this.formButtonEl = document.createElement('button');
         this.formButtonEl.type = this.type;
@@ -66,16 +68,17 @@ export class JeButton {
   }
 
   render() {
+    const {iconOnly} = this
     const classes = {
-      [this.fill]: true,
+      [this.fill ?? iconOnly ? 'clear' : 'solid']: true,
       expand: this.expand,
       pending: this.pending,
       [this.color]: !!this.color
     }
     return (
-      <Host>
+      <Host class={{'icon-only': iconOnly}}>
         <button part='inner-button' ref={el => this.buttonEl = el} disabled={this.disabled || this.pending} type='button' tabindex={0} class={classes}>
-          {this.pending ? <je-loading/> : <slot/>}
+          {this.pending ? <je-loading/> : <slot onSlotchange={() => forceUpdate(this.el)}/>}
           <slot name='badge'/>
         </button>
       </Host>
