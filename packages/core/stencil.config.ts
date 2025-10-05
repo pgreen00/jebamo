@@ -37,5 +37,9 @@ export const config: Config = {
       type: 'docs-vscode',
       file: 'dist/vscode-data.json'
     },
+    {
+      type: 'www',
+      serviceWorker: null
+    }
   ]
 };
