@@ -31,6 +31,7 @@
     "@playwright/test": "^1.55.1",
     "@stencil/angular-output-target": "^1.0.0",
     "@stencil/core": "^4.7.0",
+    "@stencil/react-output-target": "^1.2.0",
     "@types/node": "^24.5.2",
     "sass": "^1.90.0",
     "serve": "^14.2.5"

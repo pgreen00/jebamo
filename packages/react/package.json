@@ -1,0 +1,25 @@
+{
+  "name": "jebamo-react",
+  "version": "0.0.16",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "scripts": {
+    "build": "tsc -p . --outDir ./dist"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@stencil/react-output-target": "^1.2.0",
+    "jebamo": "0.0.16"
+  },
+  "peerDependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.2",
+    "typescript": "~5.9.3"
+  }
+}

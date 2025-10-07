@@ -3,7 +3,8 @@ export default async function(eleventyConfig) {
   eleventyConfig.setIncludesDirectory("../includes");
   eleventyConfig.addGlobalData('layout', 'default');
   eleventyConfig.addPassthroughCopy({
-    "../../node_modules/jebamo/": "build/jebamo/"
+    "../../node_modules/jebamo/dist/": "build/jebamo/dist/",
+    "../../node_modules/jebamo/styles/": "build/jebamo/styles/",
   });
 
 	eleventyConfig.addCollection("navigation", function(collectionApi) {

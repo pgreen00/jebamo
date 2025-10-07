@@ -1,5 +1,6 @@
 import { Config } from '@stencil/core';
 import { angularOutputTarget } from '@stencil/angular-output-target';
+import { reactOutputTarget } from '@stencil/react-output-target';
 
 export const config: Config = {
   namespace: 'jebamo',
@@ -23,6 +24,9 @@ export const config: Config = {
       componentCorePackage: 'jebamo',
       outputType: 'standalone',
       directivesProxyFile: '../angular/src/lib/components.ts'
+    }),
+    reactOutputTarget({
+      outDir: '../react/lib/'
     }),
     {
       type: 'docs-readme',

@@ -105,7 +105,7 @@ export class JeDatepicker {
 
             <div class="days-grid">
               {daysBefore.map(day => (
-                <je-button expand={true} disabled={true} color='neutral' fill='clear' class='day'>
+                <je-button expand={true} disabled={true} fill='clear' class='day'>
                   {format(day, 'd')}
                 </je-button>
               ))}
@@ -118,7 +118,7 @@ export class JeDatepicker {
                   <je-button
                     expand={true}
                     disabled={isDisabled}
-                    color={selected || today ? 'primary' : isDisabled ? 'neutral' : undefined}
+                    color={selected || today ? 'primary' : undefined}
                     fill={selected ? 'solid' : 'clear'}
                     class='day'
                     onClick={() => this.setValue({day})}
@@ -129,7 +129,7 @@ export class JeDatepicker {
               })}
 
               {daysAfter.map(day => (
-                <je-button expand={true} disabled={true} color='neutral' fill='clear' class='day'>
+                <je-button expand={true} disabled={true} fill='clear' class='day'>
                   {format(day, 'd')}
                 </je-button>
               ))}
