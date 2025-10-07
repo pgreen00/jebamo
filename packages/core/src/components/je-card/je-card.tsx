@@ -3,7 +3,7 @@ import { Color } from '../../utils/color';
 
 @Component({
   tag: 'je-card',
-  styleUrl: 'je-card.scss',
+  styleUrl: 'je-card.css',
   shadow: true,
 })
 export class JeCard {

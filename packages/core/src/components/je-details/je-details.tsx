@@ -2,7 +2,7 @@ import { Component, Element, Event, EventEmitter, Host, Prop, Watch, h } from '@
 
 @Component({
   tag: 'je-details',
-  styleUrl: 'je-details.scss',
+  styleUrl: 'je-details.css',
   shadow: true,
 })
 export class JeDetails {

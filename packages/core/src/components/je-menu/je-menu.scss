@@ -1,8 +1,0 @@
-@use '../../styles/styles' as *;
-
-:host {
-  display: block;
-  box-sizing: border-box;
-  padding: spacing-get(xs) spacing-get(2xs);
-  width: fit-content;
-}

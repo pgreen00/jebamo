@@ -3,7 +3,7 @@ $font-regular: 500;
 $font-semi-bold: 600;
 $font-bold: 700;
 
-@function font-weight($var) {
+@function weight($var) {
   @if $var == light {
     @return var(--je-font-light, #{$font-light});
   } @else if $var == semi-bold {
@@ -23,7 +23,7 @@ $font-md: 1rem;
 $font-lg: 1.25rem;
 $font-xl: 1.5rem;
 
-@function font-size($var) {
+@function size($var) {
   @if $var == xs {
     @return var(--je-font-xs, #{$font-xs});
   } @else if $var == sm {

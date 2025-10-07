@@ -2,7 +2,7 @@ import { Component, Host, h } from '@stencil/core';
 
 @Component({
   tag: 'je-stack',
-  styleUrl: 'je-stack.scss',
+  styleUrl: 'je-stack.css',
   shadow: true,
 })
 export class JeStack {

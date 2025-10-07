@@ -1,0 +1,21 @@
+:host {
+  display: contents;
+}
+
+[part=main] {
+  display: block;
+  width: fit-content;
+}
+
+:host([disabled]) [part=main] {
+  opacity: 0.6;
+}
+
+.buttons {
+  display: flex;
+  box-sizing: border-box;
+}
+
+.content {
+  display: contents;
+}

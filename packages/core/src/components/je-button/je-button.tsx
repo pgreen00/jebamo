@@ -3,7 +3,7 @@ import { Color } from '../../utils/color';
 
 @Component({
   tag: 'je-button',
-  styleUrl: 'je-button.scss',
+  styleUrl: 'je-button.css',
   shadow: {
     delegatesFocus: true
   },

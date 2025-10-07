@@ -1,0 +1,79 @@
+:host {
+  display: flex;
+  padding: var(--je-spacing-xs);
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--je-spacing-sm);
+}
+
+je-button.day {
+  --height: var(--je-spacing-2xl);
+  --padding-inline: 0px;
+
+  &::part(inner-button) {
+    width: var(--je-spacing-2xl);
+    font-weight: 400;
+  }
+}
+
+.header {
+  width: 100%;
+  min-width: 200px;
+  max-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  span {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+.weekdays-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--je-spacing-2xs);
+
+  div {
+    height: var(--je-spacing-2xl);
+    width: var(--je-spacing-2xl);
+    font-size: var(--je-font-md);
+    font-weight: 400;
+    color: var(--je-neutral-600);
+    text-align: center;
+    align-content: center;
+  }
+}
+
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--je-spacing-2xs);
+}
+
+.timepicker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.timepicker-content {
+  display: flex;
+}
+
+.timepicker-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--je-spacing-2xs);
+  height: 200px;
+  overflow: auto;
+  align-items: center;
+  padding: var(--je-spacing-xs);
+  box-sizing: border-box;
+}

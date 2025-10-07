@@ -2,7 +2,7 @@ import { Component, Element, Host, forceUpdate, h } from '@stencil/core';
 
 @Component({
   tag: 'je-page',
-  styleUrl: 'je-page.scss'
+  styleUrl: 'je-page.css'
 })
 export class JePage {
   @Element() el: HTMLElement

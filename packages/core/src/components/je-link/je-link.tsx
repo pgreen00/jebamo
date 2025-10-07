@@ -2,7 +2,7 @@ import { Component, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-link',
-  styleUrl: 'je-link.scss',
+  styleUrl: 'je-link.css',
   shadow: {
     delegatesFocus: true
   },

@@ -274,10 +274,6 @@ export namespace Components {
     interface JeMenu {
     }
     interface JeNav {
-        /**
-          * @default 'top'
-         */
-        "mode": 'top' | 'side';
     }
     interface JeNote {
         "invalid"?: boolean;
@@ -472,7 +468,6 @@ export namespace Components {
           * @default false
          */
         "disabled": boolean;
-        "focus": () => Promise<void>;
         "getContent": () => Promise<string>;
         "getText": () => Promise<string>;
         /**
@@ -1181,8 +1176,7 @@ declare global {
         "editorFocus": FocusEvent;
         "editorBlur": FocusEvent;
     }
-    interface HTMLJeRichTextElement extends Omit<Components.JeRichText, "focus">, HTMLStencilElement {
-        "focus": () => Promise<void>;
+    interface HTMLJeRichTextElement extends Components.JeRichText, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeRichTextElementEventMap>(type: K, listener: (this: HTMLJeRichTextElement, ev: JeRichTextCustomEvent<HTMLJeRichTextElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1664,10 +1658,6 @@ declare namespace LocalJSX {
     interface JeMenu {
     }
     interface JeNav {
-        /**
-          * @default 'top'
-         */
-        "mode"?: 'top' | 'side';
     }
     interface JeNote {
         "invalid"?: boolean;

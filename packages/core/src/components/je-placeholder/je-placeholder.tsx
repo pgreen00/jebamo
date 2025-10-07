@@ -2,7 +2,7 @@ import { Component, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-placeholder',
-  styleUrl: 'je-placeholder.scss',
+  styleUrl: 'je-placeholder.css',
   shadow: true,
 })
 export class JePlaceholder {

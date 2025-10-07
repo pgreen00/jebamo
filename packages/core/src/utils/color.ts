@@ -1,14 +1,14 @@
-export type Color = 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
+export type Color = 'primary' | 'success' | 'danger' | 'warning';
 
-export const COLORS = {
-  primary: 'var(--je-primary, #4141e8)',
-  secondary: 'var(--je-secondary, #99becb)',
-  success: 'var(--je-success, #22c55e)',
-  warning: 'var(--je-warning, #fbbf24)',
-  danger: 'var(--je-danger, #ae1818)'
+const COLORS = {
+  primary: 'var(--je-primary)',
+  neutral: 'var(--je-neutral)',
+  success: 'var(--je-success)',
+  warning: 'var(--je-warning)',
+  danger: 'var(--je-danger)'
 } as const;
 
-export const shade = (color: Color, shade = 500) => {
+export const shade = (color: Color | 'neutral', shade = 500) => {
   if (shade === 500) {
     return COLORS[color];
   } else if (shade < 500) {

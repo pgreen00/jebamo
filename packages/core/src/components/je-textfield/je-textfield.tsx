@@ -13,7 +13,7 @@ export type ValidationFn = (value: string) => string[] | Promise<string[]>;
 
 @Component({
   tag: 'je-textfield',
-  styleUrl: 'je-textfield.scss',
+  styleUrl: 'je-textfield.css',
   shadow: {
     delegatesFocus: true
   },

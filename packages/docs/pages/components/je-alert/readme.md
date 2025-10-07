@@ -7,16 +7,16 @@ sidebar_label: 'Alert'
 
 ## Properties
 
-| Property   | Attribute  | Description | Type                                                             | Default     |
-| ---------- | ---------- | ----------- | ---------------------------------------------------------------- | ----------- |
-| `closable` | `closable` |             | `boolean`                                                        | `false`     |
-| `color`    | `color`    |             | `"danger" \| "primary" \| "secondary" \| "success" \| "warning"` | `'primary'` |
-| `duration` | `duration` |             | `number`                                                         | `0`         |
-| `header`   | `header`   |             | `string`                                                         | `undefined` |
-| `icon`     | `icon`     |             | `string`                                                         | `undefined` |
-| `message`  | `message`  |             | `string`                                                         | `undefined` |
-| `open`     | `open`     |             | `boolean`                                                        | `false`     |
-| `progress` | `progress` |             | `boolean`                                                        | `false`     |
+| Property   | Attribute  | Description | Type                                              | Default     |
+| ---------- | ---------- | ----------- | ------------------------------------------------- | ----------- |
+| `closable` | `closable` |             | `boolean`                                         | `false`     |
+| `color`    | `color`    |             | `"danger" \| "primary" \| "success" \| "warning"` | `'primary'` |
+| `duration` | `duration` |             | `number`                                          | `0`         |
+| `header`   | `header`   |             | `string`                                          | `undefined` |
+| `icon`     | `icon`     |             | `string`                                          | `undefined` |
+| `message`  | `message`  |             | `string`                                          | `undefined` |
+| `open`     | `open`     |             | `boolean`                                         | `false`     |
+| `progress` | `progress` |             | `boolean`                                         | `false`     |
 
 
 ## Events

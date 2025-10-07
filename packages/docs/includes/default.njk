@@ -6,9 +6,9 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vite + TS</title>
-  <link rel="stylesheet" href="jebamo/styles/variables.css" />
-  <link rel="stylesheet" href="jebamo/styles/classes.css" />
-  <script type="module" src="jebamo/dist/esm/jebamo.js"></script>
+  <link rel="stylesheet" href="/build/jebamo/styles/core.css" />
+  <link rel="stylesheet" href="/build/jebamo/styles/classes.css" />
+  <script type="module" src="/build/jebamo/dist/esm/jebamo.js"></script>
   <style>
   @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
   @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
@@ -20,16 +20,16 @@
     font-weight: var(--je-font-regular);
   }
 
+  body {
+    color-scheme: light dark;
+  }
+
   body.light {
     color-scheme: light;
   }
 
   body.dark {
     color-scheme: dark;
-  }
-
-  body.system {
-    color-scheme: light dark;
   }
 
   html,
@@ -96,7 +96,7 @@
   </style>
 </head>
 
-<body class="system">
+<body>
   <je-page>
     <header>
       <je-nav>
@@ -110,112 +110,37 @@
       </je-nav>
     </header>
     <aside>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
+      <nav>
+				<ul class="nav-list">
+					{% for item in collections.navigation | navToArray %}
+						<li class="nav-item">
+							{% if item.url %}
+								<a href="{{ item.url }}" class="nav-link{% if page.url == item.url %} active{% endif %}">
+									{{ item.title }}
+								</a>
+							{% endif %}
+
+							{% if item.children | length > 0 %}
+								<ul class="nav-sublist">
+									{% for child in item.children | navToArray %}
+										<li class="nav-subitem">
+											<a href="{{ child.url }}" class="nav-link{% if page.url == child.url %} active{% endif %}">
+												{{ child.title }}
+											</a>
+										</li>
+									{% endfor %}
+								</ul>
+							{% endif %}
+						</li>
+					{% endfor %}
+				</ul>
+			</nav>
     </aside>
     <main>
-      <p>Body</p>
-      <p>Body</p>
-      <p>Body</p>
-      <p>Body</p>
-      <p>Body</p>
-      <p>Body</p>
-      <p>Body</p>
-      <je-button-group>
-        <je-overlay backdrop-dismiss="false" side="bottom">
-          <je-button slot="trigger" color="primary">Opt 1</je-button>
-          <je-overlay-content label="Add User">
-            <div slot="body">
-              <p>no</p>
-            </div>
-            <je-button slot="footer">Save</je-button>
-          </je-overlay-content>
-        </je-overlay>
-        <je-button color="primary">Opt 2</je-button>
-      </je-button-group>
-
-      <div>
-        <je-button>Default</je-button>
-        <je-button fill="outline">Default</je-button>
-        <je-button fill="clear">Default</je-button>
-      </div>
-
-      <div>
-        <je-button color="primary">Primary</je-button>
-        <je-button color="primary" fill="outline">Primary</je-button>
-        <je-button color="primary" fill="clear">Primary</je-button>
-      </div>
-
-      <div>
-        <je-button color="success">Success</je-button>
-        <je-button color="success" fill="outline">Success</je-button>
-        <je-button color="success" fill="clear">Success</je-button>
-      </div>
-
-      <div>
-        <je-button color="danger">Danger</je-button>
-        <je-button color="danger" fill="outline">Danger</je-button>
-        <je-button color="danger" fill="clear">Danger</je-button>
-      </div>
-
-      <div>
-        <je-button color="warning">Warning</je-button>
-        <je-button color="warning" fill="outline">Warning</je-button>
-        <je-button color="warning" fill="clear">Warning</je-button>
-      </div>
-
       {% block content %}
         {{ content | safe }}
       {% endblock %}
     </main>
-    <aside>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-      <h3>Right</h3>
-    </aside>
     <footer>
       <small>Footer goes here</small>
     </footer>

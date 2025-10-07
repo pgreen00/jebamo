@@ -2,7 +2,7 @@ import { Component, Host, h } from '@stencil/core';
 
 @Component({
   tag: 'je-split-panel',
-  styleUrl: 'je-split-panel.scss',
+  styleUrl: 'je-split-panel.css',
   shadow: true,
 })
 export class JeSplitPanel {

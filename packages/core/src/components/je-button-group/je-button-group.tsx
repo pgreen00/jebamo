@@ -2,7 +2,7 @@ import { Component, Element, Host, h } from '@stencil/core';
 
 @Component({
   tag: 'je-button-group',
-  styleUrl: 'je-button-group.scss'
+  styleUrl: 'je-button-group.css'
 })
 export class JeButtonGroup {
   @Element() el: HTMLElement;

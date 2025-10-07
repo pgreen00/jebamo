@@ -5,7 +5,7 @@ import { getDOMRect } from '../../utils/get-dom-rect';
 
 @Component({
   tag: 'je-tooltip',
-  styleUrl: 'je-tooltip.scss',
+  styleUrl: 'je-tooltip.css',
   shadow: true,
 })
 export class JeTooltip {

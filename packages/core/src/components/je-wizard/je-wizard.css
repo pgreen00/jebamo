@@ -1,0 +1,67 @@
+:host {
+  display: flex;
+  align-items: center;
+  counter-reset: wizard;
+  box-sizing: border-box;
+  gap: var(--je-spacing-sm);
+}
+
+.step {
+  --before-background: var(--je-neutral-300);
+  --before-color: var(--je-neutral-800);
+  --after-background: var(--je-neutral-400);
+  display: flex;
+  align-items: center;
+  gap: var(--je-spacing-sm);
+  box-sizing: border-box;
+  counter-increment: wizard;
+
+  &.active,
+  &.completed {
+    --before-background: var(--je-primary-200);
+    --before-color: var(--je-primary-800);
+  }
+
+  &.completed::before {
+    font-family: 'Material Symbols Rounded';
+    content: "check";
+    font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 200, 'opsz' 24;
+    font-size: var(--je-font-xl);
+  }
+
+  &::before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    font-size: var(--je-font-lg);
+    content: counter(wizard);
+    border-radius: var(--je-radius-circle);
+    width: var(--je-spacing-3xl);
+    height: var(--je-spacing-3xl);
+    background-color: var(--before-background);
+    color: var(--before-color);
+    transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
+  }
+
+  &:not(:last-of-type)::after {
+    display: block;
+    content: "";
+    height: 1px;
+    width: 5rem;
+    box-sizing: border-box;
+    background-color: var(--after-background);
+  }
+}
+
+.label {
+  display: block;
+  font-weight: var(--je-font-semi-bold);
+  color: light-dark(var(--je-neutral-800), var(--je-neutral-200));
+}
+
+.optional {
+  display: block;
+  font-weight: var(--je-font-light);
+  color: light-dark(var(--je-neutral-700), var(--je-neutral-400));
+}

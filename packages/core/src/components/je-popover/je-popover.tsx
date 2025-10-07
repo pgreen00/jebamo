@@ -5,7 +5,7 @@ import { getDOMRect } from '../../utils/get-dom-rect';
 
 @Component({
   tag: 'je-popover',
-  styleUrl: 'je-popover.scss',
+  styleUrl: 'je-popover.css',
   shadow: true,
 })
 export class JePopover {

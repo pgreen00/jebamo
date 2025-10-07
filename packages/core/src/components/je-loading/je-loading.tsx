@@ -52,7 +52,7 @@ const buildLine = (spinner: SpinnerConfig, duration: number, index: number, tota
 
 @Component({
   tag: 'je-loading',
-  styleUrl: 'je-loading.scss',
+  styleUrl: 'je-loading.css',
   shadow: true,
 })
 export class JeLoading {

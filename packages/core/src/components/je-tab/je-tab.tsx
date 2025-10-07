@@ -2,7 +2,7 @@ import { AttachInternals, Component, Element, Host, Prop, h } from '@stencil/cor
 
 @Component({
   tag: 'je-tab',
-  styleUrl: 'je-tab.scss',
+  styleUrl: 'je-tab.css',
   shadow: true,
   formAssociated: true
 })

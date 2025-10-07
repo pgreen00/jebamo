@@ -1,17 +1,13 @@
 import { Config } from '@stencil/core';
-import { sass } from '@stencil/sass';
 import { angularOutputTarget } from '@stencil/angular-output-target';
 
 export const config: Config = {
-  plugins: [
-    sass()
-  ],
+  namespace: 'jebamo',
+  enableCache: false,
   extras: {
     experimentalSlotFixes: true,
     experimentalScopedSlotChanges: true
   },
-  namespace: 'jebamo',
-  enableCache: false,
   outputTargets: [
     {
       type: 'dist',

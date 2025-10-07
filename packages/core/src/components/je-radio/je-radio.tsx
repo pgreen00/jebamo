@@ -2,7 +2,7 @@ import { Component, Prop, h, Element, Host } from '@stencil/core';
 
 @Component({
   tag: 'je-radio',
-  styleUrl: 'je-radio.scss',
+  styleUrl: 'je-radio.css',
   shadow: true
 })
 export class JeRadio {

@@ -15,12 +15,11 @@
     "styles/"
   ],
   "scripts": {
-    "build": "npm run build:sass && stencil build",
     "start": "stencil build --watch",
-    "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll",
+    "build": "npm run build:sass && stencil build",
+    "test": "playwright test",
     "generate": "stencil generate",
-    "build:sass": "sass src/styles/classes.scss:styles/classes.css src/styles/variables.scss:styles/variables.css"
+    "build:sass": "sass src/styles/classes.scss:styles/classes.css src/styles/core.scss:styles/core.css"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.6.12",
@@ -32,8 +31,8 @@
     "@playwright/test": "^1.55.1",
     "@stencil/angular-output-target": "^1.0.0",
     "@stencil/core": "^4.7.0",
-    "@stencil/sass": "~3.1.0",
     "@types/node": "^24.5.2",
+    "sass": "^1.90.0",
     "serve": "^14.2.5"
   },
   "license": "MIT"

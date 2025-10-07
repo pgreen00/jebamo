@@ -7,11 +7,11 @@ sidebar_label: 'Color'
 
 ## Properties
 
-| Property | Attribute | Description         | Type                                                             | Default     |
-| -------- | --------- | ------------------- | ---------------------------------------------------------------- | ----------- |
-| `color`  | `color`   | Fixed color         | `"danger" \| "primary" \| "secondary" \| "success" \| "warning"` | `undefined` |
-| `dark`   | `dark`    | Color in dark mode  | `"danger" \| "primary" \| "secondary" \| "success" \| "warning"` | `undefined` |
-| `light`  | `light`   | Color in light mode | `"danger" \| "primary" \| "secondary" \| "success" \| "warning"` | `undefined` |
+| Property | Attribute | Description         | Type                                              | Default     |
+| -------- | --------- | ------------------- | ------------------------------------------------- | ----------- |
+| `color`  | `color`   | Fixed color         | `"danger" \| "primary" \| "success" \| "warning"` | `undefined` |
+| `dark`   | `dark`    | Color in dark mode  | `"danger" \| "primary" \| "success" \| "warning"` | `undefined` |
+| `light`  | `light`   | Color in light mode | `"danger" \| "primary" \| "success" \| "warning"` | `undefined` |
 
 
 ## Dependencies

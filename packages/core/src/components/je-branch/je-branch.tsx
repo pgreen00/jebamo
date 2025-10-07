@@ -2,7 +2,7 @@ import { Component, Element, Host, Method, Prop, forceUpdate, h } from '@stencil
 
 @Component({
   tag: 'je-branch',
-  styleUrl: 'je-branch.scss',
+  styleUrl: 'je-branch.css',
   shadow: {
     delegatesFocus: true
   }

@@ -2,7 +2,7 @@ import { Component, Element, Event, EventEmitter, Host, Listen, Prop, Watch, for
 
 @Component({
   tag: 'je-tabs',
-  styleUrl: 'je-tabs.scss',
+  styleUrl: 'je-tabs.css',
   shadow: true,
 })
 export class JeTabs {

@@ -1,0 +1,134 @@
+:host {
+  display: none;
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--box-shadow);
+  border: var(--border);
+  border-radius: var(--je-radius-md);
+  box-sizing: border-box;
+  background-color: var(--background);
+  color: var(--color);
+  padding: var(--je-spacing-md);
+  grid-template-columns: auto 1fr auto;
+  grid-auto-rows: auto;
+  align-items: center;
+  column-gap: var(--je-spacing-sm);
+  row-gap: var(--je-spacing-2xs);
+
+  --background: light-dark(rgb(233, 236, 236), rgb(41, 45, 46));
+  --color: light-dark(var(--je-neutral-800), var(--je-neutral-300));
+  --box-shadow: 0px 4px 16px 0px light-dark(rgba(0, 0, 0, 0.12), rgba(68, 68, 68, 0.12));
+  --border: solid 1px light-dark(rgb(197, 200, 204), rgb(86, 87, 90));
+}
+
+:host([color=primary]) {
+  --accent: light-dark(var(--je-primary-500), var(--je-primary-200));
+}
+
+:host([color=neutral]) {
+  --accent: light-dark(var(--je-neutral-600), var(--je-neutral-500));
+}
+
+:host([color=warning]) {
+  --accent: var(--je-warning-400);
+}
+
+:host([color=danger]) {
+  --accent: light-dark(var(--je-danger-400), var(--je-danger-300));
+}
+
+:host([color=success]) {
+  --accent: var(--je-success-600);
+}
+
+:host(.visible) {
+  display: grid;
+}
+
+:host(.open) {
+  animation: fadeIn 600ms forwards;
+}
+
+:host(:not(.open)) {
+  animation: fadeOut 600ms forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0%);
+  }
+  to {
+    opacity: 1;
+    transform: scale(100%);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(100%);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0%);
+  }
+}
+
+[part=header] {
+  font-weight: bold;
+  display: block;
+  box-sizing: border-box;
+  font-size: var(--je-font-lg);
+  line-height: 1;
+}
+
+[part=message] {
+  line-height: 1;
+}
+
+je-icon {
+  display: block;
+  color: var(--accent);
+}
+
+.border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--accent);
+  width: 100%;
+  height: var(--je-spacing-xs);
+}
+
+.progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--accent);
+  height: var(--je-spacing-2xs);
+  animation: shorten linear forwards;
+  animation-play-state: paused;
+  &.running {
+    animation-play-state: running;
+  }
+  &:not(.visible) {
+    opacity: 0;
+  }
+}
+
+@keyframes shorten {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
+}
+
+slot[name=buttons] {
+  display: flex;
+  align-items: center;
+  gap: var(--je-spacing-sm);
+}

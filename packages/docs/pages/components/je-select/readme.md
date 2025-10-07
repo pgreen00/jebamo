@@ -13,7 +13,7 @@ sidebar_label: 'Select'
 | `label`         | `label`          |             | `string`                           | `undefined` |
 | `multiple`      | `multiple`       |             | `boolean`                          | `false`     |
 | `note`          | `note`           |             | `string`                           | `undefined` |
-| `options`       | `options`        |             | `{ value: any; label: string; }[]` | `undefined` |
+| `options`       | --               |             | `{ value: any; label: string; }[]` | `undefined` |
 | `originalValue` | `original-value` |             | `any`                              | `undefined` |
 | `placeholder`   | `placeholder`    |             | `string`                           | `undefined` |
 | `required`      | `required`       |             | `boolean`                          | `false`     |

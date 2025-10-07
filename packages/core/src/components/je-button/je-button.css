@@ -1,0 +1,129 @@
+/**
+ * @prop --height: Fixed height
+ * @prop --font-size: Font size
+ * @prop --padding-inline: Inner inline padding
+ * @prop --color: Text color
+ * @prop --background: Default background color
+ * @prop --hover-background: Hovered background color
+ * @prop --active-background: Pressed background color
+ */
+
+:host {
+  display: contents;
+  --border-color: transparent
+}
+
+:host([size=sm]) {
+  --height: 2rem;
+  --padding-inline: var(--je-spacing-sm);
+  --font-size: var(--je-font-sm);
+}
+
+:host([size=md]) {
+  --height: 2.5rem;
+  --padding-inline: var(--je-spacing-md);
+  --font-size: var(--je-font-md);
+}
+
+:host([size=lg]) {
+  --height: 3rem;
+  --padding-inline: var(--je-spacing-lg);
+  --font-size: var(--je-font-lg);
+}
+
+:host(.icon-only) {
+  --height: fit-content;
+  --padding-inline: var(--je-spacing-3xs);
+}
+
+:host([fill=outline]) {
+  --border-color: currentcolor;
+}
+
+:host(:not([color])) {
+  --color: light-dark(var(--je-neutral-800), var(--je-neutral-200));
+  --hover-color: light-dark(var(--je-neutral-800), var(--je-neutral-200));
+  --active-color: light-dark(var(--je-neutral-900), var(--je-neutral-100));
+  --background: transparent;
+  --hover-background: light-dark(var(--je-neutral-200), var(--je-neutral-800));
+  --active-background: light-dark(var(--je-neutral-200), var(--je-neutral-800));
+}
+
+:host(:not([color])[fill=solid]),
+:host(:not([color]):not([fill]):not(.icon-only)) {
+  --border-color: light-dark(var(--je-neutral-500), var(--je-neutral-700));
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  position: relative;
+  box-sizing: border-box;
+  border-radius: var(--je-radius-md);
+  margin: 0;
+  padding-block: 0;
+  padding-inline: var(--padding-inline);
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  text-transform: capitalize;
+  text-wrap: wrap;
+  font-family: inherit;
+  font-size: var(--font-size);
+  font-weight: var(--je-font-semi-bold);
+  height: var(--height);
+  color: var(--color);
+  background-color: var(--background, transparent);
+  transition: all 125ms ease-in-out;
+  outline-color: var(--je-primary-300);
+  outline-offset: 3px;
+  border: solid 1px var(--border-color);
+
+  @media (hover: hover) {
+    &:hover:not(:disabled) {
+      background-color: var(--hover-background, var(--background, transparent));
+      color: var(--hover-color, var(--color));
+    }
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--active-background, var(--background, transparent));
+    color: var(--active-color, var(--color));
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &.pending {
+    opacity: 0.8;
+    cursor: progress;
+    width: var(--pending-width);
+  }
+
+  &.expand {
+    width: 100%;
+  }
+}
+
+::slotted([slot=badge]) {
+  top: 0;
+  right: 0;
+  position: absolute;
+  z-index: 1;
+  transform: translate(50%, -50%);
+  border-radius: var(--je-radius-circle);
+  box-sizing: border-box;
+  color: light-dark(var(--je-neutral-100), var(--je-neutral-900));
+  background-color: light-dark(var(--je-neutral-900), var(--je-neutral-100));
+  padding: var(--je-spacing-2xs);
+  font-size: var(--font-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Host, Listen, Prop, h, Event, Element, AttachI
 
 @Component({
   tag: 'je-toggle',
-  styleUrl: 'je-toggle.scss',
+  styleUrl: 'je-toggle.css',
   shadow: true,
   formAssociated: true
 })

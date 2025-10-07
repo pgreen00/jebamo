@@ -10,8 +10,8 @@ sidebar_label: 'Overlay'
 | Property          | Attribute          | Description                                             | Type                                     | Default     |
 | ----------------- | ------------------ | ------------------------------------------------------- | ---------------------------------------- | ----------- |
 | `backdropDismiss` | `backdrop-dismiss` | Backdrop will close the modal on click when enabled     | `boolean`                                | `true`      |
-| `destroy`         | `destroy`          | Optionally execute a promise after closing completes    | `() => void \| Promise<void>`            | `undefined` |
-| `init`            | `init`             | Optionally execute a promise before presentation begins | `() => void \| Promise<void>`            | `undefined` |
+| `destroy`         | --                 | Optionally execute a promise after closing completes    | `() => void \| Promise<void>`            | `undefined` |
+| `init`            | --                 | Optionally execute a promise before presentation begins | `() => void \| Promise<void>`            | `undefined` |
 | `open`            | `open`             | Opens and closes modal                                  | `boolean`                                | `false`     |
 | `side`            | `side`             | Side of the screen where the drawer will be displayed   | `"bottom" \| "left" \| "right" \| "top"` | `undefined` |
 | `size`            | `size`             | Size of the overlay                                     | `"lg" \| "md" \| "sm"`                   | `'md'`      |

@@ -2,7 +2,7 @@ import { Component, Event, EventEmitter, Host, Method, Prop, State, Watch, h } f
 
 @Component({
   tag: 'je-wizard',
-  styleUrl: 'je-wizard.scss',
+  styleUrl: 'je-wizard.css',
   shadow: true,
 })
 export class JeWizard {

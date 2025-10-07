@@ -9,7 +9,7 @@ export type OverlayData<T = any> = {
 
 @Component({
   tag: 'je-overlay',
-  styleUrl: 'je-overlay.scss',
+  styleUrl: 'je-overlay.css',
   shadow: true,
 })
 export class JeOverlay {

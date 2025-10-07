@@ -1,0 +1,100 @@
+:host {
+  display: contents;
+  position: relative;
+
+  --selected-background: light-dark(var(--je-primary-50), var(--je-neutral-800));
+  --selected-color: light-dark(var(--je-primary-500), var(--je-neutral-500));
+  --indentation-color: light-dark(var(--je-neutral-400), var(--je-neutral-800));
+}
+
+.icon-placeholder {
+  width: 20px;
+  height: 24px;
+}
+
+.level {
+  width: var(--je-spacing-lg);
+  height: var(--je-spacing-lg);
+}
+
+button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: var(--je-radius-md);
+  overflow: hidden;
+  background-color: transparent;
+  color: inherit;
+  width: 100%;
+  font-family: inherit;
+  font-size: var(--je-font-md);
+  font-weight: var(--je-font-regular);
+  margin: 0;
+  padding-block: var(--je-spacing-2xs);
+  padding-inline: 0;
+  border: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 1;
+  transition: all 75ms ease-in-out;
+  outline-offset: -6px;
+  outline-color: var(--je-primary-400);
+
+  &:hover,
+  &.selected:not(.multiple) {
+    background-color: var(--selected-background);
+  }
+
+  &.selected:not(.multiple) {
+    color: var(--selected-color);
+  }
+}
+
+[part=inner-branch-container] {
+  overflow: hidden;
+}
+
+[part=branch-container] {
+  position: relative;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: all 250ms ease-out;
+
+  &.indentation::before {
+    left: calc(var(--level) * var(--je-spacing-lg));
+    transform: translate(10px);
+    display: block;
+    content: "";
+    position: absolute;
+    background-color: var(--indentation-color);
+    opacity: 0;
+    width: 1px;
+    transition: opacity 250ms ease-in-out;
+    z-index: 2;
+  }
+
+  &.open {
+    opacity: 1;
+    grid-template-rows: 1fr;
+
+    &.indentation::before {
+      opacity: 1;
+      height: 100%;
+    }
+  }
+}
+
+je-icon {
+  color: light-dark(var(--je-neutral-800), var(--je-neutral-200));
+  transition: rotate 250ms ease;
+  &.open {
+    rotate: 90deg;
+  }
+}
+
+.multi-icon {
+  color: var(--selected-color);
+}

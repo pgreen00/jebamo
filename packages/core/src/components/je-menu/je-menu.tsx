@@ -2,7 +2,7 @@ import { Component, Host, h } from '@stencil/core';
 
 @Component({
   tag: 'je-menu',
-  styleUrl: 'je-menu.scss',
+  styleUrl: 'je-menu.css',
   shadow: true,
 })
 export class JeMenu {

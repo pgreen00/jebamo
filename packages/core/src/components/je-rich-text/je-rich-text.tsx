@@ -16,8 +16,10 @@ export interface EditorChangeEvent {
 
 @Component({
   tag: 'je-rich-text',
-  styleUrl: 'je-rich-text.scss',
-  shadow: true,
+  styleUrl: 'je-rich-text.css',
+  shadow: {
+    delegatesFocus: true
+  },
 })
 export class JeRichText {
   @Element() el: HTMLElement;
@@ -98,11 +100,6 @@ export class JeRichText {
     this.editorRef.innerHTML = '';
     this.updateWordCount();
     this.emitChange();
-  }
-
-  @Method()
-  async focus(): Promise<void> {
-    this.editorRef.focus();
   }
 
   private executeCommand(command: string, value?: string) {
@@ -319,7 +316,7 @@ export class JeRichText {
         </div>
 
         <div class="editor-content-wrapper">
-          <div
+          <div tabindex={0}
             ref={el => this.editorRef = el}
             class="editor-content"
             contenteditable={!this.disabled && !this.readonly}

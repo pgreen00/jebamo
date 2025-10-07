@@ -2,7 +2,7 @@ import { Component, Host, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-note',
-  styleUrl: 'je-note.scss',
+  styleUrl: 'je-note.css',
   shadow: true,
 })
 export class JeNote {

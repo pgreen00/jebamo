@@ -1,3 +1,1 @@
-# Jebamo
-
-yah
+Welcome to jebamo

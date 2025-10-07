@@ -1,7 +1,7 @@
 @use 'sass:math';
 
 $primary: #4141e8;
-$secondary: #99becb;
+$neutral: #99becb;
 $success: #22c55e;
 $warning: #fbbf24;
 $danger: #ae1818;
@@ -10,8 +10,8 @@ $danger: #ae1818;
   @return shade(var(--je-primary, #{$primary}), $shade);
 }
 
-@function secondary($shade: 500) {
-  @return shade(var(--je-secondary, #{$secondary}), $shade);
+@function neutral($shade: 500) {
+  @return shade(var(--je-neutral, #{$neutral}), $shade);
 }
 
 @function success($shade: 500) {

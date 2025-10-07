@@ -2,7 +2,7 @@ import { Component, Element, Event, EventEmitter, Host, Listen, h } from '@stenc
 
 @Component({
   tag: 'je-dropzone',
-  styleUrl: 'je-dropzone.scss',
+  styleUrl: 'je-dropzone.css',
   shadow: true,
 })
 export class JeDropzone {

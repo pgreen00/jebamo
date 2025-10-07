@@ -39,16 +39,6 @@ Type: `Promise<void>`
 
 
 
-### `focus() => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 ### `getContent() => Promise<string>`
 
 

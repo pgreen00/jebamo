@@ -2,7 +2,7 @@ import { Component, Host, Prop, h, Element } from '@stencil/core';
 
 @Component({
   tag: 'je-toast-container',
-  styleUrl: 'je-toast-container.scss',
+  styleUrl: 'je-toast-container.css',
   shadow: true,
 })
 export class JeToastContainer {

@@ -2,7 +2,7 @@ import { Component, h, Prop, Host } from '@stencil/core';
 
 @Component({
   tag: 'je-label',
-  styleUrl: 'je-label.scss',
+  styleUrl: 'je-label.css',
   shadow: true,
 })
 export class JeLabel {

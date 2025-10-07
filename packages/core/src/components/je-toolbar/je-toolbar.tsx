@@ -2,7 +2,7 @@ import { Component, Host, h } from '@stencil/core';
 
 @Component({
   tag: 'je-toolbar',
-  styleUrl: 'je-toolbar.scss',
+  styleUrl: 'je-toolbar.css',
   shadow: true,
 })
 export class JeToolbar {

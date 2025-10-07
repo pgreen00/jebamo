@@ -2,7 +2,7 @@ import { Component, Host, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-divider',
-  styleUrl: 'je-divider.scss',
+  styleUrl: 'je-divider.css',
   shadow: true,
 })
 export class JeDivider {

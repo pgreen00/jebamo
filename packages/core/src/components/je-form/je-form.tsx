@@ -3,7 +3,7 @@ import { AsyncSubject, buffer, debounceTime, fromEvent, Subscription, tap } from
 
 @Component({
   tag: 'je-form',
-  styleUrl: 'je-form.scss',
+  styleUrl: 'je-form.css',
   scoped: true
 })
 export class JeForm {

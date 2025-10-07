@@ -1,0 +1,33 @@
+:host {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  border-radius: var(--je-radius-md);
+  box-sizing: border-box;
+  align-items: center;
+  transition: background-color 75ms ease-in-out;
+}
+
+:host(:hover) {
+  background-color: light-dark(var(--je-primary-100), var(--je-primary-900));
+}
+
+div {
+  display: flex;
+  align-items: center;
+  padding-inline: var(--je-spacing-3xs);
+}
+
+button {
+  display: flex;
+  margin: 0;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  font-family: inherit;
+  padding-inline: var(--je-spacing-xs);
+  cursor: pointer;
+  background-color: transparent;
+  color: inherit;
+  align-items: center;
+}

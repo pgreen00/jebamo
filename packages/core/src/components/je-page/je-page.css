@@ -1,0 +1,79 @@
+:is(je-page:not(:has(> .je-page-container)), je-page > .je-page-container) {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+  --border-color: light-dark(var(--je-neutral-400), var(--je-neutral-800));
+
+  >header:first-of-type {
+    flex-shrink: 0;
+    grid-area: head;
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    box-sizing: border-box;
+    padding: var(--je-spacing-xs) var(--je-spacing-sm);
+    background-color: light-dark(var(--je-primary-700), var(--je-neutral-900));
+    color: light-dark(var(--je-neutral-50), var(--je-neutral-100));
+  }
+
+  >header:nth-of-type(2) {
+    flex-shrink: 0;
+    grid-area: sub;
+    position: sticky;
+    z-index: 1;
+    top: var(--head-height);
+    padding: var(--je-spacing-xs) var(--je-spacing-sm);
+    box-sizing: border-box;
+    background-color: light-dark(var(--je-neutral-50), var(--je-neutral-900));
+    color: light-dark(var(--je-neutral-900), var(--je-neutral-100));
+  }
+
+  >header:last-of-type {
+    border-bottom: solid 1px var(--border-color);
+  }
+
+  >main {
+    grid-area: body;
+    box-sizing: border-box;
+    padding: var(--je-spacing-xs) var(--je-spacing-sm);
+    color: light-dark(var(--je-neutral-900), var(--je-neutral-50));
+    background-color: light-dark(var(--je-neutral-50), var(--je-neutral-900));
+  }
+
+  >footer {
+    position: sticky;
+    bottom: 0;
+    grid-area: foot;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    background-color: light-dark(var(--je-neutral-900), var(--je-neutral-900));
+    color: light-dark(var(--je-neutral-50), var(--je-neutral-100));
+    border-top: solid 1px var(--border-color);
+    padding: var(--je-spacing-xs) var(--je-spacing-sm);
+  }
+
+  >aside {
+    position: sticky;
+    top: calc(var(--head-height, 0px) + var(--sub-height, 0px));
+    bottom: var(--foot-height, 0px);
+    max-height: calc(100vh - var(--head-height, 0px) - var(--sub-height, 0px) - var(--foot-height, 0px));
+    color: light-dark(var(--je-neutral-900), var(--je-neutral-50));
+    background-color: light-dark(var(--je-neutral-50), var(--je-neutral-900));
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  >aside:not(main+aside) {
+    grid-area: left;
+    border-right: solid 1px var(--border-color);
+  }
+
+  >main+aside {
+    grid-area: right;
+    border-left: solid 1px var(--border-color);
+  }
+}

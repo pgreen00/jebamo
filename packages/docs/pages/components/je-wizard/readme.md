@@ -9,7 +9,7 @@ sidebar_label: 'Wizard'
 
 | Property | Attribute | Description | Type                                       | Default |
 | -------- | --------- | ----------- | ------------------------------------------ | ------- |
-| `steps`  | `steps`   |             | `{ label: string; optional?: boolean; }[]` | `[]`    |
+| `steps`  | --        |             | `{ label: string; optional?: boolean; }[]` | `[]`    |
 
 
 ## Events

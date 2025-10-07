@@ -3,7 +3,7 @@ import { JeDetailsCustomEvent } from '../../components';
 
 @Component({
   tag: 'je-accordion',
-  styleUrl: 'je-accordion.scss',
+  styleUrl: 'je-accordion.css',
   shadow: true,
 })
 export class JeAccordion {

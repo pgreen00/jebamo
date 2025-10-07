@@ -1,6 +1,7 @@
 @use 'elevation';
 @use 'radius';
 @use 'spacing';
+@use 'font';
 
 @each $name, $value in elevation.$elevation {
   .je-elevation-#{$name} { box-shadow: elevation.get($name); }
@@ -40,4 +41,41 @@
 }
 
 @include spacing-classes(padding);
+
 @include spacing-classes(margin);
+
+.je-font-xs {
+  font-size: font.size(xs);
+}
+
+.je-font-sm {
+  font-size: font.size(sm);
+}
+
+.je-font-md {
+  font-size: font.size(md);
+}
+
+.je-font-lg {
+  font-size: font.size(lg);
+}
+
+.je-font-xl {
+  font-size: font.size(xl);
+}
+
+.je-font-light {
+  font-weight: font.weight(light);
+}
+
+.je-font-regular {
+  font-weight: font.weight(regular);
+}
+
+.je-font-semi-bold {
+  font-weight: font.weight(semi-bold);
+}
+
+.je-font-bold {
+  font-weight: font.weight(bold);
+}

@@ -2,7 +2,7 @@ import { AttachInternals, Component, Element, Event, EventEmitter, Host, Listen,
 
 @Component({
   tag: 'je-select',
-  styleUrl: 'je-select.scss',
+  styleUrl: 'je-select.css',
   shadow: {
     delegatesFocus: true
   },

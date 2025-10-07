@@ -2,7 +2,7 @@ import { Component, h, Element, EventEmitter, Prop, Event, Watch, Listen, Attach
 
 @Component({
   tag: 'je-radio-group',
-  styleUrl: 'je-radio-group.scss',
+  styleUrl: 'je-radio-group.css',
   shadow: true,
   formAssociated: true
 })

@@ -2,7 +2,7 @@ import { Component, Element, Event, EventEmitter, Host, Listen, Prop, Watch, h }
 
 @Component({
   tag: 'je-tree',
-  styleUrl: 'je-tree.scss',
+  styleUrl: 'je-tree.css',
   shadow: true,
 })
 export class JeTree {

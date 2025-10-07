@@ -668,15 +668,14 @@ export declare interface JeMenu extends Components.JeMenu {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeNav,
-  inputs: ['mode']
+  defineCustomElementFn: defineJeNav
 })
 @Component({
   selector: 'je-nav',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['mode'],
+  inputs: [],
 })
 export class JeNav {
   protected el: HTMLJeNavElement;
@@ -1039,7 +1038,7 @@ export declare interface JeReorderList extends Components.JeReorderList {}
 @ProxyCmp({
   defineCustomElementFn: defineJeRichText,
   inputs: ['disabled', 'maxHeight', 'minHeight', 'placeholder', 'readonly', 'showWordCount', 'value'],
-  methods: ['getContent', 'getText', 'setContent', 'clear', 'focus']
+  methods: ['getContent', 'getText', 'setContent', 'clear']
 })
 @Component({
   selector: 'je-rich-text',

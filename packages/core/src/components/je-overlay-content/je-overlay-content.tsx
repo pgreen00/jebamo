@@ -2,7 +2,7 @@ import { Component, Element, Host, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'je-overlay-content',
-  styleUrl: 'je-overlay-content.scss',
+  styleUrl: 'je-overlay-content.css',
   shadow: true,
 })
 export class JeOverlayContent {

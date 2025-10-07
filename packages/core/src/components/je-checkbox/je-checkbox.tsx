@@ -2,7 +2,7 @@ import { AttachInternals, Component, EventEmitter, Host, Prop, h, Element, Event
 
 @Component({
   tag: 'je-checkbox',
-  styleUrl: 'je-checkbox.scss',
+  styleUrl: 'je-checkbox.css',
   shadow: true,
   formAssociated: true
 })

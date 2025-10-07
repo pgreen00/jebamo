@@ -3,7 +3,7 @@ import { Color } from '../../utils/color';
 
 @Component({
   tag: 'je-alert',
-  styleUrl: 'je-alert.scss',
+  styleUrl: 'je-alert.css',
   shadow: true,
 })
 export class JeAlert {

@@ -2,7 +2,7 @@ import { Component, Element, Event, EventEmitter, h, Prop } from '@stencil/core'
 
 @Component({
   tag: 'je-breadcrumbs',
-  styleUrl: 'je-breadcrumbs.scss',
+  styleUrl: 'je-breadcrumbs.css',
   shadow: true,
 })
 export class JeBreadcrumbs {
