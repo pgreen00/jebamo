@@ -16,10 +16,10 @@
   ],
   "scripts": {
     "start": "stencil build --watch",
-    "build": "npm run build:sass && stencil build",
+    "build": "stencil build",
     "test": "playwright test",
     "generate": "stencil generate",
-    "build:sass": "sass src/styles/classes.scss:styles/classes.css src/styles/core.scss:styles/core.css"
+    "serve:docs": "npx serve www/"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.6.12",
@@ -28,6 +28,7 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
+    "@11ty/eleventy": "^3.1.2",
     "@playwright/test": "^1.55.1",
     "@stencil/angular-output-target": "^1.0.0",
     "@stencil/core": "^4.7.0",

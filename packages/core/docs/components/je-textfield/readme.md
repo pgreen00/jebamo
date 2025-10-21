@@ -110,9 +110,9 @@ Type: `Promise<void>`
 
 - [je-label](../je-label)
 - [je-button](../je-button)
-- [je-icon](../je-icon)
 - [je-loading](../je-loading)
 - [je-color](../je-color)
+- [je-icon](../je-icon)
 - [je-tooltip](../je-tooltip)
 - [je-note](../je-note)
 
@@ -121,9 +121,9 @@ Type: `Promise<void>`
 graph TD;
   je-textfield --> je-label
   je-textfield --> je-button
-  je-textfield --> je-icon
   je-textfield --> je-loading
   je-textfield --> je-color
+  je-textfield --> je-icon
   je-textfield --> je-tooltip
   je-textfield --> je-note
   je-button --> je-loading

@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite + TS</title>
+  <title>Jebamo</title>
   <link rel="stylesheet" href="/build/jebamo/styles/core.css" />
   <link rel="stylesheet" href="/build/jebamo/styles/classes.css" />
   <script type="module" src="/build/jebamo/dist/esm/jebamo.js"></script>
@@ -109,31 +109,13 @@
         </je-button>
       </je-nav>
     </header>
-    <aside>
+    <aside class="je-padding-horizontal-xs je-padding-vertical" style="width: 250px;">
       <nav>
-				<ul class="nav-list">
+				<je-tree value="{{ page.url }}">
 					{% for item in collections.navigation | navToArray %}
-						<li class="nav-item">
-							{% if item.url %}
-								<a href="{{ item.url }}" class="nav-link{% if page.url == item.url %} active{% endif %}">
-									{{ item.title }}
-								</a>
-							{% endif %}
-
-							{% if item.children | length > 0 %}
-								<ul class="nav-sublist">
-									{% for child in item.children | navToArray %}
-										<li class="nav-subitem">
-											<a href="{{ child.url }}" class="nav-link{% if page.url == child.url %} active{% endif %}">
-												{{ child.title }}
-											</a>
-										</li>
-									{% endfor %}
-								</ul>
-							{% endif %}
-						</li>
+						<je-branch value="{{ item.url }}" label="{{ item.title }}" href="{{ item.url }}"></je-branch>
 					{% endfor %}
-				</ul>
+				</je-tree>
 			</nav>
     </aside>
     <main>
@@ -141,8 +123,9 @@
         {{ content | safe }}
       {% endblock %}
     </main>
+    <aside><p>test</p></aside>
     <footer>
-      <small>Footer goes here</small>
+      <small>yo.....</small>
     </footer>
   </je-page>
 </body>

@@ -23,7 +23,7 @@ test.describe('je-button', () => {
     await expect(button).toHaveAttribute('variant', 'primary')
 
     // Test property access
-    const isDisabled = await button.evaluate<any, HTMLJeButtonElement>(el => el.disabled)
+    const isDisabled = await button.evaluate<any, any>(el => el.disabled)
     expect(isDisabled).toBe(true)
   });
 })

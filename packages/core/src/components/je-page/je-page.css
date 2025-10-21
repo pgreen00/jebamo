@@ -1,37 +1,36 @@
-:is(je-page:not(:has(> .je-page-container)), je-page > .je-page-container) {
+je-page {
   display: grid;
   height: 100%;
   width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
   box-sizing: border-box;
+  color: light-dark(var(--je-neutral-900), var(--je-neutral-50));
+  background-color: light-dark(var(--je-neutral-50), var(--je-neutral-900));
+  grid-template:
+    "head head head"
+    "left body right"
+    "foot foot foot" / auto 1fr auto;
   --border-color: light-dark(var(--je-neutral-400), var(--je-neutral-800));
 
-  >header:first-of-type {
+  &:has(>header) {
+    --head-height: 64px;
+  }
+
+  &:has(>footer) {
+    --foot-height: 48px;
+  }
+
+  >header {
+    background-color: inherit;
     flex-shrink: 0;
+    height: var(--head-height);
     grid-area: head;
     position: sticky;
-    z-index: 1;
+    z-index: 10;
     top: 0;
     box-sizing: border-box;
     padding: var(--je-spacing-xs) var(--je-spacing-sm);
-    background-color: light-dark(var(--je-primary-700), var(--je-neutral-900));
-    color: light-dark(var(--je-neutral-50), var(--je-neutral-100));
-  }
-
-  >header:nth-of-type(2) {
-    flex-shrink: 0;
-    grid-area: sub;
-    position: sticky;
-    z-index: 1;
-    top: var(--head-height);
-    padding: var(--je-spacing-xs) var(--je-spacing-sm);
-    box-sizing: border-box;
-    background-color: light-dark(var(--je-neutral-50), var(--je-neutral-900));
-    color: light-dark(var(--je-neutral-900), var(--je-neutral-100));
-  }
-
-  >header:last-of-type {
     border-bottom: solid 1px var(--border-color);
   }
 
@@ -39,32 +38,29 @@
     grid-area: body;
     box-sizing: border-box;
     padding: var(--je-spacing-xs) var(--je-spacing-sm);
-    color: light-dark(var(--je-neutral-900), var(--je-neutral-50));
-    background-color: light-dark(var(--je-neutral-50), var(--je-neutral-900));
   }
 
   >footer {
+    background-color: inherit;
     position: sticky;
     bottom: 0;
     grid-area: foot;
     flex-shrink: 0;
+    z-index: 10;
+    height: var(--foot-height);
     box-sizing: border-box;
-    background-color: light-dark(var(--je-neutral-900), var(--je-neutral-900));
-    color: light-dark(var(--je-neutral-50), var(--je-neutral-100));
     border-top: solid 1px var(--border-color);
     padding: var(--je-spacing-xs) var(--je-spacing-sm);
   }
 
   >aside {
     position: sticky;
-    top: calc(var(--head-height, 0px) + var(--sub-height, 0px));
-    bottom: var(--foot-height, 0px);
-    max-height: calc(100vh - var(--head-height, 0px) - var(--sub-height, 0px) - var(--foot-height, 0px));
-    color: light-dark(var(--je-neutral-900), var(--je-neutral-50));
-    background-color: light-dark(var(--je-neutral-50), var(--je-neutral-900));
+    top: var(--head-height);
+    height: calc(100vh - var(--head-height) - var(--foot-height));
     overflow-y: auto;
     overflow-x: hidden;
     box-sizing: border-box;
+    scrollbar-width: thin;
   }
 
   >aside:not(main+aside) {

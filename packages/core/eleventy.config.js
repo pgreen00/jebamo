@@ -1,19 +1,18 @@
 export default async function(eleventyConfig) {
-	eleventyConfig.setInputDirectory("pages");
-  eleventyConfig.setIncludesDirectory("../includes");
+  eleventyConfig.setIncludesDirectory("includes");
   eleventyConfig.addGlobalData('layout', 'default');
   eleventyConfig.addPassthroughCopy({
-    "../../node_modules/jebamo/dist/": "build/jebamo/dist/",
-    "../../node_modules/jebamo/styles/": "build/jebamo/styles/",
+    "./dist/": "build/jebamo/dist/",
+    "./styles/": "build/jebamo/styles/",
   });
 
 	eleventyConfig.addCollection("navigation", function(collectionApi) {
-		const pages = collectionApi.getAll();
+		const pages = collectionApi.getAll().filter(p => p.inputPath.includes('components'));
 		const nav = {};
 
 		pages.forEach(page => {
 			const pathSegments = page.inputPath
-				.replace('./pages/', '')
+				.replace('./docs/components', '')
 				.replace('/readme.md', '')
 				.replace('.md', '')
 				.split('/');
@@ -33,7 +32,7 @@ export default async function(eleventyConfig) {
 					if (index === pathSegments.length - 1) {
 						current[segment].url = page.url;
 						current[segment].page = page;
-						current[segment].title = page.data.title || segment;
+						current[segment].title = page.data.sidebar_label || segment;
 					}
 
 					current = current[segment].children;
@@ -57,7 +56,7 @@ export default async function(eleventyConfig) {
 		permalink: (data) => {
 			if (data.page.inputPath.endsWith('/readme.md')) {
 				const dir = data.page.inputPath.replace('/readme.md', '/');
-				return dir.replace('pages/', '/');
+				return dir.replace('docs/', '/');
 			}
 			return data.permalink;
 		}

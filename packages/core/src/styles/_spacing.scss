@@ -1,5 +1,3 @@
-@use "sass:map";
-
 $spacing: (
   3xs: 0.125rem,
   2xs: 0.25rem,
@@ -12,6 +10,31 @@ $spacing: (
   3xl: 2.5rem
 );
 
-@function get($var) {
-  @return var(--je-spacing-#{$var}, #{map.get($spacing, $var)});
+@mixin classes($property) {
+  @each $name, $value in $spacing {
+    @if $name == md {
+      .je-#{$property} { #{$property}: var(--je-spacing-#{$name}); }
+      .je-#{$property}-top { #{$property}-top: var(--je-spacing-#{$name}); }
+      .je-#{$property}-right { #{$property}-right: var(--je-spacing-#{$name}); }
+      .je-#{$property}-bottom { #{$property}-bottom: var(--je-spacing-#{$name}); }
+      .je-#{$property}-left { #{$property}-left: var(--je-spacing-#{$name}); }
+      .je-#{$property}-horizontal { #{$property}-inline: var(--je-spacing-#{$name}); }
+      .je-#{$property}-vertical { #{$property}-block: var(--je-spacing-#{$name}); }
+    } @else {
+      .je-#{$property}-#{$name} { #{$property}: var(--je-spacing-#{$name}); }
+      .je-#{$property}-top-#{$name} { #{$property}-top: var(--je-spacing-#{$name}); }
+      .je-#{$property}-right-#{$name} { #{$property}-right: var(--je-spacing-#{$name}); }
+      .je-#{$property}-bottom-#{$name} { #{$property}-bottom: var(--je-spacing-#{$name}); }
+      .je-#{$property}-left-#{$name} { #{$property}-left: var(--je-spacing-#{$name}); }
+      .je-#{$property}-horizontal-#{$name} { #{$property}-inline: var(--je-spacing-#{$name}); }
+      .je-#{$property}-vertical-#{$name} { #{$property}-block: var(--je-spacing-#{$name}); }
+    }
+  }
+  .je-no-#{$property} { #{$property}: 0 !important; }
+  .je-no-#{$property}-top { #{$property}-top: 0 !important; }
+  .je-no-#{$property}-right { #{$property}-right: 0 !important; }
+  .je-no-#{$property}-bottom { #{$property}-bottom: 0 !important; }
+  .je-no-#{$property}-left { #{$property}-left: 0 !important; }
+  .je-no-#{$property}-horizontal { #{$property}-inline: 0 !important; }
+  .je-no-#{$property}-vertical { #{$property}-block: 0 !important; }
 }

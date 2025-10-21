@@ -1,12 +1,6 @@
-@use "sass:map";
-
 $transition: (
   slow: 500ms,
   medium: 300ms,
   fast: 150ms,
   x-fast: 75ms
 );
-
-@function get($var) {
-  @return var(--je-transition-#{$var}, #{map.get($transition, $var)});
-}

@@ -5,14 +5,6 @@
 @use 'spacing';
 @use 'transition';
 
-$shades: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950;
-
-@mixin generate-shades($color) {
-  @each $shade in $shades {
-    --je-#{$color}-#{$shade}: #{colors.shade(var(--je-#{$color}), $shade)};
-  }
-}
-
 :root {
   //colors
   --je-primary: #{colors.$primary};
@@ -21,22 +13,19 @@ $shades: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950;
   --je-warning: #{colors.$warning};
   --je-danger: #{colors.$danger};
 
-  @include generate-shades(primary);
-  @include generate-shades(neutral);
-  @include generate-shades(success);
-  @include generate-shades(warning);
-  @include generate-shades(danger);
+  @include colors.variables(primary);
+  @include colors.variables(neutral);
+  @include colors.variables(success);
+  @include colors.variables(warning);
+  @include colors.variables(danger);
 
   //font
-  --je-font-light: #{font.$font-light};
-  --je-font-regular: #{font.$font-regular};
-  --je-font-semi-bold: #{font.$font-semi-bold};
-  --je-font-bold: #{font.$font-bold};
-  --je-font-xs: #{font.$font-xs};
-  --je-font-sm: #{font.$font-sm};
-  --je-font-md: #{font.$font-md};
-  --je-font-lg: #{font.$font-lg};
-  --je-font-xl: #{font.$font-xl};
+  @each $name, $value in font.$weight {
+    --je-font-#{$name}: #{$value};
+  }
+  @each $name, $value in font.$size {
+    --je-font-#{$name}: #{$value};
+  }
 
   //elevation
   @each $name, $value in elevation.$elevation {

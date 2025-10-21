@@ -1,13 +1,9 @@
 {
-  "name": "jebamo",
-  "version": "1.0.0",
+  "name": "jebamo-workspace",
+  "version": "0.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/pgreen00/jebamo.git"
-  },
-  "scripts": {
-    "start": "concurrently \"npm start --workspace=jebamo\" \"npm run dev --workspace=demo\"",
-    "build": "npm run build --workspace=jebamo --workspace=jebamo-angular --workspace=jebamo-docs"
   },
   "keywords": [
     "web",
@@ -24,8 +20,5 @@
   "description": "",
   "workspaces": [
     "packages/*"
-  ],
-  "devDependencies": {
-    "concurrently": "^9.1.2"
-  }
+  ]
 }

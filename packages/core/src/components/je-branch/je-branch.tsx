@@ -9,7 +9,7 @@ import { Component, Element, Host, Method, Prop, forceUpdate, h } from '@stencil
 })
 export class JeBranch {
   private hasChildren = false;
-  @Element() element: HTMLJeBranchElement;
+  @Element() element: HTMLElement;
   @Prop() selection?: 'single' | 'multiple' | 'leaf';
   @Prop() indentation = false;
   @Prop({ mutable: true }) open = false;

@@ -6,25 +6,7 @@ $success: #22c55e;
 $warning: #fbbf24;
 $danger: #ae1818;
 
-@function primary($shade: 500) {
-  @return shade(var(--je-primary, #{$primary}), $shade);
-}
-
-@function neutral($shade: 500) {
-  @return shade(var(--je-neutral, #{$neutral}), $shade);
-}
-
-@function success($shade: 500) {
-  @return shade(var(--je-success, #{$success}), $shade);
-}
-
-@function warning($shade: 500) {
-  @return shade(var(--je-warning, #{$warning}), $shade);
-}
-
-@function danger($shade: 500) {
-  @return shade(var(--je-danger, #{$danger}), $shade);
-}
+$shades: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950;
 
 @function shade($color, $shade) {
   @if $shade == 500 {
@@ -37,4 +19,10 @@ $danger: #ae1818;
     @return color-mix(in srgb, $color math.percentage(calc((1 - $percentage-to-black))), black math.percentage($percentage-to-black));
   }
   @error "Invalid shade value. Accepted values are between 50 and 950 in steps of 50.";
+}
+
+@mixin variables($color) {
+  @each $shade in $shades {
+    --je-#{$color}-#{$shade}: #{shade(var(--je-#{$color}), $shade)};
+  }
 }
