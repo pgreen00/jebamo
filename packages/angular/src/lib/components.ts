@@ -27,11 +27,11 @@ import { defineCustomElement as defineJeForm } from 'jebamo/components/je-form.j
 import { defineCustomElement as defineJeGrid } from 'jebamo/components/je-grid.js';
 import { defineCustomElement as defineJeIcon } from 'jebamo/components/je-icon.js';
 import { defineCustomElement as defineJeItem } from 'jebamo/components/je-item.js';
+import { defineCustomElement as defineJeKnob } from 'jebamo/components/je-knob.js';
 import { defineCustomElement as defineJeLabel } from 'jebamo/components/je-label.js';
 import { defineCustomElement as defineJeLink } from 'jebamo/components/je-link.js';
+import { defineCustomElement as defineJeList } from 'jebamo/components/je-list.js';
 import { defineCustomElement as defineJeLoading } from 'jebamo/components/je-loading.js';
-import { defineCustomElement as defineJeMenu } from 'jebamo/components/je-menu.js';
-import { defineCustomElement as defineJeNav } from 'jebamo/components/je-nav.js';
 import { defineCustomElement as defineJeNote } from 'jebamo/components/je-note.js';
 import { defineCustomElement as defineJeOption } from 'jebamo/components/je-option.js';
 import { defineCustomElement as defineJeOverlay } from 'jebamo/components/je-overlay.js';
@@ -43,6 +43,7 @@ import { defineCustomElement as defineJePopover } from 'jebamo/components/je-pop
 import { defineCustomElement as defineJeRadio } from 'jebamo/components/je-radio.js';
 import { defineCustomElement as defineJeRadioButton } from 'jebamo/components/je-radio-button.js';
 import { defineCustomElement as defineJeRadioGroup } from 'jebamo/components/je-radio-group.js';
+import { defineCustomElement as defineJeRange } from 'jebamo/components/je-range.js';
 import { defineCustomElement as defineJeReorderItem } from 'jebamo/components/je-reorder-item.js';
 import { defineCustomElement as defineJeReorderList } from 'jebamo/components/je-reorder-list.js';
 import { defineCustomElement as defineJeRichText } from 'jebamo/components/je-rich-text.js';
@@ -53,7 +54,6 @@ import { defineCustomElement as defineJeStack } from 'jebamo/components/je-stack
 import { defineCustomElement as defineJeTab } from 'jebamo/components/je-tab.js';
 import { defineCustomElement as defineJeTabs } from 'jebamo/components/je-tabs.js';
 import { defineCustomElement as defineJeTextfield } from 'jebamo/components/je-textfield.js';
-import { defineCustomElement as defineJeToastContainer } from 'jebamo/components/je-toast-container.js';
 import { defineCustomElement as defineJeToggle } from 'jebamo/components/je-toggle.js';
 import { defineCustomElement as defineJeToolbar } from 'jebamo/components/je-toolbar.js';
 import { defineCustomElement as defineJeTooltip } from 'jebamo/components/je-tooltip.js';
@@ -115,7 +115,7 @@ export declare interface JeAlert extends Components.JeAlert {
 
 @ProxyCmp({
   defineCustomElementFn: defineJeBranch,
-  inputs: ['indentation', 'label', 'open', 'selected', 'selection', 'value'],
+  inputs: ['href', 'indentation', 'label', 'open', 'selected', 'selection', 'value'],
   methods: ['isLeaf']
 })
 @Component({
@@ -123,7 +123,7 @@ export declare interface JeAlert extends Components.JeAlert {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['indentation', 'label', 'open', 'selected', 'selection', 'value'],
+  inputs: ['href', 'indentation', 'label', 'open', 'selected', 'selection', 'value'],
 })
 export class JeBranch {
   protected el: HTMLJeBranchElement;
@@ -578,6 +578,28 @@ export declare interface JeItem extends Components.JeItem {}
 
 
 @ProxyCmp({
+  defineCustomElementFn: defineJeKnob
+})
+@Component({
+  selector: 'je-knob',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeKnob {
+  protected el: HTMLJeKnobElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeKnob extends Components.JeKnob {}
+
+
+@ProxyCmp({
   defineCustomElementFn: defineJeLabel,
   inputs: ['required']
 })
@@ -624,6 +646,28 @@ export declare interface JeLink extends Components.JeLink {}
 
 
 @ProxyCmp({
+  defineCustomElementFn: defineJeList
+})
+@Component({
+  selector: 'je-list',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeList {
+  protected el: HTMLJeListElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeList extends Components.JeList {}
+
+
+@ProxyCmp({
   defineCustomElementFn: defineJeLoading
 })
 @Component({
@@ -643,50 +687,6 @@ export class JeLoading {
 
 
 export declare interface JeLoading extends Components.JeLoading {}
-
-
-@ProxyCmp({
-  defineCustomElementFn: defineJeMenu
-})
-@Component({
-  selector: 'je-menu',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
-})
-export class JeMenu {
-  protected el: HTMLJeMenuElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-  }
-}
-
-
-export declare interface JeMenu extends Components.JeMenu {}
-
-
-@ProxyCmp({
-  defineCustomElementFn: defineJeNav
-})
-@Component({
-  selector: 'je-nav',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
-})
-export class JeNav {
-  protected el: HTMLJeNavElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-  }
-}
-
-
-export declare interface JeNav extends Components.JeNav {}
 
 
 @ProxyCmp({
@@ -992,6 +992,28 @@ export declare interface JeRadioGroup extends Components.JeRadioGroup {
 
 
 @ProxyCmp({
+  defineCustomElementFn: defineJeRange
+})
+@Component({
+  selector: 'je-range',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeRange {
+  protected el: HTMLJeRangeElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeRange extends Components.JeRange {}
+
+
+@ProxyCmp({
   defineCustomElementFn: defineJeReorderItem
 })
 @Component({
@@ -1246,29 +1268,6 @@ export declare interface JeTextfield extends Components.JeTextfield {
    */
   valueChange: EventEmitter<CustomEvent<any>>;
 }
-
-
-@ProxyCmp({
-  defineCustomElementFn: defineJeToastContainer,
-  inputs: ['position']
-})
-@Component({
-  selector: 'je-toast-container',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['position'],
-})
-export class JeToastContainer {
-  protected el: HTMLJeToastContainerElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-  }
-}
-
-
-export declare interface JeToastContainer extends Components.JeToastContainer {}
 
 
 @ProxyCmp({

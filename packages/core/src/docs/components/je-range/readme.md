@@ -1,6 +1,6 @@
 ---
-title: 'JeNav | <je-nav>'
-sidebar_label: 'Nav'
+title: 'JeRange | <je-range>'
+sidebar_label: 'Range'
 ---
 <!-- Auto Generated Below -->
 

@@ -2,6 +2,7 @@
   "name": "jebamo",
   "version": "0.0.16",
   "description": "Jebamo core web component library",
+  "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "types": "dist/types/index.d.ts",
@@ -15,11 +16,12 @@
     "styles/"
   ],
   "scripts": {
-    "start": "stencil build --watch",
-    "build": "stencil build",
+    "start": "concurrently --kill-others \"npm run watch\" \"npm run serve\"",
+    "build": "stencil build && eleventy --input src/docs --output www",
     "test": "playwright test",
     "generate": "stencil generate",
-    "serve:docs": "npx serve www/"
+    "watch": "chokidar 'src/**' '*.js' -c 'npm run build' --initial",
+    "serve": "live-server www --port=3000 --no-browser"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.6.12",
@@ -34,6 +36,9 @@
     "@stencil/core": "^4.7.0",
     "@stencil/react-output-target": "^1.2.0",
     "@types/node": "^24.5.2",
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^9.2.1",
+    "live-server": "^1.2.2",
     "sass": "^1.90.0",
     "serve": "^14.2.5"
   },

@@ -1,4 +1,4 @@
-import { Component, Element, Host, Method, Prop, forceUpdate, h } from '@stencil/core';
+import { Component, Element, Fragment, Host, Method, Prop, forceUpdate, h } from '@stencil/core';
 
 @Component({
   tag: 'je-branch',
@@ -9,6 +9,7 @@ import { Component, Element, Host, Method, Prop, forceUpdate, h } from '@stencil
 })
 export class JeBranch {
   private hasChildren = false;
+  private isChild = false;
   @Element() element: HTMLElement;
   @Prop() selection?: 'single' | 'multiple' | 'leaf';
   @Prop() indentation = false;
@@ -16,9 +17,11 @@ export class JeBranch {
   @Prop() value?: string;
   @Prop() label?: string;
   @Prop() selected: boolean | null = false;
+  @Prop() href?: string;
 
   componentWillRender() {
     this.hasChildren = this.element.querySelector('je-branch') !== null;
+    this.isChild = this.element.parentElement.closest('je-branch') != null;
   }
 
   @Method()
@@ -28,36 +31,53 @@ export class JeBranch {
 
   private handleIconClick = (ev: MouseEvent) => {
     if (this.selection != 'leaf') {
-      ev.stopPropagation();
-      this.open = !this.open;
+      ev.stopPropagation()
+      this.open = !this.open
     }
   };
 
-  private getLevel(el: HTMLElement, level = 0) {
-    const parent = el.parentElement;
-    if (this.selection && parent.tagName == 'JE-BRANCH') {
-      return this.getLevel(parent, level + 1);
-    }
-    return level;
+  private checkboxPath() {
+    return <path d={this.selected  ? 'M20 6 9 17l-5-5' : 'M5 12h14'}/>
   }
 
   render() {
-    const levels = new Array(this.getLevel(this.element)).fill(0)
+    const innerButton = (
+      <Fragment>
+        {this.selection === 'multiple' && (
+          <div part='multi-icon' class={{selected: this.selected !== false}}>
+            {this.selected !== false && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                {this.checkboxPath()}
+              </svg>
+            )}
+          </div>
+        )}
+        <slot name="label">{this.label && <span>{this.label}</span>}</slot>
+      </Fragment>
+    )
     return (
       <Host>
-        <style>{`:host{--level:${levels.length};`}</style>
-        <button tabindex={0} class={{ selected: this.selected, [this.selection]: true }}>
-          {levels.map(() => <div class='level'></div>)}
-          {this.hasChildren ? (
-            <je-icon size='sm' class={{ open: this.open, toggle: true }} onClickCapture={this.handleIconClick}>chevron_right</je-icon>
-          ) : (
-            <div class='icon-placeholder'></div>
+        <div part='content-container' class={{ selected: this.selected, [this.selection]: true, child: this.isChild, parent: this.hasChildren }}>
+          {this.hasChildren && (
+            <div part='chevron' class={{ open: this.open }} onClickCapture={this.handleIconClick}>
+              {chevron}
+            </div>
           )}
-          {this.selection === 'multiple' && (
-            <je-icon size='sm' weight={300} fill class='multi-icon'>{this.selected === true ? 'check_box' : this.selected === false ? 'check_box_outline_blank' : 'indeterminate_check_box'}</je-icon>
-          )}
-          <slot name="label">{this.label && <span>{this.label}</span>}</slot>
-        </button>
+          {this.href ? <a href={this.href}>{innerButton}</a> : <button type='button'>{innerButton}</button>}
+          <div class='end-container' onClick={ev => ev.stopPropagation()}>
+            <slot name='end'/>
+          </div>
+        </div>
         <div class={{ open: this.open, indentation: this.indentation }} part="branch-container">
           <div part='inner-branch-container'>
             <slot onSlotchange={() => forceUpdate(this.element)} />
@@ -67,3 +87,5 @@ export class JeBranch {
     );
   }
 }
+
+const chevron = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 6 4 4 4-4"/></svg>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <!-- Emblem only -->
+  <g id="mark-hex">
+    <!-- Hex body -->
+    <polygon points="120,44 194,82 194,158 120,196 46,158 46,82" fill="#4141e8"/>
+    <!-- Inner ring -->
+    <polygon points="120,60 180,92 180,148 120,180 60,148 60,92" fill="none" stroke="#FFFFFF" stroke-opacity="0.45" stroke-width="6"/>
+    <!-- Tag brackets -->
+    <path d="M94 104 L74 120 L94 136" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M146 104 L166 120 L146 136" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Dot -->
+    <circle cx="120" cy="120" r="6" fill="#FFFFFF"/>
+  </g>
+</svg>

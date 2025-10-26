@@ -39,18 +39,16 @@ export const createToast = (options: CreateToastOptions) => {
       toast.append(btn);
     })
   }
-  let container = document.querySelector<HTMLJeToastContainerElement>(`je-toast-container[position=${options.position}]`);
+  let container = document.querySelector<HTMLDivElement>(`div.je-toast-container[data-position=${options.position}]`);
   if (!container) {
-    container = document.createElement('je-toast-container');
-    container.position = options.position;
+    container = document.createElement('div');
+    container.dataset.position = options.position;
     document.body.append(container);
     container.popover = 'manual';
+    //needs mutation observer
   }
 
   container.append(toast)
-  if (!container.matches(':popover-open')) {
-    container.showPopover()
-  }
   toast.didDismiss().then(() => {
     toast.remove()
   })

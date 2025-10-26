@@ -20,7 +20,6 @@ sidebar_label: 'Icon'
 ### Used by
 
  - [je-alert](../je-alert)
- - [je-branch](../je-branch)
  - [je-checkbox](../je-checkbox)
  - [je-datepicker](../je-datepicker)
  - [je-details](../je-details)
@@ -33,7 +32,6 @@ sidebar_label: 'Icon'
 ```mermaid
 graph TD;
   je-alert --> je-icon
-  je-branch --> je-icon
   je-checkbox --> je-icon
   je-datepicker --> je-icon
   je-details --> je-icon

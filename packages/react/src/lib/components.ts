@@ -31,11 +31,11 @@ import { JeForm as JeFormElement, defineCustomElement as defineJeForm } from "je
 import { JeGrid as JeGridElement, defineCustomElement as defineJeGrid } from "jebamo/components/je-grid.js";
 import { JeIcon as JeIconElement, defineCustomElement as defineJeIcon } from "jebamo/components/je-icon.js";
 import { JeItem as JeItemElement, defineCustomElement as defineJeItem } from "jebamo/components/je-item.js";
+import { JeKnob as JeKnobElement, defineCustomElement as defineJeKnob } from "jebamo/components/je-knob.js";
 import { JeLabel as JeLabelElement, defineCustomElement as defineJeLabel } from "jebamo/components/je-label.js";
 import { JeLink as JeLinkElement, defineCustomElement as defineJeLink } from "jebamo/components/je-link.js";
+import { JeList as JeListElement, defineCustomElement as defineJeList } from "jebamo/components/je-list.js";
 import { JeLoading as JeLoadingElement, defineCustomElement as defineJeLoading } from "jebamo/components/je-loading.js";
-import { JeMenu as JeMenuElement, defineCustomElement as defineJeMenu } from "jebamo/components/je-menu.js";
-import { JeNav as JeNavElement, defineCustomElement as defineJeNav } from "jebamo/components/je-nav.js";
 import { JeNote as JeNoteElement, defineCustomElement as defineJeNote } from "jebamo/components/je-note.js";
 import { JeOption as JeOptionElement, defineCustomElement as defineJeOption } from "jebamo/components/je-option.js";
 import { JeOverlayContent as JeOverlayContentElement, defineCustomElement as defineJeOverlayContent } from "jebamo/components/je-overlay-content.js";
@@ -47,6 +47,7 @@ import { JePopover as JePopoverElement, defineCustomElement as defineJePopover }
 import { JeRadioButton as JeRadioButtonElement, defineCustomElement as defineJeRadioButton } from "jebamo/components/je-radio-button.js";
 import { JeRadioGroup as JeRadioGroupElement, defineCustomElement as defineJeRadioGroup } from "jebamo/components/je-radio-group.js";
 import { JeRadio as JeRadioElement, defineCustomElement as defineJeRadio } from "jebamo/components/je-radio.js";
+import { JeRange as JeRangeElement, defineCustomElement as defineJeRange } from "jebamo/components/je-range.js";
 import { JeReorderItem as JeReorderItemElement, defineCustomElement as defineJeReorderItem } from "jebamo/components/je-reorder-item.js";
 import { JeReorderList as JeReorderListElement, defineCustomElement as defineJeReorderList } from "jebamo/components/je-reorder-list.js";
 import { JeRichText as JeRichTextElement, defineCustomElement as defineJeRichText } from "jebamo/components/je-rich-text.js";
@@ -57,7 +58,6 @@ import { JeStack as JeStackElement, defineCustomElement as defineJeStack } from 
 import { JeTab as JeTabElement, defineCustomElement as defineJeTab } from "jebamo/components/je-tab.js";
 import { JeTabs as JeTabsElement, defineCustomElement as defineJeTabs } from "jebamo/components/je-tabs.js";
 import { JeTextfield as JeTextfieldElement, defineCustomElement as defineJeTextfield } from "jebamo/components/je-textfield.js";
-import { JeToastContainer as JeToastContainerElement, defineCustomElement as defineJeToastContainer } from "jebamo/components/je-toast-container.js";
 import { JeToggle as JeToggleElement, defineCustomElement as defineJeToggle } from "jebamo/components/je-toggle.js";
 import { JeToolbar as JeToolbarElement, defineCustomElement as defineJeToolbar } from "jebamo/components/je-toolbar.js";
 import { JeTooltip as JeTooltipElement, defineCustomElement as defineJeTooltip } from "jebamo/components/je-tooltip.js";
@@ -308,6 +308,17 @@ export const JeItem: StencilReactComponent<JeItemElement, JeItemEvents> = /*@__P
     defineCustomElement: defineJeItem
 });
 
+export type JeKnobEvents = NonNullable<unknown>;
+
+export const JeKnob: StencilReactComponent<JeKnobElement, JeKnobEvents> = /*@__PURE__*/ createComponent<JeKnobElement, JeKnobEvents>({
+    tagName: 'je-knob',
+    elementClass: JeKnobElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as JeKnobEvents,
+    defineCustomElement: defineJeKnob
+});
+
 export type JeLabelEvents = NonNullable<unknown>;
 
 export const JeLabel: StencilReactComponent<JeLabelElement, JeLabelEvents> = /*@__PURE__*/ createComponent<JeLabelElement, JeLabelEvents>({
@@ -330,6 +341,17 @@ export const JeLink: StencilReactComponent<JeLinkElement, JeLinkEvents> = /*@__P
     defineCustomElement: defineJeLink
 });
 
+export type JeListEvents = NonNullable<unknown>;
+
+export const JeList: StencilReactComponent<JeListElement, JeListEvents> = /*@__PURE__*/ createComponent<JeListElement, JeListEvents>({
+    tagName: 'je-list',
+    elementClass: JeListElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as JeListEvents,
+    defineCustomElement: defineJeList
+});
+
 export type JeLoadingEvents = NonNullable<unknown>;
 
 export const JeLoading: StencilReactComponent<JeLoadingElement, JeLoadingEvents> = /*@__PURE__*/ createComponent<JeLoadingElement, JeLoadingEvents>({
@@ -339,28 +361,6 @@ export const JeLoading: StencilReactComponent<JeLoadingElement, JeLoadingEvents>
     react: React,
     events: {} as JeLoadingEvents,
     defineCustomElement: defineJeLoading
-});
-
-export type JeMenuEvents = NonNullable<unknown>;
-
-export const JeMenu: StencilReactComponent<JeMenuElement, JeMenuEvents> = /*@__PURE__*/ createComponent<JeMenuElement, JeMenuEvents>({
-    tagName: 'je-menu',
-    elementClass: JeMenuElement,
-    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
-    react: React,
-    events: {} as JeMenuEvents,
-    defineCustomElement: defineJeMenu
-});
-
-export type JeNavEvents = NonNullable<unknown>;
-
-export const JeNav: StencilReactComponent<JeNavElement, JeNavEvents> = /*@__PURE__*/ createComponent<JeNavElement, JeNavEvents>({
-    tagName: 'je-nav',
-    elementClass: JeNavElement,
-    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
-    react: React,
-    events: {} as JeNavEvents,
-    defineCustomElement: defineJeNav
 });
 
 export type JeNoteEvents = NonNullable<unknown>;
@@ -502,6 +502,17 @@ export const JeRadioGroup: StencilReactComponent<JeRadioGroupElement, JeRadioGro
     defineCustomElement: defineJeRadioGroup
 });
 
+export type JeRangeEvents = NonNullable<unknown>;
+
+export const JeRange: StencilReactComponent<JeRangeElement, JeRangeEvents> = /*@__PURE__*/ createComponent<JeRangeElement, JeRangeEvents>({
+    tagName: 'je-range',
+    elementClass: JeRangeElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as JeRangeEvents,
+    defineCustomElement: defineJeRange
+});
+
 export type JeReorderItemEvents = NonNullable<unknown>;
 
 export const JeReorderItem: StencilReactComponent<JeReorderItemElement, JeReorderItemEvents> = /*@__PURE__*/ createComponent<JeReorderItemElement, JeReorderItemEvents>({
@@ -618,17 +629,6 @@ export const JeTextfield: StencilReactComponent<JeTextfieldElement, JeTextfieldE
     react: React,
     events: { onValueChange: 'valueChange' } as JeTextfieldEvents,
     defineCustomElement: defineJeTextfield
-});
-
-export type JeToastContainerEvents = NonNullable<unknown>;
-
-export const JeToastContainer: StencilReactComponent<JeToastContainerElement, JeToastContainerEvents> = /*@__PURE__*/ createComponent<JeToastContainerElement, JeToastContainerEvents>({
-    tagName: 'je-toast-container',
-    elementClass: JeToastContainerElement,
-    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
-    react: React,
-    events: {} as JeToastContainerEvents,
-    defineCustomElement: defineJeToastContainer
 });
 
 export type JeToggleEvents = { onValueChange: EventName<CustomEvent<boolean>> };

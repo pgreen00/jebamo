@@ -1,6 +1,6 @@
 ---
-title: 'JeMenu | <je-menu>'
-sidebar_label: 'Menu'
+title: 'JeKnob | <je-knob>'
+sidebar_label: 'Knob'
 ---
 <!-- Auto Generated Below -->
 

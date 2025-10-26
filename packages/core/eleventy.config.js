@@ -2,8 +2,9 @@ export default async function(eleventyConfig) {
   eleventyConfig.setIncludesDirectory("includes");
   eleventyConfig.addGlobalData('layout', 'default');
   eleventyConfig.addPassthroughCopy({
-    "./dist/": "build/jebamo/dist/",
-    "./styles/": "build/jebamo/styles/",
+    "./dist": "build/jebamo/dist/",
+    "./styles": "build/jebamo/styles/",
+    "./src/docs/public": "/"
   });
 
 	eleventyConfig.addCollection("navigation", function(collectionApi) {
@@ -12,7 +13,7 @@ export default async function(eleventyConfig) {
 
 		pages.forEach(page => {
 			const pathSegments = page.inputPath
-				.replace('./docs/components', '')
+				.replace('./src/docs/components', '')
 				.replace('/readme.md', '')
 				.replace('.md', '')
 				.split('/');
@@ -56,7 +57,7 @@ export default async function(eleventyConfig) {
 		permalink: (data) => {
 			if (data.page.inputPath.endsWith('/readme.md')) {
 				const dir = data.page.inputPath.replace('/readme.md', '/');
-				return dir.replace('docs/', '/');
+				return dir.replace('src/docs/', '/');
 			}
 			return data.permalink;
 		}

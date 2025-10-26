@@ -1,6 +1,0 @@
-:host {
-  display: block;
-  box-sizing: border-box;
-  padding: var(--je-spacing-xs) var(--je-spacing-2xs);
-  width: fit-content;
-}

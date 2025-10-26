@@ -40,16 +40,16 @@ export class JeTree {
       const { branches, selection } = this;
       const isLeaf = await target.isLeaf();
       if ((selection == 'leaf' && isLeaf) || selection == 'single') {
-        this.value = target.value;
-        branches.forEach(branch => branch.selected = this.value === branch.value);
+        this.value = target.value || target.label;
+        branches.forEach(branch => branch.selected = this.value === (branch.value || branch.label));
       } else if (this.selection == 'leaf') {
         target.open = !target.open;
       } else if (this.selection == 'multiple') {
         target.selected = !target.selected;
         if (isLeaf && target.selected) {
-          this.value = [...this.value, target.value]
+          this.value = [...this.value, (target.value || target.label)]
         } else if (isLeaf) {
-          this.value = (this.value as Array<string>).filter(v => v != target.value)
+          this.value = (this.value as Array<string>).filter(v => v != (target.value || target.label))
         } else {
           target.querySelectorAll('je-branch').forEach(branch => branch.selected = target.selected);
         }

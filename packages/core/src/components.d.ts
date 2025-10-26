@@ -47,6 +47,7 @@ export namespace Components {
         "show": () => Promise<void>;
     }
     interface JeBranch {
+        "href"?: string;
         /**
           * @default false
          */
@@ -238,6 +239,8 @@ export namespace Components {
     }
     interface JeItem {
     }
+    interface JeKnob {
+    }
     interface JeLabel {
         "required"?: boolean;
     }
@@ -269,11 +272,9 @@ export namespace Components {
          */
         "underline": boolean;
     }
+    interface JeList {
+    }
     interface JeLoading {
-    }
-    interface JeMenu {
-    }
-    interface JeNav {
     }
     interface JeNote {
         "invalid"?: boolean;
@@ -457,6 +458,8 @@ export namespace Components {
           * The currently selected value
          */
         "value"?: any;
+    }
+    interface JeRange {
     }
     interface JeReorderItem {
     }
@@ -687,12 +690,6 @@ export namespace Components {
           * Passed to native textarea
          */
         "wrap"?: string;
-    }
-    interface JeToastContainer {
-        /**
-          * @default 'bottom-start'
-         */
-        "position": 'top' | 'bottom' | 'top-end' | 'top-start' | 'bottom-end' | 'bottom-start';
     }
     interface JeToggle {
         /**
@@ -1025,6 +1022,12 @@ declare global {
         prototype: HTMLJeItemElement;
         new (): HTMLJeItemElement;
     };
+    interface HTMLJeKnobElement extends Components.JeKnob, HTMLStencilElement {
+    }
+    var HTMLJeKnobElement: {
+        prototype: HTMLJeKnobElement;
+        new (): HTMLJeKnobElement;
+    };
     interface HTMLJeLabelElement extends Components.JeLabel, HTMLStencilElement {
     }
     var HTMLJeLabelElement: {
@@ -1037,23 +1040,17 @@ declare global {
         prototype: HTMLJeLinkElement;
         new (): HTMLJeLinkElement;
     };
+    interface HTMLJeListElement extends Components.JeList, HTMLStencilElement {
+    }
+    var HTMLJeListElement: {
+        prototype: HTMLJeListElement;
+        new (): HTMLJeListElement;
+    };
     interface HTMLJeLoadingElement extends Components.JeLoading, HTMLStencilElement {
     }
     var HTMLJeLoadingElement: {
         prototype: HTMLJeLoadingElement;
         new (): HTMLJeLoadingElement;
-    };
-    interface HTMLJeMenuElement extends Components.JeMenu, HTMLStencilElement {
-    }
-    var HTMLJeMenuElement: {
-        prototype: HTMLJeMenuElement;
-        new (): HTMLJeMenuElement;
-    };
-    interface HTMLJeNavElement extends Components.JeNav, HTMLStencilElement {
-    }
-    var HTMLJeNavElement: {
-        prototype: HTMLJeNavElement;
-        new (): HTMLJeNavElement;
     };
     interface HTMLJeNoteElement extends Components.JeNote, HTMLStencilElement {
     }
@@ -1158,6 +1155,12 @@ declare global {
     var HTMLJeRadioGroupElement: {
         prototype: HTMLJeRadioGroupElement;
         new (): HTMLJeRadioGroupElement;
+    };
+    interface HTMLJeRangeElement extends Components.JeRange, HTMLStencilElement {
+    }
+    var HTMLJeRangeElement: {
+        prototype: HTMLJeRangeElement;
+        new (): HTMLJeRangeElement;
     };
     interface HTMLJeReorderItemElement extends Components.JeReorderItem, HTMLStencilElement {
     }
@@ -1265,12 +1268,6 @@ declare global {
         prototype: HTMLJeTextfieldElement;
         new (): HTMLJeTextfieldElement;
     };
-    interface HTMLJeToastContainerElement extends Components.JeToastContainer, HTMLStencilElement {
-    }
-    var HTMLJeToastContainerElement: {
-        prototype: HTMLJeToastContainerElement;
-        new (): HTMLJeToastContainerElement;
-    };
     interface HTMLJeToggleElementEventMap {
         "valueChange": boolean;
     }
@@ -1357,11 +1354,11 @@ declare global {
         "je-grid": HTMLJeGridElement;
         "je-icon": HTMLJeIconElement;
         "je-item": HTMLJeItemElement;
+        "je-knob": HTMLJeKnobElement;
         "je-label": HTMLJeLabelElement;
         "je-link": HTMLJeLinkElement;
+        "je-list": HTMLJeListElement;
         "je-loading": HTMLJeLoadingElement;
-        "je-menu": HTMLJeMenuElement;
-        "je-nav": HTMLJeNavElement;
         "je-note": HTMLJeNoteElement;
         "je-option": HTMLJeOptionElement;
         "je-overlay": HTMLJeOverlayElement;
@@ -1373,6 +1370,7 @@ declare global {
         "je-radio": HTMLJeRadioElement;
         "je-radio-button": HTMLJeRadioButtonElement;
         "je-radio-group": HTMLJeRadioGroupElement;
+        "je-range": HTMLJeRangeElement;
         "je-reorder-item": HTMLJeReorderItemElement;
         "je-reorder-list": HTMLJeReorderListElement;
         "je-rich-text": HTMLJeRichTextElement;
@@ -1383,7 +1381,6 @@ declare global {
         "je-tab": HTMLJeTabElement;
         "je-tabs": HTMLJeTabsElement;
         "je-textfield": HTMLJeTextfieldElement;
-        "je-toast-container": HTMLJeToastContainerElement;
         "je-toggle": HTMLJeToggleElement;
         "je-toolbar": HTMLJeToolbarElement;
         "je-tooltip": HTMLJeTooltipElement;
@@ -1422,6 +1419,7 @@ declare namespace LocalJSX {
         "progress"?: boolean;
     }
     interface JeBranch {
+        "href"?: string;
         /**
           * @default false
          */
@@ -1622,6 +1620,8 @@ declare namespace LocalJSX {
     }
     interface JeItem {
     }
+    interface JeKnob {
+    }
     interface JeLabel {
         "required"?: boolean;
     }
@@ -1653,11 +1653,9 @@ declare namespace LocalJSX {
          */
         "underline"?: boolean;
     }
+    interface JeList {
+    }
     interface JeLoading {
-    }
-    interface JeMenu {
-    }
-    interface JeNav {
     }
     interface JeNote {
         "invalid"?: boolean;
@@ -1869,6 +1867,8 @@ declare namespace LocalJSX {
           * The currently selected value
          */
         "value"?: any;
+    }
+    interface JeRange {
     }
     interface JeReorderItem {
     }
@@ -2101,12 +2101,6 @@ declare namespace LocalJSX {
          */
         "wrap"?: string;
     }
-    interface JeToastContainer {
-        /**
-          * @default 'bottom-start'
-         */
-        "position"?: 'top' | 'bottom' | 'top-end' | 'top-start' | 'bottom-end' | 'bottom-start';
-    }
     interface JeToggle {
         /**
           * If the label should be placed at the start or end of the toggle
@@ -2187,11 +2181,11 @@ declare namespace LocalJSX {
         "je-grid": JeGrid;
         "je-icon": JeIcon;
         "je-item": JeItem;
+        "je-knob": JeKnob;
         "je-label": JeLabel;
         "je-link": JeLink;
+        "je-list": JeList;
         "je-loading": JeLoading;
-        "je-menu": JeMenu;
-        "je-nav": JeNav;
         "je-note": JeNote;
         "je-option": JeOption;
         "je-overlay": JeOverlay;
@@ -2203,6 +2197,7 @@ declare namespace LocalJSX {
         "je-radio": JeRadio;
         "je-radio-button": JeRadioButton;
         "je-radio-group": JeRadioGroup;
+        "je-range": JeRange;
         "je-reorder-item": JeReorderItem;
         "je-reorder-list": JeReorderList;
         "je-rich-text": JeRichText;
@@ -2213,7 +2208,6 @@ declare namespace LocalJSX {
         "je-tab": JeTab;
         "je-tabs": JeTabs;
         "je-textfield": JeTextfield;
-        "je-toast-container": JeToastContainer;
         "je-toggle": JeToggle;
         "je-toolbar": JeToolbar;
         "je-tooltip": JeTooltip;
@@ -2246,11 +2240,11 @@ declare module "@stencil/core" {
             "je-grid": LocalJSX.JeGrid & JSXBase.HTMLAttributes<HTMLJeGridElement>;
             "je-icon": LocalJSX.JeIcon & JSXBase.HTMLAttributes<HTMLJeIconElement>;
             "je-item": LocalJSX.JeItem & JSXBase.HTMLAttributes<HTMLJeItemElement>;
+            "je-knob": LocalJSX.JeKnob & JSXBase.HTMLAttributes<HTMLJeKnobElement>;
             "je-label": LocalJSX.JeLabel & JSXBase.HTMLAttributes<HTMLJeLabelElement>;
             "je-link": LocalJSX.JeLink & JSXBase.HTMLAttributes<HTMLJeLinkElement>;
+            "je-list": LocalJSX.JeList & JSXBase.HTMLAttributes<HTMLJeListElement>;
             "je-loading": LocalJSX.JeLoading & JSXBase.HTMLAttributes<HTMLJeLoadingElement>;
-            "je-menu": LocalJSX.JeMenu & JSXBase.HTMLAttributes<HTMLJeMenuElement>;
-            "je-nav": LocalJSX.JeNav & JSXBase.HTMLAttributes<HTMLJeNavElement>;
             "je-note": LocalJSX.JeNote & JSXBase.HTMLAttributes<HTMLJeNoteElement>;
             "je-option": LocalJSX.JeOption & JSXBase.HTMLAttributes<HTMLJeOptionElement>;
             "je-overlay": LocalJSX.JeOverlay & JSXBase.HTMLAttributes<HTMLJeOverlayElement>;
@@ -2262,6 +2256,7 @@ declare module "@stencil/core" {
             "je-radio": LocalJSX.JeRadio & JSXBase.HTMLAttributes<HTMLJeRadioElement>;
             "je-radio-button": LocalJSX.JeRadioButton & JSXBase.HTMLAttributes<HTMLJeRadioButtonElement>;
             "je-radio-group": LocalJSX.JeRadioGroup & JSXBase.HTMLAttributes<HTMLJeRadioGroupElement>;
+            "je-range": LocalJSX.JeRange & JSXBase.HTMLAttributes<HTMLJeRangeElement>;
             "je-reorder-item": LocalJSX.JeReorderItem & JSXBase.HTMLAttributes<HTMLJeReorderItemElement>;
             "je-reorder-list": LocalJSX.JeReorderList & JSXBase.HTMLAttributes<HTMLJeReorderListElement>;
             "je-rich-text": LocalJSX.JeRichText & JSXBase.HTMLAttributes<HTMLJeRichTextElement>;
@@ -2272,7 +2267,6 @@ declare module "@stencil/core" {
             "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
             "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;
             "je-textfield": LocalJSX.JeTextfield & JSXBase.HTMLAttributes<HTMLJeTextfieldElement>;
-            "je-toast-container": LocalJSX.JeToastContainer & JSXBase.HTMLAttributes<HTMLJeToastContainerElement>;
             "je-toggle": LocalJSX.JeToggle & JSXBase.HTMLAttributes<HTMLJeToggleElement>;
             "je-toolbar": LocalJSX.JeToolbar & JSXBase.HTMLAttributes<HTMLJeToolbarElement>;
             "je-tooltip": LocalJSX.JeTooltip & JSXBase.HTMLAttributes<HTMLJeTooltipElement>;

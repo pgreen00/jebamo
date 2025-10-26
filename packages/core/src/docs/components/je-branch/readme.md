@@ -9,6 +9,7 @@ sidebar_label: 'Branch'
 
 | Property      | Attribute     | Description | Type                               | Default     |
 | ------------- | ------------- | ----------- | ---------------------------------- | ----------- |
+| `href`        | `href`        |             | `string`                           | `undefined` |
 | `indentation` | `indentation` |             | `boolean`                          | `false`     |
 | `label`       | `label`       |             | `string`                           | `undefined` |
 | `open`        | `open`        |             | `boolean`                          | `false`     |
@@ -35,21 +36,11 @@ Type: `Promise<boolean>`
 | Part                       | Description |
 | -------------------------- | ----------- |
 | `"branch-container"`       |             |
+| `"chevron"`                |             |
+| `"content-container"`      |             |
 | `"inner-branch-container"` |             |
+| `"multi-icon"`             |             |
 
-
-## Dependencies
-
-### Depends on
-
-- [je-icon](../je-icon)
-
-### Graph
-```mermaid
-graph TD;
-  je-branch --> je-icon
-  style je-branch fill:#f9f,stroke:#333,stroke-width:4px
-```
 
 ----------------------------------------------
 

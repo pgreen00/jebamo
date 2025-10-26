@@ -8,23 +8,14 @@ je-page {
   color: light-dark(var(--je-neutral-900), var(--je-neutral-50));
   background-color: light-dark(var(--je-neutral-50), var(--je-neutral-900));
   grid-template:
-    "head head head"
-    "left body right"
-    "foot foot foot" / auto 1fr auto;
+    "head head head" auto
+    "left body right" 1fr
+    "foot foot foot" auto / auto 1fr auto;
   --border-color: light-dark(var(--je-neutral-400), var(--je-neutral-800));
-
-  &:has(>header) {
-    --head-height: 64px;
-  }
-
-  &:has(>footer) {
-    --foot-height: 48px;
-  }
 
   >header {
     background-color: inherit;
     flex-shrink: 0;
-    height: var(--head-height);
     grid-area: head;
     position: sticky;
     z-index: 10;
@@ -47,7 +38,6 @@ je-page {
     grid-area: foot;
     flex-shrink: 0;
     z-index: 10;
-    height: var(--foot-height);
     box-sizing: border-box;
     border-top: solid 1px var(--border-color);
     padding: var(--je-spacing-xs) var(--je-spacing-sm);
@@ -55,8 +45,9 @@ je-page {
 
   >aside {
     position: sticky;
-    top: var(--head-height);
-    height: calc(100vh - var(--head-height) - var(--foot-height));
+    top: var(--head-height, 0px);
+    height: 100%;
+    max-height: calc(100vh - var(--head-height, 0px) - var(--foot-height, 0px));
     overflow-y: auto;
     overflow-x: hidden;
     box-sizing: border-box;
