@@ -1,6 +1,6 @@
 ---
-title: 'JeGrid | <je-grid>'
-sidebar_label: 'Grid'
+title: 'JeMidi | <je-midi>'
+sidebar_label: 'Midi'
 ---
 <!-- Auto Generated Below -->
 

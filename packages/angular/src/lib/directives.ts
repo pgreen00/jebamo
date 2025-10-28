@@ -13,7 +13,7 @@ import { Directive, ElementRef, inject, input, output, TemplateRef, ViewContaine
 @Directive({
   selector: '[jeModel]',
   host: {
-    '(valueChange)': 'handleChange($event.target.value)',
+    '(valueChange)': 'jeModelChange.emit($event.target.value)',
     '[value]': 'jeModel()'
   },
   exportAs: 'jeModel'
@@ -21,10 +21,6 @@ import { Directive, ElementRef, inject, input, output, TemplateRef, ViewContaine
 export class JeModelDirective {
   jeModel = input();
   jeModelChange = output<unknown>();
-
-  handleChange(value: unknown) {
-    this.jeModelChange.emit(value);
-  }
 }
 
 /**
@@ -41,7 +37,7 @@ export class JeModelDirective {
  */
 @Directive({
   selector: 'je-overlay > ng-template',
-  exportAs: 'overlay'
+  exportAs: 'jeOverlayTemplate'
 })
 export class JeOverlayTemplateDirective {
   private viewContainerRef = inject(ViewContainerRef);

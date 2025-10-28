@@ -1,6 +1,6 @@
 ---
-title: 'JeGrid | <je-grid>'
-sidebar_label: 'Grid'
+title: 'JeWaveform | <je-waveform>'
+sidebar_label: 'Waveform'
 ---
 <!-- Auto Generated Below -->
 

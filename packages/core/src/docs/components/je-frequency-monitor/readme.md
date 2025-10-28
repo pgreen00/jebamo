@@ -1,6 +1,6 @@
 ---
-title: 'JeGrid | <je-grid>'
-sidebar_label: 'Grid'
+title: 'JeFrequencyMonitor | <je-frequency-monitor>'
+sidebar_label: 'Frequency Monitor'
 ---
 <!-- Auto Generated Below -->
 

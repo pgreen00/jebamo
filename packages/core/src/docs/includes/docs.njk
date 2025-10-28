@@ -1,0 +1,15 @@
+---
+layout: default.njk
+---
+
+<div class="docs-container">
+  <div class="docs-body">
+    <h1>{{ title }}</h1>
+    {{ content | removeTocMarker | safe }}
+  </div>
+  <aside class="docs-toc">
+    <nav class="toc-nav">
+      {{ content | toc | safe }}
+    </nav>
+  </aside>
+</div>

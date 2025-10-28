@@ -1,6 +1,6 @@
 ---
-title: 'JeGrid | <je-grid>'
-sidebar_label: 'Grid'
+title: 'JeLevelMeter | <je-level-meter>'
+sidebar_label: 'Level Meter'
 ---
 <!-- Auto Generated Below -->
 

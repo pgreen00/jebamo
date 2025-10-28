@@ -1,6 +1,7 @@
 ---
 title: 'JeAlert | <je-alert>'
 sidebar_label: 'Alert'
+layout: docs.njk
 ---
 <!-- Auto Generated Below -->
 

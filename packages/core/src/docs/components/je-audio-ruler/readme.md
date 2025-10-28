@@ -1,6 +1,6 @@
 ---
-title: 'JeGrid | <je-grid>'
-sidebar_label: 'Grid'
+title: 'JeAudioRuler | <je-audio-ruler>'
+sidebar_label: 'Audio Ruler'
 ---
 <!-- Auto Generated Below -->
 
