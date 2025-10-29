@@ -12,7 +12,6 @@ import { createComponent } from '@stencil/react-output-target/runtime';
 import { type EditorChangeEvent, type JeDropzoneCustomEvent, type JeFormCustomEvent, type JeOverlayCustomEvent, type JeRichTextCustomEvent, type OverlayData } from "jebamo";
 import { JeAccordion as JeAccordionElement, defineCustomElement as defineJeAccordion } from "jebamo/components/je-accordion.js";
 import { JeAlert as JeAlertElement, defineCustomElement as defineJeAlert } from "jebamo/components/je-alert.js";
-import { JeAudioRuler as JeAudioRulerElement, defineCustomElement as defineJeAudioRuler } from "jebamo/components/je-audio-ruler.js";
 import { JeBranch as JeBranchElement, defineCustomElement as defineJeBranch } from "jebamo/components/je-branch.js";
 import { JeBreadcrumb as JeBreadcrumbElement, defineCustomElement as defineJeBreadcrumb } from "jebamo/components/je-breadcrumb.js";
 import { JeBreadcrumbs as JeBreadcrumbsElement, defineCustomElement as defineJeBreadcrumbs } from "jebamo/components/je-breadcrumbs.js";
@@ -22,20 +21,21 @@ import { JeCalendar as JeCalendarElement, defineCustomElement as defineJeCalenda
 import { JeCard as JeCardElement, defineCustomElement as defineJeCard } from "jebamo/components/je-card.js";
 import { JeCheckbox as JeCheckboxElement, defineCustomElement as defineJeCheckbox } from "jebamo/components/je-checkbox.js";
 import { JeColor as JeColorElement, defineCustomElement as defineJeColor } from "jebamo/components/je-color.js";
+import { JeComp as JeCompElement, defineCustomElement as defineJeComp } from "jebamo/components/je-comp.js";
 import { JeControl as JeControlElement, defineCustomElement as defineJeControl } from "jebamo/components/je-control.js";
 import { JeDatepicker as JeDatepickerElement, defineCustomElement as defineJeDatepicker } from "jebamo/components/je-datepicker.js";
+import { JeDaw as JeDawElement, defineCustomElement as defineJeDaw } from "jebamo/components/je-daw.js";
 import { JeDetails as JeDetailsElement, defineCustomElement as defineJeDetails } from "jebamo/components/je-details.js";
 import { JeDiscardForm as JeDiscardFormElement, defineCustomElement as defineJeDiscardForm } from "jebamo/components/je-discard-form.js";
 import { JeDivider as JeDividerElement, defineCustomElement as defineJeDivider } from "jebamo/components/je-divider.js";
 import { JeDropzone as JeDropzoneElement, defineCustomElement as defineJeDropzone } from "jebamo/components/je-dropzone.js";
+import { JeEq as JeEqElement, defineCustomElement as defineJeEq } from "jebamo/components/je-eq.js";
 import { JeForm as JeFormElement, defineCustomElement as defineJeForm } from "jebamo/components/je-form.js";
-import { JeFrequencyMonitor as JeFrequencyMonitorElement, defineCustomElement as defineJeFrequencyMonitor } from "jebamo/components/je-frequency-monitor.js";
 import { JeGrid as JeGridElement, defineCustomElement as defineJeGrid } from "jebamo/components/je-grid.js";
 import { JeIcon as JeIconElement, defineCustomElement as defineJeIcon } from "jebamo/components/je-icon.js";
 import { JeItem as JeItemElement, defineCustomElement as defineJeItem } from "jebamo/components/je-item.js";
 import { JeKnob as JeKnobElement, defineCustomElement as defineJeKnob } from "jebamo/components/je-knob.js";
 import { JeLabel as JeLabelElement, defineCustomElement as defineJeLabel } from "jebamo/components/je-label.js";
-import { JeLevelMeter as JeLevelMeterElement, defineCustomElement as defineJeLevelMeter } from "jebamo/components/je-level-meter.js";
 import { JeLink as JeLinkElement, defineCustomElement as defineJeLink } from "jebamo/components/je-link.js";
 import { JeList as JeListElement, defineCustomElement as defineJeList } from "jebamo/components/je-list.js";
 import { JeLoading as JeLoadingElement, defineCustomElement as defineJeLoading } from "jebamo/components/je-loading.js";
@@ -59,6 +59,7 @@ import { JeSelect as JeSelectElement, defineCustomElement as defineJeSelect } fr
 import { JeSplitPanel as JeSplitPanelElement, defineCustomElement as defineJeSplitPanel } from "jebamo/components/je-split-panel.js";
 import { JeSplitView as JeSplitViewElement, defineCustomElement as defineJeSplitView } from "jebamo/components/je-split-view.js";
 import { JeStack as JeStackElement, defineCustomElement as defineJeStack } from "jebamo/components/je-stack.js";
+import { JeSynth as JeSynthElement, defineCustomElement as defineJeSynth } from "jebamo/components/je-synth.js";
 import { JeTab as JeTabElement, defineCustomElement as defineJeTab } from "jebamo/components/je-tab.js";
 import { JeTabs as JeTabsElement, defineCustomElement as defineJeTabs } from "jebamo/components/je-tabs.js";
 import { JeTextfield as JeTextfieldElement, defineCustomElement as defineJeTextfield } from "jebamo/components/je-textfield.js";
@@ -66,7 +67,6 @@ import { JeToggle as JeToggleElement, defineCustomElement as defineJeToggle } fr
 import { JeToolbar as JeToolbarElement, defineCustomElement as defineJeToolbar } from "jebamo/components/je-toolbar.js";
 import { JeTooltip as JeTooltipElement, defineCustomElement as defineJeTooltip } from "jebamo/components/je-tooltip.js";
 import { JeTree as JeTreeElement, defineCustomElement as defineJeTree } from "jebamo/components/je-tree.js";
-import { JeWaveform as JeWaveformElement, defineCustomElement as defineJeWaveform } from "jebamo/components/je-waveform.js";
 import { JeWizard as JeWizardElement, defineCustomElement as defineJeWizard } from "jebamo/components/je-wizard.js";
 import React from 'react';
 
@@ -96,17 +96,6 @@ export const JeAlert: StencilReactComponent<JeAlertElement, JeAlertEvents> = /*@
         onDismiss: 'dismiss'
     } as JeAlertEvents,
     defineCustomElement: defineJeAlert
-});
-
-export type JeAudioRulerEvents = NonNullable<unknown>;
-
-export const JeAudioRuler: StencilReactComponent<JeAudioRulerElement, JeAudioRulerEvents> = /*@__PURE__*/ createComponent<JeAudioRulerElement, JeAudioRulerEvents>({
-    tagName: 'je-audio-ruler',
-    elementClass: JeAudioRulerElement,
-    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
-    react: React,
-    events: {} as JeAudioRulerEvents,
-    defineCustomElement: defineJeAudioRuler
 });
 
 export type JeBranchEvents = NonNullable<unknown>;
@@ -208,6 +197,17 @@ export const JeColor: StencilReactComponent<JeColorElement, JeColorEvents> = /*@
     defineCustomElement: defineJeColor
 });
 
+export type JeCompEvents = NonNullable<unknown>;
+
+export const JeComp: StencilReactComponent<JeCompElement, JeCompEvents> = /*@__PURE__*/ createComponent<JeCompElement, JeCompEvents>({
+    tagName: 'je-comp',
+    elementClass: JeCompElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as JeCompEvents,
+    defineCustomElement: defineJeComp
+});
+
 export type JeControlEvents = NonNullable<unknown>;
 
 export const JeControl: StencilReactComponent<JeControlElement, JeControlEvents> = /*@__PURE__*/ createComponent<JeControlElement, JeControlEvents>({
@@ -228,6 +228,17 @@ export const JeDatepicker: StencilReactComponent<JeDatepickerElement, JeDatepick
     react: React,
     events: { onValueChange: 'valueChange' } as JeDatepickerEvents,
     defineCustomElement: defineJeDatepicker
+});
+
+export type JeDawEvents = NonNullable<unknown>;
+
+export const JeDaw: StencilReactComponent<JeDawElement, JeDawEvents> = /*@__PURE__*/ createComponent<JeDawElement, JeDawEvents>({
+    tagName: 'je-daw',
+    elementClass: JeDawElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as JeDawEvents,
+    defineCustomElement: defineJeDaw
 });
 
 export type JeDetailsEvents = {
@@ -280,6 +291,17 @@ export const JeDropzone: StencilReactComponent<JeDropzoneElement, JeDropzoneEven
     defineCustomElement: defineJeDropzone
 });
 
+export type JeEqEvents = NonNullable<unknown>;
+
+export const JeEq: StencilReactComponent<JeEqElement, JeEqEvents> = /*@__PURE__*/ createComponent<JeEqElement, JeEqEvents>({
+    tagName: 'je-eq',
+    elementClass: JeEqElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as JeEqEvents,
+    defineCustomElement: defineJeEq
+});
+
 export type JeFormEvents = { onFormData: EventName<JeFormCustomEvent<Record<string, any>>> };
 
 export const JeForm: StencilReactComponent<JeFormElement, JeFormEvents> = /*@__PURE__*/ createComponent<JeFormElement, JeFormEvents>({
@@ -289,17 +311,6 @@ export const JeForm: StencilReactComponent<JeFormElement, JeFormEvents> = /*@__P
     react: React,
     events: { onFormData: 'formData' } as JeFormEvents,
     defineCustomElement: defineJeForm
-});
-
-export type JeFrequencyMonitorEvents = NonNullable<unknown>;
-
-export const JeFrequencyMonitor: StencilReactComponent<JeFrequencyMonitorElement, JeFrequencyMonitorEvents> = /*@__PURE__*/ createComponent<JeFrequencyMonitorElement, JeFrequencyMonitorEvents>({
-    tagName: 'je-frequency-monitor',
-    elementClass: JeFrequencyMonitorElement,
-    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
-    react: React,
-    events: {} as JeFrequencyMonitorEvents,
-    defineCustomElement: defineJeFrequencyMonitor
 });
 
 export type JeGridEvents = NonNullable<unknown>;
@@ -355,17 +366,6 @@ export const JeLabel: StencilReactComponent<JeLabelElement, JeLabelEvents> = /*@
     react: React,
     events: {} as JeLabelEvents,
     defineCustomElement: defineJeLabel
-});
-
-export type JeLevelMeterEvents = NonNullable<unknown>;
-
-export const JeLevelMeter: StencilReactComponent<JeLevelMeterElement, JeLevelMeterEvents> = /*@__PURE__*/ createComponent<JeLevelMeterElement, JeLevelMeterEvents>({
-    tagName: 'je-level-meter',
-    elementClass: JeLevelMeterElement,
-    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
-    react: React,
-    events: {} as JeLevelMeterEvents,
-    defineCustomElement: defineJeLevelMeter
 });
 
 export type JeLinkEvents = NonNullable<unknown>;
@@ -647,6 +647,17 @@ export const JeStack: StencilReactComponent<JeStackElement, JeStackEvents> = /*@
     defineCustomElement: defineJeStack
 });
 
+export type JeSynthEvents = NonNullable<unknown>;
+
+export const JeSynth: StencilReactComponent<JeSynthElement, JeSynthEvents> = /*@__PURE__*/ createComponent<JeSynthElement, JeSynthEvents>({
+    tagName: 'je-synth',
+    elementClass: JeSynthElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as JeSynthEvents,
+    defineCustomElement: defineJeSynth
+});
+
 export type JeTabEvents = NonNullable<unknown>;
 
 export const JeTab: StencilReactComponent<JeTabElement, JeTabEvents> = /*@__PURE__*/ createComponent<JeTabElement, JeTabEvents>({
@@ -722,17 +733,6 @@ export const JeTree: StencilReactComponent<JeTreeElement, JeTreeEvents> = /*@__P
     react: React,
     events: { onValueChange: 'valueChange' } as JeTreeEvents,
     defineCustomElement: defineJeTree
-});
-
-export type JeWaveformEvents = NonNullable<unknown>;
-
-export const JeWaveform: StencilReactComponent<JeWaveformElement, JeWaveformEvents> = /*@__PURE__*/ createComponent<JeWaveformElement, JeWaveformEvents>({
-    tagName: 'je-waveform',
-    elementClass: JeWaveformElement,
-    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
-    react: React,
-    events: {} as JeWaveformEvents,
-    defineCustomElement: defineJeWaveform
 });
 
 export type JeWizardEvents = {

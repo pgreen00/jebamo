@@ -1,6 +1,6 @@
 ---
-title: 'JeLevelMeter | <je-level-meter>'
-sidebar_label: 'Level Meter'
+title: 'JeComp | <je-comp>'
+sidebar_label: 'Audio Compressor'
 ---
 <!-- Auto Generated Below -->
 

@@ -1,6 +1,6 @@
 ---
 title: 'JeMidi | <je-midi>'
-sidebar_label: 'Midi'
+sidebar_label: 'Midi Controller'
 ---
 <!-- Auto Generated Below -->
 

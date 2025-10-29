@@ -1,11 +1,11 @@
 import { Component, Host, h } from '@stencil/core';
 
 @Component({
-  tag: 'je-audio-ruler',
-  styleUrl: 'je-audio-ruler.css',
+  tag: 'je-eq',
+  styleUrl: 'je-eq.css',
   shadow: true,
 })
-export class JeAudioRuler {
+export class JeEq {
   render() {
     return (
       <Host>

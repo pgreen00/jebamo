@@ -1,6 +1,6 @@
 ---
-title: 'JeAudioRuler | <je-audio-ruler>'
-sidebar_label: 'Audio Ruler'
+title: 'JeSynth | <je-synth>'
+sidebar_label: 'Waveform Synthesizer'
 ---
 <!-- Auto Generated Below -->
 

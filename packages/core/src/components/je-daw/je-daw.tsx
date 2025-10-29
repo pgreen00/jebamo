@@ -1,11 +1,11 @@
 import { Component, Host, h } from '@stencil/core';
 
 @Component({
-  tag: 'je-waveform',
-  styleUrl: 'je-waveform.css',
+  tag: 'je-daw',
+  styleUrl: 'je-daw.css',
   shadow: true,
 })
-export class JeWaveform {
+export class JeDaw {
   render() {
     return (
       <Host>

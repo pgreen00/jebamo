@@ -46,8 +46,6 @@ export namespace Components {
         "progress": boolean;
         "show": () => Promise<void>;
     }
-    interface JeAudioRuler {
-    }
     interface JeBranch {
         "href"?: string;
         /**
@@ -169,6 +167,8 @@ export namespace Components {
          */
         "light"?: Color;
     }
+    interface JeComp {
+    }
     interface JeControl {
     }
     interface JeDatepicker {
@@ -184,6 +184,8 @@ export namespace Components {
          */
         "type": 'date' | 'datetime' | 'time';
         "value"?: number;
+    }
+    interface JeDaw {
     }
     interface JeDetails {
         /**
@@ -214,9 +216,9 @@ export namespace Components {
     }
     interface JeDropzone {
     }
-    interface JeForm {
+    interface JeEq {
     }
-    interface JeFrequencyMonitor {
+    interface JeForm {
     }
     interface JeGrid {
     }
@@ -247,8 +249,6 @@ export namespace Components {
     }
     interface JeLabel {
         "required"?: boolean;
-    }
-    interface JeLevelMeter {
     }
     interface JeLink {
         /**
@@ -537,6 +537,8 @@ export namespace Components {
     }
     interface JeStack {
     }
+    interface JeSynth {
+    }
     interface JeTab {
         /**
           * @default false
@@ -744,8 +746,6 @@ export namespace Components {
         "selection": 'single' | 'multiple' | 'leaf';
         "value"?: string | string[];
     }
-    interface JeWaveform {
-    }
     interface JeWizard {
         "canSkip": () => Promise<boolean>;
         "next": () => Promise<void>;
@@ -851,12 +851,6 @@ declare global {
         prototype: HTMLJeAlertElement;
         new (): HTMLJeAlertElement;
     };
-    interface HTMLJeAudioRulerElement extends Components.JeAudioRuler, HTMLStencilElement {
-    }
-    var HTMLJeAudioRulerElement: {
-        prototype: HTMLJeAudioRulerElement;
-        new (): HTMLJeAudioRulerElement;
-    };
     interface HTMLJeBranchElement extends Components.JeBranch, HTMLStencilElement {
     }
     var HTMLJeBranchElement: {
@@ -933,6 +927,12 @@ declare global {
         prototype: HTMLJeColorElement;
         new (): HTMLJeColorElement;
     };
+    interface HTMLJeCompElement extends Components.JeComp, HTMLStencilElement {
+    }
+    var HTMLJeCompElement: {
+        prototype: HTMLJeCompElement;
+        new (): HTMLJeCompElement;
+    };
     interface HTMLJeControlElement extends Components.JeControl, HTMLStencilElement {
     }
     var HTMLJeControlElement: {
@@ -955,6 +955,12 @@ declare global {
     var HTMLJeDatepickerElement: {
         prototype: HTMLJeDatepickerElement;
         new (): HTMLJeDatepickerElement;
+    };
+    interface HTMLJeDawElement extends Components.JeDaw, HTMLStencilElement {
+    }
+    var HTMLJeDawElement: {
+        prototype: HTMLJeDawElement;
+        new (): HTMLJeDawElement;
     };
     interface HTMLJeDetailsElementEventMap {
         "expand": any;
@@ -1003,6 +1009,12 @@ declare global {
         prototype: HTMLJeDropzoneElement;
         new (): HTMLJeDropzoneElement;
     };
+    interface HTMLJeEqElement extends Components.JeEq, HTMLStencilElement {
+    }
+    var HTMLJeEqElement: {
+        prototype: HTMLJeEqElement;
+        new (): HTMLJeEqElement;
+    };
     interface HTMLJeFormElementEventMap {
         "formData": Record<string, any>;
     }
@@ -1019,12 +1031,6 @@ declare global {
     var HTMLJeFormElement: {
         prototype: HTMLJeFormElement;
         new (): HTMLJeFormElement;
-    };
-    interface HTMLJeFrequencyMonitorElement extends Components.JeFrequencyMonitor, HTMLStencilElement {
-    }
-    var HTMLJeFrequencyMonitorElement: {
-        prototype: HTMLJeFrequencyMonitorElement;
-        new (): HTMLJeFrequencyMonitorElement;
     };
     interface HTMLJeGridElement extends Components.JeGrid, HTMLStencilElement {
     }
@@ -1055,12 +1061,6 @@ declare global {
     var HTMLJeLabelElement: {
         prototype: HTMLJeLabelElement;
         new (): HTMLJeLabelElement;
-    };
-    interface HTMLJeLevelMeterElement extends Components.JeLevelMeter, HTMLStencilElement {
-    }
-    var HTMLJeLevelMeterElement: {
-        prototype: HTMLJeLevelMeterElement;
-        new (): HTMLJeLevelMeterElement;
     };
     interface HTMLJeLinkElement extends Components.JeLink, HTMLStencilElement {
     }
@@ -1262,6 +1262,12 @@ declare global {
         prototype: HTMLJeStackElement;
         new (): HTMLJeStackElement;
     };
+    interface HTMLJeSynthElement extends Components.JeSynth, HTMLStencilElement {
+    }
+    var HTMLJeSynthElement: {
+        prototype: HTMLJeSynthElement;
+        new (): HTMLJeSynthElement;
+    };
     interface HTMLJeTabElement extends Components.JeTab, HTMLStencilElement {
     }
     var HTMLJeTabElement: {
@@ -1348,12 +1354,6 @@ declare global {
         prototype: HTMLJeTreeElement;
         new (): HTMLJeTreeElement;
     };
-    interface HTMLJeWaveformElement extends Components.JeWaveform, HTMLStencilElement {
-    }
-    var HTMLJeWaveformElement: {
-        prototype: HTMLJeWaveformElement;
-        new (): HTMLJeWaveformElement;
-    };
     interface HTMLJeWizardElementEventMap {
         "stepChange": number;
         "finish": void;
@@ -1375,7 +1375,6 @@ declare global {
     interface HTMLElementTagNameMap {
         "je-accordion": HTMLJeAccordionElement;
         "je-alert": HTMLJeAlertElement;
-        "je-audio-ruler": HTMLJeAudioRulerElement;
         "je-branch": HTMLJeBranchElement;
         "je-breadcrumb": HTMLJeBreadcrumbElement;
         "je-breadcrumbs": HTMLJeBreadcrumbsElement;
@@ -1385,20 +1384,21 @@ declare global {
         "je-card": HTMLJeCardElement;
         "je-checkbox": HTMLJeCheckboxElement;
         "je-color": HTMLJeColorElement;
+        "je-comp": HTMLJeCompElement;
         "je-control": HTMLJeControlElement;
         "je-datepicker": HTMLJeDatepickerElement;
+        "je-daw": HTMLJeDawElement;
         "je-details": HTMLJeDetailsElement;
         "je-discard-form": HTMLJeDiscardFormElement;
         "je-divider": HTMLJeDividerElement;
         "je-dropzone": HTMLJeDropzoneElement;
+        "je-eq": HTMLJeEqElement;
         "je-form": HTMLJeFormElement;
-        "je-frequency-monitor": HTMLJeFrequencyMonitorElement;
         "je-grid": HTMLJeGridElement;
         "je-icon": HTMLJeIconElement;
         "je-item": HTMLJeItemElement;
         "je-knob": HTMLJeKnobElement;
         "je-label": HTMLJeLabelElement;
-        "je-level-meter": HTMLJeLevelMeterElement;
         "je-link": HTMLJeLinkElement;
         "je-list": HTMLJeListElement;
         "je-loading": HTMLJeLoadingElement;
@@ -1422,6 +1422,7 @@ declare global {
         "je-split-panel": HTMLJeSplitPanelElement;
         "je-split-view": HTMLJeSplitViewElement;
         "je-stack": HTMLJeStackElement;
+        "je-synth": HTMLJeSynthElement;
         "je-tab": HTMLJeTabElement;
         "je-tabs": HTMLJeTabsElement;
         "je-textfield": HTMLJeTextfieldElement;
@@ -1429,7 +1430,6 @@ declare global {
         "je-toolbar": HTMLJeToolbarElement;
         "je-tooltip": HTMLJeTooltipElement;
         "je-tree": HTMLJeTreeElement;
-        "je-waveform": HTMLJeWaveformElement;
         "je-wizard": HTMLJeWizardElement;
     }
 }
@@ -1462,8 +1462,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "progress"?: boolean;
-    }
-    interface JeAudioRuler {
     }
     interface JeBranch {
         "href"?: string;
@@ -1590,6 +1588,8 @@ declare namespace LocalJSX {
          */
         "light"?: Color;
     }
+    interface JeComp {
+    }
     interface JeControl {
     }
     interface JeDatepicker {
@@ -1606,6 +1606,8 @@ declare namespace LocalJSX {
          */
         "type"?: 'date' | 'datetime' | 'time';
         "value"?: number;
+    }
+    interface JeDaw {
     }
     interface JeDetails {
         /**
@@ -1639,10 +1641,10 @@ declare namespace LocalJSX {
     interface JeDropzone {
         "onDataDrop"?: (event: JeDropzoneCustomEvent<DataTransfer>) => void;
     }
+    interface JeEq {
+    }
     interface JeForm {
         "onFormData"?: (event: JeFormCustomEvent<Record<string, any>>) => void;
-    }
-    interface JeFrequencyMonitor {
     }
     interface JeGrid {
     }
@@ -1673,8 +1675,6 @@ declare namespace LocalJSX {
     }
     interface JeLabel {
         "required"?: boolean;
-    }
-    interface JeLevelMeter {
     }
     interface JeLink {
         /**
@@ -1991,6 +1991,8 @@ declare namespace LocalJSX {
     }
     interface JeStack {
     }
+    interface JeSynth {
+    }
     interface JeTab {
         /**
           * @default false
@@ -2204,8 +2206,6 @@ declare namespace LocalJSX {
         "selection"?: 'single' | 'multiple' | 'leaf';
         "value"?: string | string[];
     }
-    interface JeWaveform {
-    }
     interface JeWizard {
         "onFinish"?: (event: JeWizardCustomEvent<void>) => void;
         "onStepChange"?: (event: JeWizardCustomEvent<number>) => void;
@@ -2217,7 +2217,6 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "je-accordion": JeAccordion;
         "je-alert": JeAlert;
-        "je-audio-ruler": JeAudioRuler;
         "je-branch": JeBranch;
         "je-breadcrumb": JeBreadcrumb;
         "je-breadcrumbs": JeBreadcrumbs;
@@ -2227,20 +2226,21 @@ declare namespace LocalJSX {
         "je-card": JeCard;
         "je-checkbox": JeCheckbox;
         "je-color": JeColor;
+        "je-comp": JeComp;
         "je-control": JeControl;
         "je-datepicker": JeDatepicker;
+        "je-daw": JeDaw;
         "je-details": JeDetails;
         "je-discard-form": JeDiscardForm;
         "je-divider": JeDivider;
         "je-dropzone": JeDropzone;
+        "je-eq": JeEq;
         "je-form": JeForm;
-        "je-frequency-monitor": JeFrequencyMonitor;
         "je-grid": JeGrid;
         "je-icon": JeIcon;
         "je-item": JeItem;
         "je-knob": JeKnob;
         "je-label": JeLabel;
-        "je-level-meter": JeLevelMeter;
         "je-link": JeLink;
         "je-list": JeList;
         "je-loading": JeLoading;
@@ -2264,6 +2264,7 @@ declare namespace LocalJSX {
         "je-split-panel": JeSplitPanel;
         "je-split-view": JeSplitView;
         "je-stack": JeStack;
+        "je-synth": JeSynth;
         "je-tab": JeTab;
         "je-tabs": JeTabs;
         "je-textfield": JeTextfield;
@@ -2271,7 +2272,6 @@ declare namespace LocalJSX {
         "je-toolbar": JeToolbar;
         "je-tooltip": JeTooltip;
         "je-tree": JeTree;
-        "je-waveform": JeWaveform;
         "je-wizard": JeWizard;
     }
 }
@@ -2281,7 +2281,6 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "je-accordion": LocalJSX.JeAccordion & JSXBase.HTMLAttributes<HTMLJeAccordionElement>;
             "je-alert": LocalJSX.JeAlert & JSXBase.HTMLAttributes<HTMLJeAlertElement>;
-            "je-audio-ruler": LocalJSX.JeAudioRuler & JSXBase.HTMLAttributes<HTMLJeAudioRulerElement>;
             "je-branch": LocalJSX.JeBranch & JSXBase.HTMLAttributes<HTMLJeBranchElement>;
             "je-breadcrumb": LocalJSX.JeBreadcrumb & JSXBase.HTMLAttributes<HTMLJeBreadcrumbElement>;
             "je-breadcrumbs": LocalJSX.JeBreadcrumbs & JSXBase.HTMLAttributes<HTMLJeBreadcrumbsElement>;
@@ -2291,20 +2290,21 @@ declare module "@stencil/core" {
             "je-card": LocalJSX.JeCard & JSXBase.HTMLAttributes<HTMLJeCardElement>;
             "je-checkbox": LocalJSX.JeCheckbox & JSXBase.HTMLAttributes<HTMLJeCheckboxElement>;
             "je-color": LocalJSX.JeColor & JSXBase.HTMLAttributes<HTMLJeColorElement>;
+            "je-comp": LocalJSX.JeComp & JSXBase.HTMLAttributes<HTMLJeCompElement>;
             "je-control": LocalJSX.JeControl & JSXBase.HTMLAttributes<HTMLJeControlElement>;
             "je-datepicker": LocalJSX.JeDatepicker & JSXBase.HTMLAttributes<HTMLJeDatepickerElement>;
+            "je-daw": LocalJSX.JeDaw & JSXBase.HTMLAttributes<HTMLJeDawElement>;
             "je-details": LocalJSX.JeDetails & JSXBase.HTMLAttributes<HTMLJeDetailsElement>;
             "je-discard-form": LocalJSX.JeDiscardForm & JSXBase.HTMLAttributes<HTMLJeDiscardFormElement>;
             "je-divider": LocalJSX.JeDivider & JSXBase.HTMLAttributes<HTMLJeDividerElement>;
             "je-dropzone": LocalJSX.JeDropzone & JSXBase.HTMLAttributes<HTMLJeDropzoneElement>;
+            "je-eq": LocalJSX.JeEq & JSXBase.HTMLAttributes<HTMLJeEqElement>;
             "je-form": LocalJSX.JeForm & JSXBase.HTMLAttributes<HTMLJeFormElement>;
-            "je-frequency-monitor": LocalJSX.JeFrequencyMonitor & JSXBase.HTMLAttributes<HTMLJeFrequencyMonitorElement>;
             "je-grid": LocalJSX.JeGrid & JSXBase.HTMLAttributes<HTMLJeGridElement>;
             "je-icon": LocalJSX.JeIcon & JSXBase.HTMLAttributes<HTMLJeIconElement>;
             "je-item": LocalJSX.JeItem & JSXBase.HTMLAttributes<HTMLJeItemElement>;
             "je-knob": LocalJSX.JeKnob & JSXBase.HTMLAttributes<HTMLJeKnobElement>;
             "je-label": LocalJSX.JeLabel & JSXBase.HTMLAttributes<HTMLJeLabelElement>;
-            "je-level-meter": LocalJSX.JeLevelMeter & JSXBase.HTMLAttributes<HTMLJeLevelMeterElement>;
             "je-link": LocalJSX.JeLink & JSXBase.HTMLAttributes<HTMLJeLinkElement>;
             "je-list": LocalJSX.JeList & JSXBase.HTMLAttributes<HTMLJeListElement>;
             "je-loading": LocalJSX.JeLoading & JSXBase.HTMLAttributes<HTMLJeLoadingElement>;
@@ -2328,6 +2328,7 @@ declare module "@stencil/core" {
             "je-split-panel": LocalJSX.JeSplitPanel & JSXBase.HTMLAttributes<HTMLJeSplitPanelElement>;
             "je-split-view": LocalJSX.JeSplitView & JSXBase.HTMLAttributes<HTMLJeSplitViewElement>;
             "je-stack": LocalJSX.JeStack & JSXBase.HTMLAttributes<HTMLJeStackElement>;
+            "je-synth": LocalJSX.JeSynth & JSXBase.HTMLAttributes<HTMLJeSynthElement>;
             "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
             "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;
             "je-textfield": LocalJSX.JeTextfield & JSXBase.HTMLAttributes<HTMLJeTextfieldElement>;
@@ -2335,7 +2336,6 @@ declare module "@stencil/core" {
             "je-toolbar": LocalJSX.JeToolbar & JSXBase.HTMLAttributes<HTMLJeToolbarElement>;
             "je-tooltip": LocalJSX.JeTooltip & JSXBase.HTMLAttributes<HTMLJeTooltipElement>;
             "je-tree": LocalJSX.JeTree & JSXBase.HTMLAttributes<HTMLJeTreeElement>;
-            "je-waveform": LocalJSX.JeWaveform & JSXBase.HTMLAttributes<HTMLJeWaveformElement>;
             "je-wizard": LocalJSX.JeWizard & JSXBase.HTMLAttributes<HTMLJeWizardElement>;
         }
     }

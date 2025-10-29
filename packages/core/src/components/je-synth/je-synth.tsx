@@ -1,11 +1,11 @@
 import { Component, Host, h } from '@stencil/core';
 
 @Component({
-  tag: 'je-level-meter',
-  styleUrl: 'je-level-meter.css',
+  tag: 'je-synth',
+  styleUrl: 'je-synth.css',
   shadow: true,
 })
-export class JeLevelMeter {
+export class JeSynth {
   render() {
     return (
       <Host>

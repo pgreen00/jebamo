@@ -1,11 +1,11 @@
 import { Component, Host, h } from '@stencil/core';
 
 @Component({
-  tag: 'je-frequency-monitor',
-  styleUrl: 'je-frequency-monitor.css',
+  tag: 'je-comp',
+  styleUrl: 'je-comp.css',
   shadow: true,
 })
-export class JeFrequencyMonitor {
+export class JeComp {
   render() {
     return (
       <Host>

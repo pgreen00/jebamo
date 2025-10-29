@@ -1,6 +1,6 @@
 ---
-title: 'JeFrequencyMonitor | <je-frequency-monitor>'
-sidebar_label: 'Frequency Monitor'
+title: 'JeEq | <je-eq>'
+sidebar_label: 'Audio Equalizer'
 ---
 <!-- Auto Generated Below -->
 

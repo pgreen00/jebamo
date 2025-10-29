@@ -8,7 +8,6 @@ import type { Components } from 'jebamo/components';
 
 import { defineCustomElement as defineJeAccordion } from 'jebamo/components/je-accordion.js';
 import { defineCustomElement as defineJeAlert } from 'jebamo/components/je-alert.js';
-import { defineCustomElement as defineJeAudioRuler } from 'jebamo/components/je-audio-ruler.js';
 import { defineCustomElement as defineJeBranch } from 'jebamo/components/je-branch.js';
 import { defineCustomElement as defineJeBreadcrumb } from 'jebamo/components/je-breadcrumb.js';
 import { defineCustomElement as defineJeBreadcrumbs } from 'jebamo/components/je-breadcrumbs.js';
@@ -18,20 +17,21 @@ import { defineCustomElement as defineJeCalendar } from 'jebamo/components/je-ca
 import { defineCustomElement as defineJeCard } from 'jebamo/components/je-card.js';
 import { defineCustomElement as defineJeCheckbox } from 'jebamo/components/je-checkbox.js';
 import { defineCustomElement as defineJeColor } from 'jebamo/components/je-color.js';
+import { defineCustomElement as defineJeComp } from 'jebamo/components/je-comp.js';
 import { defineCustomElement as defineJeControl } from 'jebamo/components/je-control.js';
 import { defineCustomElement as defineJeDatepicker } from 'jebamo/components/je-datepicker.js';
+import { defineCustomElement as defineJeDaw } from 'jebamo/components/je-daw.js';
 import { defineCustomElement as defineJeDetails } from 'jebamo/components/je-details.js';
 import { defineCustomElement as defineJeDiscardForm } from 'jebamo/components/je-discard-form.js';
 import { defineCustomElement as defineJeDivider } from 'jebamo/components/je-divider.js';
 import { defineCustomElement as defineJeDropzone } from 'jebamo/components/je-dropzone.js';
+import { defineCustomElement as defineJeEq } from 'jebamo/components/je-eq.js';
 import { defineCustomElement as defineJeForm } from 'jebamo/components/je-form.js';
-import { defineCustomElement as defineJeFrequencyMonitor } from 'jebamo/components/je-frequency-monitor.js';
 import { defineCustomElement as defineJeGrid } from 'jebamo/components/je-grid.js';
 import { defineCustomElement as defineJeIcon } from 'jebamo/components/je-icon.js';
 import { defineCustomElement as defineJeItem } from 'jebamo/components/je-item.js';
 import { defineCustomElement as defineJeKnob } from 'jebamo/components/je-knob.js';
 import { defineCustomElement as defineJeLabel } from 'jebamo/components/je-label.js';
-import { defineCustomElement as defineJeLevelMeter } from 'jebamo/components/je-level-meter.js';
 import { defineCustomElement as defineJeLink } from 'jebamo/components/je-link.js';
 import { defineCustomElement as defineJeList } from 'jebamo/components/je-list.js';
 import { defineCustomElement as defineJeLoading } from 'jebamo/components/je-loading.js';
@@ -55,6 +55,7 @@ import { defineCustomElement as defineJeSelect } from 'jebamo/components/je-sele
 import { defineCustomElement as defineJeSplitPanel } from 'jebamo/components/je-split-panel.js';
 import { defineCustomElement as defineJeSplitView } from 'jebamo/components/je-split-view.js';
 import { defineCustomElement as defineJeStack } from 'jebamo/components/je-stack.js';
+import { defineCustomElement as defineJeSynth } from 'jebamo/components/je-synth.js';
 import { defineCustomElement as defineJeTab } from 'jebamo/components/je-tab.js';
 import { defineCustomElement as defineJeTabs } from 'jebamo/components/je-tabs.js';
 import { defineCustomElement as defineJeTextfield } from 'jebamo/components/je-textfield.js';
@@ -62,7 +63,6 @@ import { defineCustomElement as defineJeToggle } from 'jebamo/components/je-togg
 import { defineCustomElement as defineJeToolbar } from 'jebamo/components/je-toolbar.js';
 import { defineCustomElement as defineJeTooltip } from 'jebamo/components/je-tooltip.js';
 import { defineCustomElement as defineJeTree } from 'jebamo/components/je-tree.js';
-import { defineCustomElement as defineJeWaveform } from 'jebamo/components/je-waveform.js';
 import { defineCustomElement as defineJeWizard } from 'jebamo/components/je-wizard.js';
 @ProxyCmp({
   defineCustomElementFn: defineJeAccordion
@@ -116,28 +116,6 @@ export declare interface JeAlert extends Components.JeAlert {
 
   dismiss: EventEmitter<CustomEvent<any>>;
 }
-
-
-@ProxyCmp({
-  defineCustomElementFn: defineJeAudioRuler
-})
-@Component({
-  selector: 'je-audio-ruler',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
-})
-export class JeAudioRuler {
-  protected el: HTMLJeAudioRulerElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-  }
-}
-
-
-export declare interface JeAudioRuler extends Components.JeAudioRuler {}
 
 
 @ProxyCmp({
@@ -358,6 +336,28 @@ export declare interface JeColor extends Components.JeColor {}
 
 
 @ProxyCmp({
+  defineCustomElementFn: defineJeComp
+})
+@Component({
+  selector: 'je-comp',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeComp {
+  protected el: HTMLJeCompElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeComp extends Components.JeComp {}
+
+
+@ProxyCmp({
   defineCustomElementFn: defineJeControl
 })
 @Component({
@@ -405,6 +405,28 @@ export declare interface JeDatepicker extends Components.JeDatepicker {
 
   valueChange: EventEmitter<CustomEvent<number>>;
 }
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineJeDaw
+})
+@Component({
+  selector: 'je-daw',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeDaw {
+  protected el: HTMLJeDawElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeDaw extends Components.JeDaw {}
 
 
 @ProxyCmp({
@@ -511,6 +533,28 @@ export declare interface JeDropzone extends Components.JeDropzone {
 
 
 @ProxyCmp({
+  defineCustomElementFn: defineJeEq
+})
+@Component({
+  selector: 'je-eq',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeEq {
+  protected el: HTMLJeEqElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeEq extends Components.JeEq {}
+
+
+@ProxyCmp({
   defineCustomElementFn: defineJeForm
 })
 @Component({
@@ -535,28 +579,6 @@ export declare interface JeForm extends Components.JeForm {
 
   formData: EventEmitter<CustomEvent<Record<string, any>>>;
 }
-
-
-@ProxyCmp({
-  defineCustomElementFn: defineJeFrequencyMonitor
-})
-@Component({
-  selector: 'je-frequency-monitor',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
-})
-export class JeFrequencyMonitor {
-  protected el: HTMLJeFrequencyMonitorElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-  }
-}
-
-
-export declare interface JeFrequencyMonitor extends Components.JeFrequencyMonitor {}
 
 
 @ProxyCmp({
@@ -669,28 +691,6 @@ export class JeLabel {
 
 
 export declare interface JeLabel extends Components.JeLabel {}
-
-
-@ProxyCmp({
-  defineCustomElementFn: defineJeLevelMeter
-})
-@Component({
-  selector: 'je-level-meter',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
-})
-export class JeLevelMeter {
-  protected el: HTMLJeLevelMeterElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-  }
-}
-
-
-export declare interface JeLevelMeter extends Components.JeLevelMeter {}
 
 
 @ProxyCmp({
@@ -1282,6 +1282,28 @@ export declare interface JeStack extends Components.JeStack {}
 
 
 @ProxyCmp({
+  defineCustomElementFn: defineJeSynth
+})
+@Component({
+  selector: 'je-synth',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeSynth {
+  protected el: HTMLJeSynthElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeSynth extends Components.JeSynth {}
+
+
+@ProxyCmp({
   defineCustomElementFn: defineJeTab,
   inputs: ['active', 'value']
 })
@@ -1464,28 +1486,6 @@ export declare interface JeTree extends Components.JeTree {
 
   valueChange: EventEmitter<CustomEvent<string | string[]>>;
 }
-
-
-@ProxyCmp({
-  defineCustomElementFn: defineJeWaveform
-})
-@Component({
-  selector: 'je-waveform',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
-})
-export class JeWaveform {
-  protected el: HTMLJeWaveformElement;
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-  }
-}
-
-
-export declare interface JeWaveform extends Components.JeWaveform {}
 
 
 @ProxyCmp({

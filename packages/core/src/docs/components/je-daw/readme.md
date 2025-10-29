@@ -1,6 +1,6 @@
 ---
-title: 'JeWaveform | <je-waveform>'
-sidebar_label: 'Waveform'
+title: 'JeDaw | <je-daw>'
+sidebar_label: 'Audio Workspace'
 ---
 <!-- Auto Generated Below -->
 
