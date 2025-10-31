@@ -22,6 +22,9 @@ summary {
 
 je-icon {
   transition: rotate 250ms ease-in-out;
+  &.open {
+    rotate: 90deg;
+  }
 }
 
 [part=content-container] {
@@ -31,19 +34,13 @@ je-icon {
   padding: 0;
   opacity: 0;
   transition: all 250ms ease-out;
-}
-
-[part=content] {
-  overflow: hidden;
-}
-
-:host([open]) {
-  [part=content-container] {
+  &.open {
     grid-template-rows: 1fr;
     opacity: 1;
     padding: var(--content-open-padding);
   }
-  je-icon {
-    rotate: 90deg;
-  }
+}
+
+[part=content] {
+  overflow: hidden;
 }

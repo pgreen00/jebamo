@@ -16,6 +16,32 @@ export { Placement } from "@floating-ui/dom";
 export { EditorChangeEvent } from "./components/je-rich-text/je-rich-text";
 export { FormatterFn, InputTransformer, ValidationFn } from "./components/je-textfield/je-textfield";
 export namespace Components {
+    /**
+     * Accordions are wrappers for [JeDetails](../je-details). When an inner detail is opened, the others are automatically closed.
+     * The implementation follows the [aria implementation of an accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/).
+     * ::: live-code-demo
+     * ```html
+     * <je-card class="je-radius-lg je-elevation-lg je-padding">
+     *  <je-accordion>
+     *    <je-details summary="Detail A" open>
+     *      Inner content
+     *    </je-details>
+     *    <je-divider></je-divider>
+     *    <je-details summary="Detail B">
+     *      Inner content
+     *    </je-details>
+     *    <je-divider></je-divider>
+     *    <je-details summary="Detail C">
+     *      Inner content
+     *    </je-details>
+     *  </je-accordion>
+     * </je-card>
+     * ```
+     * ```javascript
+     * console.log('yolo')
+     * ```
+     * :::
+     */
     interface JeAccordion {
     }
     interface JeAlert {
@@ -827,6 +853,32 @@ export interface JeWizardCustomEvent<T> extends CustomEvent<T> {
     target: HTMLJeWizardElement;
 }
 declare global {
+    /**
+     * Accordions are wrappers for [JeDetails](../je-details). When an inner detail is opened, the others are automatically closed.
+     * The implementation follows the [aria implementation of an accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/).
+     * ::: live-code-demo
+     * ```html
+     * <je-card class="je-radius-lg je-elevation-lg je-padding">
+     *  <je-accordion>
+     *    <je-details summary="Detail A" open>
+     *      Inner content
+     *    </je-details>
+     *    <je-divider></je-divider>
+     *    <je-details summary="Detail B">
+     *      Inner content
+     *    </je-details>
+     *    <je-divider></je-divider>
+     *    <je-details summary="Detail C">
+     *      Inner content
+     *    </je-details>
+     *  </je-accordion>
+     * </je-card>
+     * ```
+     * ```javascript
+     * console.log('yolo')
+     * ```
+     * :::
+     */
     interface HTMLJeAccordionElement extends Components.JeAccordion, HTMLStencilElement {
     }
     var HTMLJeAccordionElement: {
@@ -1434,6 +1486,32 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    /**
+     * Accordions are wrappers for [JeDetails](../je-details). When an inner detail is opened, the others are automatically closed.
+     * The implementation follows the [aria implementation of an accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/).
+     * ::: live-code-demo
+     * ```html
+     * <je-card class="je-radius-lg je-elevation-lg je-padding">
+     *  <je-accordion>
+     *    <je-details summary="Detail A" open>
+     *      Inner content
+     *    </je-details>
+     *    <je-divider></je-divider>
+     *    <je-details summary="Detail B">
+     *      Inner content
+     *    </je-details>
+     *    <je-divider></je-divider>
+     *    <je-details summary="Detail C">
+     *      Inner content
+     *    </je-details>
+     *  </je-accordion>
+     * </je-card>
+     * ```
+     * ```javascript
+     * console.log('yolo')
+     * ```
+     * :::
+     */
     interface JeAccordion {
     }
     interface JeAlert {
@@ -2279,6 +2357,32 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            /**
+             * Accordions are wrappers for [JeDetails](../je-details). When an inner detail is opened, the others are automatically closed.
+             * The implementation follows the [aria implementation of an accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/).
+             * ::: live-code-demo
+             * ```html
+             * <je-card class="je-radius-lg je-elevation-lg je-padding">
+             *  <je-accordion>
+             *    <je-details summary="Detail A" open>
+             *      Inner content
+             *    </je-details>
+             *    <je-divider></je-divider>
+             *    <je-details summary="Detail B">
+             *      Inner content
+             *    </je-details>
+             *    <je-divider></je-divider>
+             *    <je-details summary="Detail C">
+             *      Inner content
+             *    </je-details>
+             *  </je-accordion>
+             * </je-card>
+             * ```
+             * ```javascript
+             * console.log('yolo')
+             * ```
+             * :::
+             */
             "je-accordion": LocalJSX.JeAccordion & JSXBase.HTMLAttributes<HTMLJeAccordionElement>;
             "je-alert": LocalJSX.JeAlert & JSXBase.HTMLAttributes<HTMLJeAlertElement>;
             "je-branch": LocalJSX.JeBranch & JSXBase.HTMLAttributes<HTMLJeBranchElement>;

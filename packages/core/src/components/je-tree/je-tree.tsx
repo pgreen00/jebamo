@@ -21,11 +21,15 @@ export class JeTree {
   }
 
   componentWillRender() {
-    const { branches, selection, indentation } = this;
+    const { branches, selection, indentation, value } = this;
     branches.forEach(branch => {
       branch.selection = selection;
       branch.indentation = indentation;
     })
+    const selectedBranch = branches.find(b => value == (b.value ?? b.label))
+    if (selectedBranch && !selectedBranch.selected) {
+      this.onClick({target: selectedBranch} as any)
+    }
   }
 
   @Watch('value')

@@ -18,6 +18,5 @@
     "sourceMap": true,
     "declarationDir": "./dist/types"
   },
-  "include": ["src/lib", "src/index.ts"],
-  "exclude": ["node_modules"]
+  "include": ["src"]
 }

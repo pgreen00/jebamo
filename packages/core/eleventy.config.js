@@ -3,13 +3,15 @@ import anchor from "markdown-it-anchor"
 import toc from "markdown-it-table-of-contents"
 import multimdTable from "markdown-it-multimd-table";
 import { load } from "cheerio"
+import markdownItContainer from 'markdown-it-container';
+import syntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight'
 
 export default async function (eleventyConfig) {
   let markdownLib = markdownIt({
     html: true,
     breaks: true,
-    linkify: true,
-    typographer: true
+    //linkify: true,
+    //typographer: true
   }).use(anchor, {
     permalink: anchor.permalink.headerLink()
   }).use(toc, {
@@ -20,6 +22,43 @@ export default async function (eleventyConfig) {
     headerless: true,
     multibody: true
   });
+
+  eleventyConfig.addPlugin(syntaxHighlight);
+
+  markdownLib.use(markdownItContainer, 'live-code-demo', {
+    validate: function(params) {
+      return params.trim() === 'live-code-demo';
+    },
+    render: function(tokens, idx) {
+      if (tokens[idx].nesting === 1) {
+        // Opening tag - process the content and mark tokens as consumed
+        const content = extractAndMarkCodeBlocks(tokens, idx);
+        return renderLiveDemo(content);
+      } else {
+        // Closing tag
+        return '';
+      }
+    }
+  });
+
+  // Override fence rendering to skip marked tokens
+  const originalFenceRule = markdownLib.renderer.rules.fence || function(tokens, idx, options, env, renderer) {
+    return renderer.renderToken(tokens, idx, options);
+  };
+
+  markdownLib.renderer.rules.fence = function(tokens, idx, options, env, renderer) {
+    const token = tokens[idx];
+    const info = token.info ? token.info.trim() : '';
+    const langName = info.split(/\s+/g)[0];
+    const content = token.content;
+
+    if (langName === 'mermaid') {
+      return `<div class="mermaid">${content}</div>`
+    } else {
+      return originalFenceRule(tokens, idx, options, env, renderer);
+    }
+  };
+
   eleventyConfig.setLibrary("md", markdownLib);
   eleventyConfig.setIncludesDirectory("includes");
   eleventyConfig.addGlobalData('layout', 'default');
@@ -124,3 +163,47 @@ export default async function (eleventyConfig) {
     }
   }
 };
+
+function extractAndMarkCodeBlocks(tokens, startIdx) {
+  const codeBlocks = [];
+  let i = startIdx + 1;
+
+  while (i < tokens.length && tokens[i].nesting !== -1) {
+    if (tokens[i].type === 'fence') {
+      const info = tokens[i].info ? tokens[i].info.trim() : '';
+      const language = info.split(/\s+/g)[0];
+      codeBlocks.push({
+        language: language,
+        content: tokens[i].content
+      });
+
+      // Mark this token as consumed so it won't render normally
+      tokens[i].consumed = true;
+    }
+    i++;
+  }
+
+  return codeBlocks;
+}
+
+function renderLiveDemo(codeBlocks) {
+  let htmlContent = '';
+  let jsContent = '';
+
+  codeBlocks.forEach(block => {
+    if (block.language === 'html') {
+      htmlContent += block.content;
+    } else if (block.language === 'javascript') {
+      jsContent += block.content;
+    }
+  });
+
+  return `
+    <div class="live-code-demo">
+      <div class="demo-result">
+        ${htmlContent}
+        ${jsContent ? `<script type="module">${jsContent}</script>` : ''}
+      </div>
+    </div>
+  `;
+}

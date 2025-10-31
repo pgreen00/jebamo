@@ -20,7 +20,7 @@
     "build": "stencil build && eleventy",
     "test": "playwright test",
     "generate": "stencil generate",
-    "watch": "chokidar 'src/**' '*.js' -c 'npm run build' --initial",
+    "watch": "chokidar 'src/**' -c 'npm run build' --initial",
     "serve": "live-server www --port=3000 --no-browser"
   },
   "dependencies": {
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
     "@playwright/test": "^1.55.1",
     "@stencil/angular-output-target": "^1.0.0",
     "@stencil/core": "^4.7.0",
@@ -41,6 +42,7 @@
     "concurrently": "^9.2.1",
     "live-server": "^1.2.2",
     "markdown-it-anchor": "^9.2.0",
+    "markdown-it-container": "^4.0.0",
     "markdown-it-multimd-table": "^4.2.3",
     "markdown-it-table-of-contents": "^1.1.0",
     "mermaid": "^11.12.0",

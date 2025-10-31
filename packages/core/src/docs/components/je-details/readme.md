@@ -36,17 +36,14 @@ sidebar_label: 'Details'
 
 ### Depends on
 
-- [je-icon](../je-icon)
 - [je-toolbar](../je-toolbar)
-- [je-button](../je-button)
+- [je-icon](../je-icon)
 
 ### Graph
 ```mermaid
 graph TD;
-  je-details --> je-icon
   je-details --> je-toolbar
-  je-details --> je-button
-  je-button --> je-loading
+  je-details --> je-icon
   style je-details fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

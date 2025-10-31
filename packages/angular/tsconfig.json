@@ -2,11 +2,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "paths": {
-      "jebamo-angular": [
-        "dist"
-      ]
-    },
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
@@ -25,11 +20,10 @@
       "ES2022",
       "dom"
     ],
-    "outDir": "./out-tsc/lib",
+    "outDir": "./out-tsc",
     "declaration": true,
     "declarationMap": false,
-    "inlineSources": true,
-    "types": []
+    "inlineSources": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -37,8 +31,5 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
     "compilationMode": "partial"
-  },
-  "exclude": [
-    "**/*.spec.ts"
-  ]
+  }
 }

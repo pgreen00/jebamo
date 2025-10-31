@@ -45,7 +45,6 @@ sidebar_label: 'Button'
 
  - [je-alert](../je-alert)
  - [je-datepicker](../je-datepicker)
- - [je-details](../je-details)
  - [je-overlay-content](../je-overlay-content)
  - [je-textfield](../je-textfield)
 
@@ -59,7 +58,6 @@ graph TD;
   je-button --> je-loading
   je-alert --> je-button
   je-datepicker --> je-button
-  je-details --> je-button
   je-overlay-content --> je-button
   je-textfield --> je-button
   style je-button fill:#f9f,stroke:#333,stroke-width:4px

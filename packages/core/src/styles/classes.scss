@@ -4,7 +4,7 @@
 @use 'font';
 
 @each $name, $value in elevation.$elevation {
-  .je-elevation-#{$name} { box-shadow: var(--je-elevation-#{$name}); }
+  .je-elevation-#{$name} { box-shadow: var(--je-shadow-#{$name}); }
 }
 
 @each $name, $value in radius.$radius {
