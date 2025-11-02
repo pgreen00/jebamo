@@ -1,6 +1,6 @@
 :host {
   --thickness: 1px;
-  --color: var(--je-neutral-500);
+  --color: light-dark(var(--je-neutral-500), var(--je-neutral-800));
 
   background-color: var(--color);
 }
