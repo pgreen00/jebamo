@@ -23,4 +23,4 @@ sidebar_label: 'Toggle'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

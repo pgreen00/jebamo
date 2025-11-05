@@ -26,4 +26,4 @@ sidebar_label: 'Link'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

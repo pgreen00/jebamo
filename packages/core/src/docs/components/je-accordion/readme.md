@@ -9,7 +9,7 @@ layout: docs.njk
 
 ## Overview
 
-Accordions are wrappers for [JeDetails](../je-details). When an inner detail is opened, the others are automatically closed.
+Accordions are wrappers for <je-link href="../je-details">JeDetails</je-link>. When an inner detail is opened, the others are automatically closed.
 The implementation follows the [aria implementation of an accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/).
 
 ## Usage
@@ -38,4 +38,4 @@ console.log("yolo");
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

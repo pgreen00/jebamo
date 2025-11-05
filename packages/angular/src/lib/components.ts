@@ -88,7 +88,7 @@ export declare interface JeAccordion extends Components.JeAccordion {}
 
 @ProxyCmp({
   defineCustomElementFn: defineJeAlert,
-  inputs: ['closable', 'color', 'duration', 'header', 'icon', 'message', 'open', 'progress'],
+  inputs: ['closable', 'color', 'duration', 'header', 'icon', 'message', 'open'],
   methods: ['show', 'hide', 'didDismiss']
 })
 @Component({
@@ -96,7 +96,7 @@ export declare interface JeAccordion extends Components.JeAccordion {}
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['closable', 'color', 'duration', 'header', 'icon', 'message', 'open', 'progress'],
+  inputs: ['closable', 'color', 'duration', 'header', 'icon', 'message', 'open'],
   outputs: ['present', 'dismiss'],
 })
 export class JeAlert {

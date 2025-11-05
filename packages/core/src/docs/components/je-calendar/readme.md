@@ -7,4 +7,4 @@ sidebar_label: 'Calendar'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

@@ -15,4 +15,4 @@ sidebar_label: 'Card'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

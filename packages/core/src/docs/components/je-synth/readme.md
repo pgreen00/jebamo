@@ -7,4 +7,4 @@ sidebar_label: 'Waveform Synthesizer'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

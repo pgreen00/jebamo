@@ -15,4 +15,4 @@ sidebar_label: 'Radio Button'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

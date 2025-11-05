@@ -15,7 +15,7 @@ export default async function (eleventyConfig) {
   }).use(anchor, {
     permalink: anchor.permalink.headerLink()
   }).use(toc, {
-    includeLevel: [1, 2, 3]
+    includeLevel: [1, 2]
   }).use(multimdTable, {
     multiline: true,
     rowspan: true,
@@ -57,7 +57,7 @@ export default async function (eleventyConfig) {
               ${html?.content ?? ''}
               ${js ? `<script type="module">${js.content}</script>` : ''}
             </div>
-            <je-divider></je-divider>
+            <je-divider spacing="none"></je-divider>
             <div class="je-padding">
             <je-tabs id="${id}-tabs" value="HTML">
               ${html ? '<je-tab>HTML</je-tab>' : ''}

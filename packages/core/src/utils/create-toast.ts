@@ -5,7 +5,6 @@ export type CreateToastOptions = {
   message?: string;
   color?: Color;
   duration?: number;
-  progress?: boolean;
   icon?: string;
   closable?: boolean;
   position?: 'top' | 'bottom' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end';
@@ -22,7 +21,6 @@ export const createToast = (options: CreateToastOptions) => {
   const toast = document.createElement('je-alert');
   toast.color = options.color;
   toast.duration = options.duration;
-  toast.progress = options.progress;
   toast.closable = options.closable;
   toast.header = options.header;
   toast.message = options.message;

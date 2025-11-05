@@ -7,4 +7,4 @@ sidebar_label: 'Grid'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

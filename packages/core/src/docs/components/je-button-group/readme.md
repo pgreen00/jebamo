@@ -7,4 +7,4 @@ sidebar_label: 'Button Group'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

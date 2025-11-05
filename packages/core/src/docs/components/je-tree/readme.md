@@ -23,4 +23,4 @@ sidebar_label: 'Tree'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

@@ -7,4 +7,4 @@ sidebar_label: 'Audio Equalizer'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

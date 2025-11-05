@@ -23,6 +23,7 @@
   @each $name, $value in font.$weight {
     --je-font-#{$name}: #{$value};
   }
+
   @each $name, $value in font.$size {
     --je-font-#{$name}: #{$value};
   }
@@ -45,6 +46,98 @@
   //transition
   @each $name, $value in transition.$transition {
     --je-transition-#{$name}: #{$value};
+  }
+}
+
+html:has(je-page) {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  color-scheme: light dark;
+  box-sizing: border-box;
+
+  &.je-theme-light {
+    color-scheme: light;
+  }
+
+  &.je-theme-dark {
+    color-scheme: dark;
+  }
+
+  body {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+    color: light-dark(var(--je-neutral-900), var(--je-neutral-50));
+    background-color: light-dark(var(--je-neutral-50), var(--je-neutral-900));
+    grid-template:
+      "head head head" auto
+      "left body right" 1fr
+      "foot foot foot" auto / auto 1fr auto;
+    --border-color: light-dark(var(--je-neutral-400), var(--je-neutral-800));
+  }
+
+  je-page {
+    display: contents;
+    background-color: inherit;
+
+    &>header {
+      background-color: inherit;
+      flex-shrink: 0;
+      grid-area: head;
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      box-sizing: border-box;
+      padding: var(--je-spacing-xs) var(--je-spacing-sm);
+      border-bottom: solid 1px var(--border-color);
+    }
+
+    &>main {
+      grid-area: body;
+      box-sizing: border-box;
+      padding: var(--je-spacing-xs) var(--je-spacing-sm);
+    }
+
+    &>footer {
+      background-color: inherit;
+      position: sticky;
+      bottom: 0;
+      grid-area: foot;
+      flex-shrink: 0;
+      z-index: 10;
+      box-sizing: border-box;
+      border-top: solid 1px var(--border-color);
+      padding: var(--je-spacing-xs) var(--je-spacing-sm);
+    }
+
+    &>aside {
+      position: sticky;
+      top: var(--head-height, 0px);
+      height: 100%;
+      max-height: calc(100vh - var(--head-height, 0px) - var(--foot-height, 0px));
+      overflow-y: auto;
+      overflow-x: hidden;
+      box-sizing: border-box;
+      scrollbar-width: thin;
+    }
+
+    &>aside:not(main+aside) {
+      grid-area: left;
+      border-right: solid 1px var(--border-color);
+    }
+
+    &>main+aside {
+      grid-area: right;
+      border-left: solid 1px var(--border-color);
+    }
   }
 }
 
@@ -96,79 +189,5 @@
     left: var(--je-spacing-lg);
     bottom: var(--je-spacing-lg);
     max-width: calc(100% - calc(var(--je-spacing-lg) * 2));
-  }
-}
-
-body:has(je-page) {
-  display: grid;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  box-sizing: border-box;
-  color: light-dark(var(--je-neutral-900), var(--je-neutral-50));
-  background-color: light-dark(var(--je-neutral-50), var(--je-neutral-900));
-  grid-template:
-    "head head head" auto
-    "left body right" 1fr
-    "foot foot foot" auto / auto 1fr auto;
-  --border-color: light-dark(var(--je-neutral-400), var(--je-neutral-800));
-
-  je-page {
-    display: contents;
-    background-color: inherit;
-  }
-
-  je-page>header {
-    background-color: inherit;
-    flex-shrink: 0;
-    grid-area: head;
-    position: sticky;
-    z-index: 10;
-    top: 0;
-    box-sizing: border-box;
-    padding: var(--je-spacing-xs) var(--je-spacing-sm);
-    border-bottom: solid 1px var(--border-color);
-  }
-
-  je-page>main {
-    grid-area: body;
-    box-sizing: border-box;
-    padding: var(--je-spacing-xs) var(--je-spacing-sm);
-  }
-
-  je-page>footer {
-    background-color: inherit;
-    position: sticky;
-    bottom: 0;
-    grid-area: foot;
-    flex-shrink: 0;
-    z-index: 10;
-    box-sizing: border-box;
-    border-top: solid 1px var(--border-color);
-    padding: var(--je-spacing-xs) var(--je-spacing-sm);
-  }
-
-  je-page>aside {
-    position: sticky;
-    top: var(--head-height, 0px);
-    height: 100%;
-    max-height: calc(100vh - var(--head-height, 0px) - var(--foot-height, 0px));
-    overflow-y: auto;
-    overflow-x: hidden;
-    box-sizing: border-box;
-    scrollbar-width: thin;
-  }
-
-  je-page>aside:not(main+aside) {
-    grid-area: left;
-    border-right: solid 1px var(--border-color);
-  }
-
-  je-page>main+aside {
-    grid-area: right;
-    border-left: solid 1px var(--border-color);
   }
 }

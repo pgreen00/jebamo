@@ -14,4 +14,4 @@ sidebar_label: 'Form'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

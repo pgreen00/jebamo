@@ -7,4 +7,4 @@ sidebar_label: 'Breadcrumb'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

@@ -7,4 +7,4 @@ sidebar_label: 'Page'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

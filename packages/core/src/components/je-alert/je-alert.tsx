@@ -1,4 +1,4 @@
-import { Component, Listen, Prop, h, Element, Host, State, Event, EventEmitter, Method, forceUpdate, Fragment } from '@stencil/core';
+import { Component, Listen, Prop, h, Element, Host, State, Event, EventEmitter, Method, Fragment, Watch } from '@stencil/core';
 import { Color } from '../../utils/color';
 
 @Component({
@@ -15,16 +15,39 @@ export class JeAlert {
   @Prop() header?: string;
   @Prop() message?: string;
   @Prop() closable = false;
-  @Prop({ reflect: true }) color: Color = 'primary';
+  @Prop({ reflect: true }) color?: Color;
   @Prop() duration = 0;
-  @Prop() progress = false;
-  @Prop({ mutable: true }) open = false;
+  @Prop({ mutable: true, reflect: true }) open = false;
   @Event() present: EventEmitter;
   @Event() dismiss: EventEmitter;
 
-  componentWillRender() {
-    if (this.open) {
-      this.el.classList.add('visible');
+  @Watch('open')
+  onOpenChange(open: boolean) {
+    if (open) {
+      const animation = this.el.animate({
+        opacity: [0, 1],
+        transform: ['scale(0%)', 'scale(100%)'],
+        display: ['none', 'grid']
+      }, 600)
+      animation.onfinish = () => {
+        this.paused = false;
+        this.present.emit();
+      }
+    } else {
+      const animation = this.el.animate({
+        opacity: [1, 0],
+        transform: ['scale(100%)', 'scale(0%)'],
+        display: ['none', 'grid']
+      }, 600)
+      animation.onfinish = () => {
+        this.paused = true;
+        this.dismiss.emit({
+          role: this.role ?? 'manualDismiss',
+          data: this.data
+        });
+        this.role = undefined;
+        this.data = undefined;
+      }
     }
   }
 
@@ -47,24 +70,6 @@ export class JeAlert {
     });
   }
 
-  @Listen('animationend')
-  onAnimationEnd(e: AnimationEvent) {
-    if (e.animationName == 'fadeOut' && e.target == this.el) {
-      this.el.classList.remove('visible');
-      this.paused = true;
-      this.dismiss.emit({
-        role: this.role ?? 'manualDismiss',
-        data: this.data
-      });
-      this.role = undefined;
-      this.data = undefined;
-    }
-    if (e.animationName == 'fadeIn' && e.target == this.el) {
-      this.paused = false;
-      this.present.emit();
-    }
-  }
-
   @Listen('mouseenter')
   onMouseEnter() {
     if (this.open)
@@ -77,17 +82,12 @@ export class JeAlert {
       this.paused = false;
   }
 
-  @Listen('slotchange')
-  onSlotChange() {
-    forceUpdate(this.el)
-  }
-
   render() {
     const hasHeader = !!this.header || !!this.el.querySelector('[slot="header"]')
     const hasMessage = !!this.message || !!this.el.querySelector('[slot="message"]')
     const hasButtons = !!this.el.querySelector('[slot="buttons"]')
     return (
-      <Host class={{ open: this.open }}>
+      <Host>
         <div class="border"></div>
 
         <div class="cell top-left">
@@ -129,7 +129,7 @@ export class JeAlert {
         {this.duration > 0 && (
           <div
             onAnimationEnd={() => this.hide('autoDismiss')}
-            class={{ progress: true, running: this.open && !this.paused, visible: this.progress }}
+            class={{ progress: true, running: this.open && !this.paused }}
             style={{ animationDuration: `${this.duration}ms` }}
           ></div>
         )}

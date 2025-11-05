@@ -29,4 +29,4 @@ sidebar_label: 'Tabs'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

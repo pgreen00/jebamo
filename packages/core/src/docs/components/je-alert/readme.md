@@ -6,18 +6,66 @@ layout: docs.njk
 <!-- Auto Generated Below -->
 
 
+## Usage
+
+### Closable
+
+Adding the `closable` attribute will display a close icon in the top right that hides the alert on click.
+
+::: live-code-demo
+
+```html
+<je-alert
+  open
+  header="hello there"
+  message="f u"
+  closable
+  icon="home"
+></je-alert>
+```
+
+:::
+
+
+### Progress
+
+Set the `duration` attribute to have the alert close automatically after the specified amount of milliseconds. The timer will be paused if the user hovers their mouse over the alert, and will resume when the mouse leaves.
+
+::: live-code-demo
+
+```html
+<je-alert
+  id="progress-alert"
+  header="hello there"
+  duration="3000"
+  class="je-margin-bottom-sm"
+></je-alert>
+<je-button id="show-progress-alert-button">Open Alert</je-button>
+```
+
+```javascript
+const button = document.querySelector("#show-progress-alert-button");
+const alert = document.querySelector("#progress-alert");
+button.addEventListener("click", () => {
+  alert.open = true;
+});
+```
+
+:::
+
+
+
 ## Properties
 
 | Property   | Attribute  | Description | Type                                              | Default     |
 | ---------- | ---------- | ----------- | ------------------------------------------------- | ----------- |
 | `closable` | `closable` |             | `boolean`                                         | `false`     |
-| `color`    | `color`    |             | `"danger" \| "primary" \| "success" \| "warning"` | `'primary'` |
+| `color`    | `color`    |             | `"danger" \| "primary" \| "success" \| "warning"` | `undefined` |
 | `duration` | `duration` |             | `number`                                          | `0`         |
 | `header`   | `header`   |             | `string`                                          | `undefined` |
 | `icon`     | `icon`     |             | `string`                                          | `undefined` |
 | `message`  | `message`  |             | `string`                                          | `undefined` |
 | `open`     | `open`     |             | `boolean`                                         | `false`     |
-| `progress` | `progress` |             | `boolean`                                         | `false`     |
 
 
 ## Events
@@ -94,4 +142,4 @@ graph TD;
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

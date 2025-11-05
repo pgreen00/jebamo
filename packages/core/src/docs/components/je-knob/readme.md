@@ -7,4 +7,4 @@ sidebar_label: 'Knob'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

@@ -7,4 +7,4 @@ sidebar_label: 'Control'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

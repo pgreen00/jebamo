@@ -7,4 +7,4 @@ sidebar_label: 'Reorder List'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

@@ -7,4 +7,4 @@ sidebar_label: 'Midi Controller'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

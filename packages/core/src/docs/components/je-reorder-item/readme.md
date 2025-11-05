@@ -7,4 +7,4 @@ sidebar_label: 'Reorder Item'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

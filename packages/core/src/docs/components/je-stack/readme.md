@@ -7,4 +7,4 @@ sidebar_label: 'Stack'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

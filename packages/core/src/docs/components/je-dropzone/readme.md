@@ -14,4 +14,4 @@ sidebar_label: 'Dropzone'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

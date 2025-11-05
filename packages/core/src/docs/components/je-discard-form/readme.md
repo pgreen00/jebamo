@@ -7,4 +7,4 @@ sidebar_label: 'Discard Form'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

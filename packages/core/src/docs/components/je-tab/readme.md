@@ -15,4 +15,4 @@ sidebar_label: 'Tab'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

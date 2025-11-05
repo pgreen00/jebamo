@@ -22,4 +22,4 @@ sidebar_label: 'Placeholder'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

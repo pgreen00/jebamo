@@ -15,4 +15,4 @@ sidebar_label: 'Divider'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

@@ -7,4 +7,4 @@ sidebar_label: 'Range'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

@@ -6,6 +6,10 @@
   <link rel="icon" type="image/svg+xml" href="/hex-tag.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jebamo</title>
+  <style>
+    @view-transition{navigation: auto;
+    }
+  </style>
   <link rel="stylesheet" href="/build/jebamo/styles/core.css" />
   <link rel="stylesheet" href="/build/jebamo/styles/classes.css" />
   <link rel="stylesheet" href="/md-tables.css" />
@@ -99,9 +103,10 @@
 
 <script>
   function setTheme(theme) {
+    const htmlEl = document.querySelector('html')
     localStorage.setItem('jebamo__theme', theme ?? 'system')
-    document.body.classList.toggle('light', theme === 'light')
-    document.body.classList.toggle('dark', theme === 'dark')
+    htmlEl.classList.toggle('je-theme-light', theme === 'light')
+    htmlEl.classList.toggle('je-theme-dark', theme === 'dark')
   }
   setTheme(localStorage.getItem('jebamo__theme'))
 </script>

@@ -7,4 +7,4 @@ sidebar_label: 'Audio Workspace'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

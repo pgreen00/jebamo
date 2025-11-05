@@ -7,4 +7,4 @@ sidebar_label: 'Split Panel'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

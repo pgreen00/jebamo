@@ -7,4 +7,4 @@ sidebar_label: 'Split View'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

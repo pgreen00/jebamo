@@ -7,4 +7,4 @@ sidebar_label: 'List'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

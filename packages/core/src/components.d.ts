@@ -17,7 +17,7 @@ export { EditorChangeEvent } from "./components/je-rich-text/je-rich-text";
 export { FormatterFn, InputTransformer, ValidationFn } from "./components/je-textfield/je-textfield";
 export namespace Components {
     /**
-     * Accordions are wrappers for [JeDetails](../je-details). When an inner detail is opened, the others are automatically closed.
+     * Accordions are wrappers for <je-link href="../je-details">JeDetails</je-link>. When an inner detail is opened, the others are automatically closed.
      * The implementation follows the [aria implementation of an accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/).
      */
     interface JeAccordion {
@@ -27,10 +27,7 @@ export namespace Components {
           * @default false
          */
         "closable": boolean;
-        /**
-          * @default 'primary'
-         */
-        "color": Color;
+        "color"?: Color;
         "didDismiss": () => Promise<unknown>;
         /**
           * @default 0
@@ -44,10 +41,6 @@ export namespace Components {
           * @default false
          */
         "open": boolean;
-        /**
-          * @default false
-         */
-        "progress": boolean;
         "show": () => Promise<void>;
     }
     interface JeBranch {
@@ -832,7 +825,7 @@ export interface JeWizardCustomEvent<T> extends CustomEvent<T> {
 }
 declare global {
     /**
-     * Accordions are wrappers for [JeDetails](../je-details). When an inner detail is opened, the others are automatically closed.
+     * Accordions are wrappers for <je-link href="../je-details">JeDetails</je-link>. When an inner detail is opened, the others are automatically closed.
      * The implementation follows the [aria implementation of an accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/).
      */
     interface HTMLJeAccordionElement extends Components.JeAccordion, HTMLStencilElement {
@@ -1443,7 +1436,7 @@ declare global {
 }
 declare namespace LocalJSX {
     /**
-     * Accordions are wrappers for [JeDetails](../je-details). When an inner detail is opened, the others are automatically closed.
+     * Accordions are wrappers for <je-link href="../je-details">JeDetails</je-link>. When an inner detail is opened, the others are automatically closed.
      * The implementation follows the [aria implementation of an accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/).
      */
     interface JeAccordion {
@@ -1453,9 +1446,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "closable"?: boolean;
-        /**
-          * @default 'primary'
-         */
         "color"?: Color;
         /**
           * @default 0
@@ -1470,10 +1460,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "open"?: boolean;
-        /**
-          * @default false
-         */
-        "progress"?: boolean;
     }
     interface JeBranch {
         "href"?: string;
@@ -2292,7 +2278,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             /**
-             * Accordions are wrappers for [JeDetails](../je-details). When an inner detail is opened, the others are automatically closed.
+             * Accordions are wrappers for <je-link href="../je-details">JeDetails</je-link>. When an inner detail is opened, the others are automatically closed.
              * The implementation follows the [aria implementation of an accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/).
              */
             "je-accordion": LocalJSX.JeAccordion & JSXBase.HTMLAttributes<HTMLJeAccordionElement>;

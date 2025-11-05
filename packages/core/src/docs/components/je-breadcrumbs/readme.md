@@ -23,4 +23,4 @@ sidebar_label: 'Breadcrumbs'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

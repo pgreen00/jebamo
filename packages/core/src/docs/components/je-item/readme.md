@@ -7,4 +7,4 @@ sidebar_label: 'Item'
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

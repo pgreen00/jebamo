@@ -31,6 +31,7 @@ export const config: Config = {
     {
       type: 'docs-readme',
       dir: 'src/docs',
+      footer: '',
       //strict: true
     },
     {
