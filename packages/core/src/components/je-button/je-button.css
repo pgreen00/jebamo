@@ -9,8 +9,31 @@
  */
 
 :host {
-  display: contents;
-  --border-color: transparent
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  position: relative;
+  box-sizing: border-box;
+  border-radius: var(--je-radius-md);
+  margin: 0;
+  padding: 0 var(--padding-inline);
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  text-transform: capitalize;
+  text-wrap: wrap;
+  font-family: inherit;
+  font-size: var(--font-size);
+  font-weight: var(--je-font-semi-bold);
+  height: var(--height);
+  color: var(--color, inherit);
+  background-color: var(--background, transparent);
+  transition: all var(--je-transition-fast) ease-in-out;
+  outline-color: var(--je-primary-300);
+  outline-offset: 3px;
 }
 
 :host([size=sm]) {
@@ -32,83 +55,118 @@
 }
 
 :host(.icon-only) {
-  --height: fit-content;
-  --padding-inline: var(--je-spacing-3xs);
+  --padding-inline: 0;
+  --size: calc(var(--height) - 0.5rem);
+  width: var(--size);
+  height: var(--size);
+  border-radius: var(--je-radius-circle);
+}
+
+:host([expand]) {
+  width: 100%;
+}
+
+:host([aria-disabled=true]) {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+:host([aria-disabled=true][pending]) {
+  opacity: 0.8;
+  cursor: progress;
+  width: var(--pending-width);
+}
+
+:host(:not([color])[fill=solid]) {
+  --color: light-dark(var(--je-neutral-75), var(--je-neutral-925));
+  --background: light-dark(var(--je-neutral-950), var(--je-neutral-200));
+  --hover-background: light-dark(var(--je-neutral-850), var(--je-neutral-300));
+  --active-background: light-dark(var(--je-neutral-800), var(--je-neutral-400));
+}
+
+:host([color=primary][fill=solid]) {
+  --color: var(--je-neutral-75);
+  --background: var(--je-primary-500);
+  --hover-background: var(--je-primary-550);
+  --active-background: var(--je-primary-600);
+}
+
+:host([color=success][fill=solid]) {
+  --color: var(--je-neutral-925);
+  --background: var(--je-success-500);
+  --hover-background: var(--je-success-550);
+  --active-background: var(--je-success-600);
+}
+
+:host([color=warning][fill=solid]) {
+  --color: var(--je-neutral-925);
+  --background: var(--je-warning-500);
+  --hover-background: var(--je-warning-550);
+  --active-background: var(--je-warning-600);
+}
+
+:host([color=danger][fill=solid]) {
+  --color: var(--je-neutral-75);
+  --background: var(--je-danger-500);
+  --hover-background: var(--je-danger-450);
+  --active-background: var(--je-danger-400);
+}
+
+:host(:not([color]):not([fill=solid])) {
+  --color: light-dark(var(--je-neutral-925), var(--je-neutral-75));
+  --background: transparent;
+  --hover-background: light-dark(var(--je-neutral-100), var(--je-neutral-850));
+  --active-background: light-dark(var(--je-neutral-150), var(--je-neutral-800));
+  --border: solid 1px light-dark(var(--je-neutral-300), var(--je-neutral-750));
+}
+
+:host([color=primary]:not([fill=solid])) {
+  --color: light-dark(var(--je-primary-500), var(--je-primary-250));
+  --background: transparent;
+  --hover-background: light-dark(var(--je-primary-50), var(--je-primary-800));
+  --active-background: light-dark(var(--je-primary-75), var(--je-primary-750));
+  --border: solid 1px light-dark(var(--je-primary-100), var(--je-primary-500));
+}
+
+:host([color=success]:not([fill=solid])) {
+  --color: light-dark(var(--je-success-750), var(--je-success-500));
+  --background: transparent;
+  --hover-background: light-dark(var(--je-success-100), var(--je-success-900));
+  --active-background: light-dark(var(--je-success-150), var(--je-success-850));
+  --border: solid 1px light-dark(var(--je-success-200), var(--je-success-800));
+}
+
+:host([color=warning]:not([fill=solid])) {
+  --color: light-dark(var(--je-warning-750), var(--je-warning-500));
+  --background: transparent;
+  --hover-background: light-dark(var(--je-warning-100), var(--je-warning-900));
+  --active-background: light-dark(var(--je-warning-150), var(--je-warning-850));
+  --border: solid 1px light-dark(var(--je-warning-200), var(--je-warning-800));
+}
+
+:host([color=danger]:not([fill=solid])) {
+  --color: light-dark(var(--je-danger-500), var(--je-danger-250));
+  --background: transparent;
+  --hover-background: light-dark(var(--je-danger-50), var(--je-danger-800));
+  --active-background: light-dark(var(--je-danger-75), var(--je-danger-750));
+  --border: solid 1px light-dark(var(--je-danger-100), var(--je-danger-500));
 }
 
 :host([fill=outline]) {
-  --border-color: currentcolor;
+  border: var(--border);
 }
 
-:host(:not([color])) {
-  --color: light-dark(var(--je-neutral-800), var(--je-neutral-200));
-  --hover-color: light-dark(var(--je-neutral-800), var(--je-neutral-200));
-  --active-color: light-dark(var(--je-neutral-900), var(--je-neutral-100));
-  --background: transparent;
-  --hover-background: light-dark(var(--je-neutral-200), var(--je-neutral-800));
-  --active-background: light-dark(var(--je-neutral-200), var(--je-neutral-800));
+@media (hover: hover) {
+  :host(:hover) {
+    background-color: var(--hover-background, var(--background, transparent));
+    color: var(--hover-color, var(--color, inherit));
+  }
 }
 
-:host(:not([color])[fill=solid]),
-:host(:not([color]):not([fill]):not(.icon-only)) {
-  --border-color: light-dark(var(--je-neutral-500), var(--je-neutral-700));
-}
-
-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  position: relative;
-  box-sizing: border-box;
-  border-radius: var(--je-radius-md);
-  margin: 0;
-  padding-block: 0;
-  padding-inline: var(--padding-inline);
-  cursor: pointer;
-  flex-shrink: 0;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  user-select: none;
-  text-transform: capitalize;
-  text-wrap: wrap;
-  font-family: inherit;
-  font-size: var(--font-size);
-  font-weight: var(--je-font-semi-bold);
-  height: var(--height);
-  color: var(--color);
-  background-color: var(--background, transparent);
-  transition: all 125ms ease-in-out;
-  outline-color: var(--je-primary-300);
-  outline-offset: 3px;
-  border: solid 1px var(--border-color);
-
-  @media (hover: hover) {
-    &:hover:not(:disabled) {
-      background-color: var(--hover-background, var(--background, transparent));
-      color: var(--hover-color, var(--color));
-    }
-  }
-
-  &:active:not(:disabled) {
-    background-color: var(--active-background, var(--background, transparent));
-    color: var(--active-color, var(--color));
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  &.pending {
-    opacity: 0.8;
-    cursor: progress;
-    width: var(--pending-width);
-  }
-
-  &.expand {
-    width: 100%;
-  }
+:host(:active) {
+  background-color: var(--active-background, var(--background, transparent));
+  color: var(--active-color, var(--color, inherit));
 }
 
 ::slotted([slot=badge]) {

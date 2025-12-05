@@ -3,13 +3,10 @@ Set the `duration` attribute to have the alert close automatically after the spe
 ::: live-code-demo
 
 ```html
-<je-alert
-  id="progress-alert"
-  header="hello there"
-  duration="3000"
-  class="je-margin-bottom-sm"
-></je-alert>
 <je-button id="show-progress-alert-button">Open Alert</je-button>
+<je-alert id="progress-alert" duration="3000" class="je-margin-top-sm">
+  Hello there
+</je-alert>
 ```
 
 ```javascript

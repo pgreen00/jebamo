@@ -4,17 +4,11 @@ import { Color } from '../../utils/color';
 @Component({
   tag: 'je-button',
   styleUrl: 'je-button.css',
-  shadow: {
-    delegatesFocus: true
-  },
+  shadow: true
 })
 export class JeButton {
   @Element() el: HTMLJeButtonElement;
   private formButtonEl?: HTMLButtonElement;
-  private buttonEl: HTMLButtonElement;
-  private get iconOnly() {
-    return !!this.el.querySelector(':scope > je-icon:only-child')
-  }
 
   /** Disables button */
   @Prop() disabled = false;
@@ -35,7 +29,7 @@ export class JeButton {
   @Prop() pending = false;
 
   /** Button fill */
-  @Prop({ reflect: true }) fill?: 'solid' | 'outline' | 'clear';
+  @Prop({ reflect: true }) fill: 'solid' | 'outline' | 'clear' = 'solid';
 
   /** Button size */
   @Prop({ reflect: true }) size: 'md' | 'lg' | 'sm' = 'md';
@@ -63,24 +57,23 @@ export class JeButton {
   @Watch('pending')
   onPendingChange() {
     if (this.pending) {
-      this.buttonEl.style.setProperty('--pending-width', `${this.buttonEl.clientWidth}px`);
+      this.el.style.setProperty('--pending-width', `${this.el.clientWidth}px`);
+    }
+  }
+
+  @Listen('keydown')
+  onKeyDown(ev: KeyboardEvent) {
+    if (!this.disabled && !this.pending && (ev.key === 'Enter' || ev.key == ' ')) {
+      ev.preventDefault()
+      this.el.click()
     }
   }
 
   render() {
-    const {iconOnly} = this
-    const classes = {
-      [this.fill ?? iconOnly ? 'clear' : 'solid']: true,
-      expand: this.expand,
-      pending: this.pending,
-      [this.color]: !!this.color
-    }
     return (
-      <Host class={{'icon-only': iconOnly}}>
-        <button part='inner-button' ref={el => this.buttonEl = el} disabled={this.disabled || this.pending} type='button' tabindex={0} class={classes}>
-          {this.pending ? <je-loading/> : <slot onSlotchange={() => forceUpdate(this.el)}/>}
-          <slot name='badge'/>
-        </button>
+      <Host role='button' aria-disabled={`${this.disabled || this.pending}`} tabindex={this.disabled || this.pending ? '-1' : '0'}>
+        {this.pending ? <je-loading /> : <slot onSlotchange={() => forceUpdate(this.el)} />}
+        <slot name='badge' />
       </Host>
     );
   }

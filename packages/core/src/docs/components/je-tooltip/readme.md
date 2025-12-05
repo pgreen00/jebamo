@@ -14,19 +14,6 @@ sidebar_label: 'Tooltip'
 | `offsetY` | `offset-y` | Vertical offset used when auto positioning the popover content   | `number` | `10`        |
 
 
-## Dependencies
-
-### Used by
-
- - [je-textfield](../je-textfield)
-
-### Graph
-```mermaid
-graph TD;
-  je-textfield --> je-tooltip
-  style je-tooltip fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 

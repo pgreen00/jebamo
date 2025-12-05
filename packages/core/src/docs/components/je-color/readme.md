@@ -14,19 +14,6 @@ sidebar_label: 'Color'
 | `light`  | `light`   | Color in light mode | `"danger" \| "primary" \| "success" \| "warning"` | `undefined` |
 
 
-## Dependencies
-
-### Used by
-
- - [je-textfield](../je-textfield)
-
-### Graph
-```mermaid
-graph TD;
-  je-textfield --> je-color
-  style je-color fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 

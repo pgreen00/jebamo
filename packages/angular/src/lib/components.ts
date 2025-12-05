@@ -88,7 +88,7 @@ export declare interface JeAccordion extends Components.JeAccordion {}
 
 @ProxyCmp({
   defineCustomElementFn: defineJeAlert,
-  inputs: ['closable', 'color', 'duration', 'header', 'icon', 'message', 'open'],
+  inputs: ['closable', 'color', 'duration', 'open'],
   methods: ['show', 'hide', 'didDismiss']
 })
 @Component({
@@ -96,13 +96,13 @@ export declare interface JeAccordion extends Components.JeAccordion {}
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['closable', 'color', 'duration', 'header', 'icon', 'message', 'open'],
+  inputs: ['closable', 'color', 'duration', 'open'],
   outputs: ['present', 'dismiss'],
 })
 export class JeAlert {
   protected el: HTMLJeAlertElement;
   @Output() present = new EventEmitter<CustomEvent<any>>();
-  @Output() dismiss = new EventEmitter<CustomEvent<any>>();
+  @Output() dismiss = new EventEmitter<CustomEvent<IJeAlertOverlayData>>();
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -110,11 +110,13 @@ export class JeAlert {
 }
 
 
+import type { OverlayData as IJeAlertOverlayData } from 'jebamo/components';
+
 export declare interface JeAlert extends Components.JeAlert {
 
   present: EventEmitter<CustomEvent<any>>;
 
-  dismiss: EventEmitter<CustomEvent<any>>;
+  dismiss: EventEmitter<CustomEvent<IJeAlertOverlayData>>;
 }
 
 
@@ -1356,7 +1358,7 @@ export declare interface JeTabs extends Components.JeTabs {
 
 @ProxyCmp({
   defineCustomElementFn: defineJeTextfield,
-  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'error', 'format', 'inputMode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiline', 'note', 'originalValue', 'pattern', 'pending', 'placeholder', 'readonly', 'required', 'size', 'spellcheck', 'step', 'success', 'suppressDefaultBehavior', 'transform', 'type', 'validators', 'value', 'wrap'],
+  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'format', 'inputMode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiline', 'note', 'originalValue', 'pattern', 'placeholder', 'readonly', 'required', 'size', 'spellcheck', 'step', 'transform', 'validate', 'value', 'wrap'],
   methods: ['getInputElement', 'markAsTouched', 'getErrors', 'isTouched']
 })
 @Component({
@@ -1364,7 +1366,7 @@ export declare interface JeTabs extends Components.JeTabs {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'error', 'format', 'inputMode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiline', 'note', 'originalValue', 'pattern', 'pending', 'placeholder', 'readonly', 'required', 'size', 'spellcheck', 'step', 'success', 'suppressDefaultBehavior', 'transform', 'type', 'validators', 'value', 'wrap'],
+  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'format', 'inputMode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiline', 'note', 'originalValue', 'pattern', 'placeholder', 'readonly', 'required', 'size', 'spellcheck', 'step', 'transform', 'validate', 'value', 'wrap'],
   outputs: ['valueChange'],
 })
 export class JeTextfield {

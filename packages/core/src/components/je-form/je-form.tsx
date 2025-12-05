@@ -1,5 +1,5 @@
 import { Component, Event, EventEmitter, Listen, h } from '@stencil/core';
-import { AsyncSubject, buffer, debounceTime, fromEvent, Subscription, tap } from 'rxjs';
+import { AsyncSubject, buffer, debounceTime, fromEvent, Subscription, switchMap } from 'rxjs';
 
 @Component({
   tag: 'je-form',
@@ -13,7 +13,14 @@ export class JeForm {
   @Event() formData: EventEmitter<Record<string, any>>;
 
   connectedCallback() {
-    this.el$.subscribe(this.setupEventListener);
+    this.sub = this.el$.pipe(switchMap(el => {
+      const ev$ = fromEvent(el, 'invalid', { capture: true })
+      return ev$.pipe(buffer(ev$.pipe(debounceTime(100))))
+    })).subscribe(events => {
+      const firstInvalidElement = events[0].target as HTMLElement;
+      if (firstInvalidElement && !firstInvalidElement.matches(':focus'))
+        firstInvalidElement.focus();
+    });
   }
 
   disconnectedCallback() {
@@ -21,7 +28,7 @@ export class JeForm {
   }
 
   @Listen('submit')
-  async handleSubmit(event: SubmitEvent) {
+  async onSubmit(event: SubmitEvent) {
     event.preventDefault();
     this.el$.subscribe(el => {
       const formData = new FormData(el);
@@ -40,24 +47,10 @@ export class JeForm {
   }
 
   @Listen('keydown')
-  handleKeyup(event: KeyboardEvent) {
+  onKeydown(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       this.el$.subscribe(el => el.querySelector<HTMLButtonElement>('button[type=submit]')?.click())
     }
-  }
-
-  private setupEventListener = (el: HTMLFormElement) => {
-    const ev$ = fromEvent(el, 'invalid', { capture: true })
-    this.sub = ev$.pipe(
-      tap(ev => ev.preventDefault()),
-      buffer(ev$.pipe(debounceTime(100)))
-    ).subscribe(events => {
-      const firstInvalidElement = events[0].target as HTMLElement;
-      if (firstInvalidElement && 'reportValidity' in firstInvalidElement && typeof firstInvalidElement['reportValidity'] === 'function')
-        firstInvalidElement.reportValidity();
-      else if (firstInvalidElement && !firstInvalidElement.matches(':focus'))
-        firstInvalidElement.focus();
-    })
   }
 
   private formElementInit = (el: HTMLFormElement) => {
@@ -68,7 +61,7 @@ export class JeForm {
   render() {
     return (
       <form ref={this.formElementInit}>
-        <slot/>
+        <slot />
       </form>
     );
   }

@@ -15,13 +15,11 @@ Adding the `closable` attribute will display a close icon in the top right that 
 ::: live-code-demo
 
 ```html
-<je-alert
-  open
-  header="hello there"
-  message="f u"
-  closable
-  icon="home"
-></je-alert>
+<je-alert open closable>
+  <je-icon slot="start" fill>home</je-icon>
+  <h5>Hello there</h5>
+  Where's the chapstick?
+</je-alert>
 ```
 
 :::
@@ -34,13 +32,10 @@ Set the `duration` attribute to have the alert close automatically after the spe
 ::: live-code-demo
 
 ```html
-<je-alert
-  id="progress-alert"
-  header="hello there"
-  duration="3000"
-  class="je-margin-bottom-sm"
-></je-alert>
 <je-button id="show-progress-alert-button">Open Alert</je-button>
+<je-alert id="progress-alert" duration="3000" class="je-margin-top-sm">
+  Hello there
+</je-alert>
 ```
 
 ```javascript
@@ -54,6 +49,24 @@ button.addEventListener("click", () => {
 :::
 
 
+### Slots
+
+The `end` slot can be used for action items like buttons
+
+::: live-code-demo
+
+```html
+<je-alert open>
+  <je-icon slot="start">settings</je-icon>
+  Where's the chapstick?
+  <je-button fill="outline" size="sm" slot="end">Undo</je-button>
+  <je-button fill="outline" size="sm" slot="end">Dismiss</je-button>
+</je-alert>
+```
+
+:::
+
+
 
 ## Properties
 
@@ -62,18 +75,15 @@ button.addEventListener("click", () => {
 | `closable` | `closable` |             | `boolean`                                         | `false`     |
 | `color`    | `color`    |             | `"danger" \| "primary" \| "success" \| "warning"` | `undefined` |
 | `duration` | `duration` |             | `number`                                          | `0`         |
-| `header`   | `header`   |             | `string`                                          | `undefined` |
-| `icon`     | `icon`     |             | `string`                                          | `undefined` |
-| `message`  | `message`  |             | `string`                                          | `undefined` |
 | `open`     | `open`     |             | `boolean`                                         | `false`     |
 
 
 ## Events
 
-| Event     | Description | Type               |
-| --------- | ----------- | ------------------ |
-| `dismiss` |             | `CustomEvent<any>` |
-| `present` |             | `CustomEvent<any>` |
+| Event     | Description | Type                                          |
+| --------- | ----------- | --------------------------------------------- |
+| `dismiss` |             | `CustomEvent<{ role?: string; data?: any; }>` |
+| `present` |             | `CustomEvent<any>`                            |
 
 
 ## Methods
@@ -116,26 +126,20 @@ Type: `Promise<void>`
 
 
 
-## Shadow Parts
-
-| Part        | Description |
-| ----------- | ----------- |
-| `"header"`  |             |
-| `"message"` |             |
-
-
 ## Dependencies
 
 ### Depends on
 
-- [je-icon](../je-icon)
+- [je-toolbar](../je-toolbar)
 - [je-button](../je-button)
+- [je-icon](../je-icon)
 
 ### Graph
 ```mermaid
 graph TD;
-  je-alert --> je-icon
+  je-alert --> je-toolbar
   je-alert --> je-button
+  je-alert --> je-icon
   je-button --> je-loading
   style je-alert fill:#f9f,stroke:#333,stroke-width:4px
 ```

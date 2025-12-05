@@ -9,7 +9,7 @@
 
 import type { EventName, StencilReactComponent } from '@stencil/react-output-target/runtime';
 import { createComponent } from '@stencil/react-output-target/runtime';
-import { type EditorChangeEvent, type JeDropzoneCustomEvent, type JeFormCustomEvent, type JeOverlayCustomEvent, type JeRichTextCustomEvent, type OverlayData } from "jebamo";
+import { type EditorChangeEvent, type JeAlertCustomEvent, type JeDropzoneCustomEvent, type JeFormCustomEvent, type JeOverlayCustomEvent, type JeRichTextCustomEvent, type OverlayData } from "jebamo";
 import { JeAccordion as JeAccordionElement, defineCustomElement as defineJeAccordion } from "jebamo/components/je-accordion.js";
 import { JeAlert as JeAlertElement, defineCustomElement as defineJeAlert } from "jebamo/components/je-alert.js";
 import { JeBranch as JeBranchElement, defineCustomElement as defineJeBranch } from "jebamo/components/je-branch.js";
@@ -83,7 +83,7 @@ export const JeAccordion: StencilReactComponent<JeAccordionElement, JeAccordionE
 
 export type JeAlertEvents = {
     onPresent: EventName<CustomEvent<any>>,
-    onDismiss: EventName<CustomEvent<any>>
+    onDismiss: EventName<JeAlertCustomEvent<OverlayData>>
 };
 
 export const JeAlert: StencilReactComponent<JeAlertElement, JeAlertEvents> = /*@__PURE__*/ createComponent<JeAlertElement, JeAlertEvents>({

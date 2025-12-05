@@ -7,11 +7,13 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Color } from "./utils/color";
 import { OverlayData } from "./components/je-overlay/je-overlay";
+import { OverlayData as OverlayData1 } from "./components/je-overlay/je-overlay";
 import { Placement } from "@floating-ui/dom";
 import { EditorChangeEvent } from "./components/je-rich-text/je-rich-text";
 import { FormatterFn, InputTransformer, ValidationFn } from "./components/je-textfield/je-textfield";
 export { Color } from "./utils/color";
 export { OverlayData } from "./components/je-overlay/je-overlay";
+export { OverlayData as OverlayData1 } from "./components/je-overlay/je-overlay";
 export { Placement } from "@floating-ui/dom";
 export { EditorChangeEvent } from "./components/je-rich-text/je-rich-text";
 export { FormatterFn, InputTransformer, ValidationFn } from "./components/je-textfield/je-textfield";
@@ -33,10 +35,7 @@ export namespace Components {
           * @default 0
          */
         "duration": number;
-        "header"?: string;
         "hide": (role?: string, data?: any) => Promise<void>;
-        "icon"?: string;
-        "message"?: string;
         /**
           * @default false
          */
@@ -92,8 +91,9 @@ export namespace Components {
         "expand": boolean;
         /**
           * Button fill
+          * @default 'solid'
          */
-        "fill"?: 'solid' | 'outline' | 'clear';
+        "fill": 'solid' | 'outline' | 'clear';
         /**
           * Can set form id to participate in forms. Use this if you need to place submit/reset button outside the form element
          */
@@ -581,10 +581,6 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Shows an error icon in the end slot when true. If a string is passed in, it will render the icon as a tooltip. Has no effect on form validation
-         */
-        "error": any;
-        /**
           * Formatters functions that are applied as the user types
          */
         "format"?: FormatterFn;
@@ -634,11 +630,6 @@ export namespace Components {
          */
         "pattern"?: string;
         /**
-          * Shows a loading indicator in the end slot when true
-          * @default false
-         */
-        "pending": boolean;
-        /**
           * Input placeholder text
          */
         "placeholder"?: string;
@@ -667,28 +658,13 @@ export namespace Components {
          */
         "step"?: string;
         /**
-          * Shows a success icon in the end slot when true. Has no effect on form validation
-          * @default false
-         */
-        "success": boolean;
-        /**
-          * Whether to suppress the default behavior of the input event
-          * @default false
-         */
-        "suppressDefaultBehavior": boolean;
-        /**
           * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).  There are built-in transformers for 'number', 'date', and 'datetime'.
          */
-        "transform"?: InputTransformer | 'number' | 'date' | 'datetime';
+        "transform"?: InputTransformer | 'number' | 'date' | 'datetime' | 'password';
         /**
-          * Passed to native input
-          * @default 'text'
+          * Validator function for form participation
          */
-        "type": string;
-        /**
-          * Validator functions for form participation
-         */
-        "validators"?: ValidationFn[];
+        "validate"?: ValidationFn;
         /**
           * Current value of the input
          */
@@ -836,7 +812,7 @@ declare global {
     };
     interface HTMLJeAlertElementEventMap {
         "present": any;
-        "dismiss": any;
+        "dismiss": OverlayData;
     }
     interface HTMLJeAlertElement extends Components.JeAlert, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeAlertElementEventMap>(type: K, listener: (this: HTMLJeAlertElement, ev: JeAlertCustomEvent<HTMLJeAlertElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1101,7 +1077,7 @@ declare global {
     };
     interface HTMLJeOverlayElementEventMap {
         "present": any;
-        "dismiss": OverlayData;
+        "dismiss": OverlayData1;
     }
     interface HTMLJeOverlayElement extends Components.JeOverlay, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeOverlayElementEventMap>(type: K, listener: (this: HTMLJeOverlayElement, ev: JeOverlayCustomEvent<HTMLJeOverlayElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1451,10 +1427,7 @@ declare namespace LocalJSX {
           * @default 0
          */
         "duration"?: number;
-        "header"?: string;
-        "icon"?: string;
-        "message"?: string;
-        "onDismiss"?: (event: JeAlertCustomEvent<any>) => void;
+        "onDismiss"?: (event: JeAlertCustomEvent<OverlayData>) => void;
         "onPresent"?: (event: JeAlertCustomEvent<any>) => void;
         /**
           * @default false
@@ -1510,6 +1483,7 @@ declare namespace LocalJSX {
         "expand"?: boolean;
         /**
           * Button fill
+          * @default 'solid'
          */
         "fill"?: 'solid' | 'outline' | 'clear';
         /**
@@ -1739,7 +1713,7 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the overlay has finished closing. Emits the role and optional data object passed to the hide() method.
          */
-        "onDismiss"?: (event: JeOverlayCustomEvent<OverlayData>) => void;
+        "onDismiss"?: (event: JeOverlayCustomEvent<OverlayData1>) => void;
         /**
           * Emits whenever the overlay has opened. Does not emit any data
          */
@@ -2037,10 +2011,6 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Shows an error icon in the end slot when true. If a string is passed in, it will render the icon as a tooltip. Has no effect on form validation
-         */
-        "error"?: any;
-        /**
           * Formatters functions that are applied as the user types
          */
         "format"?: FormatterFn;
@@ -2090,11 +2060,6 @@ declare namespace LocalJSX {
          */
         "pattern"?: string;
         /**
-          * Shows a loading indicator in the end slot when true
-          * @default false
-         */
-        "pending"?: boolean;
-        /**
           * Input placeholder text
          */
         "placeholder"?: string;
@@ -2123,28 +2088,13 @@ declare namespace LocalJSX {
          */
         "step"?: string;
         /**
-          * Shows a success icon in the end slot when true. Has no effect on form validation
-          * @default false
-         */
-        "success"?: boolean;
-        /**
-          * Whether to suppress the default behavior of the input event
-          * @default false
-         */
-        "suppressDefaultBehavior"?: boolean;
-        /**
           * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).  There are built-in transformers for 'number', 'date', and 'datetime'.
          */
-        "transform"?: InputTransformer | 'number' | 'date' | 'datetime';
+        "transform"?: InputTransformer | 'number' | 'date' | 'datetime' | 'password';
         /**
-          * Passed to native input
-          * @default 'text'
+          * Validator function for form participation
          */
-        "type"?: string;
-        /**
-          * Validator functions for form participation
-         */
-        "validators"?: ValidationFn[];
+        "validate"?: ValidationFn;
         /**
           * Current value of the input
          */

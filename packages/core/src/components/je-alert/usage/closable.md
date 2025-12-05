@@ -3,13 +3,11 @@ Adding the `closable` attribute will display a close icon in the top right that 
 ::: live-code-demo
 
 ```html
-<je-alert
-  open
-  header="hello there"
-  message="f u"
-  closable
-  icon="home"
-></je-alert>
+<je-alert open closable>
+  <je-icon slot="start" fill>home</je-icon>
+  <h5>Hello there</h5>
+  Where's the chapstick?
+</je-alert>
 ```
 
 :::

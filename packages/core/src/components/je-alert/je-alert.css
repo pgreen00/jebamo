@@ -8,12 +8,8 @@
   box-sizing: border-box;
   background-color: var(--background);
   color: var(--color);
-  padding: var(--je-spacing-md);
-  grid-template-columns: auto 1fr auto;
-  grid-auto-rows: auto;
-  align-items: center;
-  column-gap: var(--je-spacing-sm);
-  row-gap: var(--je-spacing-2xs);
+  font-size: var(--je-font-sm);
+  padding: var(--je-spacing-sm);
 
   --accent: light-dark(var(--je-neutral-600), var(--je-neutral-500));
   --background: light-dark(rgb(233, 236, 236), rgb(41, 45, 46));
@@ -23,7 +19,7 @@
 }
 
 :host([open]:not([open=false])) {
-  display: grid;
+  display: block;
 }
 
 :host([color=primary]) {
@@ -42,35 +38,9 @@
   --accent: var(--je-success-600);
 }
 
-[part=header] {
-  font-weight: bold;
-  display: block;
-  box-sizing: border-box;
-  font-size: var(--je-font-lg);
-  line-height: 1;
-}
-
-[part=message] {
-  line-height: 1;
-}
-
-je-icon {
-  display: block;
-  color: var(--accent);
-}
-
-.border {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: var(--accent);
-  width: 100%;
-  height: var(--je-spacing-xs);
-}
-
 .progress {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100%;
   background-color: var(--accent);
@@ -91,10 +61,4 @@ je-icon {
   to {
     width: 0;
   }
-}
-
-slot[name=buttons] {
-  display: flex;
-  align-items: center;
-  gap: var(--je-spacing-sm);
 }

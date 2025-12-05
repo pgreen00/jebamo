@@ -26,7 +26,6 @@ sidebar_label: 'Icon'
  - [je-overlay-content](../je-overlay-content)
  - [je-radio](../je-radio)
  - [je-select](../je-select)
- - [je-textfield](../je-textfield)
 
 ### Graph
 ```mermaid
@@ -38,7 +37,6 @@ graph TD;
   je-overlay-content --> je-icon
   je-radio --> je-icon
   je-select --> je-icon
-  je-textfield --> je-icon
   style je-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

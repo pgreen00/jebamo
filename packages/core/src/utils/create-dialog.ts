@@ -3,7 +3,7 @@ import { Color } from "./color";
 export type DialogControl = {
   label?: string;
   placeholder?: string;
-  validators?: HTMLJeTextfieldElement['validators'];
+  validators?: HTMLJeTextfieldElement['validate'];
   required?: boolean;
   type?: string;
   originalValue?: string;
@@ -88,9 +88,9 @@ export const createDialog = (options: CreateDialogOptions) => {
       const input = document.createElement('je-textfield');
       input.label = control.label;
       input.placeholder = control.placeholder;
-      input.validators = control.validators;
+      //input.validators = control.validators;
       input.required = control.required;
-      input.type = control.type;
+      //input.type = control.type;
       input.setAttribute('name', control.name)
       input.originalValue = control.originalValue;
       input.value = control.value;

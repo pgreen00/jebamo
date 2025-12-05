@@ -1,7 +1,6 @@
 import { Component, Host, h, Element, EventEmitter, Listen, Prop, Event, Watch, Method } from '@stencil/core';
 import { arrow, autoPlacement, autoUpdate, computePosition, ComputePositionReturn, flip, offset, Placement, shift, size } from '@floating-ui/dom';
 import { debounceTime, fromEvent, Subscription } from 'rxjs';
-import { getDOMRect } from '../../utils/get-dom-rect';
 
 @Component({
   tag: 'je-popover',
@@ -33,7 +32,7 @@ export class JePopover {
     return {
       getBoundingClientRect: () => {
         if (this.positionStrategy === 'element') {
-          return getDOMRect(this.triggerElement ?? this.mouseEvent?.target as Element)
+          return (this.triggerElement ?? this.mouseEvent?.target as Element).getBoundingClientRect()
         } else {
           return new DOMRect(this.mouseEvent?.clientX, this.mouseEvent?.clientY)
         }

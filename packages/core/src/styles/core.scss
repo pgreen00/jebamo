@@ -75,8 +75,8 @@ html:has(je-page) {
     overflow-x: hidden;
     overflow-y: auto;
     box-sizing: border-box;
-    color: light-dark(var(--je-neutral-900), var(--je-neutral-50));
-    background-color: light-dark(var(--je-neutral-50), var(--je-neutral-900));
+    color: light-dark(var(--je-neutral-925), var(--je-neutral-75));
+    background-color: light-dark(var(--je-neutral-75), var(--je-neutral-925));
     grid-template:
       "head head head" auto
       "left body right" 1fr

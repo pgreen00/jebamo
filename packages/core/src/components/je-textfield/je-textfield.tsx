@@ -9,7 +9,7 @@ export type InputTransformer<T = any> = {
 
 export type FormatterFn = (newValue: string, oldValue?: string, ev?: InputEvent) => string | Promise<string>;
 
-export type ValidationFn = (value: string) => string[] | Promise<string[]>;
+export type ValidationFn = (value: string) => string[];
 
 @Component({
   tag: 'je-textfield',
@@ -36,14 +36,29 @@ export class JeTextfield {
   @Prop({ mutable: true }) originalValue?: string;
 
   /**
+   * Current value of the input
+   */
+  @Prop({ mutable: true }) value: any;
+
+  /**
    * Text above the control
    */
   @Prop() label?: string;
 
   /**
+   * Informational message directly below the control
+   */
+  @Prop() note?: string;
+
+  /**
    * Renders input as disabled and prevents changes
    */
   @Prop() disabled = false;
+
+  /**
+   * Renders input as read only and prevents changes
+   */
+  @Prop() readonly = false;
 
   /**
    * Passed to native input
@@ -101,11 +116,6 @@ export class JeTextfield {
   @Prop() pattern?: string;
 
   /**
-   * Renders input as read only and prevents changes
-   */
-  @Prop() readonly = false;
-
-  /**
    * Marks as required in form and adds asterisk to the end of the label
    */
   @Prop() required = false;
@@ -126,16 +136,6 @@ export class JeTextfield {
   @Prop() size: 'md' | 'lg' | 'sm' = 'md';
 
   /**
-   * Passed to native input
-   */
-  @Prop({ mutable: true }) type = 'text';
-
-  /**
-   * Current value of the input
-   */
-  @Prop({ mutable: true }) value: any;
-
-  /**
    * Input placeholder text
    */
   @Prop() placeholder?: string;
@@ -151,59 +151,21 @@ export class JeTextfield {
   @Prop() format?: FormatterFn;
 
   /**
-   * Validator functions for form participation
+   * Validator function for form participation
    */
-  @Prop() validators?: ValidationFn[];
-
-  /**
-   * Informational message directly below the control
-   */
-  @Prop() note?: string;
-
-  /**
-   * Whether to suppress the default behavior of the input event
-   */
-  @Prop() suppressDefaultBehavior = false
+  @Prop() validate?: ValidationFn;
 
   /**
    * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).
    *
    * There are built-in transformers for 'number', 'date', and 'datetime'.
    */
-  @Prop() transform?: InputTransformer | 'number' | 'date' | 'datetime';
+  @Prop() transform?: InputTransformer | 'number' | 'date' | 'datetime' | 'password';
 
   /**
    * Whether the control is a multiline textarea
    */
   @Prop() multiline = false;
-
-  /**
-   * Shows a loading indicator in the end slot when true
-   */
-  @Prop() pending = false;
-
-  private internalErrorProp?: boolean | string;
-  /**
-   * Shows an error icon in the end slot when true. If a string is passed in, it will render the icon as a tooltip.
-   * Has no effect on form validation
-   */
-  @Prop() get error() {
-    return this.internalErrorProp;
-  }
-  set error(value: any) {
-    if (value === 'true' || value === '') {
-      this.internalErrorProp = true;
-    } else if (value === 'false') {
-      this.internalErrorProp = false;
-    } else {
-      this.internalErrorProp = value;
-    }
-  }
-
-  /**
-   * Shows a success icon in the end slot when true. Has no effect on form validation
-   */
-  @Prop() success = false;
 
   /**
    * Emits as the user types
@@ -227,12 +189,12 @@ export class JeTextfield {
       const errorMessage = requiredError
         ? 'This field is required'
         : minLengthError
-        ? `This field must be at least ${this.minlength} characters long`
-        : maxLengthError
-        ? `This field must be less than ${this.maxlength} characters long`
-        : patternError
-        ? `Invalid pattern`
-        : customErrors[0];
+          ? `This field must be at least ${this.minlength} characters long`
+          : maxLengthError
+            ? `This field must be less than ${this.maxlength} characters long`
+            : patternError
+              ? `Invalid pattern`
+              : customErrors[0];
       this.internals.setValidity(
         {
           valueMissing: requiredError,
@@ -299,13 +261,7 @@ export class JeTextfield {
     const minLengthError = this.minlength && (this.value ?? '').length < this.minlength;
     const maxLengthError = this.maxlength && (this.value ?? '').length > this.maxlength;
     const patternError = this.pattern && !new RegExp(this.pattern).test(this.value ?? '');
-    let customErrors: string[] = [];
-    if (this.validators) {
-      for (const validator of this.validators) {
-        const res = await validator(this.value);
-        customErrors = [...customErrors, ...res];
-      }
-    }
+    const customErrors = this.validate?.(this.value) || [];
     return {
       requiredError,
       minLengthError,
@@ -329,7 +285,8 @@ export class JeTextfield {
 
   @Listen('invalid')
   handleInvalid(ev: Event) {
-    ev.preventDefault();
+    //ev.stopPropagation();
+    console.log(ev.composedPath())
   }
 
   private getTransformer = () => {
@@ -347,6 +304,11 @@ export class JeTextfield {
       return {
         to: (value: string) => (value ? parseISO(value).getTime() : value),
         from: (value: any) => (value ? format(value, "yyyy-MM-dd'T'HH:mm:ss") : value),
+      };
+    } else if (this.transform === 'password') {
+      return {
+        to: (value: string) => value && '•'.repeat(value.length),
+        from: () => this.value,
       };
     } else {
       return this.transform;
@@ -371,12 +333,7 @@ export class JeTextfield {
 
   private onFocus = () => {
     if (this.touched) forceUpdate(this.hostEl);
-    else this.touched = true;
-  }
-
-  private suppress = (ev: Event) => {
-    if (this.suppressDefaultBehavior)
-      ev.preventDefault();
+    else this.touched = false;
   }
 
   render() {
@@ -417,10 +374,8 @@ export class JeTextfield {
               part='input'
               tabindex={0}
               ref={el => (this.inputEl = el)}
-              class={{suppress: this.suppressDefaultBehavior}}
               onInputCapture={this.formatInput}
               onInput={this.handleInput}
-              onClick={this.suppress}
               onFocus={this.onFocus}
               disabled={this.disabled}
               autoCapitalize={this.autoCapitalize}
@@ -437,34 +392,18 @@ export class JeTextfield {
               required={this.required}
               spellcheck={this.spellcheck}
               step={this.step}
-              type={this.type == 'password' && this.showPassword ? 'text' : this.type}
               value={transformer?.from ? transformer.from(this.value) : this.value}
               placeholder={this.placeholder}
             />
           )}
 
-          {this.type === 'password' && (
+          {this.transform === 'password' && (
             <je-button size="sm" onClick={() => (this.showPassword = !this.showPassword)}>
               {this.showPassword ? eyeOff : eye}
             </je-button>
           )}
 
           <slot name="end" />
-
-          {this.pending && <je-loading/>}
-          {this.success && <je-color color="success"><je-icon fill size="sm">check_circle</je-icon></je-color>}
-          {this.error && typeof this.error === 'string' ? (
-            <je-tooltip>
-              <je-color color="danger">
-                <je-icon fill size="sm">error</je-icon>
-              </je-color>
-              <div slot="content">{this.error}</div>
-            </je-tooltip>
-          ) : this.error ? (
-            <je-color color="danger">
-              <je-icon fill size="sm">error</je-icon>
-            </je-color>
-          ) : null}
         </div>
 
         <slot name='note'>
@@ -479,5 +418,5 @@ export class JeTextfield {
   }
 }
 
-const eye = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>;
-const eyeOff = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off-icon lucide-eye-off"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>;
+const eye = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /><circle cx="12" cy="12" r="3" /></svg>;
+const eyeOff = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off-icon lucide-eye-off"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" /><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" /><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" /><path d="m2 2 20 20" /></svg>;

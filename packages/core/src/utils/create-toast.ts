@@ -1,11 +1,8 @@
 import { Color } from "./color";
 
 export type CreateToastOptions = {
-  header?: string;
-  message?: string;
   color?: Color;
   duration?: number;
-  icon?: string;
   closable?: boolean;
   position?: 'top' | 'bottom' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end';
   buttons?: {
@@ -22,9 +19,6 @@ export const createToast = (options: CreateToastOptions) => {
   toast.color = options.color;
   toast.duration = options.duration;
   toast.closable = options.closable;
-  toast.header = options.header;
-  toast.message = options.message;
-  toast.icon = options.icon;
   if (options.buttons) {
     options.buttons.forEach(button => {
       const btn = document.createElement('je-button');
