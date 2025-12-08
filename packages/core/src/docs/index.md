@@ -1,6 +1,24 @@
 ## Welcome to Jebamo
 
-<div class="je-elevation-md je-radius-md" contenteditable="plaintext-only"></div>
+<div class="je-elevation-md je-radius-md">
+  <style>
+    @scope {
+      #ce {
+        padding: 0.5rem;
+        background-color: transparent;
+        color: inherit;
+      }
+      :scope {
+        background-color: canvas;
+        color: canvastext;
+        border: solid 1px var(--je-neutral-500);
+        overflow: hidden;
+        box-sizing: border-box;
+      }
+    }
+  </style>
+  <div contenteditable="plaintext-only" id="ce"></div>
+</div>
 <input id="phone" placeholder="phone" /><br/>
 <input id="currency" placeholder="currency" /><br/>
 <input id="custom" placeholder="alphanumeric" /><br/>

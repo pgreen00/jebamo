@@ -1,12 +1,13 @@
 export interface InputMaskOptions {
-  inputElement: HTMLInputElement
+  inputElement: HTMLInputElement | HTMLElement
   formatter: (str: string) => string
   extractor?: (str: string) => string
   masker?: (rawValue: string, formattedValue: string) => string
 }
 
 export class InputMask {
-  private input: HTMLInputElement
+  private element: HTMLInputElement | HTMLElement
+  private isContentEditable: boolean
   private formatter: (str: string) => string
   private extractor: (str: string) => string
   private masker?: (rawValue: string, formattedValue: string) => string
@@ -14,17 +15,61 @@ export class InputMask {
   private formattedValue: string
 
   constructor({ inputElement, formatter, extractor = val => val, masker }: InputMaskOptions) {
-    this.input = inputElement
+    this.element = inputElement
+    this.isContentEditable = inputElement instanceof HTMLElement && inputElement.isContentEditable
     this.formatter = formatter
     this.extractor = extractor
     this.masker = masker
 
-    this.rawValue = this.extractor(this.input.value);
+    this.rawValue = this.extractor(this.getValue());
     this.formattedValue = this.formatter(this.rawValue);
-    this.input.value = this.getDisplayValue();
+    this.setValue(this.getDisplayValue());
 
-    this.input.addEventListener("keydown", this.handleKeyDown);
-    this.input.addEventListener("input", this.handleInput);
+    this.element.addEventListener("keydown", this.handleKeyDown);
+    this.element.addEventListener("input", this.handleInput);
+  }
+
+  private getValue(): string {
+    if (this.isContentEditable) {
+      return (this.element as HTMLElement).textContent || '';
+    }
+    return (this.element as HTMLInputElement).value;
+  }
+
+  private setValue(value: string) {
+    if (this.isContentEditable) {
+      (this.element as HTMLElement).textContent = value;
+    } else {
+      (this.element as HTMLInputElement).value = value;
+    }
+  }
+
+  private getCursorPosition(): number | null {
+    if (this.isContentEditable) {
+      const selection = window.getSelection();
+      if (!selection || selection.rangeCount === 0) return null;
+
+      const range = selection.getRangeAt(0);
+      const preCaretRange = range.cloneRange();
+      preCaretRange.selectNodeContents(this.element);
+      preCaretRange.setEnd(range.endContainer, range.endOffset);
+      return preCaretRange.toString().length;
+    }
+    return (this.element as HTMLInputElement).selectionStart;
+  }
+
+  private getSelectionEnd(): number | null {
+    if (this.isContentEditable) {
+      const selection = window.getSelection();
+      if (!selection || selection.rangeCount === 0) return null;
+
+      const range = selection.getRangeAt(0);
+      const preCaretRange = range.cloneRange();
+      preCaretRange.selectNodeContents(this.element);
+      preCaretRange.setEnd(range.endContainer, range.endOffset);
+      return preCaretRange.toString().length;
+    }
+    return (this.element as HTMLInputElement).selectionEnd;
   }
 
   private getDisplayValue(): string {
@@ -36,8 +81,10 @@ export class InputMask {
 
   private handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Backspace" || e.key === "Delete") {
-      const cursorPos = this.input.selectionStart;
-      const selectionEnd = this.input.selectionEnd;
+      const cursorPos = this.getCursorPosition();
+      const selectionEnd = this.getSelectionEnd();
+
+      if (cursorPos === null || selectionEnd === null) return;
 
       // If there's a selection, let it handle normally
       if (cursorPos !== selectionEnd) {
@@ -93,15 +140,17 @@ export class InputMask {
 
   private updateAndPosition(targetRawPos: number) {
     this.formattedValue = this.formatter(this.rawValue);
-    this.input.value = this.getDisplayValue();
+    this.setValue(this.getDisplayValue());
 
     const newCursorPos = this.getFormattedCursorPosition(targetRawPos);
     this.setCursor(newCursorPos);
   }
 
   private handleInput = () => {
-    const cursorPos = this.input.selectionStart;
-    const inputValue = this.input.value;
+    const cursorPos = this.getCursorPosition();
+    if (cursorPos === null) return;
+
+    const inputValue = this.getValue();
     const prevDisplayValue = this.getDisplayValue();
 
     // When masking is enabled, we need to extract from the actual characters typed
@@ -157,7 +206,7 @@ export class InputMask {
 
     // Apply formatting
     this.formattedValue = this.formatter(this.rawValue);
-    this.input.value = this.getDisplayValue();
+    this.setValue(this.getDisplayValue());
 
     // Calculate new cursor position
     let newCursorPos = this.getFormattedCursorPosition(rawCursorPos + (rawDiff > 0 ? rawDiff : 0));
@@ -171,7 +220,6 @@ export class InputMask {
     // Set cursor position
     this.setCursor(newCursorPos);
   }
-
   private getRawCursorPosition(formattedValue: string, cursorPos: number) {
     // Count how many "raw" characters are before the cursor
     const extracted = this.extractor(formattedValue.substring(0, cursorPos));
@@ -212,13 +260,49 @@ export class InputMask {
 
   private setCursor(position: number) {
     requestAnimationFrame(() => {
-      this.input.setSelectionRange(position, position);
+      if (this.isContentEditable) {
+        const selection = window.getSelection();
+        if (!selection) return;
+
+        const range = document.createRange();
+        let currentPos = 0;
+        let found = false;
+
+        const traverse = (node: Node) => {
+          if (found) return;
+
+          if (node.nodeType === Node.TEXT_NODE) {
+            const textLength = node.textContent?.length || 0;
+            if (currentPos + textLength >= position) {
+              range.setStart(node, position - currentPos);
+              range.setEnd(node, position - currentPos);
+              found = true;
+              return;
+            }
+            currentPos += textLength;
+          } else {
+            for (let i = 0; i < node.childNodes.length; i++) {
+              traverse(node.childNodes[i]);
+              if (found) return;
+            }
+          }
+        };
+
+        traverse(this.element);
+
+        if (found) {
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+      } else {
+        (this.element as HTMLInputElement).setSelectionRange(position, position);
+      }
     });
   }
 
   [Symbol.dispose]() {
-    this.input.removeEventListener("keydown", this.handleKeyDown);
-    this.input.removeEventListener("input", this.handleInput);
+    this.element.removeEventListener("keydown", this.handleKeyDown);
+    this.element.removeEventListener("input", this.handleInput);
   }
 }
 

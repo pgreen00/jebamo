@@ -178,7 +178,6 @@ export class JeTextfield {
   }
 
   componentDidLoad() {
-    this.internals.role = 'textbox';
     if (this.value) this.internals.setFormValue(this.value);
   }
 
@@ -339,7 +338,7 @@ export class JeTextfield {
   render() {
     const transformer = this.getTransformer();
     return (
-      <Host>
+      <Host role='textbox'>
         <div part="container" class={{ [this.size]: true, disabled: this.disabled, multiline: this.multiline }}>
           <slot name="start" />
 
