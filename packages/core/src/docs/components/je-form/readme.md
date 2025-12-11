@@ -7,9 +7,28 @@ sidebar_label: 'Form'
 
 ## Events
 
-| Event      | Description | Type                                 |
-| ---------- | ----------- | ------------------------------------ |
-| `formData` |             | `CustomEvent<{ [x: string]: any; }>` |
+| Event        | Description | Type                                 |
+| ------------ | ----------- | ------------------------------------ |
+| `dataSubmit` |             | `CustomEvent<{ [x: string]: any; }>` |
+
+
+## Methods
+
+### `addInvalidSubmission(element: HTMLElement) => Promise<boolean>`
+
+
+
+#### Parameters
+
+| Name      | Type          | Description |
+| --------- | ------------- | ----------- |
+| `element` | `HTMLElement` |             |
+
+#### Returns
+
+Type: `Promise<boolean>`
+
+
 
 
 ----------------------------------------------

@@ -10,13 +10,13 @@ import { OverlayData } from "./components/je-overlay/je-overlay";
 import { OverlayData as OverlayData1 } from "./components/je-overlay/je-overlay";
 import { Placement } from "@floating-ui/dom";
 import { EditorChangeEvent } from "./components/je-rich-text/je-rich-text";
-import { FormatterFn, InputTransformer, ValidationFn } from "./components/je-textfield/je-textfield";
+import { InputMaskOptions } from "./utils/input-mask";
 export { Color } from "./utils/color";
 export { OverlayData } from "./components/je-overlay/je-overlay";
 export { OverlayData as OverlayData1 } from "./components/je-overlay/je-overlay";
 export { Placement } from "@floating-ui/dom";
 export { EditorChangeEvent } from "./components/je-rich-text/je-rich-text";
-export { FormatterFn, InputTransformer, ValidationFn } from "./components/je-textfield/je-textfield";
+export { InputMaskOptions } from "./utils/input-mask";
 export namespace Components {
     /**
      * Accordions are wrappers for <je-link href="../je-details">JeDetails</je-link>. When an inner detail is opened, the others are automatically closed.
@@ -216,6 +216,7 @@ export namespace Components {
     interface JeEq {
     }
     interface JeForm {
+        "addInvalidSubmission": (element: HTMLElement) => Promise<boolean>;
     }
     interface JeGrid {
     }
@@ -552,25 +553,6 @@ export namespace Components {
     }
     interface JeTextfield {
         /**
-          * Passed to native input
-          * @default 'off'
-         */
-        "autoCapitalize": string;
-        /**
-          * Passed to native input
-          * @default 'off'
-         */
-        "autoComplete": string;
-        /**
-          * Passed to native input
-          * @default 'off'
-         */
-        "autoCorrect": 'off' | 'on';
-        /**
-          * Passed to native input
-         */
-        "autoFocus"?: boolean;
-        /**
           * Optional debounce of the didInput event
           * @default 0
          */
@@ -580,16 +562,6 @@ export namespace Components {
           * @default false
          */
         "disabled": boolean;
-        /**
-          * Formatters functions that are applied as the user types
-         */
-        "format"?: FormatterFn;
-        "getErrors": () => Promise<{ requiredError: boolean; minLengthError: boolean; maxLengthError: boolean; patternError: boolean; customErrors: string[]; hasError: boolean; }>;
-        "getInputElement": () => Promise<HTMLInputElement | HTMLTextAreaElement>;
-        /**
-          * Passed to native input
-         */
-        "inputMode": string;
         "isTouched": () => Promise<boolean>;
         /**
           * Text above the control
@@ -624,7 +596,7 @@ export namespace Components {
         /**
           * The default value the control will reset to in a form. If not set, will default to the inital value of the "value" property.
          */
-        "originalValue"?: string;
+        "originalValue"?: any;
         /**
           * Passed to native input
          */
@@ -650,21 +622,26 @@ export namespace Components {
         "size": 'md' | 'lg' | 'sm';
         /**
           * Passed to native input
-          * @default false
-         */
-        "spellcheck": boolean;
-        /**
-          * Passed to native input
          */
         "step"?: string;
         /**
-          * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).  There are built-in transformers for 'number', 'date', and 'datetime'.
+          * @default 'text'
          */
-        "transform"?: InputTransformer | 'number' | 'date' | 'datetime' | 'password';
-        /**
-          * Validator function for form participation
-         */
-        "validate"?: ValidationFn;
+        "type": 'text'
+    | 'email'
+    | 'phone' //✅
+    | 'url'
+    | 'money'
+    | 'date'
+    | 'datetime'
+    | 'color'
+    | 'time'
+    | 'number'
+    | 'password' //✅
+    | 'ssn'
+    | 'daterange'
+    | 'search'
+    | Omit<InputMaskOptions, 'inputElement'>;
         /**
           * Current value of the input
          */
@@ -993,7 +970,7 @@ declare global {
         new (): HTMLJeEqElement;
     };
     interface HTMLJeFormElementEventMap {
-        "formData": Record<string, any>;
+        "dataSubmit": Record<string, any>;
     }
     interface HTMLJeFormElement extends Components.JeForm, HTMLStencilElement {
         addEventListener<K extends keyof HTMLJeFormElementEventMap>(type: K, listener: (this: HTMLJeFormElement, ev: JeFormCustomEvent<HTMLJeFormElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1616,7 +1593,7 @@ declare namespace LocalJSX {
     interface JeEq {
     }
     interface JeForm {
-        "onFormData"?: (event: JeFormCustomEvent<Record<string, any>>) => void;
+        "onDataSubmit"?: (event: JeFormCustomEvent<Record<string, any>>) => void;
     }
     interface JeGrid {
     }
@@ -1982,25 +1959,6 @@ declare namespace LocalJSX {
     }
     interface JeTextfield {
         /**
-          * Passed to native input
-          * @default 'off'
-         */
-        "autoCapitalize"?: string;
-        /**
-          * Passed to native input
-          * @default 'off'
-         */
-        "autoComplete"?: string;
-        /**
-          * Passed to native input
-          * @default 'off'
-         */
-        "autoCorrect"?: 'off' | 'on';
-        /**
-          * Passed to native input
-         */
-        "autoFocus"?: boolean;
-        /**
           * Optional debounce of the didInput event
           * @default 0
          */
@@ -2010,14 +1968,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "disabled"?: boolean;
-        /**
-          * Formatters functions that are applied as the user types
-         */
-        "format"?: FormatterFn;
-        /**
-          * Passed to native input
-         */
-        "inputMode"?: string;
         /**
           * Text above the control
          */
@@ -2054,7 +2004,7 @@ declare namespace LocalJSX {
         /**
           * The default value the control will reset to in a form. If not set, will default to the inital value of the "value" property.
          */
-        "originalValue"?: string;
+        "originalValue"?: any;
         /**
           * Passed to native input
          */
@@ -2080,21 +2030,26 @@ declare namespace LocalJSX {
         "size"?: 'md' | 'lg' | 'sm';
         /**
           * Passed to native input
-          * @default false
-         */
-        "spellcheck"?: boolean;
-        /**
-          * Passed to native input
          */
         "step"?: string;
         /**
-          * Transforms the value before it is passed to the input (from) and after the input emits a new value (to).  There are built-in transformers for 'number', 'date', and 'datetime'.
+          * @default 'text'
          */
-        "transform"?: InputTransformer | 'number' | 'date' | 'datetime' | 'password';
-        /**
-          * Validator function for form participation
-         */
-        "validate"?: ValidationFn;
+        "type"?: 'text'
+    | 'email'
+    | 'phone' //✅
+    | 'url'
+    | 'money'
+    | 'date'
+    | 'datetime'
+    | 'color'
+    | 'time'
+    | 'number'
+    | 'password' //✅
+    | 'ssn'
+    | 'daterange'
+    | 'search'
+    | Omit<InputMaskOptions, 'inputElement'>;
         /**
           * Current value of the input
          */

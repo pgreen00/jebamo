@@ -557,7 +557,8 @@ export declare interface JeEq extends Components.JeEq {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeForm
+  defineCustomElementFn: defineJeForm,
+  methods: ['addInvalidSubmission']
 })
 @Component({
   selector: 'je-form',
@@ -565,11 +566,11 @@ export declare interface JeEq extends Components.JeEq {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [],
-  outputs: ['formData'],
+  outputs: ['dataSubmit'],
 })
 export class JeForm {
   protected el: HTMLJeFormElement;
-  @Output() formData = new EventEmitter<CustomEvent<Record<string, any>>>();
+  @Output() dataSubmit = new EventEmitter<CustomEvent<Record<string, any>>>();
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -579,7 +580,7 @@ export class JeForm {
 
 export declare interface JeForm extends Components.JeForm {
 
-  formData: EventEmitter<CustomEvent<Record<string, any>>>;
+  dataSubmit: EventEmitter<CustomEvent<Record<string, any>>>;
 }
 
 
@@ -1358,15 +1359,15 @@ export declare interface JeTabs extends Components.JeTabs {
 
 @ProxyCmp({
   defineCustomElementFn: defineJeTextfield,
-  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'format', 'inputMode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiline', 'note', 'originalValue', 'pattern', 'placeholder', 'readonly', 'required', 'size', 'spellcheck', 'step', 'transform', 'validate', 'value', 'wrap'],
-  methods: ['getInputElement', 'markAsTouched', 'getErrors', 'isTouched']
+  inputs: ['debounce', 'disabled', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiline', 'note', 'originalValue', 'pattern', 'placeholder', 'readonly', 'required', 'size', 'step', 'type', 'value', 'wrap'],
+  methods: ['markAsTouched', 'isTouched']
 })
 @Component({
   selector: 'je-textfield',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['autoCapitalize', 'autoComplete', 'autoCorrect', 'autoFocus', 'debounce', 'disabled', 'format', 'inputMode', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiline', 'note', 'originalValue', 'pattern', 'placeholder', 'readonly', 'required', 'size', 'spellcheck', 'step', 'transform', 'validate', 'value', 'wrap'],
+  inputs: ['debounce', 'disabled', 'label', 'max', 'maxlength', 'min', 'minlength', 'multiline', 'note', 'originalValue', 'pattern', 'placeholder', 'readonly', 'required', 'size', 'step', 'type', 'value', 'wrap'],
   outputs: ['valueChange'],
 })
 export class JeTextfield {

@@ -302,14 +302,14 @@ export const JeEq: StencilReactComponent<JeEqElement, JeEqEvents> = /*@__PURE__*
     defineCustomElement: defineJeEq
 });
 
-export type JeFormEvents = { onFormData: EventName<JeFormCustomEvent<Record<string, any>>> };
+export type JeFormEvents = { onDataSubmit: EventName<JeFormCustomEvent<Record<string, any>>> };
 
 export const JeForm: StencilReactComponent<JeFormElement, JeFormEvents> = /*@__PURE__*/ createComponent<JeFormElement, JeFormEvents>({
     tagName: 'je-form',
     elementClass: JeFormElement,
     // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
-    events: { onFormData: 'formData' } as JeFormEvents,
+    events: { onDataSubmit: 'dataSubmit' } as JeFormEvents,
     defineCustomElement: defineJeForm
 });
 

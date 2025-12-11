@@ -6,10 +6,7 @@
   <link rel="icon" type="image/svg+xml" href="/hex-tag.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jebamo</title>
-  <style>
-    @view-transition{navigation: auto;
-    }
-  </style>
+  <style>@view-transition{navigation: auto;}</style>
   <link rel="stylesheet" href="/build/jebamo/styles/core.css" />
   <link rel="stylesheet" href="/build/jebamo/styles/classes.css" />
   <link rel="stylesheet" href="/md-tables.css" />
@@ -89,7 +86,12 @@
           const tree = document.querySelector('je-tree#main-nav-tree')
           const branches = Array.from(tree.querySelectorAll('je-branch'))
           const currentPath = window.location.href.replace(window.location.origin, '')
-          tree.value = branches.find(b => b.href == currentPath)?.label
+          const currentBranch = branches.find(b => b.href == currentPath)
+          tree.value = currentBranch?.label
+          requestAnimationFrame(() => currentBranch?.scrollIntoView({
+            block: 'center',
+            container: 'all'
+          }))
         </script>
 			</nav>
     </aside>

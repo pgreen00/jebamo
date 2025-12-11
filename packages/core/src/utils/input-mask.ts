@@ -1,3 +1,5 @@
+import { BehaviorSubject } from "rxjs"
+
 export interface InputMaskOptions {
   inputElement: HTMLInputElement | HTMLElement
   formatter: (str: string) => string
@@ -11,8 +13,8 @@ export class InputMask {
   private formatter: (str: string) => string
   private extractor: (str: string) => string
   private masker?: (rawValue: string, formattedValue: string) => string
-  private rawValue: string
-  private formattedValue: string
+  private rawValue: BehaviorSubject<string>
+  private formattedValue: BehaviorSubject<string>
 
   constructor({ inputElement, formatter, extractor = val => val, masker }: InputMaskOptions) {
     this.element = inputElement
@@ -21,8 +23,8 @@ export class InputMask {
     this.extractor = extractor
     this.masker = masker
 
-    this.rawValue = this.extractor(this.getValue());
-    this.formattedValue = this.formatter(this.rawValue);
+    this.rawValue = new BehaviorSubject(this.extractor(this.getValue()));
+    this.formattedValue = new BehaviorSubject(this.formatter(this.rawValue.value));
     this.setValue(this.getDisplayValue());
 
     this.element.addEventListener("keydown", this.handleKeyDown);
@@ -44,9 +46,18 @@ export class InputMask {
     }
   }
 
+  private getSelection(): Selection | null {
+    // Check if element is in a shadow root
+    const root = this.element.getRootNode();
+    if (root instanceof ShadowRoot && 'getSelection' in root) {
+      return (root as any).getSelection();
+    }
+    return window.getSelection();
+  }
+
   private getCursorPosition(): number | null {
     if (this.isContentEditable) {
-      const selection = window.getSelection();
+      const selection = this.getSelection();
       if (!selection || selection.rangeCount === 0) return null;
 
       const range = selection.getRangeAt(0);
@@ -60,7 +71,7 @@ export class InputMask {
 
   private getSelectionEnd(): number | null {
     if (this.isContentEditable) {
-      const selection = window.getSelection();
+      const selection = this.getSelection();
       if (!selection || selection.rangeCount === 0) return null;
 
       const range = selection.getRangeAt(0);
@@ -74,9 +85,9 @@ export class InputMask {
 
   private getDisplayValue(): string {
     if (this.masker) {
-      return this.masker(this.rawValue, this.formattedValue);
+      return this.masker(this.rawValue.value, this.formattedValue.value);
     }
-    return this.formattedValue;
+    return this.formattedValue.value;
   }
 
   private handleKeyDown = (e: KeyboardEvent) => {
@@ -92,7 +103,7 @@ export class InputMask {
       }
 
       // Use formattedValue (not the masked display) for logic
-      const valueToCheck = this.formattedValue;
+      const valueToCheck = this.formattedValue.value;
 
       // Check if we're about to delete a formatting character
       if (e.key === "Backspace" && cursorPos > 0) {
@@ -124,22 +135,24 @@ export class InputMask {
   }
 
   private deleteRawCharacter(direction: string, cursorPos: number) {
-    const rawPos = this.getRawCursorPosition(this.formattedValue, cursorPos);
+    const rawPos = this.getRawCursorPosition(this.formattedValue.value, cursorPos);
 
     // Delete from raw value
     if (direction === "backspace" && rawPos > 0) {
-      this.rawValue =
-        this.rawValue.slice(0, rawPos - 1) + this.rawValue.slice(rawPos);
+      this.rawValue.next(
+        this.rawValue.value.slice(0, rawPos - 1) + this.rawValue.value.slice(rawPos)
+      );
       this.updateAndPosition(rawPos - 1);
-    } else if (direction === "delete" && rawPos < this.rawValue.length) {
-      this.rawValue =
-        this.rawValue.slice(0, rawPos) + this.rawValue.slice(rawPos + 1);
+    } else if (direction === "delete" && rawPos < this.rawValue.value.length) {
+      this.rawValue.next(
+        this.rawValue.value.slice(0, rawPos) + this.rawValue.value.slice(rawPos + 1)
+      );
       this.updateAndPosition(rawPos);
     }
   }
 
   private updateAndPosition(targetRawPos: number) {
-    this.formattedValue = this.formatter(this.rawValue);
+    this.formattedValue.next(this.formatter(this.rawValue.value));
     this.setValue(this.getDisplayValue());
 
     const newCursorPos = this.getFormattedCursorPosition(targetRawPos);
@@ -159,7 +172,7 @@ export class InputMask {
 
     if (this.masker) {
       // Get raw cursor position before the change
-      const prevRawCursorPos = this.getRawCursorPosition(this.formattedValue, cursorPos);
+      const prevRawCursorPos = this.getRawCursorPosition(this.formattedValue.value, cursorPos);
 
       if (inputValue.length > prevDisplayValue.length) {
         // User added characters - extract the new characters
@@ -169,9 +182,9 @@ export class InputMask {
 
         // Insert into raw value at cursor position
         const candidateRawValue =
-          this.rawValue.slice(0, prevRawCursorPos) +
+          this.rawValue.value.slice(0, prevRawCursorPos) +
           extractedTyped +
-          this.rawValue.slice(prevRawCursorPos);
+          this.rawValue.value.slice(prevRawCursorPos);
 
         // Format to see what actually gets accepted
         const formattedCandidate = this.formatter(candidateRawValue);
@@ -183,11 +196,11 @@ export class InputMask {
 
         // Delete from raw value at cursor position
         newRawValue =
-          this.rawValue.slice(0, prevRawCursorPos) +
-          this.rawValue.slice(prevRawCursorPos + diff);
+          this.rawValue.value.slice(0, prevRawCursorPos) +
+          this.rawValue.value.slice(prevRawCursorPos + diff);
       } else {
         // No length change
-        newRawValue = this.rawValue;
+        newRawValue = this.rawValue.value;
       }
     } else {
       // Original behavior for non-masked inputs
@@ -196,16 +209,16 @@ export class InputMask {
 
     // Calculate cursor position in terms of raw characters
     const rawCursorPos = this.masker
-      ? this.extractor(this.formattedValue.substring(0, cursorPos)).length
+      ? this.extractor(this.formattedValue.value.substring(0, cursorPos)).length
       : this.getRawCursorPosition(inputValue, cursorPos);
     // Determine what changed in the raw value
-    const rawDiff = newRawValue.length - this.rawValue.length;
+    const rawDiff = newRawValue.length - this.rawValue.value.length;
 
     // Update stored raw value
-    this.rawValue = newRawValue;
+    this.rawValue.next(newRawValue);
 
     // Apply formatting
-    this.formattedValue = this.formatter(this.rawValue);
+    this.formattedValue.next(this.formatter(this.rawValue.value));
     this.setValue(this.getDisplayValue());
 
     // Calculate new cursor position
@@ -220,6 +233,7 @@ export class InputMask {
     // Set cursor position
     this.setCursor(newCursorPos);
   }
+
   private getRawCursorPosition(formattedValue: string, cursorPos: number) {
     // Count how many "raw" characters are before the cursor
     const extracted = this.extractor(formattedValue.substring(0, cursorPos));
@@ -229,27 +243,27 @@ export class InputMask {
   private getFormattedCursorPosition(rawPos: number) {
     // Find the formatted position that corresponds to the raw position
     if (rawPos === 0) return 0;
-    if (rawPos >= this.rawValue.length) return this.formattedValue.length;
-    for (let i = 0; i < this.formattedValue.length; i++) {
+    if (rawPos >= this.rawValue.value.length) return this.formattedValue.value.length;
+    for (let i = 0; i < this.formattedValue.value.length; i++) {
       const charUpToHere = this.extractor(
-        this.formattedValue.substring(0, i + 1)
+        this.formattedValue.value.substring(0, i + 1)
       );
       if (charUpToHere.length >= rawPos) {
         return i + 1;
       }
     }
 
-    return this.formattedValue.length;
+    return this.formattedValue.value.length;
   }
 
   private findNextRawCharPosition(startPos: number) {
     // Move cursor forward until we're right after a raw character
     // This handles cases where formatting characters are inserted
-    for (let i = startPos; i <= this.formattedValue.length; i++) {
+    for (let i = startPos; i <= this.formattedValue.value.length; i++) {
       const beforeExtracted = this.extractor(
-        this.formattedValue.substring(0, i - 1)
+        this.formattedValue.value.substring(0, i - 1)
       );
-      const atExtracted = this.extractor(this.formattedValue.substring(0, i));
+      const atExtracted = this.extractor(this.formattedValue.value.substring(0, i));
 
       if (atExtracted.length > beforeExtracted.length) {
         return i;
@@ -261,7 +275,7 @@ export class InputMask {
   private setCursor(position: number) {
     requestAnimationFrame(() => {
       if (this.isContentEditable) {
-        const selection = window.getSelection();
+        const selection = this.getSelection();
         if (!selection) return;
 
         const range = document.createRange();

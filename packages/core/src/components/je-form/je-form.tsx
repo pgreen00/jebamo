@@ -1,5 +1,5 @@
-import { Component, Event, EventEmitter, Listen, h } from '@stencil/core';
-import { AsyncSubject, buffer, debounceTime, fromEvent, Subscription, switchMap } from 'rxjs';
+import { Component, Event, EventEmitter, Listen, Method, h } from '@stencil/core';
+import { buffer, debounceTime, firstValueFrom, share, Subject, Subscription, take } from 'rxjs';
 
 @Component({
   tag: 'je-form',
@@ -7,20 +7,18 @@ import { AsyncSubject, buffer, debounceTime, fromEvent, Subscription, switchMap 
   scoped: true
 })
 export class JeForm {
-  private el$ = new AsyncSubject<HTMLFormElement>();
+  private el: HTMLFormElement;
   private sub?: Subscription;
+  private invalidElements$ = new Subject<HTMLElement>();
+  private buffer$ = this.invalidElements$.pipe(
+    buffer(this.invalidElements$.pipe(debounceTime(100))),
+    share()
+  );
 
-  @Event() formData: EventEmitter<Record<string, any>>;
+  @Event() dataSubmit: EventEmitter<Record<string, any>>;
 
   connectedCallback() {
-    this.sub = this.el$.pipe(switchMap(el => {
-      const ev$ = fromEvent(el, 'invalid', { capture: true })
-      return ev$.pipe(buffer(ev$.pipe(debounceTime(100))))
-    })).subscribe(events => {
-      const firstInvalidElement = events[0].target as HTMLElement;
-      if (firstInvalidElement && !firstInvalidElement.matches(':focus'))
-        firstInvalidElement.focus();
-    });
+    this.sub = this.buffer$.subscribe();
   }
 
   disconnectedCallback() {
@@ -28,39 +26,39 @@ export class JeForm {
   }
 
   @Listen('submit')
-  async onSubmit(event: SubmitEvent) {
+  onSubmit(event: SubmitEvent) {
     event.preventDefault();
-    this.el$.subscribe(el => {
-      const formData = new FormData(el);
-      let json: Record<string, any> = {};
-      for (const [key, value] of formData.entries()) {
-        if (Array.isArray(json[key])) {
-          json[key].push(value);
-        } else if (json[key]) {
-          json[key] = [json[key], value];
-        } else {
-          json[key] = value;
-        }
+    const formData = new FormData(this.el);
+    let json: Record<string, any> = {};
+    for (const [key, value] of formData.entries()) {
+      if (Array.isArray(json[key])) {
+        json[key].push(value);
+      } else if (json[key]) {
+        json[key] = [json[key], value];
+      } else {
+        json[key] = value;
       }
-      this.formData.emit(json);
-    })
+    }
+    this.dataSubmit.emit(json);
   }
 
   @Listen('keydown')
   onKeydown(event: KeyboardEvent) {
     if (event.key === 'Enter') {
-      this.el$.subscribe(el => el.querySelector<HTMLButtonElement>('button[type=submit]')?.click())
+      this.el.querySelector<HTMLButtonElement>('button[type=submit]')?.click()
     }
   }
 
-  private formElementInit = (el: HTMLFormElement) => {
-    this.el$.next(el);
-    this.el$.complete();
+  @Method()
+  async addInvalidSubmission(element: HTMLElement) {
+    this.invalidElements$.next(element)
+    const elements = await firstValueFrom(this.buffer$.pipe(take(1)))
+    return element === elements[0]
   }
 
   render() {
     return (
-      <form ref={this.formElementInit}>
+      <form ref={el => this.el = el}>
         <slot />
       </form>
     );

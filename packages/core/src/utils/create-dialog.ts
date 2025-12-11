@@ -3,7 +3,6 @@ import { Color } from "./color";
 export type DialogControl = {
   label?: string;
   placeholder?: string;
-  validators?: HTMLJeTextfieldElement['validate'];
   required?: boolean;
   type?: string;
   originalValue?: string;
