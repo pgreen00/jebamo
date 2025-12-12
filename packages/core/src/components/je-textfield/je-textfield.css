@@ -80,6 +80,8 @@ div[part=container] {
   white-space: nowrap;
   overflow-y: hidden;
   overflow-x: auto;
+  -webkit-user-select: text;
+  user-select: text;
 
   &[data-placeholder]:empty::before {
     content: attr(data-placeholder);

@@ -46,22 +46,18 @@ export class InputMask {
     }
   }
 
-  private getSelection(): Selection | null {
-    // Check if element is in a shadow root
-    const root = this.element.getRootNode();
-    if (root instanceof ShadowRoot && 'getSelection' in root) {
-      return (root as any).getSelection();
-    }
-    return window.getSelection();
-  }
-
   private getCursorPosition(): number | null {
     if (this.isContentEditable) {
-      const selection = this.getSelection();
+      const selection = window.getSelection();
       if (!selection || selection.rangeCount === 0) return null;
 
-      const range = selection.getRangeAt(0);
-      const preCaretRange = range.cloneRange();
+      const root = this.element.getRootNode()
+      const ranges = selection.getComposedRanges({
+        shadowRoots: root instanceof ShadowRoot ? [root] : []
+      });
+      if (ranges.length === 0) return null;
+      const range = ranges[0];
+      const preCaretRange = document.createRange();
       preCaretRange.selectNodeContents(this.element);
       preCaretRange.setEnd(range.endContainer, range.endOffset);
       return preCaretRange.toString().length;
@@ -71,11 +67,17 @@ export class InputMask {
 
   private getSelectionEnd(): number | null {
     if (this.isContentEditable) {
-      const selection = this.getSelection();
+      const selection = window.getSelection();
       if (!selection || selection.rangeCount === 0) return null;
 
-      const range = selection.getRangeAt(0);
-      const preCaretRange = range.cloneRange();
+      const root = this.element.getRootNode()
+      const ranges = selection.getComposedRanges({
+        shadowRoots: root instanceof ShadowRoot ? [root] : []
+      });
+      if (ranges.length === 0) return null;
+
+      const range = ranges[0];
+      const preCaretRange = document.createRange();
       preCaretRange.selectNodeContents(this.element);
       preCaretRange.setEnd(range.endContainer, range.endOffset);
       return preCaretRange.toString().length;
@@ -223,7 +225,6 @@ export class InputMask {
 
     // Calculate new cursor position
     let newCursorPos = this.getFormattedCursorPosition(rawCursorPos + (rawDiff > 0 ? rawDiff : 0));
-
     // If we're adding characters, move cursor forward past any formatting
     if (rawDiff > 0) {
       // Make sure cursor is after the newly typed character(s)
@@ -275,38 +276,12 @@ export class InputMask {
   private setCursor(position: number) {
     requestAnimationFrame(() => {
       if (this.isContentEditable) {
-        const selection = this.getSelection();
+        const selection = window.getSelection();
         if (!selection) return;
 
-        const range = document.createRange();
-        let currentPos = 0;
-        let found = false;
-
-        const traverse = (node: Node) => {
-          if (found) return;
-
-          if (node.nodeType === Node.TEXT_NODE) {
-            const textLength = node.textContent?.length || 0;
-            if (currentPos + textLength >= position) {
-              range.setStart(node, position - currentPos);
-              range.setEnd(node, position - currentPos);
-              found = true;
-              return;
-            }
-            currentPos += textLength;
-          } else {
-            for (let i = 0; i < node.childNodes.length; i++) {
-              traverse(node.childNodes[i]);
-              if (found) return;
-            }
-          }
-        };
-
-        traverse(this.element);
-
-        if (found) {
-          selection.removeAllRanges();
-          selection.addRange(range);
+        const textNode = Array.from(this.element.childNodes).find(t => t.nodeType === Node.TEXT_NODE);
+        if (textNode) {
+          selection.setPosition(textNode, position)
         }
       } else {
         (this.element as HTMLInputElement).setSelectionRange(position, position);

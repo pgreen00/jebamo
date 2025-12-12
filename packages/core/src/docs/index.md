@@ -40,7 +40,7 @@ const phoneFormatter = (value) => {
 };
 
 const phoneMask = new InputMask({
-  inputElement: document.getElementById("phone"),
+  inputElement: document.getElementById("ce"),
   formatter: phoneFormatter,
   extractor: (val) => val.replace(/\D/g, ""),
 });
