@@ -1,7 +1,8 @@
-import { Component, Host, Prop, h, Element, State, Event as StencilEvent, EventEmitter, AttachInternals, Method, Listen, Watch, forceUpdate } from '@stencil/core';
+import { Component, Host, Prop, h, Element, State, Event, EventEmitter, AttachInternals, Method, Listen, Watch, forceUpdate } from '@stencil/core';
 import { debounceEvent } from '../../utils/debounce-event';
 import { InputMask, InputMaskOptions } from '../../utils/input-mask';
 import { BehaviorSubject, filter, Subscription, switchMap } from 'rxjs';
+import { Masks } from './masks';
 
 @Component({
   tag: 'je-textfield',
@@ -26,19 +27,18 @@ export class JeTextfield {
   @State() showPassword = false;
 
   @Prop({ reflect: true }) type: 'text'
+    | 'number'
+    | 'search'
     | 'email'
-    | 'phone' //✅
+    | 'phone'
     | 'url'
     | 'money'
     | 'date'
-    | 'datetime'
-    | 'color'
     | 'time'
-    | 'number'
-    | 'password' //✅
-    | 'ssn'
+    | 'datetime'
     | 'daterange'
-    | 'search'
+    | 'password'
+    | 'ssn'
     | Omit<InputMaskOptions, 'inputElement'> = 'text'
 
   /**
@@ -135,7 +135,7 @@ export class JeTextfield {
   /**
    * Emits as the user types
    */
-  @StencilEvent() valueChange: EventEmitter<any>;
+  @Event() valueChange: EventEmitter<any>;
 
   componentWillLoad() {
     if (this.debounce) this.valueChange = debounceEvent(this.valueChange, this.debounce);
@@ -150,20 +150,67 @@ export class JeTextfield {
     if (this.type == 'phone') {
       this.mask.next(new InputMask({
         inputElement: this.inputEl,
-        formatter: (value) => {
-          const digits = value.substring(0, 10);
-          if (digits.length === 0) return "";
-          if (digits.length <= 3) return `(${digits}`;
-          if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
-          return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
-        },
-        extractor: (val) => val.replace(/\D/g, ""),
+        ...Masks.PHONE
       }))
     } else if (this.type == 'password') {
       this.mask.next(new InputMask({
         inputElement: this.inputEl,
         formatter: raw => raw,
         masker: raw => this.showPassword ? raw : Array.from({ length: raw.length }).map(() => '·').join('')
+      }))
+    } else if (this.type == 'money') {
+      this.mask.next(new InputMask({
+        inputElement: this.inputEl,
+        ...Masks.MONEY
+      }))
+    } else if (this.type == 'ssn') {
+      this.mask.next(new InputMask({
+        inputElement: this.inputEl,
+        formatter: raw => {
+          const digits = raw.replace(/\D/g, '').slice(0, 9);
+          if (digits.length <= 3) return digits;
+          if (digits.length <= 5) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+          return `${digits.slice(0, 3)}-${digits.slice(3, 5)}-${digits.slice(5)}`;
+        },
+        extractor: formatted => formatted.replace(/\D/g, ''),
+        masker: (rawValue, formattedValue) => {
+          if (rawValue.length <= 5) {
+            return formattedValue.replace(/\d/g, 'X');
+          }
+          let digitCount = 0;
+          return formattedValue.split('').map(char => {
+            if (/\d/.test(char)) {
+              digitCount++;
+              return digitCount <= 5 ? 'X' : char;
+            }
+            return char;
+          }).join('');
+        }
+      }))
+    } else if (this.type == 'number') {
+      this.mask.next(new InputMask({
+        inputElement: this.inputEl,
+        ...Masks.NUMBER
+      }))
+    } else if (this.type == 'time') {
+      this.mask.next(new InputMask({
+        inputElement: this.inputEl,
+        ...Masks.TIME
+      }))
+    } else if (this.type == 'date') {
+      this.mask.next(new InputMask({
+        inputElement: this.inputEl,
+        ...Masks.DATE
+      }))
+    } else if (this.type == 'datetime') {
+      this.mask.next(new InputMask({
+        inputElement: this.inputEl,
+        ...Masks.DATETIME
+      }))
+    } else if (this.type == 'daterange') {
+      this.mask.next(new InputMask({
+        inputElement: this.inputEl,
+        ...Masks.DATERANGE
       }))
     }
   }
@@ -240,14 +287,13 @@ export class JeTextfield {
     if (!this.mask.value && this.inputEl.textContent !== this.value) {
       this.inputEl.textContent = this.value
     } else if (this.mask.value && this.mask.value['rawValue'].value !== this.value) {
-      this.inputEl.textContent = this.value
-      this.inputEl.dispatchEvent(new Event('input', { bubbles: true }))
+      this.mask.value.forceUpdate(this.value)
     }
   }
 
   @Watch('showPassword')
   onShowPasswordChange() {
-    this.inputEl.dispatchEvent(new Event('input', { bubbles: true }))
+    this.mask.value.forceUpdate()
   }
 
   @Method()

@@ -31,6 +31,13 @@ export class InputMask {
     this.element.addEventListener("input", this.handleInput);
   }
 
+  public forceUpdate(newValue?: string) {
+    if (newValue !== undefined) {
+      this.setValue(newValue)
+    }
+    this.element.dispatchEvent(new Event('input', { bubbles: true }))
+  }
+
   private getValue(): string {
     if (this.isContentEditable) {
       return (this.element as HTMLElement).textContent || '';

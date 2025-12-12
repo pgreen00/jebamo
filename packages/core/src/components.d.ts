@@ -628,19 +628,19 @@ export namespace Components {
           * @default 'text'
          */
         "type": 'text'
+    | 'number'
+    | 'search'
     | 'email'
     | 'phone' //✅
     | 'url'
-    | 'money'
-    | 'date'
-    | 'datetime'
     | 'color'
+    | 'money' //✅
+    | 'date'
     | 'time'
-    | 'number'
-    | 'password' //✅
-    | 'ssn'
+    | 'datetime'
     | 'daterange'
-    | 'search'
+    | 'password' //✅
+    | 'ssn' //✅
     | Omit<InputMaskOptions, 'inputElement'>;
         /**
           * Current value of the input
@@ -2036,19 +2036,19 @@ declare namespace LocalJSX {
           * @default 'text'
          */
         "type"?: 'text'
+    | 'number'
+    | 'search'
     | 'email'
     | 'phone' //✅
     | 'url'
-    | 'money'
-    | 'date'
-    | 'datetime'
     | 'color'
+    | 'money' //✅
+    | 'date'
     | 'time'
-    | 'number'
-    | 'password' //✅
-    | 'ssn'
+    | 'datetime'
     | 'daterange'
-    | 'search'
+    | 'password' //✅
+    | 'ssn' //✅
     | Omit<InputMaskOptions, 'inputElement'>;
         /**
           * Current value of the input
