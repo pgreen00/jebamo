@@ -1,0 +1,67 @@
+## Component Status
+
+- Stable
+  - None
+- Testable
+  - Accordion 🔵
+  - Alert 🔴
+  - Details 🔵
+  - Button 🔴
+  - Divider 🔴
+  - Toolbar 🔴
+  - Label 🔴
+  - Note 🔴
+  - Page 🔴
+  - Branch 🔴
+  - Tree 🔴
+  - Tooltip 🔴
+  - Popover 🔴
+  - Form 🔴
+  - Loading 🔴
+  - Placeholder 🔴
+- Development
+  - Breadcrumb ⚪️
+  - Breadcrumbs ⚪️
+  - Button Group 🔴
+  - Calendar 🔴
+  - Color ⚪️
+  - Compressor ⚪️
+  - Control ⚪️
+  - Datepicker 🔴
+  - DAW ⚪️
+  - Discard Form 🔴
+  - Drop Zone 🔴
+  - Equalizer ⚪️
+  - Grid 🔴
+  - Item 🔴
+  - Knob ⚪️
+  - Link 🔴
+  - List 🔴
+  - MIDI ⚪️
+  - Option 🔴
+  - Overlay 🔵
+  - Overlay Content 🔵
+  - Pill 🔴
+  - Radio 🔴
+  - Radio Button 🔴
+  - Radio Group 🔴
+  - Range ⚪️
+  - Reorder Item 🔴
+  - Reorder List 🔴
+  - Rich Text 🔴
+  - Select 🔴
+  - Split Panel 🔴
+  - Split View 🔴
+  - Stack 🔴
+  - Synth ⚪️
+  - Tab 🔴
+  - Tabs 🔴
+  - Textfield 🔴
+  - Toggle 🔴
+  - Wizard 🔴
+
+### Legend
+
+- 🔴 High Priority
+- 🔵 Regular Priority
+- ⚪️ Low Priority
