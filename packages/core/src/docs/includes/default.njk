@@ -18,7 +18,7 @@
 </head>
 
 <body>
-  <je-page>
+  <je-page condense>
     <header>
       <je-toolbar>
         <img src="/hex-tag.svg" alt="logo" height="60" width="60" />
@@ -40,8 +40,8 @@
         </je-popover>
       </je-toolbar>
     </header>
-    <aside class="je-padding-horizontal-xs je-padding-vertical" style="width: 300px;">
-      <nav>
+    <aside style="width: 300px;">
+      <nav aria-label="Main navigation">
 				<je-tree id="main-nav-tree">
           <je-branch href="/" label="Home"></je-branch>
           <je-branch label="Installation"></je-branch>
@@ -95,11 +95,14 @@
         </script>
 			</nav>
     </aside>
-    <main>
+    <main style="display: flex; flex-direction: column; gap: 1.5rem;">
       {% block content %}
         {{ content | safe }}
       {% endblock %}
     </main>
+    <aside style="width: 300px">
+      <je-toc aria-label="Table of contents"></je-toc>
+    </aside>
   </je-page>
 </body>
 

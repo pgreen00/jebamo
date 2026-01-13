@@ -63,6 +63,7 @@ import { JeSynth as JeSynthElement, defineCustomElement as defineJeSynth } from 
 import { JeTab as JeTabElement, defineCustomElement as defineJeTab } from "jebamo/components/je-tab.js";
 import { JeTabs as JeTabsElement, defineCustomElement as defineJeTabs } from "jebamo/components/je-tabs.js";
 import { JeTextfield as JeTextfieldElement, defineCustomElement as defineJeTextfield } from "jebamo/components/je-textfield.js";
+import { JeToc as JeTocElement, defineCustomElement as defineJeToc } from "jebamo/components/je-toc.js";
 import { JeToggle as JeToggleElement, defineCustomElement as defineJeToggle } from "jebamo/components/je-toggle.js";
 import { JeToolbar as JeToolbarElement, defineCustomElement as defineJeToolbar } from "jebamo/components/je-toolbar.js";
 import { JeTooltip as JeTooltipElement, defineCustomElement as defineJeTooltip } from "jebamo/components/je-tooltip.js";
@@ -689,6 +690,17 @@ export const JeTextfield: StencilReactComponent<JeTextfieldElement, JeTextfieldE
     react: React,
     events: { onValueChange: 'valueChange' } as JeTextfieldEvents,
     defineCustomElement: defineJeTextfield
+});
+
+export type JeTocEvents = NonNullable<unknown>;
+
+export const JeToc: StencilReactComponent<JeTocElement, JeTocEvents> = /*@__PURE__*/ createComponent<JeTocElement, JeTocEvents>({
+    tagName: 'je-toc',
+    elementClass: JeTocElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as JeTocEvents,
+    defineCustomElement: defineJeToc
 });
 
 export type JeToggleEvents = { onValueChange: EventName<CustomEvent<boolean>> };

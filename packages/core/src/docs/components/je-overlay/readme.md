@@ -19,10 +19,10 @@ sidebar_label: 'Overlay'
 
 ## Events
 
-| Event     | Description                                                                                                           | Type                                          |
-| --------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
-| `dismiss` | Emits whenever the overlay has finished closing. Emits the role and optional data object passed to the hide() method. | `CustomEvent<{ role?: string; data?: any; }>` |
-| `present` | Emits whenever the overlay has opened. Does not emit any data                                                         | `CustomEvent<any>`                            |
+| Event     | Description                                                                                                           | Type               |
+| --------- | --------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `dismiss` | Emits whenever the overlay has finished closing. Emits the role and optional data object passed to the hide() method. | `CustomEvent<any>` |
+| `present` | Emits whenever the overlay has opened. Does not emit any data                                                         | `CustomEvent<any>` |
 
 
 ## Methods

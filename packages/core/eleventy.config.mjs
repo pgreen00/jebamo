@@ -13,7 +13,10 @@ export default async function (eleventyConfig) {
     linkify: true,
     typographer: true
   }).use(anchor, {
-    permalink: anchor.permalink.headerLink()
+    permalink: anchor.permalink.headerLink({
+      renderAttrs: () => ({ 'data-toc': '' })
+    }),
+    level: [2]
   }).use(toc, {
     includeLevel: [1, 2]
   }).use(multimdTable, {

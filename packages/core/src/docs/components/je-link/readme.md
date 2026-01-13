@@ -24,6 +24,19 @@ sidebar_label: 'Link'
 | `"anchor"` |             |
 
 
+## Dependencies
+
+### Used by
+
+ - [je-toc](../je-toc)
+
+### Graph
+```mermaid
+graph TD;
+  je-toc --> je-link
+  style je-link fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 

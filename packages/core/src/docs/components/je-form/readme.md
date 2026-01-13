@@ -7,9 +7,9 @@ sidebar_label: 'Form'
 
 ## Events
 
-| Event        | Description | Type                                 |
-| ------------ | ----------- | ------------------------------------ |
-| `dataSubmit` |             | `CustomEvent<{ [x: string]: any; }>` |
+| Event        | Description | Type                         |
+| ------------ | ----------- | ---------------------------- |
+| `dataSubmit` |             | `CustomEvent<any \| string>` |
 
 
 ## Methods

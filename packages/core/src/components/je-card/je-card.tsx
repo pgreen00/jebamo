@@ -1,22 +1,35 @@
-import { Component, Host, Prop, h } from '@stencil/core';
-import { Color } from '../../utils/color';
+import { Component, Element, Host, h } from '@stencil/core';
 
 @Component({
   tag: 'je-card',
   styleUrl: 'je-card.css',
-  shadow: true,
+  shadow: {
+    slotAssignment: 'manual'
+  },
 })
 export class JeCard {
-  @Prop({ reflect: true }) color?: Color;
-  @Prop({ reflect: true }) button?: boolean;
+  @Element() el: HTMLElement
+  slot: HTMLSlotElement;
+  connectedCallback() {
+    console.log('connected')
+  }
+  componentDidLoad() {
+    const button = this.el.querySelector('span')
+    if (button) this.slot.assign(button)
+    const card = this.el.querySelector('je-card')
+    if (card) this.slot.assign(card)
+  }
 
   render() {
     return (
       <Host>
+        <template>
+          <span />
+        </template>
         <slot name='media' />
         <slot name='header' />
         <div class='container'>
-          <slot />
+          <slot ref={el => this.slot = el} />
           <slot name='footer' />
         </div>
       </Host>

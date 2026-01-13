@@ -80,10 +80,10 @@ The `end` slot can be used for action items like buttons
 
 ## Events
 
-| Event     | Description | Type                                          |
-| --------- | ----------- | --------------------------------------------- |
-| `dismiss` |             | `CustomEvent<{ role?: string; data?: any; }>` |
-| `present` |             | `CustomEvent<any>`                            |
+| Event     | Description | Type               |
+| --------- | ----------- | ------------------ |
+| `dismiss` |             | `CustomEvent<T>`   |
+| `present` |             | `CustomEvent<any>` |
 
 
 ## Methods

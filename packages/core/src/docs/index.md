@@ -26,6 +26,12 @@
 <input id="date" placeholder="date" /><br/>
 <input id="ssn" placeholder="ssn" />
 
+<je-card>
+  Hey
+  <je-card>yoyoyoyoyo</je-card>
+  <span><je-button>hey</je-button></span>
+</je-card>
+
 <script type="module">
 import {InputMask} from './build/jebamo/dist/index.js'
 

@@ -118,8 +118,6 @@ export namespace Components {
     interface JeCalendar {
     }
     interface JeCard {
-        "button"?: boolean;
-        "color"?: Color;
     }
     interface JeCheckbox {
         /**
@@ -631,16 +629,15 @@ export namespace Components {
     | 'number'
     | 'search'
     | 'email'
-    | 'phone' //✅
+    | 'phone'
     | 'url'
-    | 'color'
-    | 'money' //✅
+    | 'money'
     | 'date'
     | 'time'
     | 'datetime'
     | 'daterange'
-    | 'password' //✅
-    | 'ssn' //✅
+    | 'password'
+    | 'ssn'
     | Omit<InputMaskOptions, 'inputElement'>;
         /**
           * Current value of the input
@@ -650,6 +647,8 @@ export namespace Components {
           * Passed to native textarea
          */
         "wrap"?: string;
+    }
+    interface JeToc {
     }
     interface JeToggle {
         /**
@@ -1262,6 +1261,12 @@ declare global {
         prototype: HTMLJeTextfieldElement;
         new (): HTMLJeTextfieldElement;
     };
+    interface HTMLJeTocElement extends Components.JeToc, HTMLStencilElement {
+    }
+    var HTMLJeTocElement: {
+        prototype: HTMLJeTocElement;
+        new (): HTMLJeTocElement;
+    };
     interface HTMLJeToggleElementEventMap {
         "valueChange": boolean;
     }
@@ -1380,6 +1385,7 @@ declare global {
         "je-tab": HTMLJeTabElement;
         "je-tabs": HTMLJeTabsElement;
         "je-textfield": HTMLJeTextfieldElement;
+        "je-toc": HTMLJeTocElement;
         "je-toggle": HTMLJeToggleElement;
         "je-toolbar": HTMLJeToolbarElement;
         "je-tooltip": HTMLJeTooltipElement;
@@ -1487,8 +1493,6 @@ declare namespace LocalJSX {
     interface JeCalendar {
     }
     interface JeCard {
-        "button"?: boolean;
-        "color"?: Color;
     }
     interface JeCheckbox {
         /**
@@ -2039,16 +2043,15 @@ declare namespace LocalJSX {
     | 'number'
     | 'search'
     | 'email'
-    | 'phone' //✅
+    | 'phone'
     | 'url'
-    | 'color'
-    | 'money' //✅
+    | 'money'
     | 'date'
     | 'time'
     | 'datetime'
     | 'daterange'
-    | 'password' //✅
-    | 'ssn' //✅
+    | 'password'
+    | 'ssn'
     | Omit<InputMaskOptions, 'inputElement'>;
         /**
           * Current value of the input
@@ -2058,6 +2061,8 @@ declare namespace LocalJSX {
           * Passed to native textarea
          */
         "wrap"?: string;
+    }
+    interface JeToc {
     }
     interface JeToggle {
         /**
@@ -2171,6 +2176,7 @@ declare namespace LocalJSX {
         "je-tab": JeTab;
         "je-tabs": JeTabs;
         "je-textfield": JeTextfield;
+        "je-toc": JeToc;
         "je-toggle": JeToggle;
         "je-toolbar": JeToolbar;
         "je-tooltip": JeTooltip;
@@ -2239,6 +2245,7 @@ declare module "@stencil/core" {
             "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
             "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;
             "je-textfield": LocalJSX.JeTextfield & JSXBase.HTMLAttributes<HTMLJeTextfieldElement>;
+            "je-toc": LocalJSX.JeToc & JSXBase.HTMLAttributes<HTMLJeTocElement>;
             "je-toggle": LocalJSX.JeToggle & JSXBase.HTMLAttributes<HTMLJeToggleElement>;
             "je-toolbar": LocalJSX.JeToolbar & JSXBase.HTMLAttributes<HTMLJeToolbarElement>;
             "je-tooltip": LocalJSX.JeTooltip & JSXBase.HTMLAttributes<HTMLJeTooltipElement>;

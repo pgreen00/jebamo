@@ -59,6 +59,7 @@ import { defineCustomElement as defineJeSynth } from 'jebamo/components/je-synth
 import { defineCustomElement as defineJeTab } from 'jebamo/components/je-tab.js';
 import { defineCustomElement as defineJeTabs } from 'jebamo/components/je-tabs.js';
 import { defineCustomElement as defineJeTextfield } from 'jebamo/components/je-textfield.js';
+import { defineCustomElement as defineJeToc } from 'jebamo/components/je-toc.js';
 import { defineCustomElement as defineJeToggle } from 'jebamo/components/je-toggle.js';
 import { defineCustomElement as defineJeToolbar } from 'jebamo/components/je-toolbar.js';
 import { defineCustomElement as defineJeTooltip } from 'jebamo/components/je-tooltip.js';
@@ -262,15 +263,14 @@ export declare interface JeCalendar extends Components.JeCalendar {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeCard,
-  inputs: ['button', 'color']
+  defineCustomElementFn: defineJeCard
 })
 @Component({
   selector: 'je-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['button', 'color'],
+  inputs: [],
 })
 export class JeCard {
   protected el: HTMLJeCardElement;
@@ -1386,6 +1386,28 @@ export declare interface JeTextfield extends Components.JeTextfield {
    */
   valueChange: EventEmitter<CustomEvent<any>>;
 }
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineJeToc
+})
+@Component({
+  selector: 'je-toc',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class JeToc {
+  protected el: HTMLJeTocElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeToc extends Components.JeToc {}
 
 
 @ProxyCmp({

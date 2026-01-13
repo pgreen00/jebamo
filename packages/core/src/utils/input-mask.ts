@@ -59,7 +59,7 @@ export class InputMask {
       if (!selection || selection.rangeCount === 0) return null;
 
       const root = this.element.getRootNode()
-      const ranges = selection.getComposedRanges({
+      const ranges = (selection as any).getComposedRanges({
         shadowRoots: root instanceof ShadowRoot ? [root] : []
       });
       if (ranges.length === 0) return null;
@@ -78,7 +78,7 @@ export class InputMask {
       if (!selection || selection.rangeCount === 0) return null;
 
       const root = this.element.getRootNode()
-      const ranges = selection.getComposedRanges({
+      const ranges = (selection as any).getComposedRanges({
         shadowRoots: root instanceof ShadowRoot ? [root] : []
       });
       if (ranges.length === 0) return null;

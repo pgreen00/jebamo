@@ -127,6 +127,7 @@ html:has(je-page) {
       overflow-x: hidden;
       box-sizing: border-box;
       scrollbar-width: thin;
+      padding: var(--je-spacing-xs);
     }
 
     &>aside:not(main+aside) {
@@ -137,57 +138,16 @@ html:has(je-page) {
     &>main+aside {
       grid-area: right;
       border-left: solid 1px var(--border-color);
+
+      &:has(je-toc:only-child) {
+        top: calc(var(--head-height, 0px) + 0.5rem);
+        height: fit-content;
+      }
     }
-  }
-}
 
-.je-toast-container {
-  position: fixed;
-  display: none;
-  overflow: auto;
-  flex-direction: column;
-  gap: var(--je-spacing-lg);
-  width: 100%;
-  max-width: 500px;
-  margin: 0;
-  border: 0;
-  inset: unset;
-  padding: 0;
-  background-color: transparent;
-
-  &:popover-open {
-    display: flex;
-  }
-
-  &[data-position=top-end] {
-    right: var(--je-spacing-lg);
-    top: var(--je-spacing-lg);
-  }
-
-  &[data-position=top-start] {
-    left: var(--je-spacing-lg);
-    top: var(--je-spacing-lg);
-  }
-
-  &[data-position=bottom-end] {
-    right: var(--je-spacing-lg);
-    bottom: var(--je-spacing-lg);
-  }
-
-  &[data-position=bottom-start] {
-    left: var(--je-spacing-lg);
-    bottom: var(--je-spacing-lg);
-  }
-
-  &[data-position=top] {
-    left: var(--je-spacing-lg);
-    top: var(--je-spacing-lg);
-    max-width: calc(100% - calc(var(--je-spacing-lg) * 2));
-  }
-
-  &[data-position=bottom] {
-    left: var(--je-spacing-lg);
-    bottom: var(--je-spacing-lg);
-    max-width: calc(100% - calc(var(--je-spacing-lg) * 2));
+    &[condense]>main {
+      max-width: 768px;
+      margin: auto;
+    }
   }
 }
