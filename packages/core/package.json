@@ -1,6 +1,6 @@
 {
   "name": "jebamo",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Jebamo core web component library",
   "type": "module",
   "main": "dist/index.cjs.js",
