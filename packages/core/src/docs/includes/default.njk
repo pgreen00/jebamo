@@ -32,11 +32,11 @@
           <je-button class="icon-only" slot="trigger">
             <je-icon fill>home</je-icon>
           </je-button>
-          <div>
-            <je-button onclick="setTheme('system')">System</je-button><br/>
-            <je-button onclick="setTheme('light')">Light</je-button><br/>
-            <je-button onclick="setTheme('dark')">Dark</je-button><br/>
-          </div>
+          <je-stack space="xs">
+            <je-button fill="clear" onclick="setTheme('system')">System</je-button>
+            <je-button fill="clear" onclick="setTheme('light')">Light</je-button>
+            <je-button fill="clear" onclick="setTheme('dark')">Dark</je-button>
+          </je-stack>
         </je-popover>
       </je-toolbar>
     </header>

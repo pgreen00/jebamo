@@ -1,15 +1,26 @@
-import { Component, Host, h, Prop, Element, Watch, Method, EventEmitter, Event, Listen } from '@stencil/core';
-import { isFirefox } from '../../utils/is-firefox';
-import interact from 'interactjs';
+import {
+  Component,
+  Host,
+  h,
+  Prop,
+  Element,
+  Watch,
+  Method,
+  EventEmitter,
+  Event,
+  Listen,
+} from "@stencil/core";
+import { isFirefox } from "../../utils/is-firefox";
+import interact from "interactjs";
 
 export type OverlayData<T = any> = {
-  role?: string,
-  data?: T
-}
+  role?: string;
+  data?: T;
+};
 
 @Component({
-  tag: 'je-overlay',
-  styleUrl: 'je-overlay.css',
+  tag: "je-overlay",
+  styleUrl: "je-overlay.css",
   shadow: true,
 })
 export class JeOverlay {
@@ -25,10 +36,10 @@ export class JeOverlay {
   @Prop({ mutable: true }) open = false;
 
   /** Size of the overlay */
-  @Prop({ reflect: true }) size: 'sm' | 'md' | 'lg' = 'md';
+  @Prop({ reflect: true }) size: "sm" | "md" | "lg" = "md";
 
   /** Side of the screen where the drawer will be displayed */
-  @Prop({ reflect: true }) side?: 'left' | 'right' | 'bottom' | 'top';
+  @Prop({ reflect: true }) side?: "left" | "right" | "bottom" | "top";
 
   /** Optionally execute a promise before presentation begins */
   @Prop() init?: () => void | Promise<void>;
@@ -43,105 +54,103 @@ export class JeOverlay {
   @Event() dismiss: EventEmitter<OverlayData>;
 
   componentDidLoad() {
-    const { side } = this
-    if (side === 'bottom') {
+    const { side } = this;
+    if (side === "bottom") {
       interact(this.dialogEl).resizable({
         edges: {
-          top: '.drag'
+          top: ".drag",
         },
         listeners: {
-          move: event => {
-            let { y } = event.target.dataset
-            y = (parseFloat(y) || 0) + event.deltaRect.top
+          move: (event) => {
+            let { y } = event.target.dataset;
+            y = (parseFloat(y) || 0) + event.deltaRect.top;
             Object.assign(event.target.style, {
               height: `${event.rect.height}px`,
-            })
-            Object.assign(event.target.dataset, { y })
-          }
-        }
-      })
+            });
+            Object.assign(event.target.dataset, { y });
+          },
+        },
+      });
     }
   }
 
   private animateBackdrop(enter: boolean) {
     if (!isFirefox()) {
-      const keyframes = [{ opacity: 0 }, { opacity: 1 }]
-      if (!enter) keyframes.reverse()
+      const keyframes = [{ opacity: 0 }, { opacity: 1 }];
+      if (!enter) keyframes.reverse();
       this.dialogEl.animate(keyframes, {
         duration: 300,
-        pseudoElement: '::backdrop',
-        easing: 'ease-in-out'
-      })
+        pseudoElement: "::backdrop",
+        easing: "ease-in-out",
+      });
     }
   }
 
   private animateDialog(enter: boolean) {
-    const to = this.side ? { [this.side]: 'calc(var(--width) * -1)' } : { opacity: 0 }
-    const from = this.side ? { [this.side]: '0' } : { opacity: 1 }
-    const keyframes = [to, from]
-    if (!enter) keyframes.reverse()
-    this.animateBackdrop(enter)
+    const to = this.side
+      ? { [this.side]: "calc(var(--width) * -1)" }
+      : { opacity: 0 };
+    const from = this.side ? { [this.side]: "0" } : { opacity: 1 };
+    const keyframes = [to, from];
+    if (!enter) keyframes.reverse();
+    this.animateBackdrop(enter);
     return this.dialogEl.animate(keyframes, {
       duration: 300,
-      easing: 'ease-in-out'
-    })
+      easing: "ease-in-out",
+    });
   }
 
   private pulse() {
-    this.dialogEl.animate({ scale: [1, 1.03, 1] }, 300)
+    this.dialogEl.animate({ scale: [1, 1.03, 1] }, 300);
   }
 
-  @Watch('open')
+  @Watch("open")
   async onOpenChange(open: boolean) {
     if (open) {
       if (this.init) {
         await this.init();
       }
       this.dialogEl.showModal();
-      const animation = this.animateDialog(open)
-      animation.onfinish = () => {
-        this.present.emit();
-      }
+      await this.animateDialog(open).finished;
+      this.present.emit();
     } else {
-      const animation = this.animateDialog(open)
-      animation.onfinish = async () => {
-        this.dialogEl.close();
-        if (this.destroy) {
-          await this.destroy();
-        }
-        this.dismiss.emit({ role: this.role, data: this.data });
-        this.role = undefined;
-        this.data = undefined;
+      await this.animateDialog(open).finished;
+      this.dialogEl.close();
+      if (this.destroy) {
+        await this.destroy();
       }
+      this.dismiss.emit({ role: this.role, data: this.data });
+      this.role = undefined;
+      this.data = undefined;
     }
   }
 
-  @Listen('click')
+  @Listen("click")
   onClick(event: MouseEvent) {
-    if (event.target === this.el.querySelector(':scope > [slot=trigger]')) {
+    if (event.target === this.el.querySelector(":scope > [slot=trigger]")) {
       this.show();
     }
   }
 
-  @Listen('mousedown')
+  @Listen("mousedown")
   onMouseDown(event: MouseEvent) {
     if (event.target === this.el) {
       if (this.backdropDismiss) {
-        this.hide('backdropDismiss');
+        this.hide("backdropDismiss");
       } else {
-        this.pulse()
+        this.pulse();
       }
     }
   }
 
-  @Listen('keydown')
+  @Listen("keydown")
   onKeyDown(ev: KeyboardEvent) {
-    if (ev.key === 'Escape' && this.open) {
-      ev.preventDefault()
+    if (ev.key === "Escape" && this.open) {
+      ev.preventDefault();
       if (this.backdropDismiss) {
-        this.hide('escapeDismiss')
+        this.hide("escapeDismiss");
       } else {
-        this.pulse()
+        this.pulse();
       }
     }
   }
@@ -152,7 +161,7 @@ export class JeOverlay {
   }
 
   @Method()
-  async hide(role = 'manualClose', data?: any) {
+  async hide(role = "manualClose", data?: any) {
     this.role = role;
     this.data = data;
     this.open = false;
@@ -162,8 +171,8 @@ export class JeOverlay {
     return (
       <Host>
         <slot name="trigger" />
-        <dialog ref={el => this.dialogEl = el} part="dialog">
-          {this.side === 'bottom' && <div class="drag" />}
+        <dialog ref={(el) => (this.dialogEl = el)} part="dialog">
+          {this.side === "bottom" && <div class="drag" />}
           <slot />
         </dialog>
       </Host>

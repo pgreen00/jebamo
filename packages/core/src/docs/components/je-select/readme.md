@@ -5,6 +5,23 @@ sidebar_label: 'Select'
 <!-- Auto Generated Below -->
 
 
+## Usage
+
+### Options
+
+::: live-code-demo
+
+```html
+<je-popover>
+  <je-button slot="trigger">Open Popover</je-button>
+  <span>Hello there</span>
+</je-popover>
+```
+
+:::
+
+
+
 ## Properties
 
 | Property        | Attribute        | Description | Type                               | Default     |
@@ -17,7 +34,7 @@ sidebar_label: 'Select'
 | `originalValue` | `original-value` |             | `any`                              | `undefined` |
 | `placeholder`   | `placeholder`    |             | `string`                           | `undefined` |
 | `required`      | `required`       |             | `boolean`                          | `false`     |
-| `size`          | `size`           |             | `"lg" \| "md" \| "sm"`             | `'md'`      |
+| `size`          | `size`           |             | `"lg" \| "md" \| "sm"`             | `"md"`      |
 | `value`         | `value`          |             | `any`                              | `undefined` |
 
 

@@ -497,10 +497,10 @@ export const JePlaceholder: StencilReactComponent<JePlaceholderElement, JePlaceh
 });
 
 export type JePopoverEvents = {
-    onWillPresent: EventName<CustomEvent<any>>,
-    onPresent: EventName<CustomEvent<any>>,
-    onDismiss: EventName<CustomEvent<any>>,
-    onWillDismiss: EventName<CustomEvent<any>>,
+    onPresentStart: EventName<CustomEvent<any>>,
+    onPresentEnd: EventName<CustomEvent<any>>,
+    onDismissStart: EventName<CustomEvent<any>>,
+    onDismissEnd: EventName<CustomEvent<any>>,
     onReady: EventName<CustomEvent<any>>
 };
 
@@ -510,10 +510,10 @@ export const JePopover: StencilReactComponent<JePopoverElement, JePopoverEvents>
     // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: {
-        onWillPresent: 'willPresent',
-        onPresent: 'present',
-        onDismiss: 'dismiss',
-        onWillDismiss: 'willDismiss',
+        onPresentStart: 'presentStart',
+        onPresentEnd: 'presentEnd',
+        onDismissStart: 'dismissStart',
+        onDismissEnd: 'dismissEnd',
         onReady: 'ready'
     } as JePopoverEvents,
     defineCustomElement: defineJePopover

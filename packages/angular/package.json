@@ -1,11 +1,11 @@
 {
   "name": "jebamo-angular",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "scripts": {
     "build": "ng build"
   },
   "dependencies": {
-    "jebamo": "0.0.17",
+    "jebamo": "0.0.18",
     "tslib": "^2.8.0"
   },
   "peerDependencies": {

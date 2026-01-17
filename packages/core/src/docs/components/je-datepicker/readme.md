@@ -13,7 +13,7 @@ sidebar_label: 'Datepicker'
 | `isDateDisabled` | --                |             | `(date: Date) => boolean`        | `undefined`  |
 | `max`            | `max`             |             | `number`                         | `undefined`  |
 | `min`            | `min`             |             | `number`                         | `undefined`  |
-| `type`           | `type`            |             | `"date" \| "datetime" \| "time"` | `'datetime'` |
+| `type`           | `type`            |             | `"date" \| "datetime" \| "time"` | `"datetime"` |
 | `value`          | `value`           |             | `number`                         | `undefined`  |
 
 

@@ -19,6 +19,8 @@
   - Form 🔴
   - Loading 🔴
   - Placeholder 🔴
+  - Stack 🔴
+  - Grid 🔴
 - Development
   - Breadcrumb ⚪️
   - Breadcrumbs ⚪️
@@ -32,7 +34,6 @@
   - Discard Form 🔴
   - Drop Zone 🔴
   - Equalizer ⚪️
-  - Grid 🔴
   - Item 🔴
   - Knob ⚪️
   - Link 🔴
@@ -52,7 +53,6 @@
   - Select 🔴
   - Split Panel 🔴
   - Split View 🔴
-  - Stack 🔴
   - Synth ⚪️
   - Tab 🔴
   - Tabs 🔴

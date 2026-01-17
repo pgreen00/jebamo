@@ -585,14 +585,15 @@ export declare interface JeForm extends Components.JeForm {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeGrid
+  defineCustomElementFn: defineJeGrid,
+  inputs: ['space']
 })
 @Component({
   selector: 'je-grid',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['space'],
 })
 export class JeGrid {
   protected el: HTMLJeGridElement;
@@ -971,14 +972,14 @@ export declare interface JePlaceholder extends Components.JePlaceholder {}
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['arrow', 'arrowPadding', 'backdropDismiss', 'destroy', 'dismissOnClick', 'init', 'matchWidth', 'offsetX', 'offsetY', 'open', 'placement', 'positionStrategy', 'triggerAction'],
-  outputs: ['willPresent', 'present', 'dismiss', 'willDismiss', 'ready'],
+  outputs: ['presentStart', 'presentEnd', 'dismissStart', 'dismissEnd', 'ready'],
 })
 export class JePopover {
   protected el: HTMLJePopoverElement;
-  @Output() willPresent = new EventEmitter<CustomEvent<any>>();
-  @Output() present = new EventEmitter<CustomEvent<any>>();
-  @Output() dismiss = new EventEmitter<CustomEvent<any>>();
-  @Output() willDismiss = new EventEmitter<CustomEvent<any>>();
+  @Output() presentStart = new EventEmitter<CustomEvent<any>>();
+  @Output() presentEnd = new EventEmitter<CustomEvent<any>>();
+  @Output() dismissStart = new EventEmitter<CustomEvent<any>>();
+  @Output() dismissEnd = new EventEmitter<CustomEvent<any>>();
   @Output() ready = new EventEmitter<CustomEvent<any>>();
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
@@ -991,19 +992,19 @@ export declare interface JePopover extends Components.JePopover {
   /**
    * Emits before the popover starts opening
    */
-  willPresent: EventEmitter<CustomEvent<any>>;
+  presentStart: EventEmitter<CustomEvent<any>>;
   /**
    * Emits when the popover is opened
    */
-  present: EventEmitter<CustomEvent<any>>;
-  /**
-   * Emits when the popover is closed
-   */
-  dismiss: EventEmitter<CustomEvent<any>>;
+  presentEnd: EventEmitter<CustomEvent<any>>;
   /**
    * Emits before the popover starts dismissing
    */
-  willDismiss: EventEmitter<CustomEvent<any>>;
+  dismissStart: EventEmitter<CustomEvent<any>>;
+  /**
+   * Emits when the popover is closed
+   */
+  dismissEnd: EventEmitter<CustomEvent<any>>;
   /**
    * Emits when the popover has completed it's initial render
    */
@@ -1263,14 +1264,15 @@ export declare interface JeSplitView extends Components.JeSplitView {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeStack
+  defineCustomElementFn: defineJeStack,
+  inputs: ['align', 'justify', 'mode', 'space']
 })
 @Component({
   selector: 'je-stack',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['align', 'justify', 'mode', 'space'],
 })
 export class JeStack {
   protected el: HTMLJeStackElement;
@@ -1441,14 +1443,15 @@ export declare interface JeToggle extends Components.JeToggle {
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeToolbar
+  defineCustomElementFn: defineJeToolbar,
+  inputs: ['flank', 'mode', 'space']
 })
 @Component({
   selector: 'je-toolbar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['flank', 'mode', 'space'],
 })
 export class JeToolbar {
   protected el: HTMLJeToolbarElement;

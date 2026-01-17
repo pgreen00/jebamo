@@ -5,6 +5,15 @@ sidebar_label: 'Toolbar'
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property | Attribute | Description | Type                                                              | Default |
+| -------- | --------- | ----------- | ----------------------------------------------------------------- | ------- |
+| `flank`  | `flank`   |             | `"reverse" \| boolean`                                            | `false` |
+| `mode`   | `mode`    |             | `"column" \| "row"`                                               | `"row"` |
+| `space`  | `space`   |             | `"2xs" \| "3xl" \| "3xs" \| "lg" \| "md" \| "sm" \| "xl" \| "xs"` | `"md"`  |
+
+
 ## Shadow Parts
 
 | Part               | Description |

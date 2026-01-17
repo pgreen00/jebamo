@@ -1,6 +1,6 @@
 {
   "name": "jebamo-react",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/types/index.d.ts",
@@ -12,7 +12,7 @@
   ],
   "dependencies": {
     "@stencil/react-output-target": "^1.2.0",
-    "jebamo": "0.0.17"
+    "jebamo": "0.0.18"
   },
   "peerDependencies": {
     "react": "^19.2.0",

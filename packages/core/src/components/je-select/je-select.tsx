@@ -1,12 +1,24 @@
-import { AttachInternals, Component, Element, Event, EventEmitter, Host, Listen, Prop, State, forceUpdate, h } from '@stencil/core';
+import {
+  AttachInternals,
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  Host,
+  Listen,
+  Prop,
+  State,
+  forceUpdate,
+  h,
+} from "@stencil/core";
 
 @Component({
-  tag: 'je-select',
-  styleUrl: 'je-select.css',
+  tag: "je-select",
+  styleUrl: "je-select.css",
   shadow: {
-    delegatesFocus: true
+    delegatesFocus: true,
   },
-  formAssociated: true
+  formAssociated: true,
 })
 export class JeSelect {
   @Element() hostEl!: HTMLJeSelectElement;
@@ -22,8 +34,8 @@ export class JeSelect {
   @Prop() note?: string;
   @Prop() multiple = false;
   @Prop() originalValue: any;
-  @Prop() options?: { value: any, label: string }[];
-  @Prop() size: 'md' | 'lg' | 'sm' = 'md';
+  @Prop() options?: { value: any; label: string }[];
+  @Prop() size: "md" | "lg" | "sm" = "md";
 
   @Event() valueChange: EventEmitter<any>;
 
@@ -36,24 +48,30 @@ export class JeSelect {
   }
 
   componentWillRender() {
-    this.getOptions().forEach(option => option.selected = option.value === this.value);
+    this.getOptions().forEach(
+      (option) => (option.selected = option.value === this.value)
+    );
   }
 
   componentDidRender() {
-    this.internals.ariaLabel = this.label || this.hostEl.querySelector('[slot=label]')?.textContent
-    this.internals.ariaDescription = this.note || this.hostEl.querySelector('[slot=note]')?.textContent
-    this.internals.ariaInvalid = this.internals.validity.valid ? 'true' : 'false'
+    this.internals.ariaLabel =
+      this.label || this.hostEl.querySelector("[slot=label]")?.textContent;
+    this.internals.ariaDescription =
+      this.note || this.hostEl.querySelector("[slot=note]")?.textContent;
+    this.internals.ariaInvalid = this.internals.validity.valid
+      ? "true"
+      : "false";
   }
 
   private getOptions() {
-    return Array.from(this.hostEl.querySelectorAll('je-option'));
+    return Array.from(this.hostEl.querySelectorAll("je-option"));
   }
 
-  private isOption(target: EventTarget | null): target is (HTMLJeOptionElement) {
-    return target instanceof HTMLElement && (target.tagName == 'JE-OPTION')
+  private isOption(target: EventTarget | null): target is HTMLJeOptionElement {
+    return target instanceof HTMLElement && target.tagName == "JE-OPTION";
   }
 
-  @Listen('click')
+  @Listen("click")
   onClick(ev: Event) {
     const { target } = ev;
     if (this.isOption(target)) {
@@ -65,28 +83,46 @@ export class JeSelect {
 
   render() {
     return (
-      <Host role='listbox'>
-        <je-popover arrow={false} placement='bottom' matchWidth={true} dismissOnClick={!this.multiple} onWillPresent={() => this.open = true} onWillDismiss={() => this.open = false}>
-          <button class={this.size} disabled={this.disabled} slot='trigger' tabindex={0} type='button'>
-            <slot name='start'/>
-            <slot name='label'>
-              {this.label && <je-label required={this.required}>{this.label}</je-label>}
+      <Host role="listbox">
+        <je-popover
+          arrow={false}
+          placement="bottom"
+          matchWidth={true}
+          dismissOnClick={!this.multiple}
+          onPresentStart={() => (this.open = true)}
+          onDismissStart={() => (this.open = false)}
+        >
+          <button
+            class={this.size}
+            disabled={this.disabled}
+            slot="trigger"
+            tabindex={0}
+            type="button"
+          >
+            <slot name="start" />
+            <slot name="label">
+              {this.label && (
+                <je-label required={this.required}>{this.label}</je-label>
+              )}
             </slot>
-            <span part='content' class={{placeholder: !this.content && !!this.placeholder}}>{this.content || this.placeholder || null}</span>
-            <slot name='end'/>
-            <je-icon class={{open: this.open}}>keyboard_arrow_down</je-icon>
+            <span
+              part="content"
+              class={{ placeholder: !this.content && !!this.placeholder }}
+            >
+              {this.content || this.placeholder || null}
+            </span>
+            <slot name="end" />
+            <je-icon class={{ open: this.open }}>keyboard_arrow_down</je-icon>
           </button>
-          <div role='group'>
+          <div role="group">
             <slot onSlotchange={() => forceUpdate(this.hostEl)}>
-              {this.options?.map(option => (
+              {this.options?.map((option) => (
                 <je-option>{option.label}</je-option>
               ))}
             </slot>
           </div>
         </je-popover>
-        <slot name='note'>
-          {this.note && <je-note>{this.note}</je-note>}
-        </slot>
+        <slot name="note">{this.note && <je-note>{this.note}</je-note>}</slot>
       </Host>
     );
   }

@@ -14,7 +14,7 @@ sidebar_label: 'Overlay'
 | `init`            | --                 | Optionally execute a promise before presentation begins | `() => void \| Promise<void>`            | `undefined` |
 | `open`            | `open`             | Opens and closes modal                                  | `boolean`                                | `false`     |
 | `side`            | `side`             | Side of the screen where the drawer will be displayed   | `"bottom" \| "left" \| "right" \| "top"` | `undefined` |
-| `size`            | `size`             | Size of the overlay                                     | `"lg" \| "md" \| "sm"`                   | `'md'`      |
+| `size`            | `size`             | Size of the overlay                                     | `"lg" \| "md" \| "sm"`                   | `"md"`      |
 
 
 ## Events

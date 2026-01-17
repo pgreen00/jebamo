@@ -7,7 +7,7 @@
   --padding: var(--je-spacing-xs);
 }
 
-[part=content] {
+[part="content"] {
   position: relative;
   width: var(--content-width, max-content);
   max-width: var(--content-width, var(--available-width));
@@ -23,12 +23,8 @@
   padding: var(--padding);
 }
 
-[part=content-container] {
+[part="content-container"] {
   box-shadow: var(--je-shadow-lg);
-  opacity: 0;
-  transition:
-    opacity 0.3s ease-in-out,
-    display 0.3s ease-in-out allow-discrete;
   background-color: transparent;
   border: none;
   border-radius: var(--je-radius-md);
@@ -38,11 +34,7 @@
   overflow: visible;
 }
 
-[part=content-container]:popover-open {
-  opacity: 1;
-}
-
-[part=arrow] {
+[part="arrow"] {
   position: absolute;
   background-color: var(--background);
   border: var(--border);
@@ -75,11 +67,5 @@
   &.right-start {
     transform: translateX(-50%) rotate(45deg);
     left: 0;
-  }
-}
-
-@starting-style {
-  [part=content-container]:popover-open {
-    opacity: 0;
   }
 }

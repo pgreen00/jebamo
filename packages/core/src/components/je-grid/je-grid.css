@@ -1,3 +1,8 @@
 :host {
-  display: block;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(var(--min-column-size, 20ch), 100%), 1fr)
+  );
+  --min-column-size: initial;
 }

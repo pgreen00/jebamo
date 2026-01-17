@@ -175,9 +175,9 @@ export namespace Components {
         "max"?: number;
         "min"?: number;
         /**
-          * @default 'datetime'
+          * @default "datetime"
          */
-        "type": 'date' | 'datetime' | 'time';
+        "type": "date" | "datetime" | "time";
         "value"?: number;
     }
     interface JeDaw {
@@ -217,6 +217,15 @@ export namespace Components {
         "addInvalidSubmission": (element: HTMLElement) => Promise<boolean>;
     }
     interface JeGrid {
+        "space"?: | "3xs"
+    | "2xs"
+    | "xs"
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "2xs"
+    | "3xl";
     }
     interface JeIcon {
         /**
@@ -318,12 +327,12 @@ export namespace Components {
         /**
           * Side of the screen where the drawer will be displayed
          */
-        "side"?: 'left' | 'right' | 'bottom' | 'top';
+        "side"?: "left" | "right" | "bottom" | "top";
         /**
           * Size of the overlay
-          * @default 'md'
+          * @default "md"
          */
-        "size": 'sm' | 'md' | 'lg';
+        "size": "sm" | "md" | "lg";
     }
     interface JeOverlayContent {
         /**
@@ -403,17 +412,17 @@ export namespace Components {
         "placement"?: Placement;
         /**
           * If the popover should position itself using the mouse event or the triggerElement.
-          * @default 'element'
+          * @default "element"
          */
-        "positionStrategy": 'click' | 'element';
+        "positionStrategy": "click" | "element";
         "show": () => Promise<void>;
         /**
           * @click Popover will show on left click or tap on mobile.
           * @context-menu Popover will show on right click or press on mobile.
           * @hover Popover will show on hover or tap on mobile.
-          * @default 'click'
+          * @default "click"
          */
-        "triggerAction": 'click' | 'context-menu' | 'hover';
+        "triggerAction": "click" | "context-menu" | "hover";
     }
     interface JeRadio {
         /**
@@ -514,7 +523,7 @@ export namespace Components {
          */
         "multiple": boolean;
         "note"?: string;
-        "options"?: { value: any, label: string }[];
+        "options"?: { value: any; label: string }[];
         "originalValue": any;
         "placeholder"?: string;
         /**
@@ -522,9 +531,9 @@ export namespace Components {
          */
         "required": boolean;
         /**
-          * @default 'md'
+          * @default "md"
          */
-        "size": 'md' | 'lg' | 'sm';
+        "size": "md" | "lg" | "sm";
         "value": any;
     }
     interface JeSplitPanel {
@@ -532,6 +541,24 @@ export namespace Components {
     interface JeSplitView {
     }
     interface JeStack {
+        "align"?: string;
+        "justify"?: string;
+        /**
+          * @default "column"
+         */
+        "mode": "row" | "column";
+        /**
+          * @default "md"
+         */
+        "space": | "3xs"
+    | "2xs"
+    | "xs"
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "2xs"
+    | "3xl";
     }
     interface JeSynth {
     }
@@ -667,6 +694,26 @@ export namespace Components {
         "value": boolean;
     }
     interface JeToolbar {
+        /**
+          * @default false
+         */
+        "flank": boolean | "reverse";
+        /**
+          * @default "row"
+         */
+        "mode": "row" | "column";
+        /**
+          * @default "md"
+         */
+        "space": | "3xs"
+    | "2xs"
+    | "xs"
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "2xs"
+    | "3xl";
     }
     interface JeTooltip {
         /**
@@ -1094,10 +1141,10 @@ declare global {
         new (): HTMLJePlaceholderElement;
     };
     interface HTMLJePopoverElementEventMap {
-        "willPresent": any;
-        "present": any;
-        "dismiss": any;
-        "willDismiss": any;
+        "presentStart": any;
+        "presentEnd": any;
+        "dismissStart": any;
+        "dismissEnd": any;
         "ready": any;
     }
     interface HTMLJePopoverElement extends Components.JePopover, HTMLStencilElement {
@@ -1555,9 +1602,9 @@ declare namespace LocalJSX {
         "min"?: number;
         "onValueChange"?: (event: JeDatepickerCustomEvent<number>) => void;
         /**
-          * @default 'datetime'
+          * @default "datetime"
          */
-        "type"?: 'date' | 'datetime' | 'time';
+        "type"?: "date" | "datetime" | "time";
         "value"?: number;
     }
     interface JeDaw {
@@ -1600,6 +1647,15 @@ declare namespace LocalJSX {
         "onDataSubmit"?: (event: JeFormCustomEvent<Record<string, any>>) => void;
     }
     interface JeGrid {
+        "space"?: | "3xs"
+    | "2xs"
+    | "xs"
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "2xs"
+    | "3xl";
     }
     interface JeIcon {
         /**
@@ -1707,12 +1763,12 @@ declare namespace LocalJSX {
         /**
           * Side of the screen where the drawer will be displayed
          */
-        "side"?: 'left' | 'right' | 'bottom' | 'top';
+        "side"?: "left" | "right" | "bottom" | "top";
         /**
           * Size of the overlay
-          * @default 'md'
+          * @default "md"
          */
-        "size"?: 'sm' | 'md' | 'lg';
+        "size"?: "sm" | "md" | "lg";
     }
     interface JeOverlayContent {
         /**
@@ -1783,23 +1839,23 @@ declare namespace LocalJSX {
         /**
           * Emits when the popover is closed
          */
-        "onDismiss"?: (event: JePopoverCustomEvent<any>) => void;
+        "onDismissEnd"?: (event: JePopoverCustomEvent<any>) => void;
+        /**
+          * Emits before the popover starts dismissing
+         */
+        "onDismissStart"?: (event: JePopoverCustomEvent<any>) => void;
         /**
           * Emits when the popover is opened
          */
-        "onPresent"?: (event: JePopoverCustomEvent<any>) => void;
+        "onPresentEnd"?: (event: JePopoverCustomEvent<any>) => void;
+        /**
+          * Emits before the popover starts opening
+         */
+        "onPresentStart"?: (event: JePopoverCustomEvent<any>) => void;
         /**
           * Emits when the popover has completed it's initial render
          */
         "onReady"?: (event: JePopoverCustomEvent<any>) => void;
-        /**
-          * Emits before the popover starts dismissing
-         */
-        "onWillDismiss"?: (event: JePopoverCustomEvent<any>) => void;
-        /**
-          * Emits before the popover starts opening
-         */
-        "onWillPresent"?: (event: JePopoverCustomEvent<any>) => void;
         /**
           * Opens/closes the popover
           * @default false
@@ -1811,16 +1867,16 @@ declare namespace LocalJSX {
         "placement"?: Placement;
         /**
           * If the popover should position itself using the mouse event or the triggerElement.
-          * @default 'element'
+          * @default "element"
          */
-        "positionStrategy"?: 'click' | 'element';
+        "positionStrategy"?: "click" | "element";
         /**
           * @click Popover will show on left click or tap on mobile.
           * @context-menu Popover will show on right click or press on mobile.
           * @hover Popover will show on hover or tap on mobile.
-          * @default 'click'
+          * @default "click"
          */
-        "triggerAction"?: 'click' | 'context-menu' | 'hover';
+        "triggerAction"?: "click" | "context-menu" | "hover";
     }
     interface JeRadio {
         /**
@@ -1925,7 +1981,7 @@ declare namespace LocalJSX {
         "multiple"?: boolean;
         "note"?: string;
         "onValueChange"?: (event: JeSelectCustomEvent<any>) => void;
-        "options"?: { value: any, label: string }[];
+        "options"?: { value: any; label: string }[];
         "originalValue"?: any;
         "placeholder"?: string;
         /**
@@ -1933,9 +1989,9 @@ declare namespace LocalJSX {
          */
         "required"?: boolean;
         /**
-          * @default 'md'
+          * @default "md"
          */
-        "size"?: 'md' | 'lg' | 'sm';
+        "size"?: "md" | "lg" | "sm";
         "value"?: any;
     }
     interface JeSplitPanel {
@@ -1943,6 +1999,24 @@ declare namespace LocalJSX {
     interface JeSplitView {
     }
     interface JeStack {
+        "align"?: string;
+        "justify"?: string;
+        /**
+          * @default "column"
+         */
+        "mode"?: "row" | "column";
+        /**
+          * @default "md"
+         */
+        "space"?: | "3xs"
+    | "2xs"
+    | "xs"
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "2xs"
+    | "3xl";
     }
     interface JeSynth {
     }
@@ -2085,6 +2159,26 @@ declare namespace LocalJSX {
         "value"?: boolean;
     }
     interface JeToolbar {
+        /**
+          * @default false
+         */
+        "flank"?: boolean | "reverse";
+        /**
+          * @default "row"
+         */
+        "mode"?: "row" | "column";
+        /**
+          * @default "md"
+         */
+        "space"?: | "3xs"
+    | "2xs"
+    | "xs"
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "2xs"
+    | "3xl";
     }
     interface JeTooltip {
         /**

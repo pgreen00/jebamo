@@ -4,21 +4,27 @@
   justify-content: space-between;
   box-sizing: border-box;
   width: 100%;
-
-  --gap: var(--je-spacing-sm);
+  flex-direction: var(--direction);
+  --flank-size: initial;
 }
 
-[part=main-container],
-[part=end-container] {
+[part="main-container"],
+[part="end-container"] {
   display: flex;
   align-items: center;
   gap: var(--gap);
+  flex-direction: var(--direction);
 }
 
-[part=main-container] {
+[part="main-container"] {
   justify-content: flex-start;
 }
 
-[part=end-container] {
+[part="end-container"] {
   justify-content: flex-end;
+}
+
+.flank {
+  flex-basis: var(--flank-size, auto);
+  flex-grow: 1;
 }

@@ -1,8 +1,26 @@
 ---
 title: 'JePopover | <je-popover>'
 sidebar_label: 'Popover'
+layout: docs.njk
 ---
 <!-- Auto Generated Below -->
+
+
+## Usage
+
+### Trigger
+
+::: live-code-demo
+
+```html
+<je-popover>
+  <je-button slot="trigger">Open Popover</je-button>
+  <span>Hello there</span>
+</je-popover>
+```
+
+:::
+
 
 
 ## Properties
@@ -20,19 +38,19 @@ sidebar_label: 'Popover'
 | `offsetY`          | `offset-y`          | Vertical offset used when auto positioning the popover content                                                    | `number`                                                                                                                                                             | `10`        |
 | `open`             | `open`              | Opens/closes the popover                                                                                          | `boolean`                                                                                                                                                            | `false`     |
 | `placement`        | `placement`         | Where the popover should be placed                                                                                | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `undefined` |
-| `positionStrategy` | `position-strategy` | If the popover should position itself using the mouse event or the triggerElement.                                | `"click" \| "element"`                                                                                                                                               | `'element'` |
-| `triggerAction`    | `trigger-action`    |                                                                                                                   | `"click" \| "context-menu" \| "hover"`                                                                                                                               | `'click'`   |
+| `positionStrategy` | `position-strategy` | If the popover should position itself using the mouse event or the triggerElement.                                | `"click" \| "element"`                                                                                                                                               | `"element"` |
+| `triggerAction`    | `trigger-action`    |                                                                                                                   | `"click" \| "context-menu" \| "hover"`                                                                                                                               | `"click"`   |
 
 
 ## Events
 
-| Event         | Description                                              | Type               |
-| ------------- | -------------------------------------------------------- | ------------------ |
-| `dismiss`     | Emits when the popover is closed                         | `CustomEvent<any>` |
-| `present`     | Emits when the popover is opened                         | `CustomEvent<any>` |
-| `ready`       | Emits when the popover has completed it's initial render | `CustomEvent<any>` |
-| `willDismiss` | Emits before the popover starts dismissing               | `CustomEvent<any>` |
-| `willPresent` | Emits before the popover starts opening                  | `CustomEvent<any>` |
+| Event          | Description                                              | Type               |
+| -------------- | -------------------------------------------------------- | ------------------ |
+| `dismissEnd`   | Emits when the popover is closed                         | `CustomEvent<any>` |
+| `dismissStart` | Emits before the popover starts dismissing               | `CustomEvent<any>` |
+| `presentEnd`   | Emits when the popover is opened                         | `CustomEvent<any>` |
+| `presentStart` | Emits before the popover starts opening                  | `CustomEvent<any>` |
+| `ready`        | Emits when the popover has completed it's initial render | `CustomEvent<any>` |
 
 
 ## Methods
