@@ -1,6 +1,10 @@
 {
   "name": "jebamo-angular",
   "version": "0.0.19",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pgreen00/jebamo"
+  },
   "scripts": {
     "build": "ng build"
   },
