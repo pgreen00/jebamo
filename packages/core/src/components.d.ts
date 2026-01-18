@@ -118,6 +118,7 @@ export namespace Components {
     interface JeCalendar {
     }
     interface JeCard {
+        "color"?: Color;
     }
     interface JeCheckbox {
         /**
@@ -1540,6 +1541,7 @@ declare namespace LocalJSX {
     interface JeCalendar {
     }
     interface JeCard {
+        "color"?: Color;
     }
     interface JeCheckbox {
         /**

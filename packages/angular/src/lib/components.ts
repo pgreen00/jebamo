@@ -263,14 +263,15 @@ export declare interface JeCalendar extends Components.JeCalendar {}
 
 
 @ProxyCmp({
-  defineCustomElementFn: defineJeCard
+  defineCustomElementFn: defineJeCard,
+  inputs: ['color']
 })
 @Component({
   selector: 'je-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [],
+  inputs: ['color'],
 })
 export class JeCard {
   protected el: HTMLJeCardElement;

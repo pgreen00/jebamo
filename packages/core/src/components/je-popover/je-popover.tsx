@@ -60,7 +60,7 @@ export class JePopover {
         } else {
           return new DOMRect(
             this.mouseEvent?.clientX,
-            this.mouseEvent?.clientY
+            this.mouseEvent?.clientY,
           );
         }
       },
@@ -165,14 +165,14 @@ export class JePopover {
     if (this.triggerElement && this.matchWidth) {
       this.el.style.setProperty(
         "--content-width",
-        `${this.triggerElement.clientWidth}px`
+        `${this.triggerElement.clientWidth}px`,
       );
     }
   }
 
   connectedCallback() {
     this.mouseSub = fromEvent(window, "mousemove")
-      .pipe(debounceTime(25))
+      .pipe(debounceTime(50))
       .subscribe(this.onMouseMove);
   }
 
@@ -189,19 +189,19 @@ export class JePopover {
       }
       this.setPosition(await this.computePosition());
       this.cleanup = autoUpdate(this.referenceEl, this.containerEl, () =>
-        this.computePosition().then(this.setPosition)
+        this.computePosition().then(this.setPosition),
       );
       this.containerEl.showPopover();
       await this.containerEl.animate(
         { opacity: [0, 1] },
-        { duration: 150, easing: "ease-in-out" }
+        { duration: 150, easing: "ease-in-out" },
       ).finished;
       this.presentEnd.emit();
     } else {
       this.dismissStart.emit();
       await this.containerEl.animate(
         { opacity: [1, 0] },
-        { duration: 150, easing: "ease-in-out" }
+        { duration: 150, easing: "ease-in-out" },
       ).finished;
       this.containerEl.hidePopover();
       this.cleanup?.();
@@ -314,11 +314,11 @@ export class JePopover {
           apply: ({ availableHeight, availableWidth }) => {
             this.contentEl.style.setProperty(
               "--available-height",
-              `${availableHeight - this.offsetY}px`
+              `${availableHeight - this.offsetY}px`,
             );
             this.contentEl.style.setProperty(
               "--available-width",
-              `${availableWidth - this.offsetX}px`
+              `${availableWidth - this.offsetX}px`,
             );
           },
         }),

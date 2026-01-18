@@ -1,3 +1,33 @@
 :host {
-  display: grid;
+  box-sizing: border-box;
+  display: block;
+  padding: var(--je-spacing-sm);
+  box-shadow: var(--je-shadow-sm);
+  border: 1px solid light-dark(transparent, var(--je-neutral-800));
+  background-color: light-dark(white, var(--je-neutral-900));
+  border-radius: var(--je-radius-md);
+}
+
+:host([color="primary"]) {
+  color: var(--je-neutral-75);
+  background-color: var(--je-primary-500);
+  border-color: transparent;
+}
+
+:host([color="success"]) {
+  color: var(--je-neutral-925);
+  background-color: var(--je-success-500);
+  border-color: transparent;
+}
+
+:host([color="warning"]) {
+  color: var(--je-neutral-925);
+  background-color: var(--je-warning-500);
+  border-color: transparent;
+}
+
+:host([color="danger"]) {
+  color: var(--je-neutral-75);
+  background-color: var(--je-danger-500);
+  border-color: transparent;
 }
