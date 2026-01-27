@@ -1,0 +1,14 @@
+---
+pagination:
+  data: components
+  size: 1
+  alias: component
+layout: default.njk
+permalink: "/components/{{ component.name }}/"
+eleventyComputed:
+  title: "{{ component.title }}"
+---
+
+<h1>{{ component.title }}</h1>
+
+{{ component.content | markdown | safe }}

@@ -1,9 +1,0 @@
-main {
-  hr:last-child {
-    display: none;
-  }
-
-  h3:has(a:empty) {
-    display: none;
-  }
-}

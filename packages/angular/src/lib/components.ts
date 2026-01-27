@@ -57,6 +57,7 @@ import { defineCustomElement as defineJeSplitView } from 'jebamo/components/je-s
 import { defineCustomElement as defineJeStack } from 'jebamo/components/je-stack.js';
 import { defineCustomElement as defineJeSynth } from 'jebamo/components/je-synth.js';
 import { defineCustomElement as defineJeTab } from 'jebamo/components/je-tab.js';
+import { defineCustomElement as defineJeTable } from 'jebamo/components/je-table.js';
 import { defineCustomElement as defineJeTabs } from 'jebamo/components/je-tabs.js';
 import { defineCustomElement as defineJeTextfield } from 'jebamo/components/je-textfield.js';
 import { defineCustomElement as defineJeToc } from 'jebamo/components/je-toc.js';
@@ -1330,6 +1331,29 @@ export class JeTab {
 
 
 export declare interface JeTab extends Components.JeTab {}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineJeTable,
+  inputs: ['striped']
+})
+@Component({
+  selector: 'je-table',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['striped'],
+})
+export class JeTable {
+  protected el: HTMLJeTableElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeTable extends Components.JeTable {}
 
 
 @ProxyCmp({

@@ -5,7 +5,6 @@ import { execSync } from "child_process";
 
 export const config: Config = {
   namespace: "jebamo",
-  enableCache: false,
   extras: {
     experimentalSlotFixes: true,
     experimentalScopedSlotChanges: true,
@@ -26,15 +25,9 @@ export const config: Config = {
       name: "styles",
       async generator() {
         execSync(
-          "npx sass src/styles/classes.scss:styles/classes.css src/styles/core.scss:styles/core.css src/styles/tables.scss:styles/tables.css",
+          "npx sass src/styles/classes.scss:styles/classes.css src/styles/core.scss:styles/core.css",
         );
       },
-    },
-    {
-      type: "docs-readme",
-      dir: "src/docs",
-      footer: "",
-      //strict: true
     },
     {
       type: "docs-vscode",

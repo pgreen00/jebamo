@@ -61,6 +61,7 @@ import { JeSplitView as JeSplitViewElement, defineCustomElement as defineJeSplit
 import { JeStack as JeStackElement, defineCustomElement as defineJeStack } from "jebamo/components/je-stack.js";
 import { JeSynth as JeSynthElement, defineCustomElement as defineJeSynth } from "jebamo/components/je-synth.js";
 import { JeTab as JeTabElement, defineCustomElement as defineJeTab } from "jebamo/components/je-tab.js";
+import { JeTable as JeTableElement, defineCustomElement as defineJeTable } from "jebamo/components/je-table.js";
 import { JeTabs as JeTabsElement, defineCustomElement as defineJeTabs } from "jebamo/components/je-tabs.js";
 import { JeTextfield as JeTextfieldElement, defineCustomElement as defineJeTextfield } from "jebamo/components/je-textfield.js";
 import { JeToc as JeTocElement, defineCustomElement as defineJeToc } from "jebamo/components/je-toc.js";
@@ -668,6 +669,17 @@ export const JeTab: StencilReactComponent<JeTabElement, JeTabEvents> = /*@__PURE
     react: React,
     events: {} as JeTabEvents,
     defineCustomElement: defineJeTab
+});
+
+export type JeTableEvents = NonNullable<unknown>;
+
+export const JeTable: StencilReactComponent<JeTableElement, JeTableEvents> = /*@__PURE__*/ createComponent<JeTableElement, JeTableEvents>({
+    tagName: 'je-table',
+    elementClass: JeTableElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as JeTableEvents,
+    defineCustomElement: defineJeTable
 });
 
 export type JeTabsEvents = { onValueChange: EventName<CustomEvent<string | undefined>> };

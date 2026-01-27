@@ -570,6 +570,12 @@ export namespace Components {
         "active": boolean;
         "value"?: string;
     }
+    interface JeTable {
+        /**
+          * @default false
+         */
+        "striped": boolean;
+    }
     interface JeTabs {
         /**
           * @default 'segment'
@@ -1275,6 +1281,12 @@ declare global {
         prototype: HTMLJeTabElement;
         new (): HTMLJeTabElement;
     };
+    interface HTMLJeTableElement extends Components.JeTable, HTMLStencilElement {
+    }
+    var HTMLJeTableElement: {
+        prototype: HTMLJeTableElement;
+        new (): HTMLJeTableElement;
+    };
     interface HTMLJeTabsElementEventMap {
         "valueChange": string | undefined;
     }
@@ -1431,6 +1443,7 @@ declare global {
         "je-stack": HTMLJeStackElement;
         "je-synth": HTMLJeSynthElement;
         "je-tab": HTMLJeTabElement;
+        "je-table": HTMLJeTableElement;
         "je-tabs": HTMLJeTabsElement;
         "je-textfield": HTMLJeTextfieldElement;
         "je-toc": HTMLJeTocElement;
@@ -2029,6 +2042,12 @@ declare namespace LocalJSX {
         "active"?: boolean;
         "value"?: string;
     }
+    interface JeTable {
+        /**
+          * @default false
+         */
+        "striped"?: boolean;
+    }
     interface JeTabs {
         /**
           * @default 'segment'
@@ -2270,6 +2289,7 @@ declare namespace LocalJSX {
         "je-stack": JeStack;
         "je-synth": JeSynth;
         "je-tab": JeTab;
+        "je-table": JeTable;
         "je-tabs": JeTabs;
         "je-textfield": JeTextfield;
         "je-toc": JeToc;
@@ -2339,6 +2359,7 @@ declare module "@stencil/core" {
             "je-stack": LocalJSX.JeStack & JSXBase.HTMLAttributes<HTMLJeStackElement>;
             "je-synth": LocalJSX.JeSynth & JSXBase.HTMLAttributes<HTMLJeSynthElement>;
             "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
+            "je-table": LocalJSX.JeTable & JSXBase.HTMLAttributes<HTMLJeTableElement>;
             "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;
             "je-textfield": LocalJSX.JeTextfield & JSXBase.HTMLAttributes<HTMLJeTextfieldElement>;
             "je-toc": LocalJSX.JeToc & JSXBase.HTMLAttributes<HTMLJeTocElement>;
