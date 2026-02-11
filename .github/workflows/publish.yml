@@ -7,7 +7,7 @@ on:
 permissions:
   id-token: write
   contents: read
-    
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -19,26 +19,8 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
 
-      # Build and publish core package
+      # Build and publish
       - name: Build core
-        working-directory: packages/core
         run: npm run build
       - name: Publish core
-        working-directory: packages/core
-        run: npm publish
-
-      # Build and publish angular package
-      - name: Build angular
-        working-directory: packages/angular
-        run: npm run build
-      - name: Publish angular
-        working-directory: packages/angular/dist
-        run: npm publish
-
-      # Build and publish react package
-      - name: Build react
-        working-directory: packages/react
-        run: npm run build
-      - name: Publish react
-        working-directory: packages/react
         run: npm publish

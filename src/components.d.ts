@@ -1587,6 +1587,14 @@ declare namespace LocalJSX {
          */
         "data"?: string;
         /**
+          * If `true`, the user cannot interact with the element.
+         */
+        "disabled"?: boolean;
+        /**
+          * The `id` of a `<form>` element to associate this element with.
+         */
+        "form"?: string;
+        /**
           * If the checkbox should contain a 3rd indeterminate state
           * @default false
          */
@@ -1596,6 +1604,10 @@ declare namespace LocalJSX {
           * @default 'end'
          */
         "labelPlacement"?: 'start' | 'end';
+        /**
+          * The name of the element, used when submitting an HTML form.
+         */
+        "name"?: string;
         /**
           * Emits the current value whenever it's state changes
          */
@@ -1946,9 +1958,17 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * The `id` of a `<form>` element to associate this element with.
+         */
+        "form"?: string;
+        /**
           * Label that shows above the control
          */
         "label"?: string;
+        /**
+          * The name of the element, used when submitting an HTML form.
+         */
+        "name"?: string;
         /**
           * Additional info that shows below the control
          */
@@ -2014,11 +2034,19 @@ declare namespace LocalJSX {
           * @default false
          */
         "disabled"?: boolean;
+        /**
+          * The `id` of a `<form>` element to associate this element with.
+         */
+        "form"?: string;
         "label"?: string;
         /**
           * @default false
          */
         "multiple"?: boolean;
+        /**
+          * The name of the element, used when submitting an HTML form.
+         */
+        "name"?: string;
         "note"?: string;
         "onValueChange"?: (event: JeSelectCustomEvent<any>) => void;
         "options"?: { value: any; label: string }[];
@@ -2065,6 +2093,18 @@ declare namespace LocalJSX {
           * @default false
          */
         "active"?: boolean;
+        /**
+          * If `true`, the user cannot interact with the element.
+         */
+        "disabled"?: boolean;
+        /**
+          * The `id` of a `<form>` element to associate this element with.
+         */
+        "form"?: string;
+        /**
+          * The name of the element, used when submitting an HTML form.
+         */
+        "name"?: string;
         "value"?: string;
     }
     interface JeTable {
@@ -2098,6 +2138,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * The `id` of a `<form>` element to associate this element with.
+         */
+        "form"?: string;
+        /**
           * Text above the control
          */
         "label"?: string;
@@ -2122,6 +2166,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "multiline"?: boolean;
+        /**
+          * The name of the element, used when submitting an HTML form.
+         */
+        "name"?: string;
         /**
           * Informational message directly below the control
          */
@@ -2191,10 +2239,22 @@ declare namespace LocalJSX {
     }
     interface JeToggle {
         /**
+          * If `true`, the user cannot interact with the element.
+         */
+        "disabled"?: boolean;
+        /**
+          * The `id` of a `<form>` element to associate this element with.
+         */
+        "form"?: string;
+        /**
           * If the label should be placed at the start or end of the toggle
           * @default 'end'
          */
         "labelPlacement"?: 'start' | 'end';
+        /**
+          * The name of the element, used when submitting an HTML form.
+         */
+        "name"?: string;
         /**
           * Emits the new value whenever toggle is clicked
          */
@@ -2273,68 +2333,329 @@ declare namespace LocalJSX {
          */
         "steps"?: { label: string, optional?: boolean }[];
     }
+
+    interface JeAlertAttributes {
+        "closable": boolean;
+        "color": Color;
+        "duration": number;
+        "open": boolean;
+    }
+    interface JeBranchAttributes {
+        "selection": 'single' | 'multiple' | 'leaf';
+        "indentation": boolean;
+        "open": boolean;
+        "value": string;
+        "label": string;
+        "selected": boolean | null;
+        "href": string;
+    }
+    interface JeBreadcrumbsAttributes {
+        "itemsBeforeCollapse": number;
+        "itemsAfterCollapse": number;
+        "maxItems": number;
+    }
+    interface JeButtonAttributes {
+        "disabled": boolean;
+        "type": 'submit' | 'reset';
+        "form": string;
+        "expand": boolean;
+        "pending": boolean;
+        "fill": 'solid' | 'outline' | 'clear';
+        "size": 'md' | 'lg' | 'sm';
+        "color": Color;
+    }
+    interface JeCardAttributes {
+        "color": Color;
+    }
+    interface JeCheckboxAttributes {
+        "originalValue": boolean;
+        "data": string;
+        "value": boolean;
+        "labelPlacement": 'start' | 'end';
+        "indeterminate": boolean;
+        "required": boolean;
+    }
+    interface JeColorAttributes {
+        "color": Color;
+        "light": Color;
+        "dark": Color;
+    }
+    interface JeDatepickerAttributes {
+        "type": "date" | "datetime" | "time";
+        "includeSeconds": boolean;
+        "min": number;
+        "max": number;
+        "value": number;
+    }
+    interface JeDetailsAttributes {
+        "summary": string;
+        "open": boolean;
+        "iconToggle": boolean;
+        "iconSide": "left" | "right";
+    }
+    interface JeDividerAttributes {
+        "type": 'horizontal' | 'vertical';
+        "spacing": 'sm' | 'md' | 'lg' | 'none';
+    }
+    interface JeGridAttributes {
+        "space": | "3xs"
+    | "2xs"
+    | "xs"
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "2xs"
+    | "3xl";
+    }
+    interface JeIconAttributes {
+        "size": 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+        "fill": boolean;
+        "grade": 'high' | 'low';
+        "weight": number;
+    }
+    interface JeLabelAttributes {
+        "required": boolean;
+    }
+    interface JeLinkAttributes {
+        "underline": boolean;
+        "bold": boolean;
+        "href": string;
+        "target": string;
+        "rel": string;
+        "download": string;
+    }
+    interface JeNoteAttributes {
+        "invalid": boolean;
+    }
+    interface JeOptionAttributes {
+        "value": string;
+        "selected": boolean;
+        "disabled": boolean;
+    }
+    interface JeOverlayAttributes {
+        "backdropDismiss": boolean;
+        "open": boolean;
+        "size": "sm" | "md" | "lg";
+        "side": "left" | "right" | "bottom" | "top";
+    }
+    interface JeOverlayContentAttributes {
+        "label": string;
+        "closable": boolean;
+    }
+    interface JePillAttributes {
+        "outline": boolean;
+    }
+    interface JePlaceholderAttributes {
+        "animated": boolean;
+    }
+    interface JePopoverAttributes {
+        "open": boolean;
+        "placement": Placement;
+        "backdropDismiss": boolean;
+        "dismissOnClick": boolean;
+        "positionStrategy": "click" | "element";
+        "offsetX": number;
+        "offsetY": number;
+        "triggerAction": "click" | "context-menu" | "hover";
+        "matchWidth": boolean;
+        "arrow": boolean;
+        "arrowPadding": number;
+    }
+    interface JeRadioAttributes {
+        "value": string;
+        "selected": boolean;
+    }
+    interface JeRadioButtonAttributes {
+        "value": string;
+        "selected": boolean;
+    }
+    interface JeRadioGroupAttributes {
+        "required": boolean;
+        "disabled": boolean;
+        "originalValue": string;
+        "label": string;
+        "note": string;
+        "value": string;
+    }
+    interface JeRichTextAttributes {
+        "placeholder": string;
+        "value": string;
+        "disabled": boolean;
+        "readonly": boolean;
+        "minHeight": string;
+        "maxHeight": string;
+        "showWordCount": boolean;
+    }
+    interface JeSelectAttributes {
+        "value": string;
+        "label": string;
+        "disabled": boolean;
+        "required": boolean;
+        "placeholder": string;
+        "note": string;
+        "multiple": boolean;
+        "originalValue": string;
+        "size": "md" | "lg" | "sm";
+    }
+    interface JeStackAttributes {
+        "mode": "row" | "column";
+        "align": string;
+        "justify": string;
+        "space": | "3xs"
+    | "2xs"
+    | "xs"
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "2xs"
+    | "3xl";
+    }
+    interface JeTabAttributes {
+        "value": string;
+        "active": boolean;
+    }
+    interface JeTableAttributes {
+        "columns": number;
+    }
+    interface JeTabsAttributes {
+        "mode": 'mobile' | 'pill' | 'segment';
+        "value": string;
+    }
+    interface JeTcAttributes {
+        "colSpan": number;
+        "rowSpan": number;
+        "copy": boolean;
+    }
+    interface JeTextfieldAttributes {
+        "type": 'text'
+    | 'number'
+    | 'search'
+    | 'email'
+    | 'phone'
+    | 'url'
+    | 'money'
+    | 'date'
+    | 'time'
+    | 'datetime'
+    | 'daterange'
+    | 'password'
+    | 'ssn'
+    | Omit<InputMaskOptions, 'inputElement'>;
+        "originalValue": string;
+        "value": string;
+        "label": string;
+        "note": string;
+        "size": 'md' | 'lg' | 'sm';
+        "placeholder": string;
+        "debounce": number;
+        "disabled": boolean;
+        "readonly": boolean;
+        "wrap": string;
+        "multiline": boolean;
+        "min": string;
+        "max": string;
+        "minlength": number;
+        "maxlength": number;
+        "pattern": string;
+        "required": boolean;
+        "step": string;
+    }
+    interface JeToggleAttributes {
+        "originalValue": boolean;
+        "value": boolean;
+        "labelPlacement": 'start' | 'end';
+    }
+    interface JeToolbarAttributes {
+        "flank": string;
+        "mode": "row" | "column";
+        "space": | "3xs"
+    | "2xs"
+    | "xs"
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "2xs"
+    | "3xl";
+    }
+    interface JeTooltipAttributes {
+        "content": string;
+        "offsetX": number;
+        "offsetY": number;
+    }
+    interface JeTrAttributes {
+        "type": "header" | "body" | "footer";
+    }
+    interface JeTreeAttributes {
+        "value": string | string[];
+        "selection": 'single' | 'multiple' | 'leaf';
+        "indentation": boolean;
+    }
+
     interface IntrinsicElements {
         "je-accordion": JeAccordion;
-        "je-alert": JeAlert;
-        "je-branch": JeBranch;
+        "je-alert": Omit<JeAlert, keyof JeAlertAttributes> & { [K in keyof JeAlert & keyof JeAlertAttributes]?: JeAlert[K] } & { [K in keyof JeAlert & keyof JeAlertAttributes as `attr:${K}`]?: JeAlertAttributes[K] } & { [K in keyof JeAlert & keyof JeAlertAttributes as `prop:${K}`]?: JeAlert[K] };
+        "je-branch": Omit<JeBranch, keyof JeBranchAttributes> & { [K in keyof JeBranch & keyof JeBranchAttributes]?: JeBranch[K] } & { [K in keyof JeBranch & keyof JeBranchAttributes as `attr:${K}`]?: JeBranchAttributes[K] } & { [K in keyof JeBranch & keyof JeBranchAttributes as `prop:${K}`]?: JeBranch[K] };
         "je-breadcrumb": JeBreadcrumb;
-        "je-breadcrumbs": JeBreadcrumbs;
-        "je-button": JeButton;
+        "je-breadcrumbs": Omit<JeBreadcrumbs, keyof JeBreadcrumbsAttributes> & { [K in keyof JeBreadcrumbs & keyof JeBreadcrumbsAttributes]?: JeBreadcrumbs[K] } & { [K in keyof JeBreadcrumbs & keyof JeBreadcrumbsAttributes as `attr:${K}`]?: JeBreadcrumbsAttributes[K] } & { [K in keyof JeBreadcrumbs & keyof JeBreadcrumbsAttributes as `prop:${K}`]?: JeBreadcrumbs[K] };
+        "je-button": Omit<JeButton, keyof JeButtonAttributes> & { [K in keyof JeButton & keyof JeButtonAttributes]?: JeButton[K] } & { [K in keyof JeButton & keyof JeButtonAttributes as `attr:${K}`]?: JeButtonAttributes[K] } & { [K in keyof JeButton & keyof JeButtonAttributes as `prop:${K}`]?: JeButton[K] };
         "je-button-group": JeButtonGroup;
         "je-calendar": JeCalendar;
-        "je-card": JeCard;
-        "je-checkbox": JeCheckbox;
-        "je-color": JeColor;
+        "je-card": Omit<JeCard, keyof JeCardAttributes> & { [K in keyof JeCard & keyof JeCardAttributes]?: JeCard[K] } & { [K in keyof JeCard & keyof JeCardAttributes as `attr:${K}`]?: JeCardAttributes[K] } & { [K in keyof JeCard & keyof JeCardAttributes as `prop:${K}`]?: JeCard[K] };
+        "je-checkbox": Omit<JeCheckbox, keyof JeCheckboxAttributes> & { [K in keyof JeCheckbox & keyof JeCheckboxAttributes]?: JeCheckbox[K] } & { [K in keyof JeCheckbox & keyof JeCheckboxAttributes as `attr:${K}`]?: JeCheckboxAttributes[K] } & { [K in keyof JeCheckbox & keyof JeCheckboxAttributes as `prop:${K}`]?: JeCheckbox[K] };
+        "je-color": Omit<JeColor, keyof JeColorAttributes> & { [K in keyof JeColor & keyof JeColorAttributes]?: JeColor[K] } & { [K in keyof JeColor & keyof JeColorAttributes as `attr:${K}`]?: JeColorAttributes[K] } & { [K in keyof JeColor & keyof JeColorAttributes as `prop:${K}`]?: JeColor[K] };
         "je-comp": JeComp;
         "je-control": JeControl;
-        "je-datepicker": JeDatepicker;
+        "je-datepicker": Omit<JeDatepicker, keyof JeDatepickerAttributes> & { [K in keyof JeDatepicker & keyof JeDatepickerAttributes]?: JeDatepicker[K] } & { [K in keyof JeDatepicker & keyof JeDatepickerAttributes as `attr:${K}`]?: JeDatepickerAttributes[K] } & { [K in keyof JeDatepicker & keyof JeDatepickerAttributes as `prop:${K}`]?: JeDatepicker[K] };
         "je-daw": JeDaw;
-        "je-details": JeDetails;
+        "je-details": Omit<JeDetails, keyof JeDetailsAttributes> & { [K in keyof JeDetails & keyof JeDetailsAttributes]?: JeDetails[K] } & { [K in keyof JeDetails & keyof JeDetailsAttributes as `attr:${K}`]?: JeDetailsAttributes[K] } & { [K in keyof JeDetails & keyof JeDetailsAttributes as `prop:${K}`]?: JeDetails[K] };
         "je-discard-form": JeDiscardForm;
-        "je-divider": JeDivider;
+        "je-divider": Omit<JeDivider, keyof JeDividerAttributes> & { [K in keyof JeDivider & keyof JeDividerAttributes]?: JeDivider[K] } & { [K in keyof JeDivider & keyof JeDividerAttributes as `attr:${K}`]?: JeDividerAttributes[K] } & { [K in keyof JeDivider & keyof JeDividerAttributes as `prop:${K}`]?: JeDivider[K] };
         "je-dropzone": JeDropzone;
         "je-eq": JeEq;
         "je-form": JeForm;
-        "je-grid": JeGrid;
-        "je-icon": JeIcon;
+        "je-grid": Omit<JeGrid, keyof JeGridAttributes> & { [K in keyof JeGrid & keyof JeGridAttributes]?: JeGrid[K] } & { [K in keyof JeGrid & keyof JeGridAttributes as `attr:${K}`]?: JeGridAttributes[K] } & { [K in keyof JeGrid & keyof JeGridAttributes as `prop:${K}`]?: JeGrid[K] };
+        "je-icon": Omit<JeIcon, keyof JeIconAttributes> & { [K in keyof JeIcon & keyof JeIconAttributes]?: JeIcon[K] } & { [K in keyof JeIcon & keyof JeIconAttributes as `attr:${K}`]?: JeIconAttributes[K] } & { [K in keyof JeIcon & keyof JeIconAttributes as `prop:${K}`]?: JeIcon[K] };
         "je-item": JeItem;
         "je-knob": JeKnob;
-        "je-label": JeLabel;
-        "je-link": JeLink;
+        "je-label": Omit<JeLabel, keyof JeLabelAttributes> & { [K in keyof JeLabel & keyof JeLabelAttributes]?: JeLabel[K] } & { [K in keyof JeLabel & keyof JeLabelAttributes as `attr:${K}`]?: JeLabelAttributes[K] } & { [K in keyof JeLabel & keyof JeLabelAttributes as `prop:${K}`]?: JeLabel[K] };
+        "je-link": Omit<JeLink, keyof JeLinkAttributes> & { [K in keyof JeLink & keyof JeLinkAttributes]?: JeLink[K] } & { [K in keyof JeLink & keyof JeLinkAttributes as `attr:${K}`]?: JeLinkAttributes[K] } & { [K in keyof JeLink & keyof JeLinkAttributes as `prop:${K}`]?: JeLink[K] };
         "je-list": JeList;
         "je-loading": JeLoading;
         "je-midi": JeMidi;
-        "je-note": JeNote;
-        "je-option": JeOption;
-        "je-overlay": JeOverlay;
-        "je-overlay-content": JeOverlayContent;
+        "je-note": Omit<JeNote, keyof JeNoteAttributes> & { [K in keyof JeNote & keyof JeNoteAttributes]?: JeNote[K] } & { [K in keyof JeNote & keyof JeNoteAttributes as `attr:${K}`]?: JeNoteAttributes[K] } & { [K in keyof JeNote & keyof JeNoteAttributes as `prop:${K}`]?: JeNote[K] };
+        "je-option": Omit<JeOption, keyof JeOptionAttributes> & { [K in keyof JeOption & keyof JeOptionAttributes]?: JeOption[K] } & { [K in keyof JeOption & keyof JeOptionAttributes as `attr:${K}`]?: JeOptionAttributes[K] } & { [K in keyof JeOption & keyof JeOptionAttributes as `prop:${K}`]?: JeOption[K] };
+        "je-overlay": Omit<JeOverlay, keyof JeOverlayAttributes> & { [K in keyof JeOverlay & keyof JeOverlayAttributes]?: JeOverlay[K] } & { [K in keyof JeOverlay & keyof JeOverlayAttributes as `attr:${K}`]?: JeOverlayAttributes[K] } & { [K in keyof JeOverlay & keyof JeOverlayAttributes as `prop:${K}`]?: JeOverlay[K] };
+        "je-overlay-content": Omit<JeOverlayContent, keyof JeOverlayContentAttributes> & { [K in keyof JeOverlayContent & keyof JeOverlayContentAttributes]?: JeOverlayContent[K] } & { [K in keyof JeOverlayContent & keyof JeOverlayContentAttributes as `attr:${K}`]?: JeOverlayContentAttributes[K] } & { [K in keyof JeOverlayContent & keyof JeOverlayContentAttributes as `prop:${K}`]?: JeOverlayContent[K] };
         "je-page": JePage;
-        "je-pill": JePill;
-        "je-placeholder": JePlaceholder;
-        "je-popover": JePopover;
-        "je-radio": JeRadio;
-        "je-radio-button": JeRadioButton;
-        "je-radio-group": JeRadioGroup;
+        "je-pill": Omit<JePill, keyof JePillAttributes> & { [K in keyof JePill & keyof JePillAttributes]?: JePill[K] } & { [K in keyof JePill & keyof JePillAttributes as `attr:${K}`]?: JePillAttributes[K] } & { [K in keyof JePill & keyof JePillAttributes as `prop:${K}`]?: JePill[K] };
+        "je-placeholder": Omit<JePlaceholder, keyof JePlaceholderAttributes> & { [K in keyof JePlaceholder & keyof JePlaceholderAttributes]?: JePlaceholder[K] } & { [K in keyof JePlaceholder & keyof JePlaceholderAttributes as `attr:${K}`]?: JePlaceholderAttributes[K] } & { [K in keyof JePlaceholder & keyof JePlaceholderAttributes as `prop:${K}`]?: JePlaceholder[K] };
+        "je-popover": Omit<JePopover, keyof JePopoverAttributes> & { [K in keyof JePopover & keyof JePopoverAttributes]?: JePopover[K] } & { [K in keyof JePopover & keyof JePopoverAttributes as `attr:${K}`]?: JePopoverAttributes[K] } & { [K in keyof JePopover & keyof JePopoverAttributes as `prop:${K}`]?: JePopover[K] };
+        "je-radio": Omit<JeRadio, keyof JeRadioAttributes> & { [K in keyof JeRadio & keyof JeRadioAttributes]?: JeRadio[K] } & { [K in keyof JeRadio & keyof JeRadioAttributes as `attr:${K}`]?: JeRadioAttributes[K] } & { [K in keyof JeRadio & keyof JeRadioAttributes as `prop:${K}`]?: JeRadio[K] };
+        "je-radio-button": Omit<JeRadioButton, keyof JeRadioButtonAttributes> & { [K in keyof JeRadioButton & keyof JeRadioButtonAttributes]?: JeRadioButton[K] } & { [K in keyof JeRadioButton & keyof JeRadioButtonAttributes as `attr:${K}`]?: JeRadioButtonAttributes[K] } & { [K in keyof JeRadioButton & keyof JeRadioButtonAttributes as `prop:${K}`]?: JeRadioButton[K] };
+        "je-radio-group": Omit<JeRadioGroup, keyof JeRadioGroupAttributes> & { [K in keyof JeRadioGroup & keyof JeRadioGroupAttributes]?: JeRadioGroup[K] } & { [K in keyof JeRadioGroup & keyof JeRadioGroupAttributes as `attr:${K}`]?: JeRadioGroupAttributes[K] } & { [K in keyof JeRadioGroup & keyof JeRadioGroupAttributes as `prop:${K}`]?: JeRadioGroup[K] };
         "je-range": JeRange;
         "je-reorder-item": JeReorderItem;
         "je-reorder-list": JeReorderList;
-        "je-rich-text": JeRichText;
-        "je-select": JeSelect;
+        "je-rich-text": Omit<JeRichText, keyof JeRichTextAttributes> & { [K in keyof JeRichText & keyof JeRichTextAttributes]?: JeRichText[K] } & { [K in keyof JeRichText & keyof JeRichTextAttributes as `attr:${K}`]?: JeRichTextAttributes[K] } & { [K in keyof JeRichText & keyof JeRichTextAttributes as `prop:${K}`]?: JeRichText[K] };
+        "je-select": Omit<JeSelect, keyof JeSelectAttributes> & { [K in keyof JeSelect & keyof JeSelectAttributes]?: JeSelect[K] } & { [K in keyof JeSelect & keyof JeSelectAttributes as `attr:${K}`]?: JeSelectAttributes[K] } & { [K in keyof JeSelect & keyof JeSelectAttributes as `prop:${K}`]?: JeSelect[K] };
         "je-split-panel": JeSplitPanel;
         "je-split-view": JeSplitView;
-        "je-stack": JeStack;
+        "je-stack": Omit<JeStack, keyof JeStackAttributes> & { [K in keyof JeStack & keyof JeStackAttributes]?: JeStack[K] } & { [K in keyof JeStack & keyof JeStackAttributes as `attr:${K}`]?: JeStackAttributes[K] } & { [K in keyof JeStack & keyof JeStackAttributes as `prop:${K}`]?: JeStack[K] };
         "je-synth": JeSynth;
-        "je-tab": JeTab;
-        "je-table": JeTable;
-        "je-tabs": JeTabs;
-        "je-tc": JeTc;
-        "je-textfield": JeTextfield;
+        "je-tab": Omit<JeTab, keyof JeTabAttributes> & { [K in keyof JeTab & keyof JeTabAttributes]?: JeTab[K] } & { [K in keyof JeTab & keyof JeTabAttributes as `attr:${K}`]?: JeTabAttributes[K] } & { [K in keyof JeTab & keyof JeTabAttributes as `prop:${K}`]?: JeTab[K] };
+        "je-table": Omit<JeTable, keyof JeTableAttributes> & { [K in keyof JeTable & keyof JeTableAttributes]?: JeTable[K] } & { [K in keyof JeTable & keyof JeTableAttributes as `attr:${K}`]?: JeTableAttributes[K] } & { [K in keyof JeTable & keyof JeTableAttributes as `prop:${K}`]?: JeTable[K] };
+        "je-tabs": Omit<JeTabs, keyof JeTabsAttributes> & { [K in keyof JeTabs & keyof JeTabsAttributes]?: JeTabs[K] } & { [K in keyof JeTabs & keyof JeTabsAttributes as `attr:${K}`]?: JeTabsAttributes[K] } & { [K in keyof JeTabs & keyof JeTabsAttributes as `prop:${K}`]?: JeTabs[K] };
+        "je-tc": Omit<JeTc, keyof JeTcAttributes> & { [K in keyof JeTc & keyof JeTcAttributes]?: JeTc[K] } & { [K in keyof JeTc & keyof JeTcAttributes as `attr:${K}`]?: JeTcAttributes[K] } & { [K in keyof JeTc & keyof JeTcAttributes as `prop:${K}`]?: JeTc[K] };
+        "je-textfield": Omit<JeTextfield, keyof JeTextfieldAttributes> & { [K in keyof JeTextfield & keyof JeTextfieldAttributes]?: JeTextfield[K] } & { [K in keyof JeTextfield & keyof JeTextfieldAttributes as `attr:${K}`]?: JeTextfieldAttributes[K] } & { [K in keyof JeTextfield & keyof JeTextfieldAttributes as `prop:${K}`]?: JeTextfield[K] };
         "je-toc": JeToc;
-        "je-toggle": JeToggle;
-        "je-toolbar": JeToolbar;
-        "je-tooltip": JeTooltip;
-        "je-tr": JeTr;
-        "je-tree": JeTree;
+        "je-toggle": Omit<JeToggle, keyof JeToggleAttributes> & { [K in keyof JeToggle & keyof JeToggleAttributes]?: JeToggle[K] } & { [K in keyof JeToggle & keyof JeToggleAttributes as `attr:${K}`]?: JeToggleAttributes[K] } & { [K in keyof JeToggle & keyof JeToggleAttributes as `prop:${K}`]?: JeToggle[K] };
+        "je-toolbar": Omit<JeToolbar, keyof JeToolbarAttributes> & { [K in keyof JeToolbar & keyof JeToolbarAttributes]?: JeToolbar[K] } & { [K in keyof JeToolbar & keyof JeToolbarAttributes as `attr:${K}`]?: JeToolbarAttributes[K] } & { [K in keyof JeToolbar & keyof JeToolbarAttributes as `prop:${K}`]?: JeToolbar[K] };
+        "je-tooltip": Omit<JeTooltip, keyof JeTooltipAttributes> & { [K in keyof JeTooltip & keyof JeTooltipAttributes]?: JeTooltip[K] } & { [K in keyof JeTooltip & keyof JeTooltipAttributes as `attr:${K}`]?: JeTooltipAttributes[K] } & { [K in keyof JeTooltip & keyof JeTooltipAttributes as `prop:${K}`]?: JeTooltip[K] };
+        "je-tr": Omit<JeTr, keyof JeTrAttributes> & { [K in keyof JeTr & keyof JeTrAttributes]?: JeTr[K] } & { [K in keyof JeTr & keyof JeTrAttributes as `attr:${K}`]?: JeTrAttributes[K] } & { [K in keyof JeTr & keyof JeTrAttributes as `prop:${K}`]?: JeTr[K] };
+        "je-tree": Omit<JeTree, keyof JeTreeAttributes> & { [K in keyof JeTree & keyof JeTreeAttributes]?: JeTree[K] } & { [K in keyof JeTree & keyof JeTreeAttributes as `attr:${K}`]?: JeTreeAttributes[K] } & { [K in keyof JeTree & keyof JeTreeAttributes as `prop:${K}`]?: JeTree[K] };
         "je-wizard": JeWizard;
     }
 }
@@ -2346,68 +2667,68 @@ declare module "@stencil/core" {
              * Accordions are wrappers for <je-link href="../je-details">JeDetails</je-link>. When an inner detail is opened, the others are automatically closed.
              * The implementation follows the [aria implementation of an accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/).
              */
-            "je-accordion": LocalJSX.JeAccordion & JSXBase.HTMLAttributes<HTMLJeAccordionElement>;
-            "je-alert": LocalJSX.JeAlert & JSXBase.HTMLAttributes<HTMLJeAlertElement>;
-            "je-branch": LocalJSX.JeBranch & JSXBase.HTMLAttributes<HTMLJeBranchElement>;
-            "je-breadcrumb": LocalJSX.JeBreadcrumb & JSXBase.HTMLAttributes<HTMLJeBreadcrumbElement>;
-            "je-breadcrumbs": LocalJSX.JeBreadcrumbs & JSXBase.HTMLAttributes<HTMLJeBreadcrumbsElement>;
-            "je-button": LocalJSX.JeButton & JSXBase.HTMLAttributes<HTMLJeButtonElement>;
-            "je-button-group": LocalJSX.JeButtonGroup & JSXBase.HTMLAttributes<HTMLJeButtonGroupElement>;
-            "je-calendar": LocalJSX.JeCalendar & JSXBase.HTMLAttributes<HTMLJeCalendarElement>;
-            "je-card": LocalJSX.JeCard & JSXBase.HTMLAttributes<HTMLJeCardElement>;
-            "je-checkbox": LocalJSX.JeCheckbox & JSXBase.HTMLAttributes<HTMLJeCheckboxElement>;
-            "je-color": LocalJSX.JeColor & JSXBase.HTMLAttributes<HTMLJeColorElement>;
-            "je-comp": LocalJSX.JeComp & JSXBase.HTMLAttributes<HTMLJeCompElement>;
-            "je-control": LocalJSX.JeControl & JSXBase.HTMLAttributes<HTMLJeControlElement>;
-            "je-datepicker": LocalJSX.JeDatepicker & JSXBase.HTMLAttributes<HTMLJeDatepickerElement>;
-            "je-daw": LocalJSX.JeDaw & JSXBase.HTMLAttributes<HTMLJeDawElement>;
-            "je-details": LocalJSX.JeDetails & JSXBase.HTMLAttributes<HTMLJeDetailsElement>;
-            "je-discard-form": LocalJSX.JeDiscardForm & JSXBase.HTMLAttributes<HTMLJeDiscardFormElement>;
-            "je-divider": LocalJSX.JeDivider & JSXBase.HTMLAttributes<HTMLJeDividerElement>;
-            "je-dropzone": LocalJSX.JeDropzone & JSXBase.HTMLAttributes<HTMLJeDropzoneElement>;
-            "je-eq": LocalJSX.JeEq & JSXBase.HTMLAttributes<HTMLJeEqElement>;
-            "je-form": LocalJSX.JeForm & JSXBase.HTMLAttributes<HTMLJeFormElement>;
-            "je-grid": LocalJSX.JeGrid & JSXBase.HTMLAttributes<HTMLJeGridElement>;
-            "je-icon": LocalJSX.JeIcon & JSXBase.HTMLAttributes<HTMLJeIconElement>;
-            "je-item": LocalJSX.JeItem & JSXBase.HTMLAttributes<HTMLJeItemElement>;
-            "je-knob": LocalJSX.JeKnob & JSXBase.HTMLAttributes<HTMLJeKnobElement>;
-            "je-label": LocalJSX.JeLabel & JSXBase.HTMLAttributes<HTMLJeLabelElement>;
-            "je-link": LocalJSX.JeLink & JSXBase.HTMLAttributes<HTMLJeLinkElement>;
-            "je-list": LocalJSX.JeList & JSXBase.HTMLAttributes<HTMLJeListElement>;
-            "je-loading": LocalJSX.JeLoading & JSXBase.HTMLAttributes<HTMLJeLoadingElement>;
-            "je-midi": LocalJSX.JeMidi & JSXBase.HTMLAttributes<HTMLJeMidiElement>;
-            "je-note": LocalJSX.JeNote & JSXBase.HTMLAttributes<HTMLJeNoteElement>;
-            "je-option": LocalJSX.JeOption & JSXBase.HTMLAttributes<HTMLJeOptionElement>;
-            "je-overlay": LocalJSX.JeOverlay & JSXBase.HTMLAttributes<HTMLJeOverlayElement>;
-            "je-overlay-content": LocalJSX.JeOverlayContent & JSXBase.HTMLAttributes<HTMLJeOverlayContentElement>;
-            "je-page": LocalJSX.JePage & JSXBase.HTMLAttributes<HTMLJePageElement>;
-            "je-pill": LocalJSX.JePill & JSXBase.HTMLAttributes<HTMLJePillElement>;
-            "je-placeholder": LocalJSX.JePlaceholder & JSXBase.HTMLAttributes<HTMLJePlaceholderElement>;
-            "je-popover": LocalJSX.JePopover & JSXBase.HTMLAttributes<HTMLJePopoverElement>;
-            "je-radio": LocalJSX.JeRadio & JSXBase.HTMLAttributes<HTMLJeRadioElement>;
-            "je-radio-button": LocalJSX.JeRadioButton & JSXBase.HTMLAttributes<HTMLJeRadioButtonElement>;
-            "je-radio-group": LocalJSX.JeRadioGroup & JSXBase.HTMLAttributes<HTMLJeRadioGroupElement>;
-            "je-range": LocalJSX.JeRange & JSXBase.HTMLAttributes<HTMLJeRangeElement>;
-            "je-reorder-item": LocalJSX.JeReorderItem & JSXBase.HTMLAttributes<HTMLJeReorderItemElement>;
-            "je-reorder-list": LocalJSX.JeReorderList & JSXBase.HTMLAttributes<HTMLJeReorderListElement>;
-            "je-rich-text": LocalJSX.JeRichText & JSXBase.HTMLAttributes<HTMLJeRichTextElement>;
-            "je-select": LocalJSX.JeSelect & JSXBase.HTMLAttributes<HTMLJeSelectElement>;
-            "je-split-panel": LocalJSX.JeSplitPanel & JSXBase.HTMLAttributes<HTMLJeSplitPanelElement>;
-            "je-split-view": LocalJSX.JeSplitView & JSXBase.HTMLAttributes<HTMLJeSplitViewElement>;
-            "je-stack": LocalJSX.JeStack & JSXBase.HTMLAttributes<HTMLJeStackElement>;
-            "je-synth": LocalJSX.JeSynth & JSXBase.HTMLAttributes<HTMLJeSynthElement>;
-            "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
-            "je-table": LocalJSX.JeTable & JSXBase.HTMLAttributes<HTMLJeTableElement>;
-            "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;
-            "je-tc": LocalJSX.JeTc & JSXBase.HTMLAttributes<HTMLJeTcElement>;
-            "je-textfield": LocalJSX.JeTextfield & JSXBase.HTMLAttributes<HTMLJeTextfieldElement>;
-            "je-toc": LocalJSX.JeToc & JSXBase.HTMLAttributes<HTMLJeTocElement>;
-            "je-toggle": LocalJSX.JeToggle & JSXBase.HTMLAttributes<HTMLJeToggleElement>;
-            "je-toolbar": LocalJSX.JeToolbar & JSXBase.HTMLAttributes<HTMLJeToolbarElement>;
-            "je-tooltip": LocalJSX.JeTooltip & JSXBase.HTMLAttributes<HTMLJeTooltipElement>;
-            "je-tr": LocalJSX.JeTr & JSXBase.HTMLAttributes<HTMLJeTrElement>;
-            "je-tree": LocalJSX.JeTree & JSXBase.HTMLAttributes<HTMLJeTreeElement>;
-            "je-wizard": LocalJSX.JeWizard & JSXBase.HTMLAttributes<HTMLJeWizardElement>;
+            "je-accordion": LocalJSX.IntrinsicElements["je-accordion"] & JSXBase.HTMLAttributes<HTMLJeAccordionElement>;
+            "je-alert": LocalJSX.IntrinsicElements["je-alert"] & JSXBase.HTMLAttributes<HTMLJeAlertElement>;
+            "je-branch": LocalJSX.IntrinsicElements["je-branch"] & JSXBase.HTMLAttributes<HTMLJeBranchElement>;
+            "je-breadcrumb": LocalJSX.IntrinsicElements["je-breadcrumb"] & JSXBase.HTMLAttributes<HTMLJeBreadcrumbElement>;
+            "je-breadcrumbs": LocalJSX.IntrinsicElements["je-breadcrumbs"] & JSXBase.HTMLAttributes<HTMLJeBreadcrumbsElement>;
+            "je-button": LocalJSX.IntrinsicElements["je-button"] & JSXBase.HTMLAttributes<HTMLJeButtonElement>;
+            "je-button-group": LocalJSX.IntrinsicElements["je-button-group"] & JSXBase.HTMLAttributes<HTMLJeButtonGroupElement>;
+            "je-calendar": LocalJSX.IntrinsicElements["je-calendar"] & JSXBase.HTMLAttributes<HTMLJeCalendarElement>;
+            "je-card": LocalJSX.IntrinsicElements["je-card"] & JSXBase.HTMLAttributes<HTMLJeCardElement>;
+            "je-checkbox": LocalJSX.IntrinsicElements["je-checkbox"] & JSXBase.HTMLAttributes<HTMLJeCheckboxElement>;
+            "je-color": LocalJSX.IntrinsicElements["je-color"] & JSXBase.HTMLAttributes<HTMLJeColorElement>;
+            "je-comp": LocalJSX.IntrinsicElements["je-comp"] & JSXBase.HTMLAttributes<HTMLJeCompElement>;
+            "je-control": LocalJSX.IntrinsicElements["je-control"] & JSXBase.HTMLAttributes<HTMLJeControlElement>;
+            "je-datepicker": LocalJSX.IntrinsicElements["je-datepicker"] & JSXBase.HTMLAttributes<HTMLJeDatepickerElement>;
+            "je-daw": LocalJSX.IntrinsicElements["je-daw"] & JSXBase.HTMLAttributes<HTMLJeDawElement>;
+            "je-details": LocalJSX.IntrinsicElements["je-details"] & JSXBase.HTMLAttributes<HTMLJeDetailsElement>;
+            "je-discard-form": LocalJSX.IntrinsicElements["je-discard-form"] & JSXBase.HTMLAttributes<HTMLJeDiscardFormElement>;
+            "je-divider": LocalJSX.IntrinsicElements["je-divider"] & JSXBase.HTMLAttributes<HTMLJeDividerElement>;
+            "je-dropzone": LocalJSX.IntrinsicElements["je-dropzone"] & JSXBase.HTMLAttributes<HTMLJeDropzoneElement>;
+            "je-eq": LocalJSX.IntrinsicElements["je-eq"] & JSXBase.HTMLAttributes<HTMLJeEqElement>;
+            "je-form": LocalJSX.IntrinsicElements["je-form"] & JSXBase.HTMLAttributes<HTMLJeFormElement>;
+            "je-grid": LocalJSX.IntrinsicElements["je-grid"] & JSXBase.HTMLAttributes<HTMLJeGridElement>;
+            "je-icon": LocalJSX.IntrinsicElements["je-icon"] & JSXBase.HTMLAttributes<HTMLJeIconElement>;
+            "je-item": LocalJSX.IntrinsicElements["je-item"] & JSXBase.HTMLAttributes<HTMLJeItemElement>;
+            "je-knob": LocalJSX.IntrinsicElements["je-knob"] & JSXBase.HTMLAttributes<HTMLJeKnobElement>;
+            "je-label": LocalJSX.IntrinsicElements["je-label"] & JSXBase.HTMLAttributes<HTMLJeLabelElement>;
+            "je-link": LocalJSX.IntrinsicElements["je-link"] & JSXBase.HTMLAttributes<HTMLJeLinkElement>;
+            "je-list": LocalJSX.IntrinsicElements["je-list"] & JSXBase.HTMLAttributes<HTMLJeListElement>;
+            "je-loading": LocalJSX.IntrinsicElements["je-loading"] & JSXBase.HTMLAttributes<HTMLJeLoadingElement>;
+            "je-midi": LocalJSX.IntrinsicElements["je-midi"] & JSXBase.HTMLAttributes<HTMLJeMidiElement>;
+            "je-note": LocalJSX.IntrinsicElements["je-note"] & JSXBase.HTMLAttributes<HTMLJeNoteElement>;
+            "je-option": LocalJSX.IntrinsicElements["je-option"] & JSXBase.HTMLAttributes<HTMLJeOptionElement>;
+            "je-overlay": LocalJSX.IntrinsicElements["je-overlay"] & JSXBase.HTMLAttributes<HTMLJeOverlayElement>;
+            "je-overlay-content": LocalJSX.IntrinsicElements["je-overlay-content"] & JSXBase.HTMLAttributes<HTMLJeOverlayContentElement>;
+            "je-page": LocalJSX.IntrinsicElements["je-page"] & JSXBase.HTMLAttributes<HTMLJePageElement>;
+            "je-pill": LocalJSX.IntrinsicElements["je-pill"] & JSXBase.HTMLAttributes<HTMLJePillElement>;
+            "je-placeholder": LocalJSX.IntrinsicElements["je-placeholder"] & JSXBase.HTMLAttributes<HTMLJePlaceholderElement>;
+            "je-popover": LocalJSX.IntrinsicElements["je-popover"] & JSXBase.HTMLAttributes<HTMLJePopoverElement>;
+            "je-radio": LocalJSX.IntrinsicElements["je-radio"] & JSXBase.HTMLAttributes<HTMLJeRadioElement>;
+            "je-radio-button": LocalJSX.IntrinsicElements["je-radio-button"] & JSXBase.HTMLAttributes<HTMLJeRadioButtonElement>;
+            "je-radio-group": LocalJSX.IntrinsicElements["je-radio-group"] & JSXBase.HTMLAttributes<HTMLJeRadioGroupElement>;
+            "je-range": LocalJSX.IntrinsicElements["je-range"] & JSXBase.HTMLAttributes<HTMLJeRangeElement>;
+            "je-reorder-item": LocalJSX.IntrinsicElements["je-reorder-item"] & JSXBase.HTMLAttributes<HTMLJeReorderItemElement>;
+            "je-reorder-list": LocalJSX.IntrinsicElements["je-reorder-list"] & JSXBase.HTMLAttributes<HTMLJeReorderListElement>;
+            "je-rich-text": LocalJSX.IntrinsicElements["je-rich-text"] & JSXBase.HTMLAttributes<HTMLJeRichTextElement>;
+            "je-select": LocalJSX.IntrinsicElements["je-select"] & JSXBase.HTMLAttributes<HTMLJeSelectElement>;
+            "je-split-panel": LocalJSX.IntrinsicElements["je-split-panel"] & JSXBase.HTMLAttributes<HTMLJeSplitPanelElement>;
+            "je-split-view": LocalJSX.IntrinsicElements["je-split-view"] & JSXBase.HTMLAttributes<HTMLJeSplitViewElement>;
+            "je-stack": LocalJSX.IntrinsicElements["je-stack"] & JSXBase.HTMLAttributes<HTMLJeStackElement>;
+            "je-synth": LocalJSX.IntrinsicElements["je-synth"] & JSXBase.HTMLAttributes<HTMLJeSynthElement>;
+            "je-tab": LocalJSX.IntrinsicElements["je-tab"] & JSXBase.HTMLAttributes<HTMLJeTabElement>;
+            "je-table": LocalJSX.IntrinsicElements["je-table"] & JSXBase.HTMLAttributes<HTMLJeTableElement>;
+            "je-tabs": LocalJSX.IntrinsicElements["je-tabs"] & JSXBase.HTMLAttributes<HTMLJeTabsElement>;
+            "je-tc": LocalJSX.IntrinsicElements["je-tc"] & JSXBase.HTMLAttributes<HTMLJeTcElement>;
+            "je-textfield": LocalJSX.IntrinsicElements["je-textfield"] & JSXBase.HTMLAttributes<HTMLJeTextfieldElement>;
+            "je-toc": LocalJSX.IntrinsicElements["je-toc"] & JSXBase.HTMLAttributes<HTMLJeTocElement>;
+            "je-toggle": LocalJSX.IntrinsicElements["je-toggle"] & JSXBase.HTMLAttributes<HTMLJeToggleElement>;
+            "je-toolbar": LocalJSX.IntrinsicElements["je-toolbar"] & JSXBase.HTMLAttributes<HTMLJeToolbarElement>;
+            "je-tooltip": LocalJSX.IntrinsicElements["je-tooltip"] & JSXBase.HTMLAttributes<HTMLJeTooltipElement>;
+            "je-tr": LocalJSX.IntrinsicElements["je-tr"] & JSXBase.HTMLAttributes<HTMLJeTrElement>;
+            "je-tree": LocalJSX.IntrinsicElements["je-tree"] & JSXBase.HTMLAttributes<HTMLJeTreeElement>;
+            "je-wizard": LocalJSX.IntrinsicElements["je-wizard"] & JSXBase.HTMLAttributes<HTMLJeWizardElement>;
         }
     }
 }

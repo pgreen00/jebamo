@@ -1,6 +1,4 @@
 import { Config } from "@stencil/core";
-import { angularOutputTarget } from "@stencil/angular-output-target";
-import { reactOutputTarget } from "@stencil/react-output-target";
 import { execSync } from "child_process";
 
 export const config: Config = {
@@ -34,13 +32,5 @@ export const config: Config = {
       type: "docs-vscode",
       file: "dist/vscode-data.json",
     },
-    angularOutputTarget({
-      componentCorePackage: "jebamo",
-      outputType: "standalone",
-      directivesProxyFile: "../angular/src/lib/components.ts",
-    }),
-    reactOutputTarget({
-      outDir: "../react/src/lib/",
-    }),
   ],
 };
