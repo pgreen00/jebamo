@@ -1,0 +1,52 @@
+:host {
+  display: contents;
+}
+
+:host([type="header"]) ::slotted(je-tc) {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: var(--je-spacing-sm) var(--je-spacing-md);
+  text-align: left;
+  font-weight: var(--je-font-semi-bold);
+  color: light-dark(var(--je-neutral-900), var(--je-neutral-100));
+  border-bottom: 1px solid
+    light-dark(var(--je-neutral-300), var(--je-neutral-700));
+  white-space: nowrap;
+  user-select: none;
+  background-color: light-dark(var(--je-neutral-100), var(--je-neutral-850));
+  --border-right: 1px solid
+    light-dark(var(--je-neutral-200), var(--je-neutral-750));
+}
+
+:host([type="header"]) ::slotted(je-tc[sticky]) {
+  z-index: 3;
+}
+
+:host([type="body"]) ::slotted(je-tc) {
+  padding: var(--je-spacing-sm) var(--je-spacing-md);
+  color: light-dark(var(--je-neutral-900), var(--je-neutral-100));
+  --border-right: 1px solid
+    light-dark(var(--je-neutral-150), var(--je-neutral-825));
+}
+
+:host([type="body"]:hover) ::slotted(je-tc) {
+  background-color: light-dark(var(--je-neutral-50), var(--je-neutral-875));
+}
+
+:host([type="body"]:not(:last-child)) ::slotted(je-tc) {
+  border-bottom: 1px solid
+    light-dark(var(--je-neutral-200), var(--je-neutral-800));
+}
+
+:host([type="footer"]) ::slotted(je-tc) {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  background-color: light-dark(var(--je-neutral-50), var(--je-neutral-875));
+  font-weight: var(--je-font-semi-bold);
+  padding: var(--je-spacing-sm) var(--je-spacing-md);
+  border-top: 1px solid light-dark(var(--je-neutral-300), var(--je-neutral-700));
+  --border-right: 1px solid
+    light-dark(var(--je-neutral-200), var(--je-neutral-750));
+}

@@ -185,9 +185,9 @@ export namespace Components {
     }
     interface JeDetails {
         /**
-          * @default 'right'
+          * @default "right"
          */
-        "iconSide": 'left' | 'right';
+        "iconSide": "left" | "right";
         /**
           * @default false
          */
@@ -571,10 +571,7 @@ export namespace Components {
         "value"?: string;
     }
     interface JeTable {
-        /**
-          * @default false
-         */
-        "striped": boolean;
+        "columns"?: number;
     }
     interface JeTabs {
         /**
@@ -582,6 +579,14 @@ export namespace Components {
          */
         "mode": 'mobile' | 'pill' | 'segment';
         "value"?: string;
+    }
+    interface JeTc {
+        "colSpan"?: number;
+        /**
+          * @default false
+         */
+        "copy": boolean;
+        "rowSpan"?: number;
     }
     interface JeTextfield {
         /**
@@ -737,6 +742,12 @@ export namespace Components {
           * @default 10
          */
         "offsetY": number;
+    }
+    interface JeTr {
+        /**
+          * @default "body"
+         */
+        "type": "header" | "body" | "footer";
     }
     interface JeTree {
         /**
@@ -1304,6 +1315,12 @@ declare global {
         prototype: HTMLJeTabsElement;
         new (): HTMLJeTabsElement;
     };
+    interface HTMLJeTcElement extends Components.JeTc, HTMLStencilElement {
+    }
+    var HTMLJeTcElement: {
+        prototype: HTMLJeTcElement;
+        new (): HTMLJeTcElement;
+    };
     interface HTMLJeTextfieldElementEventMap {
         "valueChange": any;
     }
@@ -1355,6 +1372,12 @@ declare global {
     var HTMLJeTooltipElement: {
         prototype: HTMLJeTooltipElement;
         new (): HTMLJeTooltipElement;
+    };
+    interface HTMLJeTrElement extends Components.JeTr, HTMLStencilElement {
+    }
+    var HTMLJeTrElement: {
+        prototype: HTMLJeTrElement;
+        new (): HTMLJeTrElement;
     };
     interface HTMLJeTreeElementEventMap {
         "valueChange": string | string[];
@@ -1445,11 +1468,13 @@ declare global {
         "je-tab": HTMLJeTabElement;
         "je-table": HTMLJeTableElement;
         "je-tabs": HTMLJeTabsElement;
+        "je-tc": HTMLJeTcElement;
         "je-textfield": HTMLJeTextfieldElement;
         "je-toc": HTMLJeTocElement;
         "je-toggle": HTMLJeToggleElement;
         "je-toolbar": HTMLJeToolbarElement;
         "je-tooltip": HTMLJeTooltipElement;
+        "je-tr": HTMLJeTrElement;
         "je-tree": HTMLJeTreeElement;
         "je-wizard": HTMLJeWizardElement;
     }
@@ -1626,9 +1651,9 @@ declare namespace LocalJSX {
     }
     interface JeDetails {
         /**
-          * @default 'right'
+          * @default "right"
          */
-        "iconSide"?: 'left' | 'right';
+        "iconSide"?: "left" | "right";
         /**
           * @default false
          */
@@ -2043,10 +2068,7 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface JeTable {
-        /**
-          * @default false
-         */
-        "striped"?: boolean;
+        "columns"?: number;
     }
     interface JeTabs {
         /**
@@ -2055,6 +2077,14 @@ declare namespace LocalJSX {
         "mode"?: 'mobile' | 'pill' | 'segment';
         "onValueChange"?: (event: JeTabsCustomEvent<string | undefined>) => void;
         "value"?: string;
+    }
+    interface JeTc {
+        "colSpan"?: number;
+        /**
+          * @default false
+         */
+        "copy"?: boolean;
+        "rowSpan"?: number;
     }
     interface JeTextfield {
         /**
@@ -2217,6 +2247,12 @@ declare namespace LocalJSX {
          */
         "offsetY"?: number;
     }
+    interface JeTr {
+        /**
+          * @default "body"
+         */
+        "type"?: "header" | "body" | "footer";
+    }
     interface JeTree {
         /**
           * @default false
@@ -2291,11 +2327,13 @@ declare namespace LocalJSX {
         "je-tab": JeTab;
         "je-table": JeTable;
         "je-tabs": JeTabs;
+        "je-tc": JeTc;
         "je-textfield": JeTextfield;
         "je-toc": JeToc;
         "je-toggle": JeToggle;
         "je-toolbar": JeToolbar;
         "je-tooltip": JeTooltip;
+        "je-tr": JeTr;
         "je-tree": JeTree;
         "je-wizard": JeWizard;
     }
@@ -2361,11 +2399,13 @@ declare module "@stencil/core" {
             "je-tab": LocalJSX.JeTab & JSXBase.HTMLAttributes<HTMLJeTabElement>;
             "je-table": LocalJSX.JeTable & JSXBase.HTMLAttributes<HTMLJeTableElement>;
             "je-tabs": LocalJSX.JeTabs & JSXBase.HTMLAttributes<HTMLJeTabsElement>;
+            "je-tc": LocalJSX.JeTc & JSXBase.HTMLAttributes<HTMLJeTcElement>;
             "je-textfield": LocalJSX.JeTextfield & JSXBase.HTMLAttributes<HTMLJeTextfieldElement>;
             "je-toc": LocalJSX.JeToc & JSXBase.HTMLAttributes<HTMLJeTocElement>;
             "je-toggle": LocalJSX.JeToggle & JSXBase.HTMLAttributes<HTMLJeToggleElement>;
             "je-toolbar": LocalJSX.JeToolbar & JSXBase.HTMLAttributes<HTMLJeToolbarElement>;
             "je-tooltip": LocalJSX.JeTooltip & JSXBase.HTMLAttributes<HTMLJeTooltipElement>;
+            "je-tr": LocalJSX.JeTr & JSXBase.HTMLAttributes<HTMLJeTrElement>;
             "je-tree": LocalJSX.JeTree & JSXBase.HTMLAttributes<HTMLJeTreeElement>;
             "je-wizard": LocalJSX.JeWizard & JSXBase.HTMLAttributes<HTMLJeWizardElement>;
         }

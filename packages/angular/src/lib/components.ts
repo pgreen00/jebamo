@@ -59,11 +59,13 @@ import { defineCustomElement as defineJeSynth } from 'jebamo/components/je-synth
 import { defineCustomElement as defineJeTab } from 'jebamo/components/je-tab.js';
 import { defineCustomElement as defineJeTable } from 'jebamo/components/je-table.js';
 import { defineCustomElement as defineJeTabs } from 'jebamo/components/je-tabs.js';
+import { defineCustomElement as defineJeTc } from 'jebamo/components/je-tc.js';
 import { defineCustomElement as defineJeTextfield } from 'jebamo/components/je-textfield.js';
 import { defineCustomElement as defineJeToc } from 'jebamo/components/je-toc.js';
 import { defineCustomElement as defineJeToggle } from 'jebamo/components/je-toggle.js';
 import { defineCustomElement as defineJeToolbar } from 'jebamo/components/je-toolbar.js';
 import { defineCustomElement as defineJeTooltip } from 'jebamo/components/je-tooltip.js';
+import { defineCustomElement as defineJeTr } from 'jebamo/components/je-tr.js';
 import { defineCustomElement as defineJeTree } from 'jebamo/components/je-tree.js';
 import { defineCustomElement as defineJeWizard } from 'jebamo/components/je-wizard.js';
 @ProxyCmp({
@@ -1335,14 +1337,14 @@ export declare interface JeTab extends Components.JeTab {}
 
 @ProxyCmp({
   defineCustomElementFn: defineJeTable,
-  inputs: ['striped']
+  inputs: ['columns']
 })
 @Component({
   selector: 'je-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['striped'],
+  inputs: ['columns'],
 })
 export class JeTable {
   protected el: HTMLJeTableElement;
@@ -1382,6 +1384,29 @@ export declare interface JeTabs extends Components.JeTabs {
 
   valueChange: EventEmitter<CustomEvent<string | undefined>>;
 }
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineJeTc,
+  inputs: ['colSpan', 'copy', 'rowSpan']
+})
+@Component({
+  selector: 'je-tc',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['colSpan', 'copy', 'rowSpan'],
+})
+export class JeTc {
+  protected el: HTMLJeTcElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeTc extends Components.JeTc {}
 
 
 @ProxyCmp({
@@ -1511,6 +1536,29 @@ export class JeTooltip {
 
 
 export declare interface JeTooltip extends Components.JeTooltip {}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineJeTr,
+  inputs: ['type']
+})
+@Component({
+  selector: 'je-tr',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['type'],
+})
+export class JeTr {
+  protected el: HTMLJeTrElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface JeTr extends Components.JeTr {}
 
 
 @ProxyCmp({

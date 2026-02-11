@@ -63,11 +63,13 @@ import { JeSynth as JeSynthElement, defineCustomElement as defineJeSynth } from 
 import { JeTab as JeTabElement, defineCustomElement as defineJeTab } from "jebamo/components/je-tab.js";
 import { JeTable as JeTableElement, defineCustomElement as defineJeTable } from "jebamo/components/je-table.js";
 import { JeTabs as JeTabsElement, defineCustomElement as defineJeTabs } from "jebamo/components/je-tabs.js";
+import { JeTc as JeTcElement, defineCustomElement as defineJeTc } from "jebamo/components/je-tc.js";
 import { JeTextfield as JeTextfieldElement, defineCustomElement as defineJeTextfield } from "jebamo/components/je-textfield.js";
 import { JeToc as JeTocElement, defineCustomElement as defineJeToc } from "jebamo/components/je-toc.js";
 import { JeToggle as JeToggleElement, defineCustomElement as defineJeToggle } from "jebamo/components/je-toggle.js";
 import { JeToolbar as JeToolbarElement, defineCustomElement as defineJeToolbar } from "jebamo/components/je-toolbar.js";
 import { JeTooltip as JeTooltipElement, defineCustomElement as defineJeTooltip } from "jebamo/components/je-tooltip.js";
+import { JeTr as JeTrElement, defineCustomElement as defineJeTr } from "jebamo/components/je-tr.js";
 import { JeTree as JeTreeElement, defineCustomElement as defineJeTree } from "jebamo/components/je-tree.js";
 import { JeWizard as JeWizardElement, defineCustomElement as defineJeWizard } from "jebamo/components/je-wizard.js";
 import React from 'react';
@@ -693,6 +695,17 @@ export const JeTabs: StencilReactComponent<JeTabsElement, JeTabsEvents> = /*@__P
     defineCustomElement: defineJeTabs
 });
 
+export type JeTcEvents = NonNullable<unknown>;
+
+export const JeTc: StencilReactComponent<JeTcElement, JeTcEvents> = /*@__PURE__*/ createComponent<JeTcElement, JeTcEvents>({
+    tagName: 'je-tc',
+    elementClass: JeTcElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as JeTcEvents,
+    defineCustomElement: defineJeTc
+});
+
 export type JeTextfieldEvents = { onValueChange: EventName<CustomEvent<any>> };
 
 export const JeTextfield: StencilReactComponent<JeTextfieldElement, JeTextfieldEvents> = /*@__PURE__*/ createComponent<JeTextfieldElement, JeTextfieldEvents>({
@@ -746,6 +759,17 @@ export const JeTooltip: StencilReactComponent<JeTooltipElement, JeTooltipEvents>
     react: React,
     events: {} as JeTooltipEvents,
     defineCustomElement: defineJeTooltip
+});
+
+export type JeTrEvents = NonNullable<unknown>;
+
+export const JeTr: StencilReactComponent<JeTrElement, JeTrEvents> = /*@__PURE__*/ createComponent<JeTrElement, JeTrEvents>({
+    tagName: 'je-tr',
+    elementClass: JeTrElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as JeTrEvents,
+    defineCustomElement: defineJeTr
 });
 
 export type JeTreeEvents = { onValueChange: EventName<CustomEvent<string | string[]>> };

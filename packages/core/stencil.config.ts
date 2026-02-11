@@ -5,6 +5,7 @@ import { execSync } from "child_process";
 
 export const config: Config = {
   namespace: "jebamo",
+  enableCache: false,
   extras: {
     experimentalSlotFixes: true,
     experimentalScopedSlotChanges: true,

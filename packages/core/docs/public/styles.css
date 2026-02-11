@@ -84,7 +84,7 @@ code {
   font-family: inherit;
 }
 
-table {
+table:not(je-table > table) {
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;

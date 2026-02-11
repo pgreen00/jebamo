@@ -17,7 +17,7 @@ button {
 }
 
 summary {
-  font-size: var(--je-font-md)
+  font-size: var(--je-font-md);
 }
 
 je-icon {
@@ -27,7 +27,7 @@ je-icon {
   }
 }
 
-[part=content-container] {
+[part="content-container"] {
   box-sizing: border-box;
   display: grid;
   grid-template-rows: 0fr;
@@ -41,6 +41,6 @@ je-icon {
   }
 }
 
-[part=content] {
+[part="content"] {
   overflow: hidden;
 }

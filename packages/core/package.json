@@ -20,10 +20,13 @@
     "styles/"
   ],
   "scripts": {
-    "start": "concurrently --kill-others \"stencil build --dev --watch\" \"chokidar 'dist' 'src/components/**/*.md' -c 'eleventy'\" \"live-server www --port=3000 --no-browser\"",
+    "start": "concurrently --kill-others \"npm run watch:stencil\" \"npm run watch:eleventy\" \"npm run serve\"",
     "build": "stencil build && eleventy",
     "test": "playwright test",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "serve": "live-server www --port=3000 --no-browser",
+    "watch:eleventy": "chokidar 'dist' 'src/components/**/*.md' -c 'eleventy'",
+    "watch:stencil": "stencil build --watch"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.6.12",
