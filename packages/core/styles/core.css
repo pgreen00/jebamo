@@ -1,0 +1,283 @@
+:root {
+  --je-primary: #4141e8;
+  --je-neutral: #99becb;
+  --je-success: #22c55e;
+  --je-warning: #fbbf24;
+  --je-danger: #ae1818;
+  --je-primary-25: color-mix(in srgb, var(--je-primary) 5%, white 95%) ;
+  --je-primary-50: color-mix(in srgb, var(--je-primary) 10%, white 90%) ;
+  --je-primary-75: color-mix(in srgb, var(--je-primary) 15%, white 85%) ;
+  --je-primary-100: color-mix(in srgb, var(--je-primary) 20%, white 80%) ;
+  --je-primary-150: color-mix(in srgb, var(--je-primary) 30%, white 70%) ;
+  --je-primary-200: color-mix(in srgb, var(--je-primary) 40%, white 60%) ;
+  --je-primary-250: color-mix(in srgb, var(--je-primary) 50%, white 50%) ;
+  --je-primary-300: color-mix(in srgb, var(--je-primary) 60%, white 40%) ;
+  --je-primary-350: color-mix(in srgb, var(--je-primary) 70%, white 30%) ;
+  --je-primary-400: color-mix(in srgb, var(--je-primary) 80%, white 20%) ;
+  --je-primary-450: color-mix(in srgb, var(--je-primary) 90%, white 10%) ;
+  --je-primary-500: var(--je-primary) ;
+  --je-primary-550: color-mix(in srgb, var(--je-primary) 90%, black 10%) ;
+  --je-primary-600: color-mix(in srgb, var(--je-primary) 80%, black 20%) ;
+  --je-primary-650: color-mix(in srgb, var(--je-primary) 70%, black 30%) ;
+  --je-primary-700: color-mix(in srgb, var(--je-primary) 60%, black 40%) ;
+  --je-primary-750: color-mix(in srgb, var(--je-primary) 50%, black 50%) ;
+  --je-primary-800: color-mix(in srgb, var(--je-primary) 40%, black 60%) ;
+  --je-primary-850: color-mix(in srgb, var(--je-primary) 30%, black 70%) ;
+  --je-primary-900: color-mix(in srgb, var(--je-primary) 20%, black 80%) ;
+  --je-primary-925: color-mix(in srgb, var(--je-primary) 15%, black 85%) ;
+  --je-primary-950: color-mix(in srgb, var(--je-primary) 10%, black 90%) ;
+  --je-primary-975: color-mix(in srgb, var(--je-primary) 5%, black 95%) ;
+  --je-neutral-25: color-mix(in srgb, var(--je-neutral) 5%, white 95%) ;
+  --je-neutral-50: color-mix(in srgb, var(--je-neutral) 10%, white 90%) ;
+  --je-neutral-75: color-mix(in srgb, var(--je-neutral) 15%, white 85%) ;
+  --je-neutral-100: color-mix(in srgb, var(--je-neutral) 20%, white 80%) ;
+  --je-neutral-150: color-mix(in srgb, var(--je-neutral) 30%, white 70%) ;
+  --je-neutral-200: color-mix(in srgb, var(--je-neutral) 40%, white 60%) ;
+  --je-neutral-250: color-mix(in srgb, var(--je-neutral) 50%, white 50%) ;
+  --je-neutral-300: color-mix(in srgb, var(--je-neutral) 60%, white 40%) ;
+  --je-neutral-350: color-mix(in srgb, var(--je-neutral) 70%, white 30%) ;
+  --je-neutral-400: color-mix(in srgb, var(--je-neutral) 80%, white 20%) ;
+  --je-neutral-450: color-mix(in srgb, var(--je-neutral) 90%, white 10%) ;
+  --je-neutral-500: var(--je-neutral) ;
+  --je-neutral-550: color-mix(in srgb, var(--je-neutral) 90%, black 10%) ;
+  --je-neutral-600: color-mix(in srgb, var(--je-neutral) 80%, black 20%) ;
+  --je-neutral-650: color-mix(in srgb, var(--je-neutral) 70%, black 30%) ;
+  --je-neutral-700: color-mix(in srgb, var(--je-neutral) 60%, black 40%) ;
+  --je-neutral-750: color-mix(in srgb, var(--je-neutral) 50%, black 50%) ;
+  --je-neutral-800: color-mix(in srgb, var(--je-neutral) 40%, black 60%) ;
+  --je-neutral-850: color-mix(in srgb, var(--je-neutral) 30%, black 70%) ;
+  --je-neutral-900: color-mix(in srgb, var(--je-neutral) 20%, black 80%) ;
+  --je-neutral-925: color-mix(in srgb, var(--je-neutral) 15%, black 85%) ;
+  --je-neutral-950: color-mix(in srgb, var(--je-neutral) 10%, black 90%) ;
+  --je-neutral-975: color-mix(in srgb, var(--je-neutral) 5%, black 95%) ;
+  --je-success-25: color-mix(in srgb, var(--je-success) 5%, white 95%) ;
+  --je-success-50: color-mix(in srgb, var(--je-success) 10%, white 90%) ;
+  --je-success-75: color-mix(in srgb, var(--je-success) 15%, white 85%) ;
+  --je-success-100: color-mix(in srgb, var(--je-success) 20%, white 80%) ;
+  --je-success-150: color-mix(in srgb, var(--je-success) 30%, white 70%) ;
+  --je-success-200: color-mix(in srgb, var(--je-success) 40%, white 60%) ;
+  --je-success-250: color-mix(in srgb, var(--je-success) 50%, white 50%) ;
+  --je-success-300: color-mix(in srgb, var(--je-success) 60%, white 40%) ;
+  --je-success-350: color-mix(in srgb, var(--je-success) 70%, white 30%) ;
+  --je-success-400: color-mix(in srgb, var(--je-success) 80%, white 20%) ;
+  --je-success-450: color-mix(in srgb, var(--je-success) 90%, white 10%) ;
+  --je-success-500: var(--je-success) ;
+  --je-success-550: color-mix(in srgb, var(--je-success) 90%, black 10%) ;
+  --je-success-600: color-mix(in srgb, var(--je-success) 80%, black 20%) ;
+  --je-success-650: color-mix(in srgb, var(--je-success) 70%, black 30%) ;
+  --je-success-700: color-mix(in srgb, var(--je-success) 60%, black 40%) ;
+  --je-success-750: color-mix(in srgb, var(--je-success) 50%, black 50%) ;
+  --je-success-800: color-mix(in srgb, var(--je-success) 40%, black 60%) ;
+  --je-success-850: color-mix(in srgb, var(--je-success) 30%, black 70%) ;
+  --je-success-900: color-mix(in srgb, var(--je-success) 20%, black 80%) ;
+  --je-success-925: color-mix(in srgb, var(--je-success) 15%, black 85%) ;
+  --je-success-950: color-mix(in srgb, var(--je-success) 10%, black 90%) ;
+  --je-success-975: color-mix(in srgb, var(--je-success) 5%, black 95%) ;
+  --je-warning-25: color-mix(in srgb, var(--je-warning) 5%, white 95%) ;
+  --je-warning-50: color-mix(in srgb, var(--je-warning) 10%, white 90%) ;
+  --je-warning-75: color-mix(in srgb, var(--je-warning) 15%, white 85%) ;
+  --je-warning-100: color-mix(in srgb, var(--je-warning) 20%, white 80%) ;
+  --je-warning-150: color-mix(in srgb, var(--je-warning) 30%, white 70%) ;
+  --je-warning-200: color-mix(in srgb, var(--je-warning) 40%, white 60%) ;
+  --je-warning-250: color-mix(in srgb, var(--je-warning) 50%, white 50%) ;
+  --je-warning-300: color-mix(in srgb, var(--je-warning) 60%, white 40%) ;
+  --je-warning-350: color-mix(in srgb, var(--je-warning) 70%, white 30%) ;
+  --je-warning-400: color-mix(in srgb, var(--je-warning) 80%, white 20%) ;
+  --je-warning-450: color-mix(in srgb, var(--je-warning) 90%, white 10%) ;
+  --je-warning-500: var(--je-warning) ;
+  --je-warning-550: color-mix(in srgb, var(--je-warning) 90%, black 10%) ;
+  --je-warning-600: color-mix(in srgb, var(--je-warning) 80%, black 20%) ;
+  --je-warning-650: color-mix(in srgb, var(--je-warning) 70%, black 30%) ;
+  --je-warning-700: color-mix(in srgb, var(--je-warning) 60%, black 40%) ;
+  --je-warning-750: color-mix(in srgb, var(--je-warning) 50%, black 50%) ;
+  --je-warning-800: color-mix(in srgb, var(--je-warning) 40%, black 60%) ;
+  --je-warning-850: color-mix(in srgb, var(--je-warning) 30%, black 70%) ;
+  --je-warning-900: color-mix(in srgb, var(--je-warning) 20%, black 80%) ;
+  --je-warning-925: color-mix(in srgb, var(--je-warning) 15%, black 85%) ;
+  --je-warning-950: color-mix(in srgb, var(--je-warning) 10%, black 90%) ;
+  --je-warning-975: color-mix(in srgb, var(--je-warning) 5%, black 95%) ;
+  --je-danger-25: color-mix(in srgb, var(--je-danger) 5%, white 95%) ;
+  --je-danger-50: color-mix(in srgb, var(--je-danger) 10%, white 90%) ;
+  --je-danger-75: color-mix(in srgb, var(--je-danger) 15%, white 85%) ;
+  --je-danger-100: color-mix(in srgb, var(--je-danger) 20%, white 80%) ;
+  --je-danger-150: color-mix(in srgb, var(--je-danger) 30%, white 70%) ;
+  --je-danger-200: color-mix(in srgb, var(--je-danger) 40%, white 60%) ;
+  --je-danger-250: color-mix(in srgb, var(--je-danger) 50%, white 50%) ;
+  --je-danger-300: color-mix(in srgb, var(--je-danger) 60%, white 40%) ;
+  --je-danger-350: color-mix(in srgb, var(--je-danger) 70%, white 30%) ;
+  --je-danger-400: color-mix(in srgb, var(--je-danger) 80%, white 20%) ;
+  --je-danger-450: color-mix(in srgb, var(--je-danger) 90%, white 10%) ;
+  --je-danger-500: var(--je-danger) ;
+  --je-danger-550: color-mix(in srgb, var(--je-danger) 90%, black 10%) ;
+  --je-danger-600: color-mix(in srgb, var(--je-danger) 80%, black 20%) ;
+  --je-danger-650: color-mix(in srgb, var(--je-danger) 70%, black 30%) ;
+  --je-danger-700: color-mix(in srgb, var(--je-danger) 60%, black 40%) ;
+  --je-danger-750: color-mix(in srgb, var(--je-danger) 50%, black 50%) ;
+  --je-danger-800: color-mix(in srgb, var(--je-danger) 40%, black 60%) ;
+  --je-danger-850: color-mix(in srgb, var(--je-danger) 30%, black 70%) ;
+  --je-danger-900: color-mix(in srgb, var(--je-danger) 20%, black 80%) ;
+  --je-danger-925: color-mix(in srgb, var(--je-danger) 15%, black 85%) ;
+  --je-danger-950: color-mix(in srgb, var(--je-danger) 10%, black 90%) ;
+  --je-danger-975: color-mix(in srgb, var(--je-danger) 5%, black 95%) ;
+  --je-font-light: 400;
+  --je-font-regular: 500;
+  --je-font-semi-bold: 600;
+  --je-font-bold: 700;
+  --je-font-heavy: 800;
+  --je-font-xs: 0.75rem;
+  --je-font-sm: 0.875rem;
+  --je-font-md: 1rem;
+  --je-font-lg: 1.25rem;
+  --je-font-xl: 1.5rem;
+  --je-font-2xl: 2rem;
+  --je-font-3xl: 3rem;
+  --je-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.18);
+  --je-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.24);
+  --je-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.24);
+  --je-shadow-lg: 0 2px 8px rgba(0, 0, 0, 0.24);
+  --je-shadow-xl: 0 4px 16px rgba(0, 0, 0, 0.24);
+  --je-radius-sm: 0.125rem;
+  --je-radius-md: 0.375rem;
+  --je-radius-lg: 0.625rem;
+  --je-radius-xl: 1rem;
+  --je-radius-circle: 50%;
+  --je-radius-pill: 9999px;
+  --je-spacing-3xs: 0.125rem;
+  --je-spacing-2xs: 0.25rem;
+  --je-spacing-xs: 0.5rem;
+  --je-spacing-sm: 0.75rem;
+  --je-spacing-md: 1rem;
+  --je-spacing-lg: 1.25rem;
+  --je-spacing-xl: 1.5rem;
+  --je-spacing-2xl: 2rem;
+  --je-spacing-3xl: 2.5rem;
+  --je-transition-slow: 500ms;
+  --je-transition-medium: 300ms;
+  --je-transition-fast: 150ms;
+  --je-transition-x-fast: 75ms;
+}
+
+html:has(je-page) {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  color-scheme: light dark;
+  box-sizing: border-box;
+}
+html:has(je-page).je-theme-light {
+  color-scheme: light;
+}
+html:has(je-page).je-theme-dark {
+  color-scheme: dark;
+}
+html:has(je-page) body {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+  color: light-dark(var(--je-neutral-925), var(--je-neutral-75));
+  background-color: light-dark(var(--je-neutral-75), var(--je-neutral-925));
+  grid-template: "head head head" auto "left body right" 1fr "foot foot foot" auto/auto 1fr auto;
+  --border-color: light-dark(var(--je-neutral-400), var(--je-neutral-800));
+}
+html:has(je-page) je-page {
+  display: contents;
+  background-color: inherit;
+}
+html:has(je-page) je-page > header {
+  background-color: inherit;
+  flex-shrink: 0;
+  grid-area: head;
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  box-sizing: border-box;
+  padding: var(--je-spacing-xs) var(--je-spacing-sm);
+  border-bottom: solid 1px var(--border-color);
+}
+html:has(je-page) je-page > main {
+  grid-area: body;
+  box-sizing: border-box;
+  padding: var(--je-spacing-xs) var(--je-spacing-sm);
+}
+html:has(je-page) je-page > footer {
+  background-color: inherit;
+  position: sticky;
+  bottom: 0;
+  grid-area: foot;
+  flex-shrink: 0;
+  z-index: 10;
+  box-sizing: border-box;
+  border-top: solid 1px var(--border-color);
+  padding: var(--je-spacing-xs) var(--je-spacing-sm);
+}
+html:has(je-page) je-page > aside {
+  position: sticky;
+  top: var(--head-height, 0px);
+  height: 100%;
+  max-height: calc(100vh - var(--head-height, 0px) - var(--foot-height, 0px));
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+}
+html:has(je-page) je-page > aside:not(main + aside) {
+  grid-area: left;
+  border-right: solid 1px var(--border-color);
+}
+html:has(je-page) je-page > main + aside {
+  grid-area: right;
+  border-left: solid 1px var(--border-color);
+}
+
+.je-toast-container {
+  position: fixed;
+  display: none;
+  overflow: auto;
+  flex-direction: column;
+  gap: var(--je-spacing-lg);
+  width: 100%;
+  max-width: 500px;
+  margin: 0;
+  border: 0;
+  inset: unset;
+  padding: 0;
+  background-color: transparent;
+}
+.je-toast-container:popover-open {
+  display: flex;
+}
+.je-toast-container[data-position=top-end] {
+  right: var(--je-spacing-lg);
+  top: var(--je-spacing-lg);
+}
+.je-toast-container[data-position=top-start] {
+  left: var(--je-spacing-lg);
+  top: var(--je-spacing-lg);
+}
+.je-toast-container[data-position=bottom-end] {
+  right: var(--je-spacing-lg);
+  bottom: var(--je-spacing-lg);
+}
+.je-toast-container[data-position=bottom-start] {
+  left: var(--je-spacing-lg);
+  bottom: var(--je-spacing-lg);
+}
+.je-toast-container[data-position=top] {
+  left: var(--je-spacing-lg);
+  top: var(--je-spacing-lg);
+  max-width: calc(100% - var(--je-spacing-lg) * 2);
+}
+.je-toast-container[data-position=bottom] {
+  left: var(--je-spacing-lg);
+  bottom: var(--je-spacing-lg);
+  max-width: calc(100% - var(--je-spacing-lg) * 2);
+}
+
+/*# sourceMappingURL=core.css.map */
