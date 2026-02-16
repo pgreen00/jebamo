@@ -24,7 +24,7 @@ export const config: Config = {
       name: "styles",
       async generator() {
         execSync(
-          "npx sass src/styles/classes.scss:styles/classes.css src/styles/core.scss:styles/core.css",
+          "npx sass src/styles/classes.scss:styles/classes.css src/styles/core.scss:styles/core.css src/styles/landmarks.scss:styles/landmarks.css",
         );
       },
     },

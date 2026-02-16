@@ -6,6 +6,7 @@
   border: 1px solid light-dark(var(--je-neutral-300), var(--je-neutral-700));
   border-radius: var(--je-radius-md);
   font-size: var(--je-font-sm);
+  transform: translateZ(0);
 
   --columns: initial;
 }

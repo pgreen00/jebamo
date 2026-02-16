@@ -36,7 +36,7 @@
     "test": "playwright test",
     "generate": "stencil generate",
     "serve": "live-server www --port=3000 --no-browser",
-    "watch:eleventy": "chokidar 'dist' 'src/components/**/*.md' -c 'eleventy'",
+    "watch:eleventy": "chokidar 'dist' 'src/components/**/*.md' 'docs' -c 'eleventy'",
     "watch:stencil": "stencil build --watch"
   },
   "dependencies": {

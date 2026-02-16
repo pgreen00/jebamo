@@ -335,15 +335,6 @@ export namespace Components {
          */
         "size": "sm" | "md" | "lg";
     }
-    interface JeOverlayContent {
-        /**
-          * @default true
-         */
-        "closable": boolean;
-        "label"?: string;
-    }
-    interface JePage {
-    }
     interface JePill {
         /**
           * @default false
@@ -760,6 +751,15 @@ export namespace Components {
         "selection": 'single' | 'multiple' | 'leaf';
         "value"?: string | string[];
     }
+    interface JeView {
+        /**
+          * @default true
+         */
+        "closable": boolean;
+        "label"?: string;
+    }
+    interface JeViewManager {
+    }
     interface JeWizard {
         "canSkip": () => Promise<boolean>;
         "next": () => Promise<void>;
@@ -1134,18 +1134,6 @@ declare global {
         prototype: HTMLJeOverlayElement;
         new (): HTMLJeOverlayElement;
     };
-    interface HTMLJeOverlayContentElement extends Components.JeOverlayContent, HTMLStencilElement {
-    }
-    var HTMLJeOverlayContentElement: {
-        prototype: HTMLJeOverlayContentElement;
-        new (): HTMLJeOverlayContentElement;
-    };
-    interface HTMLJePageElement extends Components.JePage, HTMLStencilElement {
-    }
-    var HTMLJePageElement: {
-        prototype: HTMLJePageElement;
-        new (): HTMLJePageElement;
-    };
     interface HTMLJePillElement extends Components.JePill, HTMLStencilElement {
     }
     var HTMLJePillElement: {
@@ -1396,6 +1384,18 @@ declare global {
         prototype: HTMLJeTreeElement;
         new (): HTMLJeTreeElement;
     };
+    interface HTMLJeViewElement extends Components.JeView, HTMLStencilElement {
+    }
+    var HTMLJeViewElement: {
+        prototype: HTMLJeViewElement;
+        new (): HTMLJeViewElement;
+    };
+    interface HTMLJeViewManagerElement extends Components.JeViewManager, HTMLStencilElement {
+    }
+    var HTMLJeViewManagerElement: {
+        prototype: HTMLJeViewManagerElement;
+        new (): HTMLJeViewManagerElement;
+    };
     interface HTMLJeWizardElementEventMap {
         "stepChange": number;
         "finish": void;
@@ -1448,8 +1448,6 @@ declare global {
         "je-note": HTMLJeNoteElement;
         "je-option": HTMLJeOptionElement;
         "je-overlay": HTMLJeOverlayElement;
-        "je-overlay-content": HTMLJeOverlayContentElement;
-        "je-page": HTMLJePageElement;
         "je-pill": HTMLJePillElement;
         "je-placeholder": HTMLJePlaceholderElement;
         "je-popover": HTMLJePopoverElement;
@@ -1476,6 +1474,8 @@ declare global {
         "je-tooltip": HTMLJeTooltipElement;
         "je-tr": HTMLJeTrElement;
         "je-tree": HTMLJeTreeElement;
+        "je-view": HTMLJeViewElement;
+        "je-view-manager": HTMLJeViewManagerElement;
         "je-wizard": HTMLJeWizardElement;
     }
 }
@@ -1821,15 +1821,6 @@ declare namespace LocalJSX {
           * @default "md"
          */
         "size"?: "sm" | "md" | "lg";
-    }
-    interface JeOverlayContent {
-        /**
-          * @default true
-         */
-        "closable"?: boolean;
-        "label"?: string;
-    }
-    interface JePage {
     }
     interface JePill {
         /**
@@ -2325,6 +2316,15 @@ declare namespace LocalJSX {
         "selection"?: 'single' | 'multiple' | 'leaf';
         "value"?: string | string[];
     }
+    interface JeView {
+        /**
+          * @default true
+         */
+        "closable"?: boolean;
+        "label"?: string;
+    }
+    interface JeViewManager {
+    }
     interface JeWizard {
         "onFinish"?: (event: JeWizardCustomEvent<void>) => void;
         "onStepChange"?: (event: JeWizardCustomEvent<number>) => void;
@@ -2438,10 +2438,6 @@ declare namespace LocalJSX {
         "open": boolean;
         "size": "sm" | "md" | "lg";
         "side": "left" | "right" | "bottom" | "top";
-    }
-    interface JeOverlayContentAttributes {
-        "label": string;
-        "closable": boolean;
     }
     interface JePillAttributes {
         "outline": boolean;
@@ -2593,6 +2589,10 @@ declare namespace LocalJSX {
         "selection": 'single' | 'multiple' | 'leaf';
         "indentation": boolean;
     }
+    interface JeViewAttributes {
+        "label": string;
+        "closable": boolean;
+    }
 
     interface IntrinsicElements {
         "je-accordion": JeAccordion;
@@ -2628,8 +2628,6 @@ declare namespace LocalJSX {
         "je-note": Omit<JeNote, keyof JeNoteAttributes> & { [K in keyof JeNote & keyof JeNoteAttributes]?: JeNote[K] } & { [K in keyof JeNote & keyof JeNoteAttributes as `attr:${K}`]?: JeNoteAttributes[K] } & { [K in keyof JeNote & keyof JeNoteAttributes as `prop:${K}`]?: JeNote[K] };
         "je-option": Omit<JeOption, keyof JeOptionAttributes> & { [K in keyof JeOption & keyof JeOptionAttributes]?: JeOption[K] } & { [K in keyof JeOption & keyof JeOptionAttributes as `attr:${K}`]?: JeOptionAttributes[K] } & { [K in keyof JeOption & keyof JeOptionAttributes as `prop:${K}`]?: JeOption[K] };
         "je-overlay": Omit<JeOverlay, keyof JeOverlayAttributes> & { [K in keyof JeOverlay & keyof JeOverlayAttributes]?: JeOverlay[K] } & { [K in keyof JeOverlay & keyof JeOverlayAttributes as `attr:${K}`]?: JeOverlayAttributes[K] } & { [K in keyof JeOverlay & keyof JeOverlayAttributes as `prop:${K}`]?: JeOverlay[K] };
-        "je-overlay-content": Omit<JeOverlayContent, keyof JeOverlayContentAttributes> & { [K in keyof JeOverlayContent & keyof JeOverlayContentAttributes]?: JeOverlayContent[K] } & { [K in keyof JeOverlayContent & keyof JeOverlayContentAttributes as `attr:${K}`]?: JeOverlayContentAttributes[K] } & { [K in keyof JeOverlayContent & keyof JeOverlayContentAttributes as `prop:${K}`]?: JeOverlayContent[K] };
-        "je-page": JePage;
         "je-pill": Omit<JePill, keyof JePillAttributes> & { [K in keyof JePill & keyof JePillAttributes]?: JePill[K] } & { [K in keyof JePill & keyof JePillAttributes as `attr:${K}`]?: JePillAttributes[K] } & { [K in keyof JePill & keyof JePillAttributes as `prop:${K}`]?: JePill[K] };
         "je-placeholder": Omit<JePlaceholder, keyof JePlaceholderAttributes> & { [K in keyof JePlaceholder & keyof JePlaceholderAttributes]?: JePlaceholder[K] } & { [K in keyof JePlaceholder & keyof JePlaceholderAttributes as `attr:${K}`]?: JePlaceholderAttributes[K] } & { [K in keyof JePlaceholder & keyof JePlaceholderAttributes as `prop:${K}`]?: JePlaceholder[K] };
         "je-popover": Omit<JePopover, keyof JePopoverAttributes> & { [K in keyof JePopover & keyof JePopoverAttributes]?: JePopover[K] } & { [K in keyof JePopover & keyof JePopoverAttributes as `attr:${K}`]?: JePopoverAttributes[K] } & { [K in keyof JePopover & keyof JePopoverAttributes as `prop:${K}`]?: JePopover[K] };
@@ -2656,6 +2654,8 @@ declare namespace LocalJSX {
         "je-tooltip": Omit<JeTooltip, keyof JeTooltipAttributes> & { [K in keyof JeTooltip & keyof JeTooltipAttributes]?: JeTooltip[K] } & { [K in keyof JeTooltip & keyof JeTooltipAttributes as `attr:${K}`]?: JeTooltipAttributes[K] } & { [K in keyof JeTooltip & keyof JeTooltipAttributes as `prop:${K}`]?: JeTooltip[K] };
         "je-tr": Omit<JeTr, keyof JeTrAttributes> & { [K in keyof JeTr & keyof JeTrAttributes]?: JeTr[K] } & { [K in keyof JeTr & keyof JeTrAttributes as `attr:${K}`]?: JeTrAttributes[K] } & { [K in keyof JeTr & keyof JeTrAttributes as `prop:${K}`]?: JeTr[K] };
         "je-tree": Omit<JeTree, keyof JeTreeAttributes> & { [K in keyof JeTree & keyof JeTreeAttributes]?: JeTree[K] } & { [K in keyof JeTree & keyof JeTreeAttributes as `attr:${K}`]?: JeTreeAttributes[K] } & { [K in keyof JeTree & keyof JeTreeAttributes as `prop:${K}`]?: JeTree[K] };
+        "je-view": Omit<JeView, keyof JeViewAttributes> & { [K in keyof JeView & keyof JeViewAttributes]?: JeView[K] } & { [K in keyof JeView & keyof JeViewAttributes as `attr:${K}`]?: JeViewAttributes[K] } & { [K in keyof JeView & keyof JeViewAttributes as `prop:${K}`]?: JeView[K] };
+        "je-view-manager": JeViewManager;
         "je-wizard": JeWizard;
     }
 }
@@ -2700,8 +2700,6 @@ declare module "@stencil/core" {
             "je-note": LocalJSX.IntrinsicElements["je-note"] & JSXBase.HTMLAttributes<HTMLJeNoteElement>;
             "je-option": LocalJSX.IntrinsicElements["je-option"] & JSXBase.HTMLAttributes<HTMLJeOptionElement>;
             "je-overlay": LocalJSX.IntrinsicElements["je-overlay"] & JSXBase.HTMLAttributes<HTMLJeOverlayElement>;
-            "je-overlay-content": LocalJSX.IntrinsicElements["je-overlay-content"] & JSXBase.HTMLAttributes<HTMLJeOverlayContentElement>;
-            "je-page": LocalJSX.IntrinsicElements["je-page"] & JSXBase.HTMLAttributes<HTMLJePageElement>;
             "je-pill": LocalJSX.IntrinsicElements["je-pill"] & JSXBase.HTMLAttributes<HTMLJePillElement>;
             "je-placeholder": LocalJSX.IntrinsicElements["je-placeholder"] & JSXBase.HTMLAttributes<HTMLJePlaceholderElement>;
             "je-popover": LocalJSX.IntrinsicElements["je-popover"] & JSXBase.HTMLAttributes<HTMLJePopoverElement>;
@@ -2728,6 +2726,8 @@ declare module "@stencil/core" {
             "je-tooltip": LocalJSX.IntrinsicElements["je-tooltip"] & JSXBase.HTMLAttributes<HTMLJeTooltipElement>;
             "je-tr": LocalJSX.IntrinsicElements["je-tr"] & JSXBase.HTMLAttributes<HTMLJeTrElement>;
             "je-tree": LocalJSX.IntrinsicElements["je-tree"] & JSXBase.HTMLAttributes<HTMLJeTreeElement>;
+            "je-view": LocalJSX.IntrinsicElements["je-view"] & JSXBase.HTMLAttributes<HTMLJeViewElement>;
+            "je-view-manager": LocalJSX.IntrinsicElements["je-view-manager"] & JSXBase.HTMLAttributes<HTMLJeViewManagerElement>;
             "je-wizard": LocalJSX.IntrinsicElements["je-wizard"] & JSXBase.HTMLAttributes<HTMLJeWizardElement>;
         }
     }

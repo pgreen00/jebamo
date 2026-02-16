@@ -1,6 +1,6 @@
 ---
-title: 'JeOverlayContent | <je-overlay-content>'
-sidebar_label: 'Overlay Content'
+title: 'JeView | <je-view>'
+sidebar_label: 'View'
 ---
 <!-- Auto Generated Below -->
 
@@ -31,11 +31,11 @@ sidebar_label: 'Overlay Content'
 ### Graph
 ```mermaid
 graph TD;
-  je-overlay-content --> je-toolbar
-  je-overlay-content --> je-button
-  je-overlay-content --> je-icon
+  je-view --> je-toolbar
+  je-view --> je-button
+  je-view --> je-icon
   je-button --> je-loading
-  style je-overlay-content fill:#f9f,stroke:#333,stroke-width:4px
+  style je-view fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
