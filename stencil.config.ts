@@ -10,22 +10,20 @@ export const config: Config = {
   },
   outputTargets: [
     {
-      type: "dist",
-      esmLoaderPath: "../loader",
-    },
-    {
       type: "dist-custom-elements",
-      customElementsExportBehavior: "single-export-module",
       externalRuntime: false,
-      dir: "components",
+      autoLoader: true,
     },
     {
       type: "custom",
       name: "styles",
       async generator() {
-        execSync(
-          "npx sass src/styles/classes.scss:styles/classes.css src/styles/core.scss:styles/core.css src/styles/landmarks.scss:styles/landmarks.css",
-        );
+        const files = [
+          "src/styles/classes.scss:dist/styles/classes.css",
+          "src/styles/core.scss:dist/styles/core.css",
+          "src/styles/landmarks.scss:dist/styles/landmarks.css",
+        ];
+        execSync(`npx sass ${files.join(" ")}`);
       },
     },
     {

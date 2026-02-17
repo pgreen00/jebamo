@@ -1,7 +1,7 @@
 {
   "name": "jebamo",
   "version": "0.0.19",
-  "description": "Jebamo core web component library",
+  "description": "Jebamo web component library",
   "repository": {
     "type": "git",
     "url": "https://github.com/pgreen00/jebamo"
@@ -10,25 +10,20 @@
     "web",
     "component",
     "library",
-    "angular",
-    "vue",
     "typescript",
     "stencil",
     "jebamo"
   ],
   "author": "Peter Green",
-  "type": "module",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.js",
-  "types": "dist/types/index.d.ts",
-  "collection": "dist/collection/collection-manifest.json",
-  "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/jebamo/jebamo.esm.js",
+  "exports": {
+    ".": {
+      "types": "./dist/components/index.d.ts",
+      "default": "./dist/components/index.js"
+    }
+  },
+  "unpkg": "dist/components/loader.js",
   "files": [
-    "dist/",
-    "loader/",
-    "components/",
-    "styles/"
+    "dist"
   ],
   "scripts": {
     "start": "concurrently --kill-others \"npm run watch:stencil\" \"npm run watch:eleventy\" \"npm run serve\"",
