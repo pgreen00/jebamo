@@ -17,13 +17,21 @@
   "author": "Peter Green",
   "exports": {
     ".": {
-      "types": "./dist/components/index.d.ts",
-      "default": "./dist/components/index.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./loader": {
+      "types": "./dist/loader.d.ts",
+      "default": "./dist/loader.js"
+    },
+    "./je-*": {
+      "types": "./dist/je-*.d.ts",
+      "default": "./dist/je-*.js"
     }
   },
-  "unpkg": "dist/components/loader.js",
   "files": [
-    "dist"
+    "dist",
+    "styles"
   ],
   "scripts": {
     "start": "concurrently --kill-others \"npm run watch:stencil\" \"npm run watch:eleventy\" \"npm run serve\"",

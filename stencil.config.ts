@@ -13,15 +13,16 @@ export const config: Config = {
       type: "dist-custom-elements",
       externalRuntime: false,
       autoLoader: true,
+      dir: "dist",
     },
     {
       type: "custom",
       name: "styles",
       async generator() {
         const files = [
-          "src/styles/classes.scss:dist/styles/classes.css",
-          "src/styles/core.scss:dist/styles/core.css",
-          "src/styles/landmarks.scss:dist/styles/landmarks.css",
+          "src/styles/classes.scss:styles/classes.css",
+          "src/styles/core.scss:styles/core.css",
+          "src/styles/landmarks.scss:styles/landmarks.css",
         ];
         execSync(`npx sass ${files.join(" ")}`);
       },
