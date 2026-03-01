@@ -13,27 +13,10 @@ A modern, framework-agnostic web component library built with [Stencil](https://
 - **Lightweight**: Tree-shakeable components for optimal bundle sizes
 - **Modern**: Built with modern web standards and best practices
 
-## 📦 Packages
-
-This monorepo contains the following packages:
-
-- **`jebamo`** - Core web component library
-- **`jebamo-angular`** - Angular-specific wrapper components
-- **`jebamo-docs`** - Documentation site built with Docusaurus
-- **`demo`** - Vite playground
-
 ## 🛠️ Installation
-
-### Core Library
 
 ```bash
 npm install jebamo
-```
-
-### Angular Integration
-
-```bash
-npm install jebamo-angular
 ```
 
 ## 🎯 Quick Start
@@ -44,10 +27,11 @@ npm install jebamo-angular
 <!DOCTYPE html>
 <html>
 <head>
-  <script type="module" src="https://unpkg.com/jebamo@latest/dist/jebamo/jebamo.esm.js"></script>
+  <script type="module" src="https://unpkg.com/jebamo@latest/dist/loader.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/jebamo@latest/styles/core.css"/>
 </head>
 <body>
-  <je-button color="primary">Click me!</je-button>
+  <je-button>Click me!</je-button>
 </body>
 </html>
 ```
@@ -57,47 +41,45 @@ npm install jebamo-angular
 ```typescript
 // app.config.ts
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
+import { provideRouter } from '@angular/router';
+
 import { routes } from './app.routes';
-import { provideJebamo } from 'jebamo-angular';
+
+//start the auto loader
+import 'jebamo/loader'
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes, withViewTransitions(), withComponentInputBinding()),
-    provideJebamo() //<- add jebamo provider
+    provideRouter(routes)
   ]
 };
 ```
 
 ```typescript
 //app.ts
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { JeButton } from 'jebamo-angular';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  imports: [JeButton],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  imports: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: `
+    <je-button color="primary" (click)="handleClick()">Click me!</je-button>
+  `,
 })
 export class App {
-
+  handleClick() {
+    console.log('clicked')
+  }
 }
-```
-
-```html
-<!-- app.html -->
-<je-button color="primary" (click)="handleClick()">
-  Click me!
-</je-button>
 ```
 
 ### React
 
 ```tsx
+//Can optionally import individual components instead of using loader
 import 'jebamo/je-button';
 
 function App() {
@@ -125,7 +107,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - Built with [Stencil](https://stenciljs.com/)
-- Documentation powered by [Docusaurus](https://docusaurus.io/)
 - Popovers and tooltips powered by [Floating UI](https://floating-ui.com)
 - Date and calendar components utilize [date-fns](https://date-fns.org)
 

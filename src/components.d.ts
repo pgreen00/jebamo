@@ -563,6 +563,7 @@ export namespace Components {
     }
     interface JeTable {
         "columns"?: number;
+        "pagination"?: number;
     }
     interface JeTabs {
         /**
@@ -2100,6 +2101,7 @@ declare namespace LocalJSX {
     }
     interface JeTable {
         "columns"?: number;
+        "pagination"?: number;
     }
     interface JeTabs {
         /**
@@ -2514,6 +2516,7 @@ declare namespace LocalJSX {
     }
     interface JeTableAttributes {
         "columns": number;
+        "pagination": number;
     }
     interface JeTabsAttributes {
         "mode": 'mobile' | 'pill' | 'segment';

@@ -1,4 +1,4 @@
-import { Component, Element, h, Host, Prop } from "@stencil/core";
+import { Component, Element, h, Host, Prop, Watch } from "@stencil/core";
 
 //striped rows
 //density/spacing of rows
@@ -23,8 +23,10 @@ import { Component, Element, h, Host, Prop } from "@stencil/core";
 export class JeTable {
   @Element() host: HTMLElement;
   @Prop() columns?: number;
+  @Prop() pagination?: number;
 
-  componentDidLoad() {
+  @Watch("columns", { immediate: true })
+  onColumnsChange() {
     const columns =
       this.columns ??
       this.host.querySelectorAll(":scope > je-tr[type=header] > je-tc").length;
@@ -34,7 +36,7 @@ export class JeTable {
   render() {
     return (
       <Host>
-        <slot></slot>
+        <slot />
       </Host>
     );
   }

@@ -21,8 +21,11 @@
       "default": "./dist/index.js"
     },
     "./loader": {
-      "types": "./dist/loader.d.ts",
       "default": "./dist/loader.js"
+    },
+    "./je-*": {
+      "types": "./dist/je-*.d.ts",
+      "default": "./dist/je-*.js"
     }
   },
   "files": [

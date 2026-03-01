@@ -58,7 +58,7 @@
 </je-card>
 
 <script type="module">
-import {InputMask} from './build/jebamo/dist/components/index.js'
+import {InputMask} from './build/jebamo/dist/index.js'
 
 // Example 1: Phone Number Masking (US format)
 const phoneFormatter = (value) => {
